@@ -47,7 +47,7 @@
 \setcounter{tocdepth}{1}
 \titlecontents{chapter}[0em]
 {\vspace{0.2em}\bfseries\Large}
-{第\thecontentslabel章\quad}
+{第\,\thecontentslabel\,章\quad}
 {\hspace*{0em}}
 {\hfill \contentspage}
 \titlecontents{section}[1em]
@@ -115,18 +115,20 @@
 \lstset{
     basicstyle=\ttfamily,	% 使字体保持当前的系列与形状属性，但转变为打字机族属性
 }
+\setmonofont{Droid Sans Mono}
 % 单行代码
 \lstdefinestyle{Shell} {
-    basicstyle=\small\ttfamily,
-    xleftmargin=2em,
-    xrightmargin=2em,
+    basicstyle=\scriptsize\ttfamily,
+    xleftmargin=4em,
+    xrightmargin=4em,
     showspaces=false,
     breakatwhitespace=false,
     breaklines=true,
     commentstyle=\color[rgb]{0,0.6,0},
     keywordstyle=\color{blue},
- %   frame=leftline,
-    frame=single,
+    frame=leftline,
+%    frame=single,
+    framerule=1pt,
     numbers=none,
     rulecolor=\color{blue},
     showspaces=false,
