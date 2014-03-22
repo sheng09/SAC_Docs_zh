@@ -120,6 +120,7 @@
 }
 % 单行代码
 \lstdefinestyle{Shell} {
+    language=bash,
     basicstyle=\scriptsize\ttfamily,
     xleftmargin=4em,
     xrightmargin=4em,
@@ -172,6 +173,54 @@
     commentstyle=\color[rgb]{0,0.6,0},
     keywordstyle=\color{blue},
     frame=shadowbox,
+    numbers=left,
+    numbersep=5pt,
+    numberstyle=\small\color[rgb]{0.5,0.5,0.5},
+    rulecolor=\color{black},
+    rulesepcolor=\color{blue},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stepnumber=1,
+    stringstyle=\color[rgb]{0.58,0,0.82},
+    tabsize=4
+}
+% style for perl
+\lstdefinestyle{Perl} {
+    language=bash,
+    basicstyle=\scriptsize\ttfamily,
+    xleftmargin=4em,
+    xrightmargin=4em,
+    showspaces=false,
+    breakatwhitespace=false,
+    breaklines=true,
+    commentstyle=\color[rgb]{0,0.6,0},
+    keywordstyle=\color{blue},
+    frame=leftline,
+    numbers=left,
+    numbersep=5pt,
+    numberstyle=\small\color[rgb]{0.5,0.5,0.5},
+    rulecolor=\color{black},
+    rulesepcolor=\color{blue},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stepnumber=1,
+    stringstyle=\color[rgb]{0.58,0,0.82},
+    tabsize=4
+}
+% style for bash
+\lstdefinestyle{Bash} {
+    language=bash,
+    basicstyle=\scriptsize\ttfamily,
+    xleftmargin=4em,
+    xrightmargin=4em,
+    showspaces=false,
+    breakatwhitespace=false,
+    breaklines=true,
+    commentstyle=\color[rgb]{0,0.6,0},
+    keywordstyle=\color{blue},
+    frame=leftline,
     numbers=left,
     numbersep=5pt,
     numberstyle=\small\color[rgb]{0.5,0.5,0.5},
