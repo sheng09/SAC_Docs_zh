@@ -1,0 +1,91 @@
+\section{安装SAC}
+本节介绍如何在Linux下安装SAC，要求读者对Linux下的一些基本概念有所了解。
+
+\subsection{申请SAC}
+在\nameref{sec:history}中已经说到，Livermore仅允许在IRIS社区内部分享SAC的源码，
+所以SAC不像很多软件一样可以很方便地通过软件包管理器安装或者直接从网络下载源码。
+
+软件包申请地址~:~\url{http://www.iris.edu/forms/sac\_request.htm}
+
+认真填写个人信息，尤其注意Email那一栏，需要填写单位邮箱，如果使用
+QQ、163这样的邮箱很容易直接被拒绝，如果没有单位邮箱，需要提供其它
+信息以验证你的身份。
+
+IRIS提供了SAC源码包、Linux 64位二进制包和Mac 64位二进制包。对于Linux
+用户，可以通过\lstinline{uname -a}命令查看当前系统是32位还是64位。对于64位系统，
+可以直接使用Linux 64位二进制包；对于Linux 32位系统，则必须手动编译SAC源码。
+
+考虑到在申请提交之后，需要人工审核，两三个工作日后才会通过邮箱获取SAC软件包，
+建议还是同时申请Linux 64位包和SAC源码包。
+
+\subsection{安装依赖包}
+Linux下安装软件最麻烦的一个问题就是软件之间的依赖关系。
+
+对于Ubuntu/Debian系\footnote{很久不用Ubuntu，无法保证完全正确。}：
+\begin{lstlisting}[style=Shell]
+$ sudo apt-get install build-essential
+$ sudo apt-get install libncurses5-dev libsm-dev libice-dev \
+        libxpm-dev libx11-dev zlib1g-dev
+\end{lstlisting}
+
+对于CentOS/RHEL系：
+\begin{lstlisting}[style=Shell]
+$ sudo yum groupinstall 'Development Tools'
+$ sudo yum install glibc ncurses-devel libSM-devel libICE-devel \
+        libXpm-devel libX11-devel zlib-devel 
+\end{lstlisting}
+
+\subsection{安装}
+安装的方法在这一步分成两个部分，分别是二进制包安装和源代码编译，根据实际情况
+二者选一。
+\subsubsection{二进制包安装}
+解压sac二进制包：
+\begin{lstlisting}[style=Shell]
+$ tar -zxvf sac-101.6a-linux_x86_64.tar.gz
+\end{lstlisting}
+
+复制sac文件夹到安装目录(推荐安装目录为\lstinline{/usr/local})：
+\begin{lstlisting}[style=Shell]
+$ sudo cp -r sac /usr/local
+\end{lstlisting}
+
+\subsubsection{源代码编译}
+\begin{lstlisting}[style=Shell]
+$ tar -zxvf sac-101.6a_source.tar.gz
+$ cd sac-101.6a
+$ ./configure --prefix=/usr/local/sac
+$ make
+$ sudo make install
+\end{lstlisting}
+
+\subsection{配置变量}
+修改\lstinline{~/.bashrc}以配置环境变量以及SAC所需要的变量，加入如下语句：
+\begin{lstlisting}[style=Bash]
+export SACHOME=/usr/local/sac
+export SACAUX=$SACHOME/aux
+export PATH=$SACHOME/bin:$PATH
+
+export SAC_DISPLAY_COPYRIGHT=1                                                   
+export SAC_USE_DATABASE=0                                                        
+export SAC_PPK_LARGE_CROSSHAIRS=1
+\end{lstlisting}
+
+其中，\lstinline{SACHOME}为SAC的安装目录，\lstinline{SACAUX}中包含了SAC的辅助
+文件。其余几个环境变量的作用会在后面提到。
+
+使配置的环境变量生效：
+\begin{lstlisting}[style=Shell]
+$ source ~/.bashrc
+\end{lstlisting}
+
+\subsection{启动SAC}
+终端键入小写的sac\footnote{Ubuntu的源里也有一个名叫sac的软件，是用来显示登录账户
+的一些信息；CentOS的源里也有一个名叫sac的软件，是CSS语法分析器的Java接口。所以
+一定不要试图用发行版自带的软件包管理器安装sac!!!}，显示如下则表示SAC正常安装：
+\begin{lstlisting}[style=Shell]
+$ sac
+ SEISMIC ANALYSIS CODE [11/11/2013 (Version 101.6a)]
+ Copyright 1995 Regents of the University of California
+
+SAC> 
+\end{lstlisting}
