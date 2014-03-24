@@ -27,3 +27,5 @@ saveimg SAC_logo.ps
 # 退出
 quit
 END
+ps2raster -A -Te SAC_logo.ps
+rm SAC_logo.ps
