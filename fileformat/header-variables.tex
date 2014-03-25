@@ -1,0 +1,193 @@
+\section{熟悉头段变量}
+
+\subsection{基本变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccl}
+    \toprule
+	变量名	&	类型	&	描述\\
+	\midrule
+    nvhdr*\footnote{星号表示SAC文件中必须定义该变量}	&	N		&	SAC头段版本号，目前值为6，旧版本的SAC文件（$nvhdr<6$）在读入时会自动更新。\\
+	nzyear	&	N 		&	GMT年，文件参考时间	\\
+    nzjday  &   N       &   GMT儒略日，一年中的第几天\footnote{比``月-日''少用一个变量。}    \\
+    nzhour  &   N       &   GMT时   \\
+    nzmin   &   N       &   GMT分   \\
+    nzsec   &   N       &   GMT秒   \\
+    nzmsec  &   N       &  GMT毫秒  \\
+	nzdttm	&	N 		&	GMT日期-时间数组，不在头段中，用于子程序读取SAC文件。该数组由上面6个变量构成    \\
+	kzdate	&	A		&	不在头段中，字母数字格式的GMT参考日期，由NZYEAR和NZJDAY导出\\
+	kztime	&	A		&	不在头段中，字母数字格式的GMT参考时间，由NZHOUR, NZMIN, NZSEC和NZMSEC导出\\
+	iftype*	&	I		&	文件类型:\\
+						&& \quad- ITIME 时间序列文件	\\
+						&& \quad- IRLIM 频谱文件实部-虚部格式 \\
+ 						&& \quad- IAMPH 频谱文件振幅-相位格式	\\
+						&& \quad- IXY 一般的x-y数据 	\\
+						&& \quad- IXYZ 一般的XYZ(3-D)文件\\	
+	idep	&	I		&	因变量类型:\\
+						&& \quad- IUNKN (未知)	\\
+						&& \quad- IDISP (位移：nm)	\\
+						&& \quad- IVEL (速度：nm/sec)	\\
+						&& \quad- IVOLTS (速度：volts)	\\
+						&& \quad- IACC (加速度：nm/sec/sec)	\\
+	iztype	&	I 		&	等效参考时间	\\
+						&& \quad- IUNKN (未知)	\\
+						&& \quad- IB (文件开始时间)	\\
+						&& \quad- IDAY (基准GMT的午夜)	\\
+						&& \quad- IO (事件发生时间)	\\
+						&& \quad- IA (初动到时)	\\
+						&& \quad- ITn (用户自定义的读取时间Tn, n=0,9)	\\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{数据相关变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+	\midrule
+    npts*	&   N		&	数据点数。\\
+	delta*	&	F		&	等间隔数据的采样间隔（标称值）。\\
+	DEPMIN	&	F 		&	因变量最小值。	\\
+	DEPMAX	&	F		&	因变量最大值	\\
+	DEPMEN	&	F		&	因变量平均值	\\
+	SCALE	&	F		&	因变量比例因子\footnote{真实物理场被乘以比例因子得到现有数据}	\\
+	ODELTA*	&	F		&	采样间隔的观测值，若观测值与标称值不同则有值\\
+	B*		&	F		&	自变量起始值（相对参考时间的秒数）\\
+	E*		&	F		&	自变量结束值（相对参考时间的秒数）\\
+    XMINIMUM&   F       &   X的最小值(限于谱文件)   \\                                                                                                    
+    XMAXIMUM&   F       &   X的最大值(限于谱文件)   \\                           
+    YMINIMUM&   F       &   Y的最小值(限于谱文件)   \\                           
+    YMAXIMUM&   F       &   Y的最大值(限于谱文件)   \\  
+    NXSIZE  &   N       &   频谱长度(限于谱文件)    \\                           
+    NYSIZE  &   N       &   频谱宽度(限于谱文件)    \\
+    IQUAL   &   I       &   数据质量[未使用]:   \\                                                                                                        
+                        && - IGOOD (Good data)  \\                               
+                        && - IGLCH (Glitches)   \\                               
+                        && - IDROP (Dropouts)   \\                               
+                        && - ILOWSN (Low signal to noise ratio) \\               
+                        && - IOTHER (Other)\\                                    
+    ISYNTH  &   I       &   合成数据标识[未使用]:\\                              
+                        && - IRLDTA (Real data) \\                               
+                        && - ????? (Flags for various synthetic seismogram codes) \\
+     LEVEN*  &   L       &   若数据为等间隔则为TRUE。\\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{事件相关变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+	\midrule
+    KEVNM   &   K       &   事件名  \\
+    IEVREG  &   I       &   事件地理区域[未使用]    \\
+    IEVTYP  &   I       &   事件类型    \\
+    EVLA    &   F       &   事件纬度(度,北为正) \\                                                                                                        
+    EVLO    &   F       &   事件经度(度,东为正) \\                                  
+    EVEL    &   F       &   事件高程(m). [未使用]   \\                              
+    EVDP    &   F       &   事件相对地表深度(m). [未使用]   \\                   
+    MAG     &   F       &   事件震级    \\                                       
+    IMAGTYP &   I       &   震级类型：\\                       
+    IMAGSRC &   I       &   震级来源信息:   \\
+    NEVID   &   N       &   事件ID (CSS 3.0)    \\
+    NORID   &   N       &   起始时间ID (CSS 3.0)    \\ 
+    NWFID   &   N       &   波形ID (CSS 3.0)    \\ 
+    KHOLE   &   K       &   核爆事件：孔眼标识；其他：位置标识  \\
+    GCARC   &   F       &   台站到事件的大园弧长，即另一种震中距(度).\\ 
+    DIST    &   F       &   事件台站距离，即震中距(km)\\                         
+    AZ      &   F       &   事件到台站的方位角(度).\\                                                                                                     
+    BAZ     &   F       &   台站到事件的方位角(度). \\                           
+    O       &   F       &   事件发生时间(相对参考时间的秒数)    \\                                                                                        
+    KO      &   A       &   事件发生时间标志    \\  
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{台站相关变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+    \midrule
+    KNETWK  &   K       &   地震台网名  \\
+    KSTNM   &   K       &   台站名      \\      
+    ISTREG  &   I       &   台站地理区域[未使用]    \\  
+    STLA    &   F       &   台站纬度(度，北为正)    \\                           
+    STLO    &   F       &   台站经度(度，东为正).   \\                           
+    STEL    &   F       &   台站高程(m). [未使用]\\                              
+    STDP    &   F       &   台站相对地表深度(m). [未使用]\\                      
+    CMPAZ   &   F       &   分量方位角(从北开始顺时针度数).\\                    
+    CMPINC  &   F       &   分量倾角(从垂直开始的度数)  \\    
+    KCMPNM  &   K       &   分量名称，SEED格式使用那个三字符名称，第三个代表分量的方位（如BHE），
+                            对于水平分量，目前的趋势是使用1和2代替N和E  \\ 
+    KSTCMP  &   A       &   台站分量，由KSTNM, CMPAZ和CMPINC导出\\
+    LPSPOL  &   L       &   如果台站分量为正极性则为真（左手规则）  \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{震相相关变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+    \midrule
+    A       &   F       &   初动到时(相对参考时间的秒数)\\                       
+    KA      &   K       &   初动到时标志    \\                                                                                                            
+    F       &   F       &   事件结束时间（相对参考时间的描述，注意与文件结束时间的区别）\\
+    KF      &   A       &   事件结束标志    \\                                   
+    Tn      &   F       &   用户定义的时间，在拾取震相时使用，n = 0-9（相对参考时间的秒数）\\
+    KTn     &   K       &   用户定义的时间标志, n = 0-9.    \\ 
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{仪器相关变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+    \midrule
+    KINST   &   K       &   记录仪器通用名称    \\                               
+    IINST   &   I       &   记录仪器类型[未使用]\\                               
+    RESPn   &   F       &   仪器响应参数，n=0,9. [未使用]\\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{其它变量}
+\begin{table}[H]
+\centering
+\caption{}
+\label{}
+\begin{tabular}{ccc}
+    \toprule
+	变量名	&	类型	&	描述\\
+    \midrule
+    USERn   &   F       &   用户定义变量存储区, n = 0,9.\\
+    KUSERn  &   K       &   用户定义变量存储区,  n = 0,9.\\     
+    LOVROK  &   L       &   如果文件可覆盖则为真，类似于写权限  \\  
+    LCALDA  &   L       &   如果DIST, AZ, BAZ 和 GCARC可以由台站和事件的坐标计算出来则为真\\
+    KDATRD  &   K       &   数据被读入计算机的日期\\ 
+    \bottomrule
+\end{tabular}
+\end{table}
