@@ -1,7 +1,7 @@
 \section{安装SAC}
 本节介绍如何在Linux下安装SAC，要求读者对Linux下的一些基本概念有所了解。
 
-\subsection{申请SAC}
+\subsection*{申请SAC}
 在\nameref{sec:history}中已经说到，Livermore仅允许在IRIS社区内部分享SAC的源码，
 所以SAC不像很多软件一样可以很方便地通过软件包管理器安装或者直接从网络下载源码。
 
@@ -18,7 +18,7 @@ IRIS提供了SAC源码包、Linux 64位二进制包和Mac 64位二进制包。�
 考虑到在申请提交之后，需要人工审核，两三个工作日后才会通过邮箱获取SAC软件包，
 建议还是同时申请Linux 64位包和SAC源码包。
 
-\subsection{安装依赖包}
+\subsection*{安装依赖包}
 Linux下安装软件最麻烦的一个问题就是软件之间的依赖关系。
 
 对于Ubuntu/Debian系\footnote{很久不用Ubuntu，无法保证完全正确。}：
@@ -35,10 +35,10 @@ $ sudo yum install glibc ncurses-devel libSM-devel libICE-devel \
         libXpm-devel libX11-devel zlib-devel 
 \end{lstlisting}
 
-\subsection{安装}
+\subsection*{安装}
 安装的方法在这一步分成两个部分，分别是二进制包安装和源代码编译，根据实际情况
 二者选一。
-\subsubsection{二进制包安装}
+\subsubsection*{二进制包安装}
 解压sac二进制包：
 \begin{lstlisting}[style=Shell]
 $ tar -zxvf sac-101.6a-linux_x86_64.tar.gz
@@ -49,7 +49,7 @@ $ tar -zxvf sac-101.6a-linux_x86_64.tar.gz
 $ sudo cp -r sac /usr/local
 \end{lstlisting}
 
-\subsubsection{源代码编译}
+\subsubsection*{源代码编译}
 \begin{lstlisting}[style=Shell]
 $ tar -zxvf sac-101.6a_source.tar.gz
 $ cd sac-101.6a
@@ -58,7 +58,7 @@ $ make
 $ sudo make install
 \end{lstlisting}
 
-\subsection{配置变量}
+\subsection*{配置变量}
 修改\lstinline{~/.bashrc}以配置环境变量以及SAC所需要的变量，加入如下语句：
 \begin{lstlisting}[style=Bash]
 export SACHOME=/usr/local/sac
@@ -78,7 +78,7 @@ export SAC_PPK_LARGE_CROSSHAIRS=1
 $ source ~/.bashrc
 \end{lstlisting}
 
-\subsection{启动SAC}
+\subsection*{启动SAC}
 终端键入小写的sac\footnote{Ubuntu的源里也有一个名叫sac的软件，是用来显示登录账户
 的一些信息；CentOS的源里也有一个名叫sac的软件，是CSS语法分析器的Java接口。所以
 一定不要试图用发行版自带的软件包管理器安装sac!!!}，显示如下则表示SAC正常安装：

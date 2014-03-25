@@ -47,7 +47,7 @@
 
 % 目录设置
 \usepackage{titletoc}
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \titlecontents{chapter}[0em]
 {\vspace{0.2em}\bfseries\Large}
 {第\,\thecontentslabel\,章\quad}
@@ -59,6 +59,14 @@
 {\hspace*{0em}}
 {\ \dotfill \ \contentspage}
 [\vspace{-0.3em}]
+
+\titlecontents{subsection}[3em]
+{\normalsize}
+{\thecontentslabel\quad}
+{\hspace*{0em}}
+{\ \dotfill \ \contentspage}
+[\vspace{-0.3em}]
+
 
 % 页眉页脚设置
 \usepackage{titleps}
