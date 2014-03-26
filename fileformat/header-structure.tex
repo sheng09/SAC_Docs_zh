@@ -1,88 +1,95 @@
 \section{SAC头段结构}
-SAC头段区长度为158个字（每个字占四个字节），由一系列头段变量构成。
+SAC头段区长度为632个字节，由一系列头段变量构成。从这些头段变量中可以了解到波形
+记录的很多信息，比如台站经纬度、发震时刻、震相到时等等。
 
-表\ref{table:header-variables}给出了SAC头段区的全部头段变量。
+表\ref{table:header-variables}列出了SAC头段区的全部头段变量。其中变量名为
+\lstinline{internal}表示该变量为SAC内部使用的头段变量，用户不可对其进行操作。
+变量名为\lstinline{unused}表示该变量暂时尚未使用，为以后可能出现的新头段变量占位。
 
 \begin{table}[H]
+\ttfamily
+\small
 \centering
 \caption{SAC头段变量列表}
 \label{table:header-variables}
 \begin{tabular}{c|c|lllll}
 	\toprule
-	Word	&	Type	&	\multicolumn{5}{c}{Names}\\
+    Byte	&	Type	&	\multicolumn{5}{c}{Names}\\
 	\midrule
-	0		&	F	&	DELTA	&	DEPMIN	&	DEPMAX	&	SCALE	&	ODELTA	\\
-	5		&	F	&	B		&	E		&	O		&	A		&	INTERNAL\\
-	10		&	F	&	T0		&	T1		&	T2		&	T3		&	T4		\\
-	15		&	F	&	T5		&	T6		&	T7		&	T8		&	T9		\\
-	20		&	F	&	F		&	RESP0	&	RESP1	&	RESP2	&	RESP3	\\
-	25		&	F	&	RESP4	&	RESP5	&	RESP6	&	RESP7	&	RESP8	\\
-	30		&	F	&	RESP9	&	STLA	&	STLO	&	STEL	&	STDP	\\
-	35		&	F	&	EVLA	&	EVLO	&	EVEL	&	EVDP	&	MAG		\\
-	40		&	F	&	USER0	&	USER1	&	USER2	&	USER3	&	USER4	\\
-	45		&	F	&	USER5	&	USER6	&	USER7	&	USER8	&	USER9	\\
-	50		&	F	&	DIST	&	AZ		&	BAZ		&	GCARC	&	INTERNAL\\
-	55		&	F	&	INTERNAL&	DEPMEN	&	CMPAZ	&	CMPINC	&	XMINIMUN\\
-	60		&	F	&	XMAXIMUM&	YMINIMUM&	YMAXIMUN&	UNUSED	&	UNUSED	\\
-	65		&	F	&	UNUSED	&	UNUSED	&	UNUSED	&	UNUSED	&	UNUSED	\\
-	70		&	N	&	NZYEAR	&	NZJDAY	&	NZHOUR	&	NZMIN	&	NZSEC	\\
-	75		&	N	&	NZMSEC	&	NVHDR	&	NORID	&	NEVID	&	NPTS	\\
-	80		&	N	&	INTERNAL&	NWFID	&	NXSIZE	&	NYSIZE	&	UNUSED	\\
-	85		&	I	&	IFTYPE	&	IDEP	&	IZTYPE	&	UNUSED	&	IINST	\\
-	90		&	I	&	ISTREG	&	IEVREG	&	IEVTYP	&	IQUAL	&	ISYNTH	\\
-	95		&	I	&	IMAGTYP	&	IMAGSRC	&	UNUSED	&	UNUSED	&	UNUSED	\\
-	100		&	I	&	UNUSED	&	UNUSED	&	UNUSED	&	UNUSED	&	UNUSED	\\
-	105		&	L	&	LEVEN	&	LPSPOL	&	LOVROK	&	LCALDA	&	UNUSED	\\
-	110		&	K	&	KSTNM	&	KEVNM*	&			&			&			\\
-	116		&	K	&	KHOLE	&	KO		&	KA		&			&			\\
-	122		&	K	&	KT0		&	KT1		&	KT2		&			&			\\
-	128		&	K	&	KT3		&	KT4		&	KT5		&			&			\\
-	134		&	K	&	KT6		&	KT7		&	KT8		&			&			\\
-	140		&	K	&	KT9		&	KF		&	KUSER0	&			&			\\
-	146		&	K	&	KUSER1	&	KUSER2	&	KCMPNM	&			&			\\
-	152		&	K	&	KNETWK	&	KDATRD	&	KINST	&			&			\\
+	0		&	F	&	delta	&	depmin	&	depmax	&	scale	&	odelta	\\
+	20		&	F	&	b		&	e		&	o		&	a		&	internal\\
+	40		&	F	&	t0		&	t1		&	t2		&	t3		&	t4		\\
+	60		&	F	&	t5		&	t6		&	t7		&	t8		&	t9		\\
+	80		&	F	&	f		&	resp0	&	resp1	&	resp2	&	resp3	\\
+	100		&	F	&	resp4	&	resp5	&	resp6	&	resp7	&	resp8	\\
+    120		&	F	&	resp9	&	stla	&	stlo	&	stel	&	stdp	\\
+	140		&	F	&	evla	&	evlo	&	evel	&	evdp	&	mag		\\
+	160		&	F	&	user0	&	user1	&	user2	&	user3	&	user4	\\
+	180		&	F	&	user5	&	user6	&	user7	&	user8	&	user9	\\
+	200		&	F	&	dist	&	az		&	baz		&	gcarc	&	internal\\
+	220		&	F	&	internal&	depmen	&	cmpaz	&	cmpinc	&	xminimun\\
+	240		&	F	&	xmaximum&	yminimum&	ymaximum&	unused	&	unused	\\
+	260		&	F	&	unused	&	unused	&	unused	&	unused	&	unused	\\
+	280		&	N	&	nzyear	&	nzjday	&	nzhour	&	nzmin	&	nzsec	\\
+	300		&	N	&	nzmsec	&	nvhdr	&	norid	&	nevid	&	npts	\\
+	320		&	N	&	internal&	nwfid	&	nxsize	&	nysize	&	unused	\\
+	340		&	I	&	iftype	&	idep	&	iztype	&	unused	&	iinst	\\
+	360		&	I	&	istreg	&	ievreg	&	ievtyp	&	iqual	&	isynth	\\
+    380		&	I	&	imagtyp &	imagsrc	&	unused	&	unused	&	unused	\\
+	400		&	I	&	unused	&	unused	&	unused	&	unused	&	unused	\\
+	420		&	L	&	leven	&	lpspol	&	lovrok	&	lcalda	&	unused	\\
+	440		&	K	&	kstnm	&	kevnm*	&			&			&			\\
+	464		&	K	&	khole	&	ko		&	ka		&			&			\\
+	488		&	K	&	kt0		&	kt1		&	kt2		&			&			\\
+	512		&	K	&	kt3		&	kt4		&	kt5		&			&			\\
+	536		&	K	&	kt6		&	kt7		&	kt8		&			&			\\
+	560		&	K	&	kt9		&	kf		&	kuser0	&			&			\\
+	584		&	K	&	kuser1	&	kuser2	&	kcmpnm	&			&			\\
+	608		&	K	&	knetwk	&	kdatrd	&	kinst	&			&			\\
     \bottomrule
 \end{tabular}
 \end{table}
 
-表\ref{table:header-variables}中，第一列为起始字节数，比如\lstinline{delta}开始于
-头段区的第0个字节，而\lstinline{evla}则开始于头段区的第35个字节。第二列给出了
-头段变量的类型码，每个头段变量类型码对应的数据类型见表\ref{sec}。
+表\ref{table:header-variables}中，给出了头段区的全部头段变量，在源代码中，其被定义
+为一个结构体，结构体中变量\lstinline{delta}开始于第零个字节，占据4个字节，
+\lstinline{depmin}开始于第4个字节，也占据4个字节，其它同理。表中的第一列给出了
+当前行的第一个头段变量的起始字节数。
+第二列给出了头段变量的类型码，每个头段变量类型码对应的数据类型见表
+\ref{sec:header-variables-type}。
+
+表\ref{sec:header-variables-type}中，第一列为头段变量类型代码，第二类给出了其
+代表的变量类型，第三列指出C源码中该变量的是用什么类型定义的，第四列给出了
+写字符形式SAC文件时的输出格式。对于一个SAC文件，并非所有的头段变量都必须要包含
+有意义的值，若变量未定义称其包含未定义值，第5列给出了不同类型的未定义值的形式，
+比如如果一个整型头段变量的值为-12345，则认为其处于未定义态。实际使用的时候，SAC
+提供了参数\lstinline{undef}，其可以根据头段变量的类型自动转换成相应类型的未定义值。
+
+SAC中定义了6种头段变量类型，分别为浮点型（F）、整型（N）、枚举型（I）、逻辑型（L）、字符型（K）和辅助型（A）。
+其中辅助型不存在于SAC文件中，其直接由其它头段变量推导得到。
+
+除了F型变量外以外，其余所有变量的变量名均以变量类型码开头，比如\lstinline{nvhdr}
+是N型变量，\lstinline{leven}是L型变量。
+
+枚举型变量，本质上是\lstinline{int}型，其只能在固定的几个值中取值；C语言中本身
+是没有规定Bool类型的，SAC自定义了true和false，用于表示真和假。字符型变量长度为
+8，只有\lstinline{kevnm}很特殊，其长度为16。
 
 \begin{table}[H]
 \caption{变量类型说明}
 \label{table:header-variables-type}
 \centering
-\begin{tabular}{clll}
+\ttfamily
+\small
+\begin{tabular}{cllcll}
 	\toprule
-    类型代码&	数据类型    &   C变量类型           	&	未定义值        \\
+    Code    &	Type        &   C Type & sizeof &   printf	&   未定义值        \\
 	\midrule
-    F		&	浮点型		&   \lstinline{float}       &	\lstinline{-12345.0}        \\
-    N		&	整型		&   \lstinline{int}         &	\lstinline{-12345}        \\
-    I		&	枚举型		&   \lstinline{int}         &	\lstinline{-12345}	        \\
-    L		&	逻辑型		&   \lstinline{int}         &	\lstinline{FALSE}	        \\
-    K		&	字符型		&   \lstinline{char*}       &	\lstinline[showspaces=true]{"-12345  "}     \\
-    A		&	辅助型		&                           &				    \\
+    F		&	浮点型		&   float  &  4     &	\%15.7f &   -12345.0        \\
+    N		&	整型		&   int    &  4     &	\%10d   &   -12345        \\
+    I		&	枚举型		&   int    &  4     &	\%10d   &   -12345	        \\
+    L		&	逻辑型		&   int    &  4     &	\%10d   &   FALSE        \\
+    K		&	字符型		&   char*  &  8     &	\%-8.8s & \lstinline[showspaces=true]{"-12345  "}     \\
+    A		&	辅助型		&          &        &			& 	    \\
 	\bottomrule
 \end{tabular}
 \end{table}
-
-关于变量类型的一些解释：
-\begin{description}
-    \item [浮点型] 在C语言中变量类型为\lstinline{float}，占四个字节；(G15.7)
-    \item [整型]  变量名以N开头；(I10)
-    \item [枚举型] 变量名以I开头，本质上是\lstinline{int}型，其只能在固定的几个值中取值；(I10)
-    \item [逻辑型] 变量名以L开头，取值为true或者false；(I10)
-    \item [字符型] 变量名以K开头，其长度为8或16；(A8,A16)
-    \item [辅助型] 不存在于SAC文件中，而是由其它头段变量导出；
-\end{description}
-
-对于F、N和I型变量，每个变量占据4个字节，对于K型变量，每个变量占8个字节，变量
-\lstinline{kevnm}为16个字节，总计632字节。
-
-变量名为\lstinline{INTERNAL}，表示该变量为SAC内部所需要的变量，用户不可对其进行操作。
-
-变量名为\lstinline{UNUSED}表示该变量暂时尚未使用。
-
-对于任意文件，并非所有的头段变量都含有有意义的值，这些无定义的值称为未定义变量。
-对于任一类型的变量，用上表中类似于-12345之类的数据表明该变量未定义。
