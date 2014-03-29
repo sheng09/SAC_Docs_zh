@@ -1,0 +1,28 @@
+\section{divomega}
+\label{cmd:divomega}
+
+\SACTitle{概要}
+在频率域进行积分
+
+\SACTitle{说明}
+这个命令将谱文件中的每一个点除以它的角频率。这相当于在时间域内对数据积分谱文件可以是振幅-相位格式也可以是实部-虚部格式。
+
+这个运算对于普通数据来说还是很方便的，但不适于谱范围跨越几个量级的数据。比如，假设你已经使用DIF命令对数据进行预白化，然后对数据进行Fourier变换。用这个命令在频率域积分可以去除在时间域微分的效果。
+
+\SACTitle{例子}
+下面给出上面的例子所执行的命令:
+\begin{SACCode}
+SAC> READ FILE1
+SAC> DIF
+SAC> FFT AMPH
+SAC> DIVOMEGA
+\end{SACCode}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{相关命令}
+DIF, FFT, MULOMEGA, WRITESP, READSP
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)

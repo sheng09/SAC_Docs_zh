@@ -1,0 +1,96 @@
+\section{write}
+\label{cmd:write}
+
+\SACTitle{概要}
+将内存中的数据写入磁盘
+
+\SACTitle{语法}
+Write {options} {namingoptions}
+
+其中options可以取：
+\begin{itemize}
+\item SAC|ALPHA|XDR
+\item COMMIT|ROLLBACK|RECALLTRACE  
+\item DIR OFF|CURRENT|name  
+\item KSTCMP
+\end{itemize}
+这些options必须位于namingoptions的任何元素之前:
+\begin{itemize}
+\item OVER  
+\item APPEND text  
+\item PREPEND text  
+\item DELETE text  
+\item CHANGE text1 text2  
+\item filelist  
+\end{itemize}
+每次只允许使用namingoptions中的一个
+
+\SACTitle{输入}
+\begin{itemize}
+\item no arguments : 使用以前的格式和写文件列表 
+\item SAC : 将SAC二进制文件格式写入磁盘 
+\item ALPHA : 写SAC字符数字型数据文件 
+\item SEGY : 写IRIS/PASSCAL的SEGY格式文件。这个文件允许一个文件包含一个波形而非一个分量，SEGY格式只能用于等间距时间序列文件。在SAC中SCALE字段被忽略，因为SAC将波形以一系列浮点数的形式储存起来，而SEGY则以一系列长整数储存。从SAC中得到的数据将被归一到允许的最大整数。SEGY中的scale字段用于决定将波形复原到SAC文件时需要的因子。
+\item XDR : 用SAC二进制xdr格式写文件。这个格式用于实现不同构架的二进制数据的转换 
+\item DIR OFF : 关闭目录选项，即写入当前目录 
+\item DIR CURRENT : 打开目录选项并设置写目录为当前目录 
+\item DIR name : 打开目录选项并设置写目录为name。将所有的文件写入目录name中，其可以是相对或绝对路径 
+\item KSTCMP : 使用KSTNM和KCMPNM头段变量为内存中每个数据文件定义一个文件名。生成的文件名将检查是否唯一，如果不唯一，则在文件名后加序号以避免冲突
+\item OVER : 使用当前读文件表作为写文件表，用内存中的文件覆盖磁盘上的文件 
+\item APPEND text : 通过在当前读文件列表后附加文本创建写文件表 
+\item PREPEND text : 通过在当前读文件列表前附加文本创建写文件表 
+\item DELETE text :  通过在当前读文件列表中删除第一次出现的text创建写文件表 
+\item CHANGE text1 text2 : 通过将当前读文件表中每个文件名第一次出现的text1修改为text2来创建写文件表 
+\item filelist : 将写文件表设置为filelist，这个列表可以包含文件名、相对/绝对路径，不可以包含通配符。 
+\end{itemize}
+
+\SACTitle{缺省值}
+WRITE SAC COMMIT
+
+\SACTitle{说明}
+这个命令允许你在数据处理的任一步将结果写入磁盘。这个命令运用于几种磁盘文件格式。内存中的每个文件都将不经过裁剪或减采样地写入磁盘。
+
+多数情况下，需要使用SAC数据文件格式。这是供快速读写的压缩二进制文件格式。它包含一个较大的头段和一段或两段数据记录。详情参见具体章节。
+
+你可以直接指定写文件名，也可以通过修改内存中的当前文件名间接地指定它们。OVER选项把写文件表设置到读文件表。它用于覆盖包含当前内存的数据的读入的最后一组磁盘文件。APPEND, PREPEND, DELETE,CHANGE选项通过以所需要的方式修改每个读文件名的方式建立一个写文件表，这在宏命令中非常有用，在宏命令中你通常需要自动处理大量数据文件，并保持输出文件风格的一致。当选择这四个选项中的一个时，便可输出写文件，这使你可以看到实际使用的文件名。
+
+\SACTitle{例子}
+对一组数据文件进行滤波，然后将结果存入一组新数据文件:
+\begin{SACCode}
+SAC> READ D1 D2 D3
+SAC> LOWPASS BUTTER NPOLES 4
+SAC> WRITE F1 F2 F3
+\end{SACCode}
+
+也可以使用CHANGE选项完成这一操作:
+\begin{SACCode}
+SAC> READ D1 D2 D3
+SAC> LOWPASS BUTTER NPOLES 4
+SAC> WRITE CHANGE D F
+s:  F1 F2 F3
+\end{SACCode}
+
+注意这种情况下SAC输出写文件表，若用滤波数据置换原始数据，则上例的第三行要变成:
+\begin{SACCode}
+SAC> WRITE OVER
+\end{SACCode}
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1311: 没有要写的文件列表
+\item[-]1312: 写文件表中文件数目错误
+	\begin{itemize}
+	\item[-]写文件表中的文件数必须等于读入内存中的文件的数目
+	\end{itemize}
+\item[-]1303: 文件未打开覆盖写标志
+	\begin{itemize}
+	\item[-]头段变量LOVROK是.FALSE. 
+	\end{itemize}
+\end{itemize}
+
+\SACTitle{相关命令}
+READ, COMMIT, ROLLBACK, RECALLTRACE
+
+\SACTitle{最近修订}
+Oct. 27, 1998 (Version 0.58)

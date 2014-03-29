@@ -1,0 +1,101 @@
+\section{datagen}
+\label{cmd:datagen}
+
+\SACTitle{概要}
+产生样例波形文件并储存在内存中。
+
+\SACTitle{语法}
+DATAGEN [MORE] [COMMIT|ROLLBACK|RECALLTRACE] [SUB name] [filelist]
+
+其中name可以是：LOCAL | REGIONAL | TELESEISMIC
+
+\SACTitle{输入}
+\begin{itemize}
+\item MORE : 将新产生的样本数据放在内存中旧文件后，如果此项省略，新数据将替代旧数据。
+\item COMMIT、ROLLBACK、RECALLTRACE : 不想解释
+\item SUB name : 选择要读数据的子目录名，其中子目录名可以使local、regional、teleseismic，后接文件列表。
+\item name : LOCAL|REGIONAL|TELESEIS
+\item filelist : 样本数据文件列表，文件名在下面给出。可以使用简单文件名或通配符，参见READ和WILD。
+\end{itemize}
+
+\SACTitle{缺省值}
+DATAGEN COMMIT SUB LOCAL cdv.z
+
+\SACTitle{说明}
+该命令从一系列样本地震图中读取一个或多个到内存。事实上，该命令与READ相同，只是此处从特殊的数据目录读取特殊文件。
+你可以使用通配符来读取多个文件。
+
+\SACTitle{错误信息}
+\begin{itemize}
+\item[-]1301: 未读入数据
+	\begin{itemize}
+  	\item[-]未给出要读的文件列表
+	\item[-] 列表给出的文件不可读
+	\end{itemize}
+\item[-]1314: 数据文件列表不得以数字开头
+\item[-]1315: 超过最大文件数
+\end{itemize}
+
+\SACTitle{警告信息}
+\begin{itemize}
+\item[-]0101: 打开文件
+\item[-]0108: 文件不存在
+\item[-]0114: 读文件
+	\begin{itemize}
+	\item[-]一般当SAC遇到这些错误时可以跳过该文件然后读取余下文件。详情参见READERR
+	\end{itemize}
+\end{itemize}
+  
+\SACTitle{LOCAL事件}
+近震发生在Livermore Valley of California。震级ML=1.6，其被Livermore Local Seismic Network (LLSN)所记录，
+LLSN拥有一系列垂直和三分量台站。这个数据集中包含了9个三分量台站的数据。数据时长40s，每秒100个采样点。
+台站信息、事件信息、p波及尾波到时都包含在头段中，这些文件包括：
+\begin{SACCode}
+    cal.z, cal.n, cal.e
+    cao.z, cao.n, cao.e
+    cda.z, cda.n, cda.e
+    cdv.z, cdv.n, cdv.e
+    cmn.z, cmn.n, cmn.e
+    cps.z, cps.n, cps.e
+    cva.z, cva.n, cva.e
+    cvl.z, cvl.n, cvl.e
+    cvy.z, cvy.n, cvy.e
+\end{SACCode}
+
+\SACTitle{REGIONAL事件}
+区域地震发生在Nevada，被Digital Seismic Network (DSS)所记录。 DSS包含了美国西部的四个宽频带三分量台站。这些台站包括：
+\begin{SACCode}
+   		elk: Elko, NV
+   		lac: Landers, CA
+   		knb: Kanab, UT
+   		mnv: Mina, NV
+\end{SACCode}
+采样率为每秒40个采样点，数据时长为300s，从事件发震前5s开始，文件名为：
+\begin{SACCode}
+    elk.z, elk.n, elk.e
+    lac.z, lac.n, lac.e
+    knb.z, knb.n, knb.e
+    mnv.z, mnv.n, mnv.e
+\end{SACCode}
+
+\SACTitle{TELESEISMIC事件}
+远震事件于September 10, 1984发生在加州北海岸靠近Eureka的地方。其为中等偏大的地震(ML 6.6, MB 6.1, MS 6.7) ，
+多地有感。Regional Seismic Test Network(RSTN)包含了美国和加拿大的5个台站，这些台站分别为：
+\begin{SACCode} 
+	cpk: Tennessee
+    ntk: Northwest Territories, Canada
+    nyk: New York
+    onk: Ontario, Canada
+    sdk: South Dakota
+\end{SACCode}
+该数据集中包含了中等周期和长周期数据，cpk数据不可得，sdk的长周期数据被截断。这个数据集的数据时长1600s，
+长周期每秒1个采样点，中等周期每秒4个采样点。文件包括：
+\begin{SACCode} 
+    ntkl.z, ntkl.n, ntkl.e, ntkm.z, ntkm.n, ntkm.e
+    nykl.z, nykl.n, nykl.e, nykm.z, nykm.n, nykm.e
+    onkl.z, onkl.n, onkl.e, onkm.z, onkm.n, onkm.e
+    sdkl.z, sdkl.n, sdkl.e, sdkm.z, sdkm.n, sdkm.e
+\end{SACCode}
+
+\SACTitle{最近修订}
+August 2011 (version 101.5)

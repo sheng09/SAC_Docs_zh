@@ -1,0 +1,63 @@
+\section{tsize}
+\label{cmd:tsize}
+
+\SACTitle{概要}
+控制文本尺寸属性
+
+\SACTitle{语法}
+TSIZE [ Tiny | Small | Medium | Large v ] [ RATIO v ] [ OLD | NEW ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item size v : 改变文本尺寸之一的值为v 
+\item RATIO v : 改变文本的宽高比为v 
+\item OLD : 将所有文本尺寸值设置为其旧值，这些旧值用在SAC 9之前的版本中 
+\item NEW : 改变所有文本尺寸值为SAC初始化时的缺省值。
+\end{itemize}
+
+\SACTitle{缺省值}
+TSIZE RATIO 1.0 NEW
+
+\SACTitle{说明}
+大多数的文本注释命令(TITLE, XLABEL, FILEID等)允许你改变要显示的文本的尺寸。你可以从四个已命名的尺寸中选择(TINY, SMALL, MEDIUM, 和LARGE.)。每一个命名尺寸有一个初始值，如下表所示。其尺寸是一个字符相对整个视窗的高度。有些时候你想要使用一些不同与默认尺寸的注释。TSIZE允许你重新定义这四个已命令的尺寸。你也可以使用这个命令改变字符的宽-高比。
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+NAME	&	A	&	B	&	C	&	D	&	E	\\
+\midrule
+TINY 	& 0.015 &   66 	&  50  	&	68  &	110	\\
+SMALL	& 0.020 &	50  &  37  	&	66  &	82	\\
+MEDIUM  & 0.030 &	33  &  25  	&	44  &	55	\\
+LARGE	& 0.040 &	25  &  18  	&	33  &	41	\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+上面做各列的定义如下:
+\begin{itemize}
+\item A 自如相对整个视窗的高度
+\item B 全视窗下文本的行数
+\item C 正常视窗下文本的行数。正常视窗是指x为0.到1.，y为0.到0.75
+\item D 正常视窗中，每行的最小字符数
+\item E 正常视窗中每行字符的平均数
+\end{itemize}
+
+\SACTitle{例子}
+为了改变MEDIUM的定义，并使用它创建一个特别尺寸的标题:
+\begin{SACCode}
+SAC> TSIZE MEDIUM 0.35
+SAC> TITLE 'Rayleigh Wave Spectra' SIZE MEDIUM
+SAC> PLOT2
+\end{SACCode}
+
+为了重置尺寸定义到其缺省值:
+\begin{SACCode}
+SAC> TSIZE NEW
+\end{SACCode}
+
+\SACTitle{相关命令}
+TITLE, XLABEL, FILEID, PLOTC
+
+\SACTitle{最近修订}
+July 22, 1991 (Version 9.1)
+

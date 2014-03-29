@@ -1,0 +1,57 @@
+\section{unwrap}
+\label{cmd:unwrap}
+
+\SACTitle{概要}
+计算振幅谱并展开相位谱
+
+\SACTitle{语法}
+UNWRAP [ FILL ON | OFF | n ] [ INTTHR v ] [ PVTHR v ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item FILL ON | OFF : 打开/关闭零点填充选项 
+\item FILL n : 打开零点填充选项并将填充值设置为n 
+\item INTTHR v : 改变积分阀值常量为v 
+\item PVTHR v : 改变主阀值常量为v 
+\end{itemize}
+
+\SACTitle{缺省值}
+UNWRAP FILL OFF INTTHR 1.5 PVTHR 0.5
+
+\SACTitle{说明}
+这个命令将内存中的时间序列数据转换为谱数据，其包含了振幅谱和展开相位谱的频谱数据。这个过程作用于具有光滑变换相位的数据。数据在转换之前补0以使数目为2的幂数倍，你可以使用FILL选项指定大量补充零点。
+
+这是Tribolet算法的工具程序。其中用两种方法来估算在任何频率的展开相位。一个是通过快速傅氏变换做相位导数的数字积分。如果需要得到一个稳定一致的估算常数，则可将这个梯形积分的步长在每个频率上对分。你可以使用INTTHR选项控制这个验算的阀值，此值单位为弧度。减少INTTHR将改进相位计算结果，然而这个值太小时，会导致发散。
+
+算法中使用的第二个方法是使用反正切函数先计算相位的主值。展开相位的计算方法是相位主值加上2*PI的整数倍，直到相位的突变小于给定的阀值为止。可以使用PVTHR选项控制这个验算的阀值。与上一个算法类似，减少这个阀值将改进相位估算的结果，但也增加了无解的可能性。
+
+这两个阀值的初值通常经验地取为:
+\[ \pi/4 < PVTHR < INTTHR < 2\pi \]
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1306: 对不等间隔文件非法操作
+\item[-]1606: 超过DFT允许的最大数据点数
+\end{itemize}
+
+\SACTitle{警告消息}
+\begin{itemize}
+\item[-]1610: 对文件中数据点的相位展开失败。
+	\begin{itemize}
+	\item[-]调整阀值然后重试
+	\end{itemize}
+\end{itemize}
+
+\SACTitle{头段变量改变}
+B, E 和 DELTA 分别改变为变换的起始频率、结束频率和采样频率。原始的B,E和DELTA被保存在为SB、SE、SDELTA，当进行反变换时将值带回。
+
+\SACTitle{限制}
+目前可以转换的数据最大长度为4096。
+
+\SACTitle{参考文献}
+Tribolet, Jose M.; "A New Phase Unwrapping Algorithm"; IEEE Transactions on Acoustics, 	Speech, and Signal Processing; Vol. ASSP-25, No 2, April 1977;page 170.
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)
+

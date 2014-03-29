@@ -1,0 +1,107 @@
+\section{cut}
+\label{cmd:cut}
+
+\SACTitle{概要}
+定义要读入文件中的哪部分
+
+\SACTitle{语法}
+CUT [ON|OFF|pdw|SIGNAL]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON : 打开cut开关但不改变pdw 
+\item OFF : 关闭cut开关
+\item pdw : 打开cut选项并且改变pdw。pdw是partial data window。它包含了自变量的一个开始值和一个结束值，这两个值定义了文件中要被读取的部分，其一般格式为ref offset ref offset
+	\begin{itemize}
+	\item ref : 参考时间，可以取Z|B|E|O|A|F|N|Tn，其中n=0,1...9. 
+	\item offset : 相对于参考时间的时间偏移量
+	\end{itemize}
+\item SIGNAL : 即pdw为 A -1 F +1，代表读取文件中从到时前一秒到信号结束后一秒的数据 
+\end{itemize}
+
+\SACTitle{缺省值}
+CUT OFF
+
+\SACTitle{说明}
+如果起始或结束offset省略则认为其为0，如果起始参考值省略则认为其为Z，如果结束
+参考值省略则认为其值与起始参考值相同。若cut选项为关，则读取整个文件，cut为开，
+则值读取由pdw定义的部分。
+
+下面的一些助记符号用于代表自变量的确定值：
+\begin{itemize}
+\item B: 磁盘文件起始值
+\item E: 磁盘文件结束值
+\item Z: 参考时间
+\item N: 将offset解释为数据点数而非自变量。其只用于结束值。
+\end{itemize}
+下面的助记符号代表储存在SAC头段中的参考时间，常用于cut时间序列文件：
+\begin{itemize}
+\item O: 事件开始时间
+\item A: 初动到时
+\item F: 信号结束时间
+\item Tn: 用户自定义时间标记，n = 0,1...9
+\end{itemize}
+
+上面的助记符再加上可选的offset即定义了一个一个起始或结束值。O、A、 F以及Tn可以使用CHNHDR命令来定义。
+A和F也可以用自动事件拾取算法APK拾取得到或者人工绘图拾取(PLOTPK)到。如果你想对于一组有不同参考时间的
+文件使用同样的时间窗，你必须在执行cut和read命令之前先使用SYNCHRONIZE命令使得所有文件具有的参考时间。
+SYNCHRONIZE修改了文件的头使得所有文件具有相同的参考时间，并且调整所有相对到时，使得事件的GMT时间保持
+不变。由于cut命令作用在磁盘文件的头段，你必须在SYNCHRONIZE命令之后、READ命令之前，使用WRITEHDR将修改
+后的头段写入磁盘文件中，这样才能得到正确的结果。
+
+\SACTitle{例子}
+在下面的例子展示了pdw的可能情况，我们假定时间是自变量，单位为秒:
+\begin{SACCode}
+ B E  磁盘文件开始到文件结束-与cut off相同
+ B 0 30  磁盘文件起始的30秒
+ A -10 30  初动前10秒到初动后30秒
+ B N 2048   磁盘文件最初的2048个点
+ 30.2 48  相对磁盘文件0点的30.2到48秒
+\end{SACCode}
+你也可以在CUTERR命令中使用FILLZ选项，在文件的开始或结尾处补0，这种做法适用于定义一个cut长度
+大于文件长度的cut操作，然后使用READ命令读入内存。
+\begin{SACCode}
+SAC> r N11A.lhz
+SAC> lh npts
+FILE: N11A.lhz - 1
+npts = 3101
+SAC> cuterr fillz; cut b n 4096
+SAC> r
+SAC> lh npts
+FILE: N11A.lhz - 1
+npts = 4096
+\end{SACCode}
+ 
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1322: 未定义文件剪裁的起始
+	\begin{itemize}
+  	\item[-]头段中的参考值未定义
+	\item[-]这个错误可以用CUTERR命令控制
+	\item[-]当这个错误被关闭时，使用磁盘文件起始值作为替代
+	\end{itemize}
+\item[-]1323: 未定义文件裁剪的结束值
+\item[-]1324: 起始裁剪值小于文件开始值
+	\begin{itemize}
+	\item[-] 这个错误可以使用CUTERR来控制
+	\item[-] 当这个错误被关闭时，使用文件的起始值代替错误值或者在文件起始补0
+	\end{itemize}
+\item[-]1325: 结束裁剪值大于文件结束值
+\item[-]1326: 起始裁剪值大于文件结束值
+	\begin{itemize}
+	\item[-]错误的cut参数
+	\item[-]这个错误不可关闭
+	\end{itemize}
+\end{itemize}
+
+注意: 由于这是一个参数设定类型的命令，因而上面的错误在执行read命令之前是不会出现的。
+当然上面的一些错误也可以通过cuterr命令转换为警告。
+
+\SACTitle{限制}
+目前不支持非等间隔文件或谱文件的截断。该命令对ASCII格式的SAC文件无效。
+
+\SACTitle{相关命令}
+READ, APK, PLOTPK, SYNCHRONIZE, CUTERR
+
+\SACTitle{最近修订}
+April 21, 2010 (Version 101.4)

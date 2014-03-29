@@ -1,0 +1,28 @@
+\section{hanning}
+\label{cmd:hanning}
+
+\SACTitle{概要}
+对每个数据文件应用一个``hanning''窗
+
+\SACTitle{语法}
+HANNING
+
+\SACTitle{说明}
+``hanning''窗是一个针对每个内部数据点j的递推平滑算法:
+	\[ Y(j)=0.25Y(j-1)+0.50Y(j)+0.25Y(j+1)\]
+每个结束点设为等于其最近的内部点。
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1306: 对非等间隔文件非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{参考文献}
+Blackman and Tukey, "The Measurement of Power Spectra", Dover Publications, New York, 1958.
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

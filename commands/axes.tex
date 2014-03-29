@@ -1,0 +1,54 @@
+\section{axes}
+\label{cmd:axes}
+
+\SACTitle{概要}
+控制注释轴的位置(注释轴指轴上是否显示刻度数字)
+
+\SACTitle{语法}
+AXES ON|OFF|ONLY All|Top|Bottom|Right|Left
+
+\SACTitle{其他形式}
+命令AXES的另一种形式是AXIS
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON: 显示列表列出的注释轴，其他不变
+\item OFF: 不显示列表列出的注释轴，其他不变
+\item ONLY: 只显示列表列出的注释轴，其他的不显示
+\item All: 所有的四个注释轴
+\item Top: 绘图上部的X注释轴
+\item Bottom: 绘图下部的X注释轴
+\item Right: 绘图右部的Y注释轴
+\item Left: 绘图左部的Y注释轴
+\end{itemize}
+
+\SACTitle{缺省值}
+AXES ONLY BOTTOM LEFT	即只显示底部和左边的注释轴
+
+\SACTitle{说明}
+坐标轴可以绘制在一张图四边的任意一或多个边，有很多命令可以控制坐标轴长什么样。坐标轴的注释间隔用XDIV命令设定(即隔多长显示一个数字)，刻度标记的间距可以用TICKS命令单独控制。
+
+only仅显示后面列表中给出的注释轴，而on和off则仅对列表中的注释轴起到打开
+或关闭的作用，对其他不在列表中的注释轴则不起作用。要获得自己想要的效果，
+使用on或者off时你必须要知道当前已经显示的轴有哪些，哪些是你想要打开或
+关闭的。这是一个有点容易弄错的问题，不如只使用only加上想要显示的轴更加简单一点。
+
+\SACTitle{例子}
+\begin{SACCode}
+SAC> fg seis
+SAC> p           //看看SAC的默认设置，左边和底部有注释
+SAC> axes on t   //打开顶部注释，左边和底部注释依然保留
+SAC> p           //看到的结果是只有顶部注释，没有左边和底部注释，
+                 //这里和说明中强调的不一样，应该是程序的bug，
+                 //将on认为是only的简写了
+SAC> axes on a   //打开所有注释轴
+SAC> axes off b  //仅关闭底部注释轴（off选项和说明是一致的）
+SAC> axes only b //仅显示底部注释轴
+\end{SACCode}
+
+\SACTitle{相关命令}
+XDIV,TICKS
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)
+

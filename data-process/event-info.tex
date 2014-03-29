@@ -1,0 +1,59 @@
+\section{事件信息}
+相关头段：evla, evlo, evdp, mag, o, nzyear, nzjday, nzhour, nzmin, nzsec, nzmsec
+
+一般来说，从SEED连续波形中解压得到的SAC数据中是没有事件信息的。这需要用户搜索
+地震目录，获取事件的发震时刻、经度、纬度、深度和震级信息，并将这些信息写入到
+SAC文件的头段中。
+
+需要用到的命令是\nameref{cmd:chnhdr}（简写为ch）。其语法相对来说比较简单，比如
+想要修改事件的位置和深度，可以操作如下：
+\begin{SACCode}
+SAC> r cdv.?
+SAC> ch evla 37.52 evlo -121.68 evdp 5.95   // 修改三个头段变量
+SAC> ch mag 5.0                             // 修改一个头段变量
+SAC> wh                                     // 将修改后的头段写入文件
+\end{SACCode}
+
+下面试图加入发震时刻的信息。前面已经说过，我们一般将SAC文件的参考时刻设置为发震
+时刻，这样的处理可以带来一堆好处。ch提供了专门的选项用于处理发震信息。
+
+假设发震时刻为1987年06月22日11时10分10.363秒：
+\begin{SACCode}
+SAC> r ./cdv.?
+SAC> ch o gmt 1987 173 11 10 10 363
+SAC> lh kzdate kztime o
+  
+  FILE: ./cdv.e - 1
+ -------------
+
+     kzdate = JUN 22 (173), 1987
+     kztime = 11:09:56.363
+          o = 1.400000e+01
+  
+SAC> ch allt -14
+SAC> lh kzdate kztime o
+  
+  FILE: ./cdv.e - 1
+ -------------
+
+     kzdate = JUN 22 (173), 1987
+     kztime = 11:10:10.363
+          o = 0.000000e+00
+SAC> wh
+\end{SACCode}
+
+首先需要计算发震日期对应一年中的第几天，本例中为第173天，然后利用\\
+\lstinline{ch o gmt yyyy ddd hh mm sss xxx}的语法将发震时刻赋值给头段变量o。
+此时文件的参考时刻为1987-06-22T11:09:56.363，修改之后的o对应的时刻为发震时刻，
+其相对于参考时刻的时间差为14s。
+
+\lstinline{ch allt xx.xx}的功能是将参考时刻的值加上xx.xx秒，同时将所有的相对时间
+减去xx.xx秒，此时参考时刻即为发震时刻，而o值为0。
+
+在需要批量处理数据的时候，不可能通过lh o 的方式查看o的值，然后使用到allt中。在
+SAC宏一节中提供了适于批量处理的方式：
+\begin{SACCode}
+SAC> ch o gmt 1987 173 11 10 10 363 
+SAC> ch allt (0 - &1,o&) iztype IO      
+\end{SACCode}
+

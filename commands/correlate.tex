@@ -1,0 +1,50 @@
+\section{correlate}
+\label{cmd:correlate}
+
+\SACTitle{概要}
+计算自相关和互相关函数
+
+\SACTitle{语法}
+CORrelate [Master name|n] [Number n] [Length ON|OFF|v] [Type type]
+
+其中type可以取 Rectangle|HAMming|HANning|Cosine|Triangle
+
+\SACTitle{输入}
+\begin{itemize}
+\item Master name|n : 通过文件名或文件号指定某文件为主文件，其他文件将对这个文件相关
+\item Number n : 设置要使用的卷积窗的数目
+\item Length ON : 打开固定窗长选项开关
+\item Length OFF : 关闭固定窗长开关
+\item Length v : 打开固定窗长选项开关，并将窗长度设置为v秒
+\item Typr Rectangle : 对每个窗应用一个矩形函数，这等价于不对窗加上函数
+\item Type HAMming|HANning|Cosine|Triangle : 对每个窗应用xx函数
+\end{itemize}
+
+\SACTitle{缺省值}
+CONVOLVE MASTER 1 NUMBER 1 LENGTH OFF TYPE RECTANGLE
+
+\SACTitle{说明}
+对于你申明为主信号的信号将做自相关，主信号与内存中的其他信号将计算互相关函数。这个命令的窗特性允许你计算一系列数据窗的平均相关函数，窗的数目可以选择，而且你有5个标准的窗函数可以选择。当这个窗特性被打开，对每一个窗将计算一个互	相关函数，然后这些互相关函数将被平均，剪裁到与原始数据文件相同的长度，并且取代内存中的文件。你也可以选择窗的长度。当窗长度(LENGTH选项)以及窗数目(NUMBER选项)超过数据文件中的点数(NPTS)时，SAC可以自动计算出窗口的混叠。缺省状态下这个窗特性是关闭的。
+
+\SACTitle{例子}
+利用内存中第三个文件作为主文件计算互相关函数:
+\begin{SACCode}
+SAC> CORRELATE MASTER 3
+\end{SACCode}
+你也可以通过文件名指定主文件。假设你有数据文件，每个包含1000个噪声点。为了使用10个包含100个数据点的窗（即没有窗的混叠）计算平均相关函数，每个窗应用一个HANNING窗:
+\begin{SACCode}
+SAC> CORRELATE TYPE HANNING NUMBER 10
+\end{SACCode}
+为了使每个窗有20\%的混叠，可以设置窗长度为120个数据点，假设采样间隔为0.025(即每秒40个采样点)，这就意味着窗长为3秒：
+\begin{SACCode}
+SAC> CORRELATE TYPE HANNING NUMBER 10 LENGTH 3.0
+\end{SACCode}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{致谢}
+这个命令基于Dave Harris(DBH)开发的算法。
+
+\SACTitle{最近修订}
+Dec. 4, 1996 (Version 52a)

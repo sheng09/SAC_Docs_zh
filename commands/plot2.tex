@@ -1,0 +1,50 @@
+\section{plot2}
+\label{cmd:plot2}
+
+\SACTitle{概要}
+产生一个多道（multi-trace）单窗口(即重叠)绘图
+
+\SACTitle{语法}
+Plot2 [ Absolute | Relative ] [ PRINT pname ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ABSOLUTE : 所有文件时间为绝对时间，具有不同的文件开始时间的文件将会相对于第一个文件移动 
+\item RELATIVE : 每个文件相对于自己的开始时间绘图 
+\item PRINT {pname} : 打印绘图结果到打印机 
+\end{itemize}
+
+\SACTitle{缺省值}
+P2 ABSOLUTE
+
+\SACTitle{说明}
+所有文件列表中的文件都将绘制在同一个绘图窗口中。可以选择绘制一个包含绘图符号以及文件名的图例以区别不同的文件，在使用这个命令之前X和Y的范围可以被定义。参见XLIM和YLIM命令。如果没有给出轴的范围那么将根据文件列表中的极值确定轴范围。图例的位置可以通过FILEID命令控制。不像PLOT和PLOT1，PLOT2可以绘制谱文件。实部-虚部数据被绘制为实部-频率。振幅/相位数据被绘制为振幅-频率。虚部和相位信息忽略。谱文件总是用相对模式绘图。注意到在频率域b、e和delta分别被设置为0、Nqquist频率以及频率间隔df。头段值depmin和dapmax未改变。如同PLOTSP，如果XLIM关闭，绘图将从df=DELTA处开始，而非0。如果XLIM或YLIM在数据变换到频率域之前被改变了，最好在使用	PLOT2绘图之前输入XLIM off 和YLIM off。
+
+注意:由于某些原因，可能在内存中同时存在时间序列文件和谱文件并且没有选择相对绘图选项，则时间序列将以绝对模式绘图，谱文件将以相对模式绘图。相对模式意味着相对于第一个文件。因而内存中文件的顺序将影响绘图之间的关系。
+
+\SACTitle{例子}
+\begin{SACCode}
+SAC> READ MNV.Z.AM KNB.Z.AM ELK.Z.AM
+SAC> XLIM 0.04 0.16
+SAC> YLIM 0.0001 0.006
+SAC> LINLOG
+SAC> SYMBOL 2 INCREMENT
+SAC> TITLE 'Rayleigh Wave Amplitude Spectra for NESSEL'
+SAC> XLABEL 'Frequency (Hz)'
+SAC> PLOT2
+SAC> FFT
+SAC> XLIM off YLIM off
+SAC> line increment list 1 3
+SAC> PLOT2 print
+\end{SACCode}
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\end{itemize}
+
+\SACTitle{相关命令}
+XLIM, YLIM, FILEID, FILENUMBER
+
+\SACTitle{最近修订}
+April 11, 2010 (Version 101.4)

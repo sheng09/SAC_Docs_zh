@@ -1,0 +1,28 @@
+\section{echo}
+\label{cmd:echo}
+\SACTitle{概要}
+控制输入输出回显到终端
+
+\SACTitle{语法}
+ECHO ON | OFF Errors | Warnings | Output | Commands | Macros | Process
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON : 打开下面列出的echo选项
+\item OFF : 关闭下面列出的echo选项 
+\item ERRORS : 命令执行过程中的错误信息 
+\item WARNINGS : 命令执行过程中的警告信息 
+\item OUTPUT : 命令执行过程中的输出信息  
+\item COMMANDS : 终端输入的原始命令 
+\item MACROS : 宏文件中的原始宏命令 
+\item PROCESSED : 经过处理后的终端或宏文件命令，命令中的变量等都被替换成具体数值
+\end{itemize}
+
+\SACTitle{缺省值}
+ECHO ON ERRORS WARNINGS OUTPUT OFF COMMANDS MACROS PROCESSED
+
+\SACTitle{说明}
+这个命令控制SAC输入输出流中哪一类要被回显到终端或屏幕。输出有三大类：错误消息、警告消息、输出消息；输入也有三大类：终端中输入的命令、宏文件中执行的命令、以及处理后的命令。处理后的命令指所有的宏参数、暂存块变量、头段变量、内嵌	函数首先被计算，并代入后来的命令而形成的命令。你可以分别控制这些类的回显。当你在终端输入命令时，操作系统一般会回显每个字符，因此这个命令在交互式程序中没有太大作用，而宏命令和处理后的命令选项在调试宏文件时是很有用的。
+
+\SACTitle{最近修订}
+April 21, 1989 (Version 10.4c)

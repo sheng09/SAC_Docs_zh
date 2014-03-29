@@ -1,0 +1,37 @@
+\section{mtw}
+\label{cmd:mtw}
+
+\SACTitle{概要}
+决定接下来命令中所使用的测量时间窗
+
+\SACTitle{语法}
+MTW [ ON | OFF | pdw ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON : 打开测量时间窗选项但不改变窗的值 
+\item OFF : 关闭测量时间窗选项。测量将对整个文件进行操作 
+\item pdw : 打开测量时间窗并设置其新值。pdw包含你想要进行测量的自变量的范围，详细信息参考CUT命令 
+\end{itemize}
+
+\SACTitle{缺省值}
+MTW OFF
+
+\SACTitle{说明}
+当这个选项为开时，测量只对这个窗内有效，当这个选项为关时，测量针对整个文件。这个选项目前只对MARKPTP和MARKVALUE命令有效
+
+\SACTitle{例子}
+pdw的一些例子如下:
+\begin{itemize}
+\item B 0 30: 文件起始的30s
+\item A -10 30: 初动到时前10s到初动后30s
+\item T3 -1 T7: 时间标记T3前1s到T7
+\item B N 2048: 文件最初的2048个数据点
+\item 30.2 48: 相对文件零时的30.2s到48s
+\end{itemize}
+
+\SACTitle{相关命令}
+CUT , MARKPTP , MARKVALUE
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)

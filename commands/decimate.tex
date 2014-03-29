@@ -1,0 +1,47 @@
+\section{decimate}
+\label{cmd:decimate}
+
+\SACTitle{概要}
+抽取数据(减采样)，包括一个可选的抗混淆FIR滤波器
+
+\SACTitle{语法}
+DECIMATE [n] [FILTER ON|OFF]
+
+\SACTitle{输入}
+\begin{itemize}
+\item n : 设置减采样因子为n，其范围为2到7。为了得到各大的减采样因子这个命令可以执行多次.
+\item FILTER ON : 打开抗混淆FIR滤波器
+\item FILTER OFF : 关闭抗混淆FIR滤波器
+\end{itemize}
+
+\SACTitle{缺省值}
+DECIMATE 2 filter on
+
+\SACTitle{说明}
+这个命令用于对于读入内存中的数据进行减采样。一个可选的FIR滤波器可以用于在减采样过程中避免对数字模拟信号减采样产生的混叠效应，这些滤波器保留了相位信息。FIR滤波器的使用有时会导致一些不期望简单的位于数据末尾的短时现象，因而结果需要通过绘图来检查。只有当高频响应的精度不重要的时候，比如绘图时，才可以关闭FIR滤波器
+
+\SACTitle{例子}
+为了使减采样因子为42:
+\begin{SACCode}
+SAC> r FILE1
+SAC> decimate 7
+SAC> decimate 6
+\end{SACCode}
+
+\SACTitle{头段变量改变}
+NPTS, DELTA, E, DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1003: 值超出允许范围
+	\begin{itemize}
+  	\item[-]减采样因子的范围是2到7.
+	\end{itemize}
+\item[-]1301: 未读入文件
+\item[-]1306: 对非等间距文件的非法操作
+\item[-]1307: 对谱文件的非法操作
+\end{itemize}
+**注意** 减采样因子为7是滤波器偶尔不稳定
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)

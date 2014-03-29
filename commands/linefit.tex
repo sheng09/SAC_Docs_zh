@@ -1,0 +1,20 @@
+\section{linefit}
+\label{cmd:linefit}
+
+\SACTitle{概要}
+计算内存中数据的线性拟合，结果写到暂存块变量中
+
+\SACTitle{语法}
+LINEFIT
+
+\SACTitle{说明}
+对数据计算最小平方拟合得到一条直线，斜率以及y轴截距，斜率的标准差，截距的标准差，数据的标准差以及数据之间的互相关系数将分别被写入暂存块变量SLOPE，YINT，SDSLOPE，SDYINT，SDDATA以及CORRCOEF。数据不必是等间隔文件。
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1307: 对谱文件的非法操作
+\end{itemize}
+
+\SACTitle{最近修订}
+September 12, 1995 (Version 00.38)

@@ -1,0 +1,29 @@
+\section{border}
+\label{cmd:border}
+
+\SACTitle{概要}
+控制图形周围边界的绘制
+
+\SACTitle{语法}
+BORDER {ON|OFF}
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON: 打开边界绘图
+\item OFF: 关闭边界绘图 
+\end{itemize}
+
+\SACTitle{缺省值}
+BORDER OFF
+
+\SACTitle{说明}
+当这个选项打开时，在绘图视口(XVPORT)的四个边缘将绘制一个实现边界。注意有一条坐标轴线总是绘制
+在图形的一个边上，它包含注释轴(AXES)或一组时标(TICKS)。因此border选项只对那些轴或者时标的边成立。
+
+这个命令主页用于下面的情况，在一张图上绘制多个图形，图形没有坐标轴，因而用border将不同图形分割开
+
+\SACTitle{相关命令}
+XVPORT, YVPORT, AXES, TICKS
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

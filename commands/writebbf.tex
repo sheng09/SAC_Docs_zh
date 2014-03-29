@@ -1,0 +1,26 @@
+\section{writebbf}
+\label{cmd:writebbf}
+
+\SACTitle{概要}
+将一个暂存块变量写入磁盘
+
+\SACTitle{语法}
+WriteBBF {file}
+
+\SACTitle{输入}
+\begin{itemize}
+\item file : 暂存块变量文件的名字，其可以是简单文件名或相对/绝对路径。
+\end{itemize}
+
+\SACTitle{缺省值}
+WRITEBBF BBF
+
+\SACTitle{说明}
+这个命令让你能够将暂存块变量写入磁盘，其可以稍后用READBBF命令读入SAC，这个特性允许你保存SAC某次执行得到信息到另一个。你也可以在自己的程序中写代码去访问这些暂存块变量文件的信息。这使你可以在自己的程序与SAC之间交换信息。
+
+\SACTitle{相关命令}
+READBBF, SETBB, GETBB
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)
+

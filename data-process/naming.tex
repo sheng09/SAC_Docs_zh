@@ -1,0 +1,36 @@
+\section{数据的命名}
+从压缩格式中解压得到的SAC数据，其命名方式不够友好，比如用rdseed解压得到的数据，
+文件名的形式如下：
+\begin{lstlisting}[style=Bash]
+2012.055.12.34.56.7777.YW.MAIO.01.BHE.Q.SAC
+2012.055.12.34.50.6666.YW.MAIO.01.BHN.Q.SAC
+2012.055.12.34.54.5555.YW.MAIO.01.BHZ.Q.SAC
+\end{lstlisting}
+三个文件代表了YW台网MAIO台站的宽频地震仪记录的三分量波形数据。这样的长文件名在数据处理
+时显得很麻烦，一般都会先进行适当的简化。
+
+在某些情况下，我们会将同一个事件的所有数据放在同一个文件夹下，并将文件名以事件的
+发生日期/时间来命名。那么，SAC文件名中的时间信息就可以被简化：
+\begin{lstlisting}[style=Bash]
+YW.MAIO.BHE
+YW.MAIO.BHN
+YW.MAIO.BHZ
+\end{lstlisting}
+
+有时候，我们会将不同事件在同一个台站的波形数据放在同一个文件夹下，并将文件名以台站
+名来命名，此时数据文件名中可能需要保留事件的日期信息：
+\begin{lstlisting}[style=Bash]
+MAIO.20120224.BHE
+MAIO.20120224.BHN
+MAIO.20120224.BHZ
+\end{lstlisting}
+
+鉴于SAC命令的语法，在数据命名时最好将分量名放在最后，而将台站名放在最前面。
+这样，在使用SAC的通配符读取特定事件的所有台站的垂直分量波形数据时，可以：
+\begin{SACCode}
+SAC> r *.20120224.BHZ
+\end{SACCode}
+或者读取所有事件在同一台站的波形记录：
+\begin{SACCode}
+SAC> r MAIO.*.BHZ
+\end{SACCode}

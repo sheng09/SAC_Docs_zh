@@ -1,0 +1,341 @@
+\section{transfer}
+\label{cmd:transfer}
+
+\SACTitle{概要}
+反卷积以去除仪器响应并卷积以加入其它仪器响应。
+
+\SACTitle{语法}
+TRANSfer [ FROM type [options] ] [ TO type [options] ] [ FREQlimits f1 f2 f3 f4 ] [ PREWhitening ON | OFF | n ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item FROM type : 通过谱域除法做反卷积要去除的仪器类型。 
+\item TO type : 通过谱域乘法做卷积来加入的仪器类型。 
+\end{itemize}
+
+\SACTitle{缺省值}
+TRANS FROM NONE TO NONE
+
+\SACTitle{说明}
+在TRANSFTER中默认仪器的输入输出都是位移，在SAC中定义为NONE。因而如果FROM类型或者TO类型未指定，SAC会假定其为NONE。
+
+若输出仪器是NONE，则SAC头段中的IDEP将设置为DISPLACEMENT(单位为nm). 对于下表列出的全部地震仪，TO NONE的输出单位为nm。如果TRANSFER选择为TO VEL或TO ACC，SAC中的头段变量IDEP将根据内存中的波形而改变。
+
+如果TO指定为除NONE、VEL、ACC外的其他类型，内存中的波形将被转换为相应的仪器类型。如果FROM仪器类型是NONE，则不会去除仪器响应，原始的地震道数据认定为位移，这常用于向合成地震图中加入仪器响应。
+
+在同一个SAC会话中，当第二次调用TRANSFER时一定要特别小心，因为第二次调用TRANSFER时会使用第一次调用时的参数，除非显式指定其参数。
+
+很多仪器都有参数以进一步指定其仪器响应，最常见的选项是仪器子类型。极少数仪器需要一些给出数值参数而非子类型选项。详情参见下表。
+
+20年前TRANSFER命令引入时，数据获取系统相对简单。当今，多数数据是从IRIS的数据管理中心下载得到，一般为SEED格式。RDSEED程序可以读取SEED数据，EVALRESP程序可以从RDSEED产生的响应文件RESP中计算出完整的系统响应。EVALRESP程序目前已经嵌入到TRANSFER命令的仪器类型选择中，使得用户可以根据RESP文件对数据做卷积或反卷积来处理仪器响应。
+
+SEED文件的格式说明及程序RDSEED和EVALRESP的代码可以由此获得:\\
+\href{http://www.iris.edu/software/downloads/seed_tools/}{http://www.iris.edu/software/downloads/seed\_tools/}
+
+SAC中Laplace/Fourier变换中的符号定义与RDSEED和EVALRESP相同：因果响应的相位随着频率增大而减小。对于位移，SAC的单位是nm，而RDSEED的RESP文件使用m为单位。TRANSFER的EVALRESP选项对此做了纠正以使得输出符合SAC的规定。对于其他选项(FAP, PZ)，可能会需要修改其单位。（参见下面的例子）
+
+FREQLIMITS f1 f2 f3 f4 : 所有的地震仪在0频率处都具有零响应。当做反卷积但不卷积其他响应的时候(e.g. ``TO NONE'')，就有必要修改超低频率处的响应以防止频率域除0。在高频区域，信噪比通常很低，因而有必要对其响应进行抑制。FREQLIMITS即可满足此要求。FREQLIMITS包含了低通和高通的尖灭器（taper）。四个频率满足f1<f2<f3<f4，尖灭器在f2和f3间为1，在f1以下和f4以上为0。频率f1和f2确定了高通滤波器的特性，频率f3和f4指定了低通滤波器的特性。
+
+f1与f2之间以及f3与f4之间分别为余弦波的四分之一个周期。
+
+如果你想要一个低通滤波器但在低频处不滤波，一种方法是设置f1=-2和f2=-1；如果你想要一个高通滤波器但在高频处不滤波，对于Nyquist频率为0.5，设置f3=10和f4=20。
+
+注意：由于滤波器还有零相位，因而其是非因果。如果数据点数npts不为2的指数幂次，会导致在频段(f1,f4)之外振幅不为0。如果想要数据点数为2的幂次方个，可以参考SAC中的CUT命令。
+
+缺省值中是没有FREQLIMITS选项的，强烈建议在做反卷积时包含FREQLIMITS选项。
+\begin{itemize}
+\item PREWHITENING: 预白化可以将输入时间序列在变换到频率域之前，进行谱的平化。这	会减小谱值的动态范围，并提高数据在高频的计算精度。默认prewhitening是关闭的。参见WHITEN命令。
+\item PREWHITENING ON : 在谱操作之前在频率域进行谱白化，并在谱操作后在时间域做谱白化的补偿。
+\item PREWHITENING OFF : 关闭预白化。
+\item PREWHITENING n : 打开预白化选项并设置其阶数。如果打开预白化但不指定阶数，则缺省n=6,除非在WHITEN命令中已经修改了预白化阶数。
+\end{itemize}
+
+\SACTitle{EVALRESP选项}
+该选项需要RESP文件，RESP文件由RDSEED程序解压SEED文件产生，RESP文件必须位于当前路径或这个给出其全路径。
+
+RESP文件本身没有帮助文档，但是由于其直接与SEED格式关联，你可以从SEED的帮助文档中找到与RESP文件有关的信息。SEED帮助文档可以在此处下载：\\
+\href{http://www.iris.edu/manuals/}{http://www.iris.edu/manuals/}
+
+为了识别正确的RESP文件并从文件中提取正确的transfer函数，EVALRESP需要使用SAC头段中的一些信息。
+这些字段包括台站名(KSTNM)、频道名(KCMPNM)、日期和时间(KZDATE，KZTIME)、台网名(KNETWK)以及
+位置号LOCID（通常用于区分相同台网、相同台站、相同频道、相同运行时间的多个仪器）。如果有必要，
+从IRIS获得的SAC格式的数据（或由RESEED转换过来的SAC文件）会将KHOLE头段设置为一个有效的。如果
+用户从RESP文件中明确获取了真是的LOCID，用户可以使用SAC的CH命令设置KHOLE的值。如果KHOLE是一
+个两个字节的字母-数字型字符串，SAC将使用KHOLE作为LOCID 。
+
+通过给EVALRESP指定额外的参数可以覆盖这些头段变量，这些可能的参数包括：STATION, CHANNEL, NETWORK, DATE, TIME, LOCID, FNAME
+
+每个选项必须更一个合适的值，如果DATE在头段中为设定且在选项中未指定，那么当前系统日期将被使用。TIME同理。若NETWORK未指定，则缺省可以使用任意台站名；若LOCID未指定，则缺省使用任意LOCID。为了强制TRANSFER使用指定的SEED响应文件，需要使用FNAME选项并紧跟文件名。
+
+如果FNAME选项未指定，EVALRESP将尝试按照一般格式在当前工作目录下确认正确的文件，其一般格式为RESP.<NET>.<STA>.<LOCID>.<CHAN>
+比如：``RESP.IU.ANMO..BHZ''
+
+内嵌的EVALRESP版本总是产生以m单位的响应文件，SAC对其乘以1.0e9的因子使得其单位为nm。
+
+
+\SACTitle{EVALRESP例子}
+为了将内存中的地震图去除仪器响应(假设响应文件已经存在)：
+\begin{SACCode}
+SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
+SAC> RTR
+SAC> TAPER
+SAC> TRANS FROM EVALRESP TO NONE freq 0.004 0.007 0.2 0.4
+\end{SACCode}
+
+若响应文件位于/tmp/Responses/RESP.TA.N11A..LHZ:
+\begin{SACCode}
+SAC> SETBB RESP "/tmp/Responses/RESP.TA.N11A..LHZ"
+SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
+SAC> RTR
+SAC> TAPER
+SAC> TRANSFER FROM EVALRESP FNAME %resp TO NONE FREQLIM 0.004 0.007 0.2 0.4
+\end{SACCode}
+
+为了从文件16.42.05.5120.TS.PAS.BHZ.SAC中去除仪器响应，并添加台站COL，频道BHZ，相同周期的响应：
+\begin{SACCode}
+SAC> R 16.42.05.5120.TS.PAS.BHZ.SAC
+SAC> RTR
+SAC> TAPER
+SAC> TRANS FROM EVALRESP TO EVALRESP STATION COL
+\end{SACCode}
+
+为了以位移方式显示台站COL，频道BHZ，台网IU，日期1992/02，时间16:42:05的仪器响应：
+\begin{SACCode}
+SAC> FG IMPULSE NPTS 16384 DELTA .05 BEGIN 0.
+SAC> TRANS TO EVALRESP STATION COL CHANNEL BHZ NETWORK IU DATE 1992/2 TIME 16:42:05
+SAC> FFT
+SAC> PSP AM
+\end{SACCode}
+
+\SACTitle{说明}
+RTR用于去除线性趋势和偏移，由于TRANSFER命令调用的FFT需要2的幂次方个数据点，因而需要对不足的点数进行补0，TAPER命令使时间序列末端的大的振幅跳跃尖灭。FREQLIMITS对于反卷积TO NONE很必要，因为仪器在零频率处具有零响应。
+
+\SACTitle{POLEZERO选项}
+POLEZERO是用于添加或去除地震仪响应的一种仪器类型。可以参考SEED帮助文档的附录C。
+零极点文件（polezero file）可以分别针对位移、速度或应力，输出的单位需要提前知道。如果零极点文件是由RDSEED 5.0 及以后版本生成，其信息将包含在文件中(参见下例)。
+
+Transfer函数H(s)是地震仪器的线性系统脉冲响应的Laplace变换，Laplace变量$s=2\pi f i$，其中f为频率，单位Hz。 
+
+响应H(s)是s与nz个零点及s与np个极点的差的乘积，如下式所示：
+\[ H(s) = \frac{(s-z_1)(s-z_2)\ldots(s-z_{nz})}{(s-p_1)(s-p_2)\ldots(p-z_{np})}\]
+
+文件中包含零点、极点、常数值及注释行，其中常数是比例因子。若常数行缺省则其默认值为1.0。文件中包含关键字"POLES"的行给出了极点信息，其后紧跟的整数位极点数（即np）。接下来的np行为该仪器的极点，每行两个浮点数，分别代表实部和虚部。以关键字"ZEROS"起始的行给出零点信息，后跟零点数(nz)。由于传统的零极点文件可能包含一个或多个(0.0,0.0)这样的零点，而SAC零点等于(0.0,0.0)时SAC不要求写出。最多可以指定30个零点和30个极点。
+原先的SAC零极点文件仅包含零点、极点和常数。最近，零极点文件中允许包含格式化的注释行作为头段，以帮助用户组织和理解文件中的信息。目前SAC支持带注释的零极点文件，其可以由IRIS数据管理中心的RDSEED程序(v5.2, October 2011)以及SAC PZ网页服务产生\href{http://www.iris.edu/ws/sacpz}{http://www.iris.edu/ws/sacpz}。若内存中的波形拥有头段KSTNM, KCMPNM, KZDATE及KZTIME与零极点文件相匹配的地震图，这个命令将对这个地震图产生作用。对于SACPZ，一个零极点文件中可能包含多个零极点文件的信息，其跨越了多个时间段或多个台站多个频道。调用transfer命令将自动对内存中匹配的全部波形进行处理。
+
+下面给出由程序RDSEED (v5.2)产生的一个零极点文件的例子，早期版本的RDSEED的输出可能与此略微不同：\footnote{以*号开头的行为注释行，仅供用户阅读，对于transfer命令没有意义，比较一下可以发现，
+在去仪器响应时，使用无注释的PZ文件要比有注释的PZ文件快很多，因而当用脚本处理大量数据时，可以重写一个无注释的PZ文件，加速效果很明显。}
+\begin{SACCode}
+    * **********************************
+    * NETWORK   (KNETWK): II
+    * STATION    (KSTNM): PFO
+    * LOCATION   (KHOLE): 00
+    * CHANNEL   (KCMPNM): BHZ
+    * CREATED           : 2011-08-11T00:24:07
+    * START             : 2010-07-30T18:50:00
+    * END               : 2599-12-31T23:59:59
+    * DESCRIPTION       : Pinon Flat, California, USA
+    * LATITUDE          : 33.610700
+    * LONGITUDE         : -116.455500
+    * ELEVATION         : 1280.0
+    * DEPTH             : 5.3
+    * DIP               : 0.0
+    * AZIMUTH           : 0.0
+    * SAMPLE RATE       : 20.0
+    * INPUT UNIT        : M
+    * OUTPUT UNIT       : COUNTS
+    * INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+    * INSTGAIN          : 3.314400e+03 (M/S)
+    * COMMENT           : S/N #119005
+    * SENSITIVITY       : 5.247780e+09 (M/S)
+    * A0                : 7.273290e+01
+    * **********************************
+    ZEROS	6	
+    -7.853982e+01	+0.000000e+00	
+    -1.525042e-01	+0.000000e+00	
+    -1.525042e-01	+0.000000e+00	
+    POLES	6
+    -1.207063e-02	+1.224561e-02	
+    -1.207063e-02	-1.224561e-02	
+    -1.522510e-01	+9.643684e-03	
+    -1.522510e-01	-9.643684e-03	
+    -4.832398e+01	+5.817080e+01	
+    -4.832398e+01	-5.817080e+01	
+    CONSTANT	3.816863e+11
+\end{SACCode}
+     
+对于这个transfer函数，有六个极点和六个零点，其只列出3个零点，另外3个未列出的零点值为(0.0,0.0)。
+
+注意：在某些平台上，RDSEED v5.1会产生错误的END时间，通常比START时间早一点，因而TRANSFER无法正常工作，手动将END时间修改为迟于CREATED时间将使得TRANSFER可以正常处理数据。
+
+为了适应这个选项，用户需要知道type为POLEZERO，subtype为文件名，该文件需要在当前目录或指定其绝对或相对路径。
+
+\SACTitle{POLEZEROS例子}
+PZ文件SAC\_PZs\_XC\_OR075\_LHZ是需要从波形OR075\_LHZ.SAC中去除的仪器响应零极点文件：
+\begin{SACCode}
+SAC> SETBB pzfile "SAC_PZs_XC_OR075_LHZ"
+SAC> READ OR075_LHZ.SAC
+SAC> RTR
+SAC> TAPER
+SAC> TRANS FROM POLEZERO S %pzfile TO NONE FREQ 0.008 0.016 0.2 0.4
+SAC> MUL 1.0e9
+SAC> w OR075.z
+\end{SACCode}
+注意：如果零极点文件由RDSEED从SEED文件中提取得到，则零极点为位移，其长度单位与SEED格式相同，一般为m。一个指定的传感器的零极点文件仅代表了SEED文件中可用响应信息的一部分。这个零极点文件就是一个例子。其只包含了仪器响应的第一部分，即地震仪，其他部分如FIR和IIR滤波器未包含在内。EVALRESP计算了全部的响应，但是在多数情况下使用POLEZERO已经足够。不像EVALRESP，SAC不知道零极点文件来自何处，因而此处需要手动乘以比例因子1.0e9以实现m到nm的转换。w OR075.z命令产生的波形即为以nm为单位的位移文件。
+
+对于上面的例子，如果我们没有使用SAC\_PZs\_XC\_OR075\_LHZ，而是使用了错误的PZ文件：SAC\_PZs\_wrong，下面的过程给出如何调用TRANSFER命令去除不正确的响应并加入正确的响应。
+\begin{SACCode}
+SAC> READ OR075.z
+SAC> write OR075.zbad
+SAC> SETBB pzo "SAC_PZs_wrong"
+SAC> SETBB pzn "SAC_PZs_XC_OR075_LHZ"
+SAC> TRANS FROM POLEZERO S %pzn TO POLEZERO S %pzo FREQ 0.008 0.015 0.2 0.4
+SAC> write OR075.z
+\end{SACCode}
+最后一个例子，假设我们用RDSEED v5.2在当前目录产生了同一个时间的多个台站和BH*频道的多个波形，同时使用SACPZ或者将所有BH* PZ文件联接起来得到一个文件名为event.pz。下面的例子将读入全部BH*波形文件，经仪器响应校正并覆盖原文件。
+\begin{SACCode}
+SAC> r *BH*SAC
+SAC> rtr
+SAC> taper
+SAC> TRANS FROM POLEZERO S event.pz freq 0.05 0.1 10.0 15.0
+\end{SACCode}
+
+\SACTitle{FAPfile选项}
+SAC v101.4中重新引入了FAPfile选项。FAPFILE为ascii文件，每行包含三个字段：频率(HZ)、振幅及相位(度，随频率增加而减小)。这种FROM选项将对从第一行开始到最后一行结束的频率段进行波形反卷积。频率不需要等间隔分段。做校正时，低于第一行频率的频段将使用第一行的振幅和相位；同理大于最后一行频率的频段将使用最	后一行的振幅和相位。
+
+EVALRESP v3.3.2可以输出为FAPfile，使用EVALRESP生成的FAPFILE而非POLEZERO的好处在于其可以包含更多部分的仪器响应，且可以显式控制需要校正的频率段。
+
+FAPfile的格式与单独程序EVALRESP (v3.3.3)的输出相同，但是与SAC2000的格式不同。  
+
+\SACTitle{FAPfile例子}
+
+假设有fapfile文件fap.n11a.lhz\_0.006-0.2，其名字表示频率段位0.006 Hz到0.2 Hz，要从波形2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC中移除仪器响应：
+\begin{SACCode}
+SAC> READ 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
+SAC> RTR
+SAC> TAPER
+SAC> TRANSFER FROM FAP S fap.n11a.lhz_0.006-0.2 FREQ 0.004 0.006 0.1 0.2
+SAC> MUL 1.0e9
+\end{SACCode}
+
+\SACTitle{说明}
+如EVALRESP和POLEZERO选项，应该加上FREQLIMITS选项以处理超高频和超低频。
+
+\begin{table}{H}
+\centering
+\caption{可用仪器类型列表}	
+\begin{tabular}{ll}
+\toprule
+类型	&	说明	\\
+\midrule
+
++ACC     &  acceleration	\\
+BBDISP   &  Blacknest specification of Broadband Displacement \\
+BBVEL    &  Blacknest specification of Broadband Velocity	\\	
+BENBOG   &  Blacknest specification of Benioff by Bogert	\\
+DSS      &  LLNL Digital Seismic System	\\	
+DWWSSN   &  Digital World Wide Standard Seismograph Station	\\
+EKALP6   &  Blacknest specification of EKA LP6	\\
+EKASP2   &  Blacknest specification of EKA SP2	\\
+ELMAG    &  Electromagnetic	\\	
+++EVALRESP &  Response specified in SEED RESP files	\\
+GBALP    &  Blacknest specification of GBA LP	\\
+GBASP    &  Blacknest specification of GBA SP	\\
+GENERAL  &  General seismometer	\\
+GSREF    &  USGS Refraction	\\
+HFSLPWB  &  Blacknest specification of HFS LPWB	\\
+IW       &  EYEOMG-spectral differentiation	\\
+LLL      &  LLL broadband analog seismometer	\\
+LLSN     &  LLSN L-4 seismometer	\\	
+LNN      &  Livermore NTS Network instrument	\\
+LRSMLP   &  Blacknest specification of LRSM LP	\\
+LRSMSP   &  Blacknest specification of LRSM SP	\\
++NONE    &  displacement, this is the default	\\	
+NORESS   &  NORESS (NRSA)	\\
+NORESSHF &  NORESS high frequency element	\\
+OLDBB    &  Old Blacknest specification of BB	\\
+OLDKIR   &  Old Blacknest specification of Kirnos	\\	
+++POLEZERO & reads Pole Zero file	\\
+PORTABLE  & Portable seismometer with PDR2	\\
+PTBLLP    & Blacknest specification of PTBL LP	\\
+REDKIR   &  Blacknest specification of RED Kirnos	\\	
+REFTEK   &  Reftek 97-01 portable instrument	\\
+RSTN     &  Regional Seismic Test Network	\\
+S750     &  S750 Seismometer	\\
+SANDIA   &  Sandia system 23 instrument	\\
+SANDIA3  &  Sandia new system with SL-210	\\
+SRO      &  Seismic Research Observatory	\\
++VEL     &  velocity	\\
+WA       &  Wood-Anderson	\\	
+WABN     &  Blacknest specification of Wood-Anderson	\\
+WIECH    &  Wiechert seismometer	\\
+WWLPBN   &  Blacknest specification of WWSSN long period	\\
+WWSP     &  WWSSN short period	\\
+WWSPBN   &  Blacknest specification of WWSSN short period	\\
+YKALP    &  Blacknest specification of YKA long period	\\
+YKASP    &  Blacknest specification of YKA short period	\\
+\bottomrule
+\end{tabular}
+\end{table}
+注意：
+
+  [+] ACC、VEL和NONE不代表真实的地震仪；若其用于To类型中，IDEP自动指定。
+
+  [++] EVALRESP和POLEZERO不代表真实的地震仪。
+
+
+\begin{table}{H}
+\centering
+\caption{仪器子类型选项}
+\begin{tabular}{ll}
+\toprule
+主类型	&	子类型	\\
+\midrule
+LLL       &       LV, LR, LT, MV, MR, MT, EV, ER, ET, KV, KR, KT	\\
+LNN       &    	  BB, HF	\\
+NORESS    &   	  LP, IP, SP	\\
+POLEZERO  &    	  name of file to be read	\\
+RSTN      &    	  [CP, ON, NTR, NY, SD][KL, KM, KS, 7S][Z, N, E]	\\
+SANDIA    &   	  [N, O][T, L, B, D, N, E][V, R, T]	\\
+SRO       &       BB, SP, LPDE	\\
+FREEPERIOD v &   ELMAG, GENERAL, IW, LLL SUBTYPE BB, REFTEK(对于ELMAG，v必须等于15.0或30.0)	\\
+MAGNIFICATION n & ELMAG, GENERAL  (对ELMAG，n须等于375,750,1500,3000或6000)	\\
+NZEROS n &     	  GENERAL, IW	\\
+DAMPING v &    	  GENERAL, LLL SUBTYPE BB, REFTEK	\\
+CORNER v &    	  LLL SUBTYPE BB, REFTEK	\\
+GAIN v &		\\
+HIGHPASS v &	  REFTEK	\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\SACTitle{例子}
+为了将NYKM.Z去除台站RSTN的仪器响应，并应用DSS的仪器响应：
+\begin{SACCode}
+SAC> READ NYKM.Z
+SAC> TRANS FROM RSTN SUBTYPE NYKM.Z TO DSS PREW OFF
+\end{SACCode}  	
+
+为了去除LLL宽频带仪器响应，应用SRO仪器响应，并对频带做尖灭及预白化：
+\begin{SACCode}
+SAC> READ ABC.Z
+SAC> TRANS FROM LLL TO SRO FREQ .02 .05 1. 2. PREW 2
+\end{SACCode}
+得到的地震数据的通带，在0.05Hz到1Hz是平的，在0.02Hz以下及2Hz以上为0。
+
+在反卷积前在时间域做二阶预白化，在卷积之后该效应被移除。
+
+为了将电磁仪器响应转换为位移：
+\begin{SACCode}
+SAC>  READ XYZ.Z
+SAC>  TRANSFER FROM ELMAG FREEP 15. MAG 750. TO NONE
+\end{SACCode}
+
+\SACTitle{致谢}
+Roger Hanscom 首先实现了Keith Nakanishi 的TRANSFER程序的转换。
+
+George 	Randall 加入了预白化选项。
+
+Doug Dodge加入了EVALRESP选项.
+
+\SACTitle{最近修订}
+August 2011 (Version 101.5) 

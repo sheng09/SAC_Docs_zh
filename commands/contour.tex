@@ -1,0 +1,101 @@
+\section{contour}
+\label{cmd:contour}
+
+\SACTitle{概要}
+利用内存中的数据绘制等值线图
+
+\SACTitle{语法}
+CONTour [Aspect ON|OFF]
+
+\SACTitle{输入}
+\begin{itemize}
+\item Aspect ON: 打开视图比开关。当这个开关打开时，等值线图的视口将会调整保持数据中y与x的比值
+\item Aspect OFF: 关闭视图比开关，这时将使用整个视口。
+\end{itemize}
+
+\SACTitle{缺省值}
+CONTOUR  ASPECT  OFF
+
+\SACTitle{说明}
+这个命令用于绘制二维数组数据的等值线图，包括SPECTROGRAM命令的输出。这个文件
+操作的SAC文件必须``XYZ''类型的（SAC头段中IFTYPE为``IXYZ''）。有些命令可以
+控制数据显示的方式：ZLEVELS控制等值线的数目以及间隔， ZLINES控制线型，
+ZLABELS控制等值线标签，ZTICKS控制方向标记，ZCOLORS控制线条颜色。根据
+contour选项的不同，有两种不同的绘制等值线算法。一种快速扫描方法用于既不
+选择实线型也没有时标和标识的情况。另一种慢一点的方法，在绘图之前要组合
+全部的线段。你可以使用快速扫描方法粗看你的数据，然后选择其他选项绘制最终
+图形。
+
+\SACTitle{例子}
+下面的第一个例子中，读取一个文件并用缺省值绘图。你可以在sac/macros/data下找到名为contourdata的文件作为下面的例子文件。
+
+在这个例子中，文件被读入，头段列出以决定z数据的范围(DEPMIN和DEPMAX.)这里只显示了lh命令列出信息的部分。选择等值线范围为700km到1150km，增量为25km。选择包括四种线型的线型表，其中第一个为实线。这个列表将每四条等值线重复一次。然后给等值线图起了个名字，最后绘制出来:
+\begin{SACCode}
+SAC> r ./contourdata 
+SAC> lh
+  
+  FILE: ./contourdata - 1
+ -------------------
+         NPTS = 10000
+            B = 0.000000e+00
+            E = 9.999000e+03
+       IFTYPE = GENERAL XYZ (3-D) FILE
+        LEVEN = TRUE
+        DELTA = 1.000000e+00
+       DEPMIN = 6.977119e+02
+       DEPMAX = 1.154419e+03
+       DEPMEN = 8.316542e+02
+       LOVROK = TRUE
+       NXSIZE = 100
+     XMINIMUM = 8.257441e+04
+     XMAXIMUM = 8.699228e+04
+       NYSIZE = 100
+     YMINIMUM = 4.743853e+05
+     YMAXIMUM = 4.772037e+05
+        NVHDR = 6
+        NORID = 0
+        NEVID = 0
+       LPSPOL = FALSE
+       LCALDA = TRUE
+SAC> zlevels range 700 1150 increment 25
+SAC> zlines list 1 2 3 4
+SAC> title 'Katmai topography from survey data [inc = 25 km]'
+SAC> contour
+\end{SACCode}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=14cm]{contour_1}
+\caption{CONTOUR例子I示意图}
+\end{figure}
+
+下面的例子中，使用同样的文件，但是显示选项不同。每四条等值线有一个整数标签。	每条等值线之间都有一个指向向下的箭头。所有等值线为实线型：
+\begin{SACCode}
+SAC> r ./contourdata 
+SAC> zlevels range 700 1150 increment 25
+SAC> zlabels on list int off off off
+SAC> zticks on direction down
+SAC> zlines list 1
+SAC> title 'Katmai topography from survey data [labels and ticks]'
+SAC> contour
+\end{SACCode}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=14cm]{contour_2}
+\caption{CONTOUR例子II示意图}
+\end{figure}
+
+\SACTitle{头段变量改变}
+要求: IFTYPE (为``IXYZ''), NXSIZE, NYSIZE
+
+使用: XMINIMUM, XMAXIMUM, YMINIMUM, YMAXIMUM
+
+\SACTitle{相关命令}
+ZCOLORS, ZLABELS, ZLEVELS, ZLINES, ZTICKS, SPECTROGRAM
+
+\SACTitle{致谢}
+快速扫描等值线子程序由Dave Harris(DBH)开发。
+
+\SACTitle{最近修订}
+JULY 22, 1991 (Version 10.6d)

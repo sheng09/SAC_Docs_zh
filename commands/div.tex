@@ -1,0 +1,33 @@
+\section{div}
+\label{cmd:div}
+
+\SACTitle{概要}
+给每一个数据点除以一个常数
+
+\SACTitle{语法}
+DIV [v1 [v2 ... vn] ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item v1 : 乘到第一个文件的常数
+\item v2 : 乘到第二个文件的常数
+\item vn : 乘到第n个文件的常数 
+\end{itemize}
+
+\SACTitle{缺省值}
+DIV 1.0
+
+\SACTitle{说明}
+这个命令将给内存中的每一个数据文件的每个元素除一个常数。这个常数对于每一个数据文件来说可以是相同的也可以是不同的。如果内存中数据文件的数目比命令给出的常数要多，那么最后命令中的最后一个常数将用于剩下的所有文件。如果内存中数据文件数目比给出的常数少，则多余的常数将被忽略。
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1307: 对谱文件的非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

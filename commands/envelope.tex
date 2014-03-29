@@ -1,0 +1,25 @@
+\section{envelope}
+\label{cmd:envelope}
+
+\SACTitle{概要}
+利用Hilbert变换计算包络函数
+
+\SACTitle{语法}
+ENVELOPE
+
+\SACTitle{说明}
+这个命令用于对内存中的数据计算包络函数。包络函数定义为
+	\[ Envelope(n)= \sqrt{x(n)^2+y(n)^2} \]
+其中x(n)是原始信号，y(n)是它的Hilbert变换（参见HILBERT）。和HILBERT一样，超长数据需要在处理之前进行减采样。
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{相关命令}
+HILBERT, DECIMATE
+
+\SACTitle{致谢}
+用于进行Hilbert变换的子程序由Dave Harris(DBH)设计并开发。
+
+\SACTitle{最近修订}
+April 21, 1989 (Version 10.4c)

@@ -1,0 +1,135 @@
+\section{plotpk}
+\label{cmd:plotpk}
+
+\SACTitle{概要}
+产生一个用于拾取到时的图
+
+\SACTitle{语法}
+PlotPK [ Perplot ON | OFF | n ] [ BELL ON | OFF ] [ Absolute | Relative ] [ Reference ON | OFF | v ] [ Markall ON | OFF ] [ Savelocs ON | OFF ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item PERPLOT ON : 一张图绘制n个文件，使用n的旧值 
+\item PERPLOT OFF : 在一张图上绘制所有文件 
+\item PERPLOT n : 一张图上绘制n个文件，比如拾取震相时常使用n=3（三分量) 
+\item BELL {ON}|OFF :  击键时是否响铃 
+\item ABSOLUTE : 显示绝对GMT格式时间 
+\item RELATIVE : 显示相对于每个文件的参考时间 
+\item REFERENCE {ON} : 打开参考线显示 
+\item REFERENCE OFF : 关闭参考线选项 
+\item REFERENCE v : 打开参考线选项并设置参考值为v，设置为0会很方便 
+\item MARKALL {ON} : 同时储存一张图上的所有文件的时间标记，用于拾取震相 
+\item MARKALL OFF : 只保存光标位置所在的那个文件的震相拾取标记 
+\item SAVELOCS {ON} : 保存拾取的位置（由命令L得到，稍后介绍）到暂存块变量中 
+\item SAVELOCS OFF :  不保存拾取位置到暂存块变量 
+\end{itemize}
+
+\SACTitle{其他形式}
+GMT可以用于代替ABSOLUTE，ZERO可以代替RELATIVE.
+
+\SACTitle{缺省值}
+PLOTPK PERPLOT OFF ABSOLUTE REFERENCE OFF MARKALL OFF SAVELOCS OFF
+
+\SACTitle{说明}
+这个命令的格式类似于PLOT1，这个绘图需要一个带有光标的终端。在该命令后将在屏幕上出现光标，输入单个字符即可执行不同的操作。有些但不是全部字符将在屏幕上产生图形输出。错误以及输出信息将在屏幕上部打印，当前在头段中的震相拾取将自动	显示在屏幕上。不同的光标响应的输出可以定向到SAC头段中，也可以定向到一个字符数字型震相拾取文件（OAPF），或者到一个HYPO震相拾取文件，或者到终端。如果你使用SAVELOCS选项保存由L光标选项得到的光标位置到暂存块变量，那么下面的暂存块变量将被定义:
+\begin{itemize}
+\item NLOCS: 在命令执行期间拾取的光标位置数，每次执行PPK时初始化为0，每次拾取光标位置则加1
+\item XLOCn: 拾取光标位置的x值，如果头段中的参考时间被定义其是GMT时间，否则其为偏移时间
+\item YLOCn: 第n个拾取光标位置的y值
+\end{itemize}
+
+\SACTitle{头段变量改变}
+A, KA, F, KF, Tn, KTn.
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1202: 变量块个数超过了最大数目
+\end{itemize}
+
+\SACTitle{警告消息}
+\begin{itemize}
+\item[-]1502: 错误的光标位置，请重新尝试
+	\begin{itemize}
+	\item[-]光标位于绘图窗口之外
+	\end{itemize}
+
+\item[-]1503: 无效字符，请重新尝试
+	\begin{itemize}
+ 	\item[-]输入的字符SAC无法识别为合法响应
+	\end{itemize}
+\item[-]1905: 需要一个整数,请重新尝试
+	\begin{itemize}
+ 	\item[-]在响应T之后未输入整数
+	\end{itemize}
+\item[-]1906: 需要一个0到4的正式，请重新尝试
+	\begin{itemize}
+  	\item[-]在响应Q之后未输入0, 1, 2 或 3
+	\end{itemize}
+\item[-]1907: HYPO行已经写入
+\item[-]1908: HYPO震相拾取文件未打开
+\item[-] 1909: 无法计算波形
+	\begin{itemize}
+  	\item[-]调整光标位置并重试，绘图总是ABSOLUTE模式
+	\end{itemize}
+\end{itemize}
+
+\SACTitle{相关命令}
+PLOT1 , OHPF, OAPF, APK, PLOTPKTABLE
+
+\SACTitle{最近修订}
+May 16, 200 (version 100.1)
+
+\begin{table}
+\centering
+\caption{PLOTPK选项表}
+\begin{tabular}{p{1cm}p{14cm}}
+	\toprule
+	字符	&	含义	\\
+	\midrule
+	A	&	定义头段中的初至[1,7]	\\
+	B	&	如果有，则显示上一张绘图	\\
+	C	&	计算事件的初至和结束[1,4,7]	\\
+	D	&	设置震相方向为DOWN	\\
+	E	&	设置震相起始为EMERGENT(急始)	\\
+	F	&	定义事件结束[1,2,3,7]	\\
+	G	&	以HYPO格式将拾取显示到终端[4]	\\
+	H	&	将拾取写成HYPO格式[3,4]	\\
+	I	&	设置震相起始为IMPULSIVE	\\
+	J	&	设置噪声水平[2,6,8]	\\
+	L	&	显示光标当前位置[2,4]	\\
+	M	&	计算最大振幅波形[2,3,5]	\\
+	N	&	显示下一绘图	\\
+	O	&	显示前一个绘图窗，最多可以保存5个绘图窗	\\
+	P	&	定义P波到时[1,2,3,7]	\\
+	Q	&	结束PLOTPK	\\
+	S	&	定义S波到时[1,2,3,7]	\\
+	T	&	用户自定义到时Tn，输入T之后需要输入0到9中的任一数	\\
+	U	&	设置震相方向为UP	\\
+	V	&	定义一个Wood-Anderson波形[2,5]	\\
+	W	&	定义一个通用波形[2,5]	\\
+	X	&	对当前plot使用一个新的x轴时间窗。简单说就是放大。新绘图从当前
+			光标位置开始。然后将光标移动到新位置，并键入任意键。新绘图将以
+			光标当前位置作为结束。如果第二次键是S，那么新的x轴方位就被保存
+			并一直用于接下来的一系列绘图中。	\\
+	Z	&	设置参考水平[2,6,8]	\\
+	\	&	删除当前全部拾取的定义。当一个文件中包含多个事件时有用。	\\
+	+	&	设置震相方向为PLUS	\\
+	-	&	设置震相方向为MINUS	\\
+	space &	设置震相方向为NEUTRAL	\\
+	n	&	设置震相质量为n，n取0-4	\\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+\SACTitle{PLOTPK命令选项说明}
+\begin{enumerate}
+\item 写入SAC头段
+\item 写入字符数字型震相拾取文件（如果已打开）
+\item 写入HYPO震相拾取文件（如果已打开）
+\item 写入终端
+\item 在参考水平处放置水平光标，第一个最值处放置垂直光标。终端回显包含波形的盒子
+\item 在指定的水平处放置水平光标
+\item 终端回显有标签的垂直线
+\item 终端回显有标签的水平线
+\end{enumerate}

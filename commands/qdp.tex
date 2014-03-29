@@ -1,0 +1,45 @@
+\section{qdp}
+\label{cmd:qdp}
+
+\SACTitle{概要}
+控制低分辨率快速绘图选项``quick and dirty plot''
+
+\SACTitle{语法}
+QDP [ ON | OFF | n ] [ TERM ON | OFF | n ] [ SGF ON | OFF | n ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON|OFF : 打开/关闭终端和SGF文件的QDP选项 
+\item n : 打开终端和SGF文件的QDP选项，并改变绘制的数据点数为n 
+\item TERM ON|OFF : 打开/关闭终端qdp绘图选项 
+\item TERM n : 打开终端的QDP选项，并改变绘制的数据点数为n 
+\item SGF ON|OFF : 打开/关闭终端qdp绘图选项 
+\item SGF n : 打开终端的QDP选项，并改变绘制的数据点数为n 
+\end{itemize}
+
+\SACTitle{缺省值}
+QDP TERM 5000 SGF 5000
+
+\SACTitle{说明}
+绘制大型文件会消耗很长的时间，``quick and dirty plot''选项通过不绘制每一个点来加速绘图。
+当这个选项为开时，SAC将通过文件中数据点数除以你要求显示的数据点计算得到区间大小。文件越大，每个区间中数据点就越多。
+
+SAC然后后计算出每个区间内最小和最大数据点数。如果这个选项为开则SAC将在绘图的角落的小框中显示采样因子（区间尺寸的一半）。实际显示的数据点可能接近于它的值也可能相差很多，因为这个命令仅仅绘制区域中的极值。
+
+对于目前的机器来说，一般大文件的绘图已经不会耗费太多时间了，所以一般都直接qdp off
+
+\SACTitle{例子}
+假设文件FILE1有20000个数据点，文件FILE2有40000个数据点，如果你输入:
+\begin{SACCode}
+SAC> READ FILE1 FILE2
+SAC> BEGINDEVICES TERMINAL
+SAC> PLOT
+\end{SACCode}
+那么两张图都将准确包含5000个点，第一个文件将每4个点取一个点用于绘图，第二个每8个点取一个点绘图。数据区间的尺寸尽量取下限以保证你至少可以看到你所要求的点数。如果你要将图绘制到SGF:
+\begin{SACCode}
+SAC> BEGINDEVICES SGF
+SAC> PLOT
+\end{SACCode}
+
+\SACTitle{最近修订}
+February 20, 1985 (Version 9.13)

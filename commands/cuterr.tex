@@ -1,0 +1,39 @@
+\section{cuterr}
+\label{cmd:cuterr}
+
+\SACTitle{概要}
+控制由于坏的裁剪参数引起的错误
+
+\SACTitle{语法}
+CUTERR FAtal|Usebe|FIllz
+
+\SACTitle{输入}
+\begin{itemize}
+\item FATAL : 将裁剪错误设置为致命
+\item USEBE : 将坏的起始和结束裁剪参数设置为文件开始和文件结束 
+\item FILLZ : 在文件开始时间之前或文件结束时间之后填补适当数目的0以弥补坏的裁剪参数.
+\end{itemize}
+
+\SACTitle{缺省值}
+对于信号迭加子程序默认值为FILLZ，其他的默认值为USEBE
+
+\SACTitle{说明}
+这个命令控制由于坏的裁剪参数引起的错误条件。其可以定义为致命错误(FATAL)。如果裁剪参数的
+起始值或结束值在文件头段中未定义，则可以选择为USEBE。如果裁剪参数有定义但是其裁剪起始值
+小于文件起始值或者裁剪参数结束值大于文件结束值，则可以分别用文件起始结束值代替裁剪参数，
+或者也可以使用FILLZ在文件前后补适当的0
+
+\SACTitle{例子}
+假设文件FILE1起始时间为B=25s，初动到时A=40s,采样率为0.01s。
+\begin{SACCode}
+SAC> CUT A -20 E
+SAC> READ FILE1
+\end{SACCode}
+裁剪起始值为20s，产生了一个错误条件。在USEBE模式下，裁剪起始值将替换为25s(即B)。在FILLZ模式下，
+在数据之前将将插入500个0(5秒钟，每秒100个点)，裁剪起始值保持为20s。
+
+\SACTitle{相关命令}
+CUT, READ
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

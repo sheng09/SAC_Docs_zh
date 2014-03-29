@@ -1,0 +1,50 @@
+\section{trace}
+\label{cmd:trace}
+
+\SACTitle{概要}
+跟踪暂存块变量和头段变量
+
+\SACTitle{语法}
+TRACE [ ON | OFF ] name [ name ... ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON : 打开后随变量的跟踪 
+\item OFF : 关闭后随变量的跟踪 
+\item name : 要跟踪的暂存块变量或头段变量名。如果是一个头段，则其形式为filename,hdrname。这里filename是SAC数据文件名或文件号，hdrname是SAC头段变量名 
+\end{itemize}
+
+\SACTitle{缺省值}
+TRACE ON
+
+\SACTitle{说明}
+这个命令用于在SAC执行过程中跟踪SAC暂存块变量或头段变量的值。其对于调试长的或复杂的宏文件很有用。对一个变量进行跟踪时，将显示其当前值。跟踪选项打开时，个命令执行后都对变量值进行检查。每次暂存块变量或头段变量改变时都将显示一行的信息。跟踪选项关闭时，也最后一次显示它的当前值。
+
+\SACTitle{例子}
+跟踪暂存块变量TEMP1和属于文件MYFILE的头段变量T0:
+\begin{SACCode}
+SAC> TRACE ON TEMP1 MYFILE,T0
+  TRACE  (on) TEMP1 = 1.45623
+  TRACE  (on) MYFILE,T0 = UNDEFINED
+\end{SACCode}
+
+执行命令时，不论是在终端键入命令还是执行一个宏文件，SAC都将检查新的变量值和内存中的变量值，并且不论哪个值改变，都将有关的信息显示出来。假设在完成一些计算之后改变了TEMP1，并定义了T0的值，则SAC将显示信息:
+\begin{SACCode}
+  TRACE (mod) TEMP1 = 2.34293
+  TRACE (mod) MYFILE,T0 = 10.3451
+\end{SACCode}
+
+稍后的处理中TEMP1可能再次改变:
+\begin{SACCode}
+  TRACE (mod) TEMP1 = 1.93242
+\end{SACCode}
+
+当跟踪选项关闭时，SAC最后一次显示当前值:
+\begin{SACCode}
+SAC> TRACE OFF TEMP1 MYFILE,T0
+  TRACE (off) TEMP1 = 1.93242
+  TRACE (off) MYFILE,T0 = 10.3451
+\end{SACCode}
+
+\SACTitle{最近修订}
+January 27, 1989 (Version 10.4B)

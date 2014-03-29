@@ -1,0 +1,28 @@
+\section{convert}
+\label{cmd:convert}
+
+\SACTitle{概要}
+实现数据文件格式的转换
+
+\SACTitle{语法}
+CONVert [FROM] [format] infile [TO [format] outfile]|[OVER [format]]
+
+其中format可以为SAC|ALPHA
+
+\SACTitle{输入}
+\begin{itemize}
+\item infile: 输入文件名
+\item outfile: 输出文件名
+\item OVER: 输出覆盖输入文件
+\item SAC: SAC格式二进制文件
+\item ALPHA: 与SAC二进制文件等效的字母数字型文件
+\end{itemize}
+
+\SACTitle{缺省值}
+CONVERT FROM SAC infile OVER SAC
+
+\SACTitle{说明}
+这个命令将单个文件从一种格式转换为另一种格式。这个命令将会逐渐被READ和WRITE取代
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

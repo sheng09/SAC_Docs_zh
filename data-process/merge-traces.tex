@@ -1,0 +1,17 @@
+\section{合并数据}
+相关命令: \nameref{sec:merge}
+
+有些时候，波形数据会被切割成很多个等长或不等长的数据段，可能是因为仪器存在问题
+导致数据出现间断，也可能是出于其它考虑将数据进行切割。用户需要将这些数据合并
+成单个包含连续波形数据的文件。
+
+\begin{SACCode}
+SAC> r segment1.SAC
+SAC> merge segment2.SAC
+SAC> merge segment3.SAC
+SAC> w over
+\end{SACCode}
+
+假定有三段连续/非连续的数据需要合并在一起，需要首先读入第一段数据，再merge其它段
+数据，最后使用w over将合并后的数据写入到第一个文件中，此时其余段数据segment2.SAC
+和segment3.SAC就可以删除了。

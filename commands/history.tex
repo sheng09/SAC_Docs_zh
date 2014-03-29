@@ -1,0 +1,50 @@
+\section{history}
+\label{cmd:history}
+
+\SACTitle{概要}
+打印最近使用的SAC命令列表
+
+\SACTitle{语法}
+HISTORY
+
+\SACTitle{说明}
+命令历史模块提供了在unix C-shell中的历史功能的一个子集。``history''会打印最近使用的命令的列表（最多100个），C-shell中的一些特殊功能在这里也可以使用：
+
+! Start a history substitution, except when followed by a space character, 	tab, newline, = or (.
+
+!!重复上一命令
+
+!n重叠第n行的命令
+
+!-n  重复最近的命令行减去n得到的命令
+
+!str 重复最近的以字符串str开始的命令
+
+\SACTitle{例子}
+打印命令历史列表:
+\begin{SACCode}
+SAC> history
+\end{SACCode}
+
+重复命令1:
+\begin{SACCode}
+SAC> !1
+\end{SACCode}
+
+重复最后一条命令:
+\begin{SACCode}
+SAC> !!
+\end{SACCode}
+
+重复倒数第二个命令:
+\begin{SACCode}
+SAC> !-2
+\end{SACCode}
+
+重复以ps开头的命令::
+\begin{SACCode}
+SAC> !ps
+\end{SACCode}
+
+\SACTitle{最近修订}
+March 03, 1997

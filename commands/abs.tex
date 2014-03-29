@@ -1,0 +1,26 @@
+\section{abs}
+\label{cmd:abs}
+
+\SACTitle{概要}
+对每一个数据点取其绝对值
+
+\SACTitle{语法}
+ABS
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1307: 对谱文件的非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)
+
+\SACTitle{说明}
+这个命令首先判断内存中的每个数据点是正是负，然后正值不动，负值取负。不仅仅
+如此，在取绝对值之后数据的最大值、最小值、均值也会随之变化，即SAC中应该会有
+某些函数在每个命令执行后都会隐式调用，以保证某些头段的值始终是正确的。由此看
+来任何一个SAC中的任何一个命令都不简单。

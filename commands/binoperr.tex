@@ -1,0 +1,49 @@
+\section{binoperr}
+\label{cmd:binoperr}
+
+\SACTitle{概要}
+控制发生在二进制文件操作中的错误
+
+\SACTitle{语法}
+BINOPERR [Npts Fatal|Warning|Ignore] [Delta Fatal|Warning|Ignore]
+
+\SACTitle{输入}
+\begin{itemize}
+\item Npts: 改变由于数据点不相等的错误条件 
+\item Delta: 改变由于采样间隔不相等的错误条件 
+\item Fatal: 是错误条件为致命性条件。一旦发生错误，控制立即返回终端，忽略剩余的全部命令。
+\item Warning: 给用户发送警告消息，校正错误条件并继续执行
+\item Ignore: 纠正错误条件继续执行
+\end{itemize}
+
+\SACTitle{缺省值}
+BINOPERR NPTS FATAL DELTA FATAL
+
+\SACTitle{说明}
+无论你执行什么二元运算模块中的命令(ADDF, DIVF等)，SAC都会检测一些共同的错误。使用这个命令，你可以控制SAC在遇到这些错误时如何处理。如果你设置错误条件为致命，那么SAC在遇到这种错误时将停止执行当前命令，忽略接下来的所有命令，打印错误信息到终端并将控制权交还。如果设置错误条件为警告，则发送一个警告消息，尽可能纠正错误并继续执行。如果设置错误条件为忽略，则SAC会纠正错误并继续而不告诉你发生了什么。
+
+对于要操作的两个数据文件数据点数不等的错误，SAC会使用数据点最少的那个文件	的数据点数作为参考，以保证正常操作。
+
+另一种错误出现在两个要操作的文件采样间隔不等，则SAC会使用第一个数据文件的	采样间隔作为结果文件的采样间隔。
+
+\SACTitle{例子}
+假定FILE1有1000个数据点，FILE2有950个数据点::
+\begin{SACCode}
+SAC> BINOPERR NPTS FATAL
+SAC> READ FILE1
+SAC> ADDF FILE2
+ERROR:  Header field mismatch: NPTS FILE1 FILE2
+\end{SACCode}
+上例文件加法未执行，假设你输入:
+\begin{SACCode}
+SAC> BINOPERR NPTS WARNING
+SAC> ADDF FILE2
+WARNING:  Header field mismatch: NPTS FILE1 FILE2
+\end{SACCode}
+文件加法对每个文件的前50个数据执行了加法操作
+
+\SACTitle{相关命令}
+ADDF, SUBF, MULF, DIVF
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

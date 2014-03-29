@@ -1,0 +1,43 @@
+\section{dif}
+\label{cmd:dif}
+
+\SACTitle{概要}
+对内存中的数据进行微分
+
+\SACTitle{语法} 
+DIF [TWo|THree|Five]
+
+\SACTitle{输入}
+\begin{itemize}
+\item TWo : 两点差分操作
+\item THree : 三点差分操作
+\item FIVE : 五点差分操作
+\end{itemize}
+
+\SACTitle{缺省值}
+DIF TWO
+
+\SACTitle{说明}
+两点差分算法:
+\[ OUT(j) =\frac{DATA(j+1) -DATA(j)}{DELTA} \]
+输出的最后一个点在这个算法中没有定义，它也不是一个中心算法。SAC通过将文件点数(NPTS)减去1并且将开始时间(B)增加采样间隔(DELTA)的一半来解决输出点数的问题。 
+
+三点差分(中心两点)算法:
+\[ OUT(j) = \frac{1}{2} \frac{DATA(j+1) -DATA(j-1)}{DELTA} \]
+这个算法未定义输出点的第一个和最后一个。SAC将NPTS减去2，将B加上DELTA
+
+五点差分算法(中心四点)算法:
+\[ OUT(j) = \frac{2}{3} \frac{DATA(j+1) -DATA(j-1)}{DELTA} - \frac{1}{12} \frac{DATA(j+2) -DATA(j-2)}{DELTA} \]
+算法未定义输出的前两个和后两个点。SAC对第二个和倒数第二个两个点运用三点操作，将NPTS减去2，将B增加DELTA
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入文件
+\item[-]1306: 对不等间隔文件非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+NPTS, B, E, DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{最近修订}
+January 15, 1985 (Version 9.10)

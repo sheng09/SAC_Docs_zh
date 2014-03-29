@@ -1,0 +1,26 @@
+\section{int}
+\label{cmd:int}
+
+\SACTitle{概要}
+利用梯形或矩形方法对数据进行积分
+
+\SACTitle{语法}
+INT Trapezeidal | Rectangular
+
+\SACTitle{缺省值}
+INT TRAPEZOIDAL
+
+\SACTitle{说明}
+这个命令使用梯形或矩形方式对数据积分，输出的第一个数据点值为0，如果使用梯形积分，数据点数将少一个，数据不必等间隔
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入文件
+\item[-]1307: 对谱文件非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMIN
+
+\SACTitle{最近修订}
+March 20, 1992 (Version 10.6e)

@@ -1,0 +1,29 @@
+\section{title}
+\label{cmd:title}
+
+\SACTitle{概要}
+定义绘图的标题和属性
+
+\SACTitle{语法}
+TITLE [ ON | OFF | text ] [ LOCATION Top | Bottom | Right | Left ] [ SIZE Tiny | Small | Medium | Large ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item ON : 打开标题选项，不改变标题内容
+\item OFF : 关闭标题选项 
+\item text : 打开标题选项，改变标题内容，如果文本中包含空格，则标题需要用单引号括起来 
+\item LOCATION location : 改变标题的位置TOP|BOTTOM|RIGHT|LEFT 
+\item SIZE size : 改变标题文本尺寸TINY|SMALL|MEDIUM|LARGE 
+\end{itemize}
+
+\SACTitle{缺省值}
+TITLE OFF LOCATION TOP SIZE SMALL
+
+\SACTitle{说明}
+如果这个选项打开，则在每个图形上都给出标题，标题的尺寸和位置及内容均可改变，文本质量和字体可以通过GTEXT命令设置。
+
+\SACTitle{相关命令}
+GTEXT
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

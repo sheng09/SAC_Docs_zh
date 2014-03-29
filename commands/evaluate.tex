@@ -1,0 +1,70 @@
+\section{evaluate}
+\label{cmd:evaluate}
+
+\SACTitle{概要}
+计算简单算术表达式
+
+\SACTitle{语法}
+EVALUATE [TO TERM|name] [v] op v [op v ...]
+
+其中op为下面中的一个：
+
+ADD|SUBTRACT|MULTIPLY|DIVIDE|POWER|SQRT|EXP|ALOG|ALOG10|
+
+SIN|ASIN|COS|ACOS|TAN|ATAN|EQ|NE|LE|GE|LT|GT
+
+\SACTitle{输入}
+\begin{itemize}
+\item TO TERM : 结果写入用户终端
+\item TO name : 结果写入暂存块变量name.
+\item v : 浮点数或整数，SAC中所有的运算都是浮点运算，整数会首先转换为浮点型
+\item op : 算术或逻辑操作符
+\end{itemize}
+
+\SACTitle{其他形式}
+\begin{itemize}
+\item + 代替ADD
+\item - 代替SUBTRACT
+\item * 代替MULTIPLY
+\item / 代替DIVIDE
+\item ** 代替POWER
+\end{itemize}
+注意要在每个操作符两边加上空格
+
+
+\SACTitle{缺省值}
+EVALUATE TO TERM 1. * 1.
+
+\SACTitle{说明}
+这个命令允许你计算算术或逻辑表达式。算术表达式可以是包含多个操作符的复合表达式，在这种情况下表达式由左向右计算，不支持嵌套功能。逻辑表达式可以只包含一个操作符。计算结果可以写入用户终端或者指定的暂存块变量。暂存块变量可以在稍后的命令中直接使用。这在宏文件中非常有用。
+
+\SACTitle{例子}
+下面将一个以度为单位的角度转换为弧度并计算其正切值:
+\begin{SACCode}
+SAC> EVALUATE 45 * 3.14159 / 180
+ 0.78540
+SAC> EVALUATE TAN 0.78540
+ 0.9982
+\end{SACCode}
+注意当省略第一个变量时，SAC假定其值为1。
+
+为什么下面的例子得到了不同的结果? :
+\begin{SACCode}
+SAC> EVALUATE TAN 45 * 3.14159 / 180
+ 0.02827
+\end{SACCode}
+最后回顾一下以前的一个例子，但这里使用暂存块变量:
+\begin{SACCode}
+SAC> EVALUATE TO TEMP1 45 * 3.14159 / 180
+SAC> EVALUATE TAN %TEMP1
+ 0.9982
+\end{SACCode}
+
+\SACTitle{限制}
+单个表达式中操作数的最大数目为10.
+
+\SACTitle{相关命令}
+GETBB
+
+\SACTitle{最近修订}
+April 15, 1987 (Version 10.1)

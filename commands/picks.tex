@@ -1,0 +1,38 @@
+\section{picks}
+\label{cmd:picks}
+
+\SACTitle{概要}
+控制在多数绘图上时间标记的显示
+
+\SACTitle{语法}
+PICKS [ ON | OFF ] [ tmarker VERTICAL |HORIZONTAL | CROS ] [ WIDTH v ] [ HEIGHT v ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item PICKS ON : 打开震相拾取显示 
+\item PICKS OFF : 关闭震相拾取显示 
+\item tmarker : SAC的时间标记头段变量名，可以取O | A | F | Tn（n=0-9）
+\item VERTICAL : 在时间标记处绘制垂直线，震相拾取id位于线的右下方。
+\item HORIZONTAL : 位于最接近时间标记的数据点处绘制水平线，震相拾取id位于线上或线下
+\item CROSS : 在时间标记处绘制垂直线，在最近的数据点处绘制水平线 
+\item WIDTH v : 拾取标记的显示宽度为v 
+\item HEIGHT v : 改变拾取标记的显示高度为v。高度和宽度仅对HORIZONTAL和CROSS使用，其数值为占图形的比例 
+\end{itemize}
+
+\SACTitle{缺省值}
+PICK ON WIDTH 0.1 HEIGHT 0.1
+
+所有的拾取标记类型都是VERTICAL
+
+\SACTitle{说明}
+这个命令控制多数SAC绘图上时间标记的显示信息。这些时间标记标识了如震相到时、事件发生时刻等。当打开显示选项时，每一个定义了的时间标记都会在绘图上相应时刻处绘制一条线，并且在其旁有一个时间标记id。时间标记id是一个8字符长的头段变	量。头段变量中KA、KF、KO以及KTn分别是A、F、O 和Tn的时间标记id。如果时间标记id未定义，那么标记的名字就是就本身。每一个时间标记可以被显示为一条垂直线、一条水平线或一个交叉线。
+
+\SACTitle{例子}
+以交叉符号显示时间标记T4、T5和T6，并改变交叉符号的高度和宽度:
+\begin{SACCode}
+SAC> PICKS T4 C T5 C T6 C W 0.3 H 0.1
+\end{SACCode}
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)
+

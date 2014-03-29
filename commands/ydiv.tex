@@ -1,0 +1,26 @@
+\section{ydiv}
+\label{cmd:ydiv}
+
+\SACTitle{概要}
+控制y轴的刻度间隔
+
+\SACTitle{语法}
+YDIV [ NICE | INCREMENT v | NUMBER n ] [ POWER ON | OFF ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item NICE : 使用``nice-numbered''刻度间隔，由系统决定 
+\item INCREMENT v : 设置刻度间隔增量为v  
+\item NUMBER n : 设置刻度间隔数为n  
+\item POWER ON : 打开幂选项，当这个选项打开时，SAC以一个数字自乘的10次幂的形式给出刻度值 
+\item POWER OFF : 关闭幂选项 
+\end{itemize}
+
+\SACTitle{缺省值}
+YDIV NICE POWER ON
+
+\SACTitle{说明}
+这个命令控制y轴刻度间隔的选择，多数时候默认的``nice-numbered''间隔可以满足需求。SAC的刻度间隔是基于坐标轴的最小最大值、坐标轴的长度以及当前坐标轴字符的尺寸。你也可以使用INCREMENT选项强制刻度区间为一个定值，或者使用NUMBER选项设置刻度间隔的数目
+
+\SACTitle{最近修订}
+October 11, 1984 (Version 9.1)

@@ -1,0 +1,42 @@
+\section{window}
+\label{cmd:window}
+
+\SACTitle{概要}
+设置图形窗口被创建时的位置和形状
+
+\SACTitle{语法}
+WINdow n [ Xsize xwmin xwmax ]  [ Ysize ywmin ywmax ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item n : 要设置属性的图形窗口号，n取值1到10. 
+\item X xwmin xwmax : 设置图形窗口相对屏幕的水平位置。xwmin是窗口左边界位置，xwmax是窗口右边界位置，相对屏幕的坐标取值为0.0到1.0  
+\item Y ywmin ywmax : 设置图形窗口相对屏幕的垂直位置，其他与X选项含义相同。
+\end{itemize}
+
+窗口位置缺省值（前5个）： 
+
+\begin{tabular}{ccccc}
+\toprule
+ n & xwmin & xwmax & ywmin & ywmax  \\
+\midrule
+ 1 & 0.05  & 0.85  & 0.05  & 0.60 \\
+ 2 & 0.07  & 0.87  & 0.07  & 0.62 \\
+ 3 & 0.09  & 0.89  & 0.09  & 0.64 \\
+ 4 & 0.11  & 0.91  & 0.11  & 0.66 \\
+ 5 & 0.13  & 0.93  & 0.13  & 0.68 \\
+\bottomrule
+\end{tabular}
+
+\SACTitle{说明}
+参见BEGINWINDOW
+
+\SACTitle{例子}
+为了设置窗口3的垂直位置而不修改其水平位置:
+\begin{SACCode}
+SAC> WINDOW 3 Y 0.1 0.9
+\end{SACCode}
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)
+

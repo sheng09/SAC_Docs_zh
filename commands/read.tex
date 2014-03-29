@@ -1,0 +1,168 @@
+\section{read}
+\label{cmd:read}
+
+\SACTitle{概要}
+从磁盘读取SAC文件到内存
+
+\SACTitle{语法}
+READ [options] [filelist]
+
+其中options为:
+\begin{itemize}
+\item MORE
+\item TRUST ON|OFF
+\item COMMIT|ROLLBACK|RECALLTRACE
+\item DIR CURRENT|name  
+\item XDR  
+\item ALPHA  
+\item SEGY  
+\item SCALE [ON|OFF] 
+\end{itemize}
+所有的选项必须位于filelist之前。
+
+\SACTitle{输入}
+\begin{itemize}
+\item MORE : 将新文件添加到内存中老文件之后，如果这个选项忽略，则新数据将替代老数据。注意：如果MORE选项没有指定则COMMIT, ROLLBACK和RECALLTRACE不起作用
+\item TRUST ON|OFF : 这个选项用于解决将文件从SAC转换到CSS格式过程中出现的问题。当转换数据时，匹配的事件id意味着文件含有相同的事件信息，或者可能是两个不同格式合并之后出现的干扰。当TRUST打开时，SAC将更有可能接受匹配事件id作为相同的事件信息，这依赖于READ命令与当前内存中数据的历史。
+\item COMMIT|ROLLBACK|RECALLTRACE : 参见具体章节 
+\item DIR CURRENT : 从当前目录读取所有简单文件名，这个目录是你启动SAC的目录 
+\item DIR name : 从目录name中读取全部简单文件，其可以为绝对/相对路径 
+\item XDR : 输入的文件是XDR格式，这个格式用于实现不同构架的二进制数据的转换 
+\item ALPHA : 输入文件是SAC格式的字符数字型文件，ALPHA与XDR选项不兼容 
+\item SEGY : 读取IRIS/PASSCAL定义的SEGY格式文件，这种格式允许一个文件包含一个波形 
+\item SCALE : 只和SEGY选项搭配使用，SCALE选项默认是关的。当SCALE选项为OFF时，SAC从SEGY中读取counts，当SCALE为ON时，SAC将counts乘以文件给出的一个SCALE因子。如果SCALE为OFF，则这个文件中的SCALE值将储存在SAC头段SCALE中，如果SCALE为ON，SAC的SCALE字段将被设置为1.0，SCALE由于仪器响应的原因是一个粗糙的方法。更好的方法是使用TRANSFER命令。最好在READ中不要使用SCALE选项，而是直接使用TRANSFER命令。SCALE只应在TRANSFER命令需要的响应信息无法获得时才使用 
+\item filelist :  file | wild 
+\item file : 一个文件名。其可以是简单文件名或路径名。路径名可以是相对/绝对路径。
+\item wild : 通配符以扩展文件名列表 
+\end{itemize}
+
+\SACTitle{缺省值}
+READ COMMIT DIR CURRENT
+
+\SACTitle{说明}
+SAC几乎所有命令只对当前内存中的文件操作。内存中的数据类似于文本编辑器使用的临时工作文件。READ命令从一个或多个磁盘文件传递数据到内存。默认是读取文件中全部数据到内存。
+
+CUT命令可以用于指定只有磁盘文件的一部分要被读入。SAC文件在2000年之后产生的文件被假定年的值为四位数字。年份为两个数字的文件被假定为20世纪，会被加上1900。正常情况下内存中原先的数据会由于另一个READ命令的执行而丢失。新数据将取代老数据。如果关键字MORE是命令的第二个符号，则新数据将放在内存中老数据的后面。数据文件列表称为老文件列表和新文件列表的连接。在三种情况下MORE项可能有用:
+\begin{itemize}
+\item 文件列表太长在一行下无法打印出
+\item 在长文件列表中一个文件名拼错
+\item 一个文件被读入，作了些处理，然后与原始数据比较
+\end{itemize}
+文件名可以包含通配符，你可以使用他们去匹配单个字符、多个字符等等。
+
+*** 重要 ***
+
+SAC有两个数据缓冲区，这也是允许SAC使用COMMIT,ROLLBACK 和 RECALLTRACE命令的原因。一个缓冲区用SAC格式储存头段信息，另一个用CSS 3.0格式储存头段信息。CSS 3.0数据缓冲区保证了READCSS和WRITECSS在处理CSS 3.0数据时的一致性，它也允许直接存取CSS 3.0格式的Oracle数据库。
+
+对于CSS格式（一个相关格式），保证事件id的一致性很重要；而SAC格式（一种平面格式），这样的一致性不是那么重要。任何时候数据载入SAC中，它将储存在两个缓冲区中，当将数据从SAC缓冲区传送到CSS缓冲区时，可能会出现事件信息模糊不清。如果在SAC中找到了匹配的事件id，那么这两个文件就可能有相同的事件信息，或者可能是两种不同数据格式合并过程中出现的干扰。
+
+要解决这个问题可以包括两种信息，一个是文件载入SAC内存的历史，另一个是用户通过READ命令中的TRUST ON|OFF选项设置对于数据的信心。最好用户对于数据是否一致、是否共享事件信息能够有所了解。数据载入SAC内存的历史开始于不使用MORE选项载入数据，结束于下一次不使用MORE选项载入数据。在那之间的任何时间用MORE选项载入内存的数据，都将称为已存在历史的一部分。
+
+所有将数据载入内存的命令都被监控以保持将数据从SAC缓冲区移动到CSS缓冲区过程中事件的信任水平。
+
+\SACTitle{例子}
+在下面的例子中假设在你的当前目录下有如下SAC文件:F01, F02, F03 和 G03。在这个例子中使用UNIX通配符(``?''匹配单个字符，``*''匹配多个字符)。具体参见WILD命令。
+
+为了读取前三个文件:
+\begin{SACCode}
+SAC> READ F01 F02 F03
+\end{SACCode}
+
+下面的命令用通配符产生相同的结果:
+\begin{SACCode}
+SAC> READ F*
+\end{SACCode}
+
+这个命令使用连接操作符，也产生相同的结果:
+\begin{SACCode}
+SAC> READ F0[1,2,3]
+\end{SACCode}
+
+为了读取第2、3、4个文件:
+\begin{SACCode}
+SAC> R F02 ?03
+\end{SACCode}
+
+下面的例子展示了MORE选项的使用:
+\begin{SACCode}
+u: R F03 G03
+\end{SACCode}
+文件F03和G03现在读入到内存中了:
+\begin{SACCode}
+u: R F01 F02
+\end{SACCode}
+文件F01和F02在内存中:
+\begin{SACCode}
+u: R MORE F03 G03
+\end{SACCode}
+文件F01, F02, F03和G03在内存中
+
+这个例子使用MORE选项解决了文件名拼错的问题:
+\begin{SACCode}
+u: R F01 G02 F03
+s: WARNING: File does not exist: G02
+s: Will read the remainder of the data files.
+\end{SACCode}
+文件F01和F02在内存中:
+\begin{SACCode}
+u: R MORE F02
+\end{SACCode}
+文件F01、F03和F02在内存中，注意文件在这种情况下顺序的变化。
+
+你可以对数据使用高通滤波器然后绘图与原来的文件比较结果:
+\begin{SACCode}
+u: READ F01
+u: HIGHPASS CORNER 1.3 NPOLES 6
+u: READ MORE F01
+u: PLOT1
+\end{SACCode}
+绘图展示来原始数据和滤波后数据
+现在假设你启动SAC的位于目录``/me/data''下，你想要处理子目录``event1''和``event2''下的文件:
+\begin{SACCode}
+u: READ DIR EVENT1 F01 F02
+\end{SACCode}
+读取了目录/me/data/event1下的文件:
+\begin{SACCode}
+u: READ F03 G03
+\end{SACCode}
+相同目录下的文件被读入:
+\begin{SACCode}
+u: READ DIR EVENT2 *
+\end{SACCode}
+/me/data/event2下的全部文件被读入:
+\begin{SACCode}
+u: READ DIR CURRENT F03 G03
+\end{SACCode}
+目录/me/data下的文件被读入
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+	\begin{itemize}
+	\item[-]未给出要读取的文件列表
+	\item[-]文件列表中文件均不可读
+	\end{itemize}
+\item[-]1320: 可用内存不足以读取文件
+\item[-]1314: 数据文件列表不得以数字开头
+\item[-]1315: 文件列表的最大数目为1000
+\item[-]6002: 没有可用数据集
+\end{itemize}
+
+\SACTitle{警告消息}
+\begin{itemize}
+\item[-]0101: 打开文件
+\item[-]0108: 文件不存在
+\item[-]0114: 读取文件
+	\begin{itemize}
+	\item[-]通常遇到这类错误时SAC会跳过这个文件继续读取余下的文件。这个错误可以通READERR设置为FATAL
+	\end{itemize}
+\end{itemize}
+
+\SACTitle{头段变量改变}
+E, DEPMIN, DEPMAX, DEPMEN, B 
+
+\SACTitle{相关命令}
+CUT, READERR, WILD, COMMIT, ROLLBACK, RECALLTRACE
+
+\SACTitle{最近修订}
+June. 18, 1999 (Version 0.58)

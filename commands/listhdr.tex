@@ -1,0 +1,67 @@
+\section{listhdr}
+\label{cmd:listhdr}
+
+\SACTitle{概要}
+列出被选择的头段变量的值
+
+\SACTitle{语法}
+ListHdr [ Default | Picks | SPecial ] [ FILES ALL | NONE | list ] [ COLUMNS 1 | 2 ] [ INCLUSIVE ON | OFF ] [ hdrlist ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item Default : 使用默认的头段列表，它列出了所有定义了的头段变量。
+\item Picks : 使用picks列表，包含了用于定义时间拾取的头段 
+\item SPecial :  使用用户定义的特别列表 
+\item FILES ALL : 列出内存中所有文件的头段 
+\item FILES NONE : 不列出头段，为将来的命令设置默认值 
+\item FILES list : 列出部分文件的头段，list是要处理的文件号 
+\item COLUMNS 1 : 每行一列的输出格式  
+\item COLUMNS 2 : 每行两列的输出格式  
+\item INCLUSIVE :  ON表示包含没有定义的头段变量，OFF则不包含 
+\item hdrlist : 要列出的头段列表  
+\end{itemize}
+
+\SACTitle{缺省值}
+LISTHDR DEFAULT FILES ALL COLUMNS 1 INCLUSIVE OFF
+
+\SACTitle{说明}
+用户可以自己定义要列出的项或使用标准列表中的任一个，DEFAULT列表包含全部头段变量。PICKS列表包含直接或间接用于定义时间拾取的头段变量，这个列表包含B, E,O, A, Tn, KZTIME, KZDATE。用户自己可以随时定义一个特殊列表而且可以通过SPECIAL选项再次使用。命令输出列表包含头段变量名，等于号以及当前值。有些头段可能未定义。SAC在这些未定义的头段中储存一个特别的标志以标记它们，对于整数和浮点数未定义值为-12345，字符串以及那些用于表示字符串含义的整数未定义值为``UNDEFINED''.
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入文件
+\end{itemize}
+
+\SACTitle{例子}
+获取picks列表，输出为两列显示:
+\begin{SACCode}
+SAC> lh picks column 2
+\end{SACCode}
+
+获得第三、四个文件的默认头段列表:
+\begin{SACCode}
+SAC> lh files 3 4
+\end{SACCode}
+
+列出文件开始和结束时间:
+\begin{SACCode}
+SAC> lh b e
+\end{SACCode}
+
+定义一个包含台站参数的特殊列表：
+\begin{SACCode}
+SAC> lh KSTNM STLA STLO STEL STDP
+\end{SACCode}
+
+稍后再次使用上面的特殊列表:
+\begin{SACCode}
+SAC> lh SPECIAL
+\end{SACCode}
+
+只是设置默认两列输出:
+\begin{SACCode}
+SAC> lh COLUMNS 2 FILES NONE
+\end{SACCode}
+
+\SACTitle{最近修订}
+August 30, 2008 (Version 101.2)

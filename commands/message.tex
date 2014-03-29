@@ -1,0 +1,32 @@
+\section{message}
+\label{cmd:message}
+
+\SACTitle{概要}
+发送信息到用户的终端
+
+\SACTitle{语法}
+MESSAGE text
+
+\SACTitle{输入}
+\begin{itemize}
+\item text 要发送的信息文本，若文本中有空格则必须用单引号括起来
+\end{itemize}
+
+\SACTitle{说明}
+这个命令用于在SAC宏文件执行时发送状态及其他信息给用户。在交互式模式下没有	用
+
+\SACTitle{例子}
+发送无空格的信息:
+\begin{SACCode}
+SAC> MESSAGE FINISHED
+ FINISHED
+\end{SACCode}
+
+发送带有空格的信息，你需要加上单引号或双引号:
+\begin{SACCode}
+SAC> MESSAGE 'Job has finished.'
+ Job has finished.
+\end{SACCode}
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

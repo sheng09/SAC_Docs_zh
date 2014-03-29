@@ -1,0 +1,51 @@
+\section{add}
+\label{cmd:add}
+
+\SACTitle{概要}
+给每一个数据点加上一个常数
+
+\SACTitle{语法}
+%ADD \{v1 \{v2 ... vn\} \}
+ADD [v1 [v2 ... vn]]
+\footnote{
+在语法中，被中括号包围起来的部分表示是可选项，省略号表示选项可以重复出现，
+``|''代表分隔的多个选项最多只能存在一个。以后的命令也用此规则。
+}
+
+\SACTitle{输入}
+\begin{itemize}
+\item v1:  加到第一个文件的常数
+\item v2:  加到第二个文件的常数
+\item vn:  加到第n个文件的常数
+\end{itemize}
+
+\SACTitle{缺省值}
+ADD 0.0
+
+\SACTitle{说明}
+这个命令给内存中的每个数据文件的每个元素加一个常数。这个常数对于每一个数
+据文件来说可以是相同的也可以是不同的。如果内存中数据文件的数目比命令给出的常
+数要多，那么命令中的最后一个常数将用于剩下的所有文件。如果内存中数据文件
+数目比给出的常数少，则多余的常数将被忽略。ADD的默认值使得若只输入ADD而不加
+任何选项时则给内存中所有文件加0，注意这个命令只对内存中的文件进行操作，SAC的
+几乎所有命令都是如此。
+
+
+\SACTitle{例子}
+为了给文件F1的每个元素加5.1，F2和F3的每个元素加6.2:
+\begin{SACCode}
+SAC> r f1 f2 f3
+SAC> add 5.1 6.2
+\end{SACCode}
+
+\SACTitle{错误消息}
+\begin{itemize}
+\item[-]1301: 未读入数据文件
+\item[-]1307: 对谱文件的非法操作
+\end{itemize}
+
+\SACTitle{头段变量改变}
+DEPMIN, DEPMAX, DEPMEN
+
+\SACTitle{最近修订}
+January 8, 1983 (Version 8.0)

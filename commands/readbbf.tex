@@ -1,0 +1,26 @@
+\section{readbbf}
+\label{cmd:readbbf}
+
+\SACTitle{概要}
+将暂存块变量文件读入内存
+
+\SACTitle{语法}
+READBBF [ file ]
+
+\SACTitle{输入}
+\begin{itemize}
+\item file : 暂存块变量文件的名字，其可以是简单文件名或相对/绝对路径。
+\end{itemize}
+
+\SACTitle{缺省值}
+READBBF BBF
+
+\SACTitle{说明}
+这个命令使你能够读取一个暂存块变量文件。这个文件必须先前使用WRITEBBF命令写入磁盘。这个特性让你能够将一次SAC执行的信息保存起来运用在另一次执行中。你也可以自己写代码获取暂存块文件中的信息。这使你可以在SAC和自己的程序之间传送信息。
+
+\SACTitle{相关命令}
+WRITEBBF, SETBB, GETBB
+
+\SACTitle{最近修订}
+May 15, 1987 (Version 10.2)
+

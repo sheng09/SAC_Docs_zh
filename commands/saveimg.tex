@@ -1,0 +1,50 @@
+\section{saveimg}
+\label{cmd:saveimg}
+
+\SACTitle{概要}
+将图像显示窗口的中图像保存到多种格式的图形文件中
+
+\SACTitle{语法}
+SAVEIMG filename.format
+
+\SACTitle{输入}
+\begin{itemize}
+\item filename : 要保存的图像文件名。 
+\item format : 图像文件格式
+	\begin{itemize}
+	\item ps  (Postscript); 
+    \item pdf (Portable Document Format);
+	\item png (Portable Network Graphics);
+	\item xpm (Pixmap format);
+	\end{itemize}
+\end{itemize}
+
+\SACTitle{说明}
+这个命令将当前绘图保存到图像文件中，可用的格式包Postscript(ps)，Portable Document Format(pdf),Image file(png)以及Pixmap file(xpm)。
+
+SAVEIMG相对于SGF文件的好处在于，SGF文件中的字母和数字是由线段组成的，而SAVEIMG产生的ps或pdf图像采用Postscript 特性直接产生字体。对大多数情况，低精度的.png或.xpn文件也能满足要求。
+.png和.xpm将拥有当前窗口的横纵比（参见WINDOW命令），.pdf或.ps文件拥有固定的横纵比X/Y=11/8.5=1.2941，对这些绘图，如果显示窗口设置为1.2941会看起来比较好。
+
+正如.sgf文件，绘图没有边框。对于.sgf文件，脚本sac/bin/sgftoeps.csh可以产生一个有边框的.eps文件(要求程序Ghostscript在路径中)。相似的脚本未来会写出来应用于SAVEIMG。
+
+为了使用SAVEIMG保存一个绘图，图像必须是可见的，即通过PLOT、PLOT1等命令绘制出来。SAVEIMG在子程序SSS中无法工作，但如果输入qs退出子程序，此时图像窗口未关闭，SAVEIMG此时可用于保存该图像。
+
+\SACTitle{例子}
+将图像保存为PDF文件：
+\begin{SACCode}
+SAC> read PAS.CI.BHZ.sac
+SAC> p1
+SAC> saveimg pas.ci.pdf
+\end{SACCode}
+
+将谱图用多种格式保存：
+\begin{SACCode}
+SAC> fg seismo
+SAC> spectrogram
+SAC> save spectrogram.ps
+SAC> save spectrogram.png
+SAC> save spectrogram.pdf
+\end{SACCode}
+
+\SACTitle{最近修订}
+August 2011 (version 101.5) 
