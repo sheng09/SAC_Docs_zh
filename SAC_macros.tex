@@ -49,7 +49,7 @@
 \setcounter{tocdepth}{2}
 \titlecontents{chapter}[0em]
 {\vspace{0.2em}\bfseries\Large}
-{第\,\thecontentslabel\,章\quad}
+{\thecontentslabel\quad}
 {\hspace*{0em}}
 {\hfill \contentspage}
 \titlecontents{section}[1em]
@@ -65,6 +65,16 @@
 {\hspace*{0em}}
 {\ \dotfill \ \contentspage}
 [\vspace{-0.3em}]
+
+% 双栏目录
+\usepackage{multicol}
+\makeatletter                                                                   
+\renewcommand{\tableofcontents}{%                                               
+\setlength{\columnsep}{2.5em}                                                   
+\begin{multicols}{2}[\chapter*{\contentsname}]%                                 
+    \@starttoc{toc}%                                                            
+\end{multicols}}                                                                
+\makeatother 
 
 
 % 页眉页脚设置
