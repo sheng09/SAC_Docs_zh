@@ -11,6 +11,7 @@
 
 \begin{document}
 
+\pdfbookmark[0]{封面}{cover}
 \include{cover}
 \pagestyle{empty}
 
@@ -19,8 +20,11 @@
 \include{version}
 
 \frontmatter
+\pdfbookmark[0]{\contentsname}{contents}
 \tableofcontents
+\pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures
+\pdfbookmark[0]{\listtablename}{lot}
 \listoftables
 
 \mainmatter
@@ -87,6 +91,7 @@
 \chapter{使用SAC函数库}
 \chapter{SAC I/O}
 \chapter{SAC I/O的实现}
+\chapter{SAC相关工具}
 
 \part{SAC命令手册}
 \chapter{SAC命令}
