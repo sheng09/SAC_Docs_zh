@@ -2,7 +2,10 @@
 学习SAC最好的方式是找一个有经验且有耐心的人，让他/她给你演示SAC是如何工作的。
 如果没有这样一个人的话，那么你就需要打开终端从头开始自学。
 
-\subsection{SAC初阶}
+我将SAC的学习过程分成三个阶段，下面列出了每个阶段的具体要求。普通用户需要达到``SAC进阶''
+才能满足日常数据处理的要求。
+
+\subsection*{SAC初阶}
 \begin{enumerate}
     \item 掌握SAC中最常用的命令，包括但不限于
             \nameref{cmd:help}、
@@ -20,22 +23,22 @@
             \nameref{cmd:plot2}、
             \nameref{cmd:cut}、
             \nameref{cmd:fft}；
-        \item 理解地震数据处理流程，参见第\ref{cmd:process}节；
-        \item 了解SAC数据格式，掌握常见的SAC头段变量，理解\nameref{cmd:sac-time}；
-        \item 掌握如何在命令中调用头段变量的值，参见第\ref{cmd:header-variables}节；
-        \item SAC相关工具：\nameref{cmd:saclst}；
+        \item 理解地震数据处理流程，参见``\nameref{chap:data-process}''一章；
+        \item 了解\nameref{chap:sac-file-format}，掌握常见的\nameref{sec:sac-header-variables}，
+            理解\nameref{sec:sac-time}；
+        \item SAC相关工具：\nameref{sec:saclst}；
 \end{enumerate}
 
-\subsection{SAC进阶}
+\subsection*{SAC进阶}
 \begin{enumerate}
 \item 掌握SAC的大部分命令，至少知道SAC可以实现哪些功能；
-\item 了解SAC宏以及如何在Bash/Perl中调用SAC；
-\item 掌握如何绘制精美的波形图；
-\item 学会在自己的程序中使用SAC提供的函数库；
-\item 学会在自己的程序中读写SAC文件；
+\item 了解SAC编程以及如何在Bash/Perl中调用SAC，见第\ref{chap:sac-programming}、\ref{chap:sac-bash}、\ref{chap:sac-perl}章；
+\item 掌握如何绘制精美的波形图，见第\ref{chap:sac-graphics}章；
+\item 学会在自己的程序中使用SAC提供的函数库，见第\ref{chap:sac-libs}章；
+\item 学会在自己的程序中读写SAC文件，见第\ref{chap:sac-io}章；
 \end{enumerate}
 
-\subsection{SAC高阶}
+\subsection*{SAC高阶}
 \begin{enumerate}
 \item 了解SAC软件包的内部结构；
 \item 自己写程序实现SAC I/O库；

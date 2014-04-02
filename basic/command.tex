@@ -4,45 +4,51 @@
 出现，也可以只出现其中一个。命令、选项以及参数之间用空格分开。如果要将多个命令写在
 一行，要用分号隔开每个命令。例如：
 \begin{SACCode}
-SAC> funcgen seismogram delta 0.1 npts 1000
-SAC> write seis.SAC
+SAC> funcgen random delta 0.1 npts 1000
+SAC> rmean; rtrend; taper                 // 一行内多个命令用分号隔开
+SAC> write rand.SAC
 \end{SACCode}
-其中，\lstinline{funcgen}和\lstinline{write}是命令；\lstinline{seismogram}是选项，
-但是没有参数；\lstinline{0.1}是选项\lstinline{delta}的参数、\lstinline{1000}是选项
-\lstinline{npts}的参数；而\lstinline{seis.SAC}则是一个无选项的参数\footnote{也可以
-有一堆选项。}。
+其中，\lstinline{funcgen}、\lstinline{write}、\lstinline{rmean}、\lstinline{rtrend}
+和\lstinline{taper}是命令；\lstinline{random}是选项；
+\lstinline{0.1}是选项\lstinline{delta}的参数、\lstinline{1000}是选项
+\lstinline{npts}的参数；而\lstinline{rand.SAC}则是一个无选项的参数\footnote{其实
+可以有很多选项，这里都省略了。}。
 
-这里简单解释一下选项（option）和参数（argument）的区别。选项是由命令规定的，
-其控制了命令的一些特性，选项是不可以随便修改的。而参数是任意的，SAC只指定了其类型
-（比如是数字还是字符串），或者对其可取的值做限制，用户需要根据自己的需求修改参数。
+\begin{Tips}
+官方文档的原文是``command''、``keyword''和``option''，
+本文档v2.0中译为``命令''，``关键字''和``参数''。
+个人感觉，无论是官方的用词还是v2.0版的译词都很容易让使用C语言和Linux的人困惑，
+因而v3.0中一律将其改为命令（command）、选项（option）和参数（argument）。
+
+这里解释一下选项（option）和参数（argument）的区别。一个命令有哪些选项是由命令规定的，
+其控制了命令的一些特性，因而选项的作用是告诉命令``我\textbf{要}改某个特性''。
+但是具体\textbf{怎么}改呢？
+这个就交给参数来控制了。命令或选项只规定了参数的类型（整型、浮点型、字符串、枚举型或者逻辑型），
+用户需要根据自己的需求给定参数值。
+\end{Tips}
 
 \subsection{大小写}
 SAC的命令和选项都是不区分大小写的，这意味着你可以根据自己的喜好使用\lstinline{funcgen}
 或者\lstinline{FUNCGEN}，SAC在解释命令前都会将其转换为大写字母。
 
 需要注意的是，由于Linux本身是区分大小写的，所以对于出现在参数中的文件名、目录名
-或者由引号包围的字符串来说，大小写是完全不同的。比如\lstinline{seis.SAC}和
-\lstinline{SEIS.SAC}是两个完全不同的参数。
+或者由引号包围的字符串来说，大小写是完全不同的。比如\lstinline{rand.SAC}和
+\lstinline{RAND.SAC}是两个完全不同的参数。
 
 \subsection{命令简写}
-SAC的大多数命令以及选项都有简写形式。比如上面的两条命令简写形式如下：
+SAC的大多数命令以及选项都有简写形式。比如上面的命令简写形式如下：
 \begin{SACCode}
-SAC> fg seis d 0.1 n 1000
-SAC> w seis.SAC
+SAC> fg r d 0.1 n 1000
+SAC> rmean; rtr; taper
+SAC> w rand.SAC
 \end{SACCode}
 
 命令和选项究竟可以简写成怎样的形式，是由SAC自身规定的。简写的好处在于，在不产生歧义
 的前提下尽量减少用户的击键数；坏处在于，若对命令不是足够熟悉，简写后的命令变得很
-难读和难理解。比如你一看就知道\lstinline{delta}代表的是数据采样间隔，而
-\lstinline{d}却不那么直观，可能是\lstinline{delta}，也可能是\lstinline{demon}。
+难读和难理解。比如你一看就知道\lstinline{delta}代表的是采样周期
+\footnote{也称为采样时间，即两次数据采样的时间间隔，本文档将统一使用``采样周期''。}，
+而\lstinline{d}却不那么直观，可能是\lstinline{delta}，也可能是\lstinline{demon}。
 所以，简写很好用，但是应该仅用在那些常使用的命令上，不要滥用。
-
-本文档中，在介绍命令语法时，仅给出命令和选项的完整形式
-\footnote{官方英文文档中是通过大小写的方式隐晦地给出简写形式的；
-《数字地震波形分析》一书中，是通过下滑线给出简写形式；二者都不够直观和友好。
-最关键的是，给出简写形式大大增加了写文档的工作量。}，
-在命令下的例子中视情况给出其简写形式。对于未给出简写形式的命令，就需要用户自己去
-猜或者尝试了。
 
 \subsection{查看命令语法}
 SAC自带了英文的帮助文档，详细解释了每个命令的语法，可以通过\lstinline{help}命令
@@ -53,12 +59,12 @@ SAC> help funcgen write   // 命令的简写是h fg w
 也可以直接查看\lstinline{$SACHOME/aux/help}下的文档，或者查看本手册的命令部分。
 
 \subsection{参数默认值}
-为了让SAC易学易用，几乎所有的命令参数都有一个``系统默认值''，这些``系统默认值''
+为了让SAC易学易用，几乎所有命令参数都有一个``系统默认参数值''，这些``系统默认参数值''
 都是经过精心挑选的，
 同时用户又可以随时修改参数值。这样的设计使得SAC易用同时又不失灵活性。
 
-下面以C语言为例做一些说明\footnote{有些地方不是很准确。}，希望能够帮助理解SAC的参数
-默认值的一些特点。
+下面以C语言为例做一些说明\footnote{有些地方不是很准确。}，希望能够帮助理解SAC参数
+的一些特点。
 
 在C语言中，函数有主函数和子函数之分，变量又有全局变量和局部变量之分。所有的变量
 都可以被初始化为适当的值。
@@ -84,9 +90,9 @@ SAC中有与之相对应的一些概念。sac就是一个主函数，每一个�
 \end{description}
 
 在启动SAC（主函数）的时候，所有的选项（C语言中的全局变量和静态局部变量）都会被初始化为
-指定的``缺省参数值''（全局变量和静态局部变量的唯一一次初始化）。
+指定的``系统默认参数值''（全局变量和静态局部变量的唯一一次初始化）。
 
-使用参数设定类命令的时候，其修改了SAC的全局参数，可能会影响接下来执行的所有其它
+使用参数设定类命令的时候，其修改了SAC的全局参数，会影响接下来与之相关的所有其它
 命令的执行效果。使用操作执行类命令的时候，在命令中设定参数，相当于修改静态局部变量的值，不仅会
 影响当前命令的执行，也会影响之后所有同名命令的执行。
 
@@ -97,10 +103,12 @@ SAC中有与之相对应的一些概念。sac就是一个主函数，每一个�
 该命令的该选项的``当前默认值''。
 
 鉴于SAC的这样一个特性，在一次会话中，多次执行同一个命令时，一定需要注意选项的当前值
-是多少，因为这可能会影响到后面的一系列结果，这个必须牢记！
+是多少，因为这可能会影响到后面的一系列结果，这个必须理解和牢记！
 
+\begin{Tips}
 当你在一次会话中执行了很多个命令的时候，SAC参数可能已经被弄得一片混乱，
 你可以使用\nameref{cmd:inicm}命令在不退出SAC的情况下重新初始化。
+\end{Tips}
 
 下面用例子解释一下：
 \begin{SACCode}
@@ -125,7 +133,3 @@ SAC> plot
     \lstinline{0.1}，\lstinline{npts}的值为\lstinline{1000}。即继承了上一次命令的参数值。
 \end{enumerate}
 
-对于本文档，除非上下文有明确说明，否则
-大部分例子都运行在单独的会话中，即每个例子都省略了启动sac和退出sac的命令。
-另外，除非特别情况，均省略\nameref{cmd:plot}命令，用户应该学会随时
-\nameref{cmd:plot}以查看当前内存中的波形结果。

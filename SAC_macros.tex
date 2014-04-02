@@ -263,6 +263,17 @@
         keywordstyle=\color{blue},          % 关键字颜色
     }
 }{}
+\lstnewenvironment{SACSyntax}{
+    \lstset{
+        basicstyle=\footnotesize\ttfamily,
+        delim=[is][\textcolor{blue}]{!}{!},
+        frame=single,
+        xleftmargin=2pc,
+        xrightmargin=2pc,
+        backgroundcolor=\color{Lavender},
+        rulecolor=\color{Silver}
+    }
+}{}
 
 % 列表
 \usepackage{enumitem}	% 列表宏包
@@ -341,3 +352,16 @@
 \@namedef{shadequote*}{\@rightfalse\shadequote@i}
 \@namedef{endshadequote*}{\endshadequote}
 \makeatother
+
+% 自定义Tips环境
+% http://tex.stackexchange.com/questions/158941/xelatex-compilation-error-using-bclogo-mps-image-problem
+\usepackage[tikz]{bclogo}
+\usepackage{xcolor}
+\DeclareGraphicsRule{.mps}{eps}{*}{}
+\renewcommand\bcStyleTitre[1]{\quad\bfseries\Large{#1}}
+\newenvironment{Tips}{
+\begin{bclogo}[couleur = blue!20, arrondi=0.15, logo=\bcloupe, ombre=true, 
+    couleurOmbre=black!30,blur,noborder=true]{Tips}
+} 
+{\end{bclogo}}
+
