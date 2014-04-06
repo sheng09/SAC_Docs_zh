@@ -1,9 +1,32 @@
-\section{数据长度和采样率}
-相关命令：
-\nameref{sec:cut}、
-\nameref{sec:cutim}、
-\nameref{sec:decimate}、
-\nameref{sec:interpolate}、
+\section{数据重采样}
+相关命令：\nameref{cmd:decimate}、\nameref{cmd:interpolate}
 
-数据处理的时候经常会有这样的需求：所有的数据截取相同长度的时间窗且具有相同的
-采样率。这就需要对数据进行时间窗截取、采样和插值。
+SAC中有两个命令可以对数据进行重采样：一个是用于减采样的decimate，另一个是用于
+插值的interpolate。
+
+\begin{SACCode}
+SAC> fg seis
+SAC> lh delta npts
+  
+  FILE: SEISMOGR - 1
+ --------------
+
+     delta = 1.000000e-02
+      npts = 1000
+SAC> decimate 5; decimate 2     // 减采样10倍
+SAC> lh delta npts
+  
+  FILE: SEISMOGR - 1
+ --------------
+
+     delta = 9.999999e-02       // delta=0.001，忽略此处的数值误差
+      npts = 100
+SAC> interpolate delta 0.015    // 重新插值到delta=0.015
+SAC> lh delta npts
+  
+  FILE: SEISMOGR - 1
+ --------------
+
+     delta = 1.500000e-02
+      npts = 666
+\end{SACCode}

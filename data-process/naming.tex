@@ -1,6 +1,20 @@
-\section{数据的命名}
+\section{数据重命名}
 从压缩格式中解压得到的SAC数据，其命名方式不够友好，比如用rdseed解压得到的数据，
-文件名的形式如下：
+文件名的格式如下：
+\begin{lstlisting}[style=Shell]
+yyyy.ddd.hh.mm.ss.ffff.NN.SSSSS.LL.CCC.Q.SAC
+\end{lstlisting}
+其中，
+\begin{itemize}
+\item yyy.ddd.hh.mm.ss.fff是SAC文件中第一个数据点对应的时刻；
+\item NN为台网名，用两个字符表示；
+\item SSSSS为台站名，一般为3-4字符，最多5字符；
+\item LL为location id，一般为空或两字符，常见的是00、01、10；
+\item CCC为通道名，3字符；
+\item Q为质量控制标识，可以取D、M、R、Q。
+\end{itemize}
+
+示例如下：
 \begin{lstlisting}[style=Bash]
 2012.055.12.34.56.7777.YW.MAIO.01.BHE.Q.SAC
 2012.055.12.34.50.6666.YW.MAIO.01.BHN.Q.SAC

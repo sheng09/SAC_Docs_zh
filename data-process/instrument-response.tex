@@ -1,9 +1,30 @@
 \section{仪器响应}
-相关命令：\nameref{sec:transfer}
+相关命令：\nameref{cmd:transfer}
 
-我们获得的原始波形数据一般都是电信号，有些时候，需要从数据中去除仪器响应，将数据
-转换为位移、速度或加速度时间序列。
+地震仪器观测到的地面运动记录可以表示为
 
-又或者，所有数据中不同台站使用的不同类型的仪器，为了使得数据之间可以相互比拟，则
-需要从原始数据中去除仪器响应。
+\[  u(t) = s(t) * g(t) * i(t) \] 
+其中$s(t)$代表震源项， $g(t)$代表路径效应，$i(t)$代表仪器响应，星号代表卷积。
 
+四个量中，$u(t)$是仪器记录的结果，已知；$i(t)$在仪器设计的时候会给出各种参数，已知；
+$s(t)$和$g(t)$是未知的，也是地震学研究的两个主要内容：震源和结构。
+因而理解仪器响应$i(t)$的基本原理并准确地去除仪器响应是研究的关键一步。
+
+地震仪器记录的地面运动物理量有很多，常见的有速度和加速度，不太常见的还有位移、应变、旋转。
+这些物理量在被地震仪接收到之后，首先要将其转换为电信号，然后对电信号振幅进行放大以及滤波，
+再将连续时间序列离散化，最终以我们常见的波形的形式表现出来，所以我们最初见到的波形
+表示的是电信号的强弱，单位是counts。
+
+数据分析经常会遇到这样的情况，需要将电信号转换成真正的地面运动物理量，此时需要去除
+仪器响应；有时不同数据使用了不同类型的仪器，为了使得数据之间可以相互比较，则需要
+从原始数据中去除仪器响应，并卷积上同一类型仪器的仪器响应。
+
+具体的细节可以transfer命令的解释以及如下几篇博文：
+\begin{enumerate}
+\item \url{http://seisman.info/instrumental-response-in-seismology.html}
+\item \url{http://seisman.info/physical-details-of-instrumental-response.html}
+\item \url{http://seisman.info/simple-analysis-of-resp.html}
+\item \url{http://seisman.info/simple-analysis-of-sac-pz.html}
+\item \url{http://seisman.info/difference-between-resp-and-pz-while-deconvolution.html}
+\item \url{http://seisman.info/deep-analysis-of-response.html}
+\end{enumerate}

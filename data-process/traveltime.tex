@@ -1,4 +1,30 @@
 \section{震相理论到时}
-根据已知的地壳速度模型，计算出要研究的震相的理论到时，并写入到SAC数据头段中。
+相关命令：\nameref{cmd:traveltime}
 
-相关命令：\nameref{sec:traveltime}
+相关头段：tn（n=0-9）
+
+traveltime命令，可以计算iasp91或者ak135模型下的震相理论走时，并将其保存到SAC头段
+变量中。
+
+\begin{SACCode}
+SAC> dg sub teleseis nykl.z
+SAC> traveltime model iasp91 picks 3 phase P S 
+traveltime: depth: 0.000000 km
+SAC> lh t3 kt3 t4 kt4
+  
+  FILE: /opt/sac/aux/datagen/teleseis/nykl.z - 1
+   ------------------------------------------
+
+         t3 = 4.430530e+02
+        kt3 = P
+         t4 = 7.999642e+02
+        kt4 = S
+\end{SACCode}
+
+该命令会将震相P、S的到时依次写入从头段变量t3、t4中，且写入相应的震相标识信息。
+
+\begin{Tips}
+该命令的正确运行要求内存中的所有波形数据的头段中，必须包含地震位置、台站位置、
+发震时刻信息。
+\end{Tips}
+
