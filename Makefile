@@ -9,4 +9,4 @@ docs:SAC_Docs.tex
 	$(LATEX) $^
 
 clean:
-	-rm *.aux *.log *.out *.toc *.exa
+	-rm *.aux *.log *.out *.toc *.exa *.lof *.lot
