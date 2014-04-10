@@ -1,3 +1,30 @@
-\section{SAC图像简介}
+\section{图像输出设备}
+SAC支持三类图像输出设备：
+\begin{description}
+\item [X Window System] 也常称为X11或X，是一种以位图方式显示的软件窗口系统。
+    图\ref{fig:plot}展示了SAC中的X窗口，这是SAC默认的绘图设备。
+\item [SGF] 全称SAC Graphic File，即SAC图像文件。SGF文件中包含了绘制一个图像
+    所包含的全部信息，因而可以通过转换程序将其转换到其它图像设备中。SAC提供了
+    三个sgf转换工具：\nameref{sec:sgftops}、\nameref{sec:sgftoeps}、
+    \nameref{sec:sgftox}。
+\item [PDF和PS] 从101.5开始，SAC加入了\nameref{cmd:saveimg}命令，可以将图像直接
+    输出为PDF或PS格式
+    \footnote{该命令也支持输出为png和xpm格式，但png和xpm为位图图像格式，精度不够，
+    且依赖于其它函数库，因而不推荐使用。}。
+\end{description}
 
-这一章将介绍如何利用SAC的命令调节图片的细节，绘制精美的图片。
+SAC提供了\nameref{cmd:setdevice}命令设置默认的图像设备；\nameref{cmd:begindevices}
+和\nameref{cmd:enddevices}用于启动/关闭指定的图像设备。
+
+对于xwindows，SAC提供了10个可以使用的窗口，编号为1-10。\nameref{cmd:window}命令
+可以设置每个绘图窗口的长宽比以及相对于屏幕的位置；\nameref{cmd:beginwindow}命令可以
+启动某个编号的绘图窗口。
+
+对于SGF，每个图像都将保存到sgf文件中，文件名格式为``fnnn.sgf''，其中``nnn''为图像
+编号，起始编号为001。\nameref{cmd:sgf}命令可以控制SGF图像设备的一些选项，比如sgf
+文件的前缀、起始编号、目录、文件尺寸等。
+
+对于PDF和PS，由于saveimg命令是在101.5之后才加入的，所以与xwindows和sgf有很多不同
+之处。
+
+这三者的区别会在``\nameref{sec:save-image}''中详细分析。

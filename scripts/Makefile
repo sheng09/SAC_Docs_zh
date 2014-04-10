@@ -11,6 +11,10 @@ run:
 	sh rotate.sh
 	sh rmean-rtrend-taper.sh
 	sh filter.sh
+	sh appearance.sh
+	sh attribution1.sh
+	sh attribution2.sh
+	sh composite-plot.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -21,3 +25,7 @@ install:
 	mv rotate.eps ${FIGURE}
 	mv rmean-rtrend-taper.eps ${FIGURE}
 	mv filter.eps ${FIGURE}
+	mv appearance.eps ${FIGURE}
+	mv attribution1.eps ${FIGURE}
+	mv attribution2.eps ${FIGURE}
+	mv composite-plot.eps ${FIGURE}
