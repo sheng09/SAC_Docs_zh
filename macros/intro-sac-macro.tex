@@ -1,0 +1,41 @@
+\section{宏简介}
+\label{sec:intro-to-macros}
+\subsection{概述}
+最简单的，将一系列要一起执行的SAC命令放在一个文件中即构成了SAC宏。就像一般命令
+以及内联函数一样，SAC宏文件可以包含头段变量以及暂存块变量，在命令被执行之前这
+些变量或者表达式的值将首先被计算出来。
+
+\subsection{简单的例子}
+假设你有一系列要重复执行多次的命令，那么SAC宏文件显然可以帮你节省不少时间。只要
+打开你喜欢的文本编辑器，把这些命令放在一个文件中，然后你就可以用命令MACRO来执行
+这个文件中的全部命令。假设你要读取重复读取相同的三个文件，文件名分别为ABC、DEF、XYZ，
+每一个文件分别乘以不同的值，做Fourier变换，然后将频谱的振幅部分绘制到SGF文件中，
+这样的一个宏文件如下所示：
+\begin{SACCode}
+  ** This certainly is a simple little macro.
+  r ABC DEF XYZ
+  mul 4 8 9
+  fft
+  bg sgf
+  psp am
+\end{SACCode}
+
+假设这个文件命名为MYSTUFF，并且该文件在你的当前目录中，你可以通过下面的命令执行宏文件：
+\begin{SACCode}
+SAC> macro MYSTUFF
+\end{SACCode}
+注意到宏文件中的命令在执行时是不会在终端中显示该命令的，可以使用ECHO来根据你的意愿
+选择在终端显示哪些东西。另外，在任意一行的第一列若有星号则意味着该行为注释行，
+SAC不会不解释该行。
+
+\SACTitle{宏搜索路径：}
+当你执行一个宏而又没有给出宏文件的路径时,SAC会按照下面的顺序搜索宏文件：
+\begin{itemize}
+\item 在当前目录搜索
+\item 在SETMACRO命令设置的搜索目录中搜索
+\item 在SAC的全局宏目录中搜索
+\end{itemize}
+
+全局宏目录包含了对系统上的所有人都可以使用的宏文件，这个全局宏目录一般是sac/aux/macros。
+可以使用INSTALLMACRO命令将自己的宏文件安装到这个目录中。你也可以通过绝对或相对路径来专门
+指定搜索路径。

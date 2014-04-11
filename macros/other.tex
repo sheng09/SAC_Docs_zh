@@ -87,3 +87,25 @@ SAC中暂存块变量的输入输出
 有四个SAC命令用于读写暂存块变量，设置、获得暂存块变量的值。这四个命令为READBBF、WRITEBBF,
 GETBB和SETBB。这些命令可以在SAC提示符下或者宏文件中使用，详情请参考命令帮助文档。
 
+
+
+下面的例子使用reply函数实现交互：\footnote{这个例子是为了演示REPLY的用法，但内容上已经涉及
+到宏的部分，但是有编程基础的话应该很容易看懂，不过这个例子不太好用作实验，看看就行}：
+\begin{SACCode}
+SAC>DO FILE LIST ABC DEF XYZ
+SAC>READ $FILE
+SAC>DO J FROM 1 TO 10
+SAC> MACRO PROCESSFILE
+SAC> PLOT
+SAC> setbb resp (reply "Enter -1 to stop,0 for next file, 1 for same file:")
+SAC> IF %resp LE 0 THEN
+SAC>  BREAK
+SAC> ENDIF
+SAC>ENDDO
+SAC>IF %resp LT 0 THEN
+SAC>  BREAK
+SAC>ENDIF
+SAC>ENDDO 
+\end{SACCode}
+外循环从列表中一次读取一个文件，内循环调用宏文件处理这个文件，内循环执行10次。每次
+执行之后，绘图然后REPLY发送信息到终端，并接收用户的输入以决定是否继续执行。
