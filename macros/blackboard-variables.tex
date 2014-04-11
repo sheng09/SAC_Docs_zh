@@ -1,53 +1,48 @@
-\section{SAC中的暂存块变量}
-这里的顺序和官方的顺序不太一样，官方的顺序是``SAC宏->SAC内置函数->SAC暂存块变量''，在SAC宏一节
-中，使用了暂存块变量和头段变量，这样的顺序对于一个新手来说及其不合适，因而这里把暂存块变量和
-头段变量拿出来作为一节，然后介绍SAC内置函数，最后简单介绍SAC宏\footnote{单独把SAC宏孤立出来的
-原因在于，SAC宏似乎似乎没有太多存在的必要，完全可以被脚本语言所取代。我原来想暂存块变量以及
-头段变量都可以在脚本语言中直接定义和使用，后来发现这样的想法不合理，使用SAC暂存块变量和头段
-变量更省事、效率也更高}。
+\section{黑板变量}
+既然是SAC编程，就必然少不了变量，SAC中的变量称之为黑板变量。
 
-暂存块是SAC中用于临时储存和取回信息而设计的，暂存块变量也可以用WRITEBBF保存在一个磁盘文件中，
-然后使用READBBF命令重新将这些变量读入SAC中。在sacio库中有四个函数允许用户在自己写的程序中读写
-SAC暂存块变量。这些库在SAC的lib目录下都可以找到。
+黑板变量是SAC中用于临时储存和取回信息而设计的，黑板变量也可以用\nameref{cmd:writebbf}保存在一个磁盘文件中，然后使用\nameref{cmd:readbbf}命令重新将这些变量读入SAC中。
 
-一个暂存块变量包括变量名及其存储的值，暂存块变量可以用SETBB和EVALUATE命令来创建，可以用GETBB来
-获得暂存块变量的值。在其他命令中，你可以在变量名之前加上一个百分号``\%''\footnote{在bash脚本
-语言中，定义一个变量的时候不需要加\$，在引用该变量的时候需要加\$，是不是有点相似？}
-将暂存块变量的值代入该命令中，如下所示：
+黑板变量不需要声明即可直接使用，可以用\nameref{cmd:setbb}和\nameref{cmd:evaluate}
+命令给黑板变量赋值，用\nameref{getbb}获取黑板变量的值。
+
+引用黑板变量的值的方式为：\lstinline{%bbvname%}，其中bbvname为黑板变量的变量名。
+
 \begin{SACCode}
-SAC> fg seis         //这个命令应该很熟悉了
-SAC> p               //先画图看看
-SAC> setbb a 2.45    //创建两个暂存块变量并赋值
-SAC> setbb b 4.94
-SAC> bp c %a %b      //带通滤波，这里使用变量A和B的值
-SAC> p               //再画图看看变化
+SAC> echo on processed          
+SAC> fg seis
+SAC> p
+SAC> setbb low 2.45         // 黑板变量low=2.45
+SAC> setbb high 4.94        // 黑板变量high=4.94
+SAC> bp c %low% %high%      // 引用黑板变量low和high的值作为滤波的频带
+ ==>  bp c 2.45 4.94        // echo on processed 显示代入值后的命令
+SAC> p
+SAC> getbb low high         // 查看黑板变量的值
+ low = 2.45
+ high = 4.94
 \end{SACCode}
 
-你可以在暂存块变量前或后添加任意的字符串。若要在变量前联接字符串则直接将字符串置于暂存块
-变量前即可；若要在变量后联接字符串则需要在暂存块变量前字符串后再多加一个\%。听起来有点乱？
-那就看看下面的例子吧。
-
-SAC暂存块变量的例子
-
-假设暂存块变量TEMP值为``ABC''，则XYZ\%TEMP的值为``XYZABC''，而\%TEMP\%XYZ的值为``ABCXYZ''
-\footnote{多加一个\%的目的是为了方便SAC确认TEMP为变量名，而非TEMPXYZ。从这里也可以看出SAC
-貌似无法做两个变量的联接。SAC这样的设计使得用户需要记忆更多的规则，显然没有perl脚本处理字符
-串那样灵活。没办法，SAC生下来就不是做字符处理的，写程序的人是一堆seismologists，而不是一个geek}：
+下例展示了如何将黑板变量写入磁盘文件，等需要时再从磁盘文件中获取：
 \begin{SACCode}
-SAC> fg 
-SAC> echo on           //help一下echo吧
-SAC> setbb TEMP "ABC"  //定义一个变量
- setbb TEMP "ABC"      //这个就是echo的作用
-SAC> ch kstnm XYZ%TEMP //前加字符串修改头段kstnm
- ch kstnm XYZ%TEMP     //echo将命令输出了
- ==> ch kstnm XYZABC   //echo将结果输出了
-SAC> ch kevnm %TEMP%XYZ//后加字符串修改头段kevnm 
- ch kevnm %TEMP%XYZ
- ==> ch kevnm ABCXYZ
+$ sac
+SAC> setbb var1 10          // 整型
+SAC> setbb var2 "text"      // 字符串
+SAC> setbb var3 0.2         // 浮点型
+SAC> wbbf bbf.file          // 写入到文件
+SAC> q
+$ ls
+bbf.file
+$ sac
+SAC> readbbf ./bbf.file 
+SAC> getbb
+ NUMERROR = 0
+ SACERROR = 'FALSE'
+ SACNFILES = 0
+ VAR1 = 10
+ VAR2 = 'text'
+ VAR3 = 0.2
+SAC> getbb var2 var3
+ var2 = 'text'
+ var3 = 0.2
+SAC> q
 \end{SACCode}
-
-SAC中暂存块变量的输入输出
-
-有四个SAC命令用于读写暂存块变量，设置、获得暂存块变量的值。这四个命令为READBBF、WRITEBBF,
-GETBB和SETBB。这些命令可以在SAC提示符下或者宏文件中使用，详情请参考命令帮助文档。
-

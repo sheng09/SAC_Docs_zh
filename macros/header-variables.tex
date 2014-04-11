@@ -1,69 +1,44 @@
-\section{SAC头段变量的使用}
-    
-这里也许该顺势去写在C或FORTRAN中读写暂存块变量的，仔细
-想想还是把头段变量的使用放在这里会比较好。两个变量离的比较近，对比记忆起来也许更容易。
+\section{引用头段变量值}
+前面已经介绍了SAC中的很多头段变量，也知道如何使用``\nameref{cmd:listhdr}''查看头段
+变量的值，lh命令的输出对于人来说很直观，但是对于机器来说却很不友好。有些时候需要
+直接使用头段变量的值，这就需要一些特殊的技巧。
 
-SAC的头段变量也可以像暂存块变量一样用于计算并直接代入到其他命令中，当然你必须指定是哪一个
-文件（可以使用文件名或者文件号）的哪一个头段变量将用于计算。
+最常见的情况是第\pageref{code:origin-time}页给出的例子。在使用``ch o gmt''指定发震
+时刻后，需要获取头段变量o的值，对该值取负值，并用于``ch allt''中。
 
-你需要在这些标识之前加上一个``\&''以表明这是一个头段变量\footnote{记得暂存块变量需要的符号是``\%''}，
-同时需要在文件名和变量名之间加上一个逗号\footnote{暂存块变量与头段变量的一个区别！}，如下所示：
+在SAC命令中引用SAC头段变量的值有两种方式：\lstinline{&fname,header&}和\lstinline{&fno,header&}。
+
+fname和fno都唯一指向了内存中的某个波形数据，其中fname表示文件名，fno表示文件号
+（即内存中的第几个文件，索引值从1开始），header则为头段变量名。
+
+下例展示了如何通过两种方式引用头段变量的值：
 \begin{SACCode}
 SAC> fg seis
-SAC> w seis
-SAC> r seis
-SAC> lh a depmax                            //看看头段
-   
-  FILE: seis - 1
- ----------
-
-          a = 1.046400e+01
-     depmax = 1.520640e+00
-SAC> echo on
-SAC> evaluate to temp1 &seis,A + 10         //利用文件名获取头段变量值
- evaluate to temp1 &seis,A + 10
- ==> evaluate to temp1 1.046400e+01 + 10
-SAC> evaluate to temp2 &1,DEPMAX * 2        //利用文件号获取头段变量值
- evaluate to temp2 &1,DEPMAX * 2
- ==> evaluate to temp2 1.520640e+00 * 2
-SAC> ch t5 %temp1                           
- ch t5 %temp1
- ==> ch t5 2.0464001e+01
-SAC> ch user0 %temp2
- ch user0 %temp2
- ==> ch user0 3.0412800e+00
-SAC> lh t5 user0                            //看看最后的结果
- lh t5 user0
+SAC> w seis.SAC 
+SAC> r ./seis.SAC               // 注意"./"
+SAC> lh kevnm o stla            // 查看三个头段变量的值
   
-  FILE: seis - 1
- ----------
+  FILE: ./seis.SAC - 1          // 这里给出了文件名和文件号
+ ----------------
 
-        t5 = 2.046400e+01
-     user0 = 3.041280e+00
-\end{SACCode}
-在上面的例子中文件被读入，一些暂存块变量通过文件的头段变量被计算，
-第一个文件头段是用文件名来指定的，第二个文件头段是用文件号来指定的。然后新的头段
-变量通过这些暂存块变量被重新定义。
-
-下面将上面的例子改一下：
-\begin{SACCode}
-SAC> r ./seis 
-SAC> lh a 
+     kevnm = K8108838
+         o = -4.143000e+01
+      stla = 4.800000e+01
+SAC> echo on processed          // 打开回显，显示处理信息
+SAC> ch kuser0 &1,kevnm&        // 通过文件号引用头段变量kevnm    
+ ==>  ch kuser0 K8108838        // 实际执行的效果
+SAC> ch user0 &./seis.SAC,o&    // 利用文件名，引用头段变量o
+ ==>  ch user0 -41.43       
+SAC> ch user1 &seis.SAC,stla&   // 文件名少了"./"
+ ERROR 1363: Illegal data file list name: seis.SAC
+SAC> lh kuser0 user0 user1
   
-  FILE: ./seis - 1
- ------------
+  FILE: ./seis.SAC - 1
+   ----------------
 
-     a = 1.046400e+01
-SAC> echo on
-SAC> evaluate to temp1 &seis,A + 10
- evaluate to temp1 &seis,A + 10
- ==> evaluate to temp1  + 10
-SAC> evaluate to temp2 &1,A + 10
- evaluate to temp2 &1,A + 10
- ==> evaluate to temp2 1.046400e+01 + 10
+     kuser0 = K8108838
+     user0 = -4.143000e+01
 \end{SACCode}
-没看出区别的话可以看看脚注。\footnote{bash的一个重要特性是命令补全，在命令补全是读取的文件名是./seis，
-所以引用的时候用\&seis,A就不行了，用文件号是可以的。你可以试一下\&./seis,A行不行。建议还是用文件号吧}
-同暂存块变量一样，也可以在头段变量的前后加上字符串，在头段变量前加字符串时可以直接加，在头段变量后联接
-字符串的话就需要一个``\&''来作为分隔符，原理同上。假设文件Z的头段变量KA值为IPU0，那么(\&Z,KA\&)的值就是(IPU0)
-（这里在头段变量前后分别添加了半个括号。）。
+
+在通过文件名指定波形数据时要注意：SAC记录的是文件的全路径。一般情况下，都是使用
+文件号比较方便。

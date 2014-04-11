@@ -1,0 +1,89 @@
+\begin{SACCode}
+SAC> fg seis
+SAC> w seis
+SAC> r seis
+SAC> lh a depmax                            //看看头段
+   
+  FILE: seis - 1
+ ----------
+
+          a = 1.046400e+01
+     depmax = 1.520640e+00
+SAC> echo on
+SAC> evaluate to temp1 &seis,A + 10         //利用文件名获取头段变量值
+ evaluate to temp1 &seis,A + 10
+ ==> evaluate to temp1 1.046400e+01 + 10
+SAC> evaluate to temp2 &1,DEPMAX * 2        //利用文件号获取头段变量值
+ evaluate to temp2 &1,DEPMAX * 2
+ ==> evaluate to temp2 1.520640e+00 * 2
+SAC> ch t5 %temp1                           
+ ch t5 %temp1
+ ==> ch t5 2.0464001e+01
+SAC> ch user0 %temp2
+ ch user0 %temp2
+ ==> ch user0 3.0412800e+00
+SAC> lh t5 user0                            //看看最后的结果
+ lh t5 user0
+  
+  FILE: seis - 1
+ ----------
+
+        t5 = 2.046400e+01
+     user0 = 3.041280e+00
+\end{SACCode}
+在上面的例子中文件被读入，一些暂存块变量通过文件的头段变量被计算，
+第一个文件头段是用文件名来指定的，第二个文件头段是用文件号来指定的。然后新的头段
+变量通过这些暂存块变量被重新定义。
+
+下面将上面的例子改一下：
+\begin{SACCode}
+SAC> r ./seis 
+SAC> lh a 
+  
+  FILE: ./seis - 1
+ ------------
+
+     a = 1.046400e+01
+SAC> echo on
+SAC> evaluate to temp1 &seis,A + 10
+ evaluate to temp1 &seis,A + 10
+ ==> evaluate to temp1  + 10
+SAC> evaluate to temp2 &1,A + 10
+ evaluate to temp2 &1,A + 10
+ ==> evaluate to temp2 1.046400e+01 + 10
+\end{SACCode}
+没看出区别的话可以看看脚注。\footnote{bash的一个重要特性是命令补全，在命令补全是读取的文件名是./seis，
+所以引用的时候用\&seis,A就不行了，用文件号是可以的。你可以试一下\&./seis,A行不行。建议还是用文件号吧}
+同暂存块变量一样，也可以在头段变量的前后加上字符串，在头段变量前加字符串时可以直接加，在头段变量后联接
+字符串的话就需要一个``\&''来作为分隔符，原理同上。假设文件Z的头段变量KA值为IPU0，那么(\&Z,KA\&)的值就是(IPU0)
+（这里在头段变量前后分别添加了半个括号。）。
+
+
+你可以在暂存块变量前或后添加任意的字符串。若要在变量前联接字符串则直接将字符串置于暂存块
+变量前即可；若要在变量后联接字符串则需要在暂存块变量前字符串后再多加一个\%。听起来有点乱？
+那就看看下面的例子吧。
+
+SAC暂存块变量的例子
+
+假设暂存块变量TEMP值为``ABC''，则XYZ\%TEMP的值为``XYZABC''，而\%TEMP\%XYZ的值为``ABCXYZ''
+\footnote{多加一个\%的目的是为了方便SAC确认TEMP为变量名，而非TEMPXYZ。从这里也可以看出SAC
+貌似无法做两个变量的联接。SAC这样的设计使得用户需要记忆更多的规则，显然没有perl脚本处理字符
+串那样灵活。没办法，SAC生下来就不是做字符处理的，写程序的人是一堆seismologists，而不是一个geek}：
+\begin{SACCode}
+SAC> fg 
+SAC> echo on           //help一下echo吧
+SAC> setbb TEMP "ABC"  //定义一个变量
+ setbb TEMP "ABC"      //这个就是echo的作用
+SAC> ch kstnm XYZ%TEMP //前加字符串修改头段kstnm
+ ch kstnm XYZ%TEMP     //echo将命令输出了
+ ==> ch kstnm XYZABC   //echo将结果输出了
+SAC> ch kevnm %TEMP%XYZ//后加字符串修改头段kevnm 
+ ch kevnm %TEMP%XYZ
+ ==> ch kevnm ABCXYZ
+\end{SACCode}
+
+SAC中暂存块变量的输入输出
+
+有四个SAC命令用于读写暂存块变量，设置、获得暂存块变量的值。这四个命令为READBBF、WRITEBBF,
+GETBB和SETBB。这些命令可以在SAC提示符下或者宏文件中使用，详情请参考命令帮助文档。
+
