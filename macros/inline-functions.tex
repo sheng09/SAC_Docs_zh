@@ -8,6 +8,7 @@ SAC提供了如下几类内联函数：
 \item 算术运算符；
 \item 常规算术运算函数；
 \item 字符串操作函数；
+\item 其他函数；
 \end{itemize}
 
 所有的内联函数的共同形式是：\lstinline{(func)}，其中func为内联函数名，在某种程度
@@ -129,9 +130,86 @@ SAC> div ( max (abs %vmax%) (abs %vmin%) )      // 嵌套
 \end{SACCode}
 此例可以通过多重嵌套的方式在单个命令中完成，但上面的写法可读性更强。
 
-\subsection{其他算术运算函数}
-这类函数目前只有一个：GETTIME，用于返回数据中首先出现某个值的时间相对于文件开始
-时间的时间偏移量(s):
+\subsection{字符串操作函数}
+SAC提供了若干个函数用于字符串的处理，如表\ref{tabel:string=operation-functions}所示：
+
+\begin{table}[H]
+\centering
+\caption{字符串操作函数}
+\label{table:string-operation-functions}
+\begin{tabular}{lll}
+	\toprule
+	命令	&	语法（简写形式）	&	功能	\\
+	\midrule
+	change		&	( cha s1 s2 s3 ) 	&	在s3中用s1代替s2	\\
+	substring 	&	( subs n1 n2 s ) 	&	取s中第n1到第n2个字符\\
+	delete		&	( del s1 s2 )		&	从s2中删去s1	\\
+	concatenate &	( conc s1 s2 ... sn )	&	将多个字符串拼接起来 \\
+	before		&	( bef s1 s2)			&	得到s2中位于s1前的部分字符串\\
+	after		&	( aft s1 s2 )			&	得到s2中位于s1后的部分字符串\\
+	reply		&	( rep s1 )			&	发送信息s1到终端并得到回应	\\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+下面的例子展示了部分函数的用法：
+\begin{SACCode}
+change substring delete before after的用法
+SAC> setbb month (substring 1 3 '&1,kzdate&')
+ ==> setbb month mar
+SAC> fg seismo
+SAC> SETBB MONTH (SUBSTRING 1 3 &1,KZDATE)
+==>  SETBB MONTH MAR
+SAC> message (substring 1 5 &1,kevnm)
+==>  message K8108
+setbb VAL "1234567890"
+SAC> message (substring 1 5 %VAL)
+message (substring 1 5 %VAL)
+==>  message 12345
+\end{SACCode}
+
+下面的例子利用concatenate函数定义标题，在标题中使用台站和文件名：
+\begin{SACCode}
+SAC> fg seis
+SAC> p
+SAC> echo on
+SAC> title '(concatenate 'Seismogram of ' &1,kevnm ' ' &1,kstnm )'
+ ==> title 'Seismogram of K8108838 CDV'
+SAC> p
+SAC> FUNCGEN SEISMOGRAM
+SAC> ECNO ON
+SAC> TITLE '(CONCATENATE 'Seismogram of ' &1,KEVNM ' ' &1,KSTNM )'
+old output  ==> TITLE 'Seismogram of K8108838 CDV'
+v101.6 output  ==>  TITLE "(CONCATENATE " Seismogram of " K8108838 " " CDV )"
+SAC> title "Seismogram of &1,KEVNM &1,KSTNM"
+title "Seismogram of &1,KEVNM &1,KSTNM"
+==>  title "Seismogram of K8108838 CDV"
+SAC> setbb a (CONCATENATE Seismogram of  &1,KEVNM  &1,KSTNM )
+==>  setbb a SeismogramofK8108838CDV
+SAC> setbb a (CONCATENATE Seismogram' ' of' '' '  &1,KEVNM  &1,KSTNM )
+==>  setbb a Seismogram of  K8108838CDV
+SAC> > setbb a 'Seismogram of  &1,KEVNM  &1,KSTNM'
+==>  setbb a "Seismogram of  K8108838  CDV"
+\end{SACCode}
+
+下面的例子使用reply函数实现了交互：
+\begin{SACCode}
+SAC> fg seis
+SAC> rmean; rtr; taper
+SAC> setbb low (reply "Enter low freqency limit for bandpass:")
+SAC> setbb high (reply "Enter low freqency limit for bandpass:")
+SAC> bp c %low% %high%
+\end{SACCode}
+
+下面的例子中reply函数包含了一个默认值值：
+\begin{SACCode}
+SAC> setbb bbday (reply "Enter the day of the week: [Monday]") 
+\end{SACCode}
+当这个函数执行时，引号中的字符串将出现在屏幕上，提示用户输入。如果用户输入，SAC会将
+输入的字符串作为回应值，如果用户只是敲击回车键，SAC则会使用该默认值即MONDAY。
+
+\subsection{其他函数}
+这类函数目前只有一个：GETTIME，用于返回数据中首先出现某个值的时间相对于文件开始时间的时间偏移量(s):
 \begin{SACCode}
    (GETTIME MAX|MIN [value])
 \end{SACCode}
@@ -152,69 +230,3 @@ SAC> setbb maxtime ( gettime max )
 SAC> setbb valuetime ( gettime min 123.45 )
  ==> setbb valuatime 37.9 
 \end{SACCode}
-
-\begin{table}[h]
-\caption{字符串函数}
-\centering
-\begin{tabular}{p{2.73cm}p{4.88cm}p{7.1cm}}
-	\toprule
-	命令	&	语法	&	功能	\\
-	\midrule
-	CHANGE	&	(CHANGE) s1 s2 s3) 	&	在字符串s3中用字符串s1代替字符串s2	\\
-	SUBSTRING&	(SUBSTRING n1 n2 s) &	得到字符串s中第n1到第n2个字符\\
-	DELETE	&	(DELETE s1 s2)		&	从字符串s2中删去字符串s1	\\
-	CONCATENATE&	(CONCATENATE s1 s2 ... sn)	&	首尾连接一个或多个字符串\\
-	BEFORE	&	(BEFORE s1 s2)	&	得到字符串s2中字符串s1前的部分字符串\\
-	REPLY	&	(REPLY s1)	&	发送信息到终端并得到回应	\\
-	AFTER	&	(AFTER s1 s2)	&	得到字符串s2中字符串s1后的部分字符串\\
-	\bottomrule
-\end{tabular}
-\end{table}
-
-下面的例子展示了上面部分函数的用法，在标题中使用台站和文件名然后绘图（比较一下两次绘图的区别）：
-\begin{SACCode}
-SAC> fg seis
-SAC> p
-SAC> echo on
-SAC> title '(concatenate 'Seismogram of ' &1,kevnm ' ' &1,kstnm )'
- ==> title 'Seismogram of K8108838 CDV'
-SAC> p
-\end{SACCode}
-这个例子中CONCATENATE有四个参数，第一个参数是'Seismogram of '，因为其中间有空格所以
-需要用引号引起来；第二、四个参数利用了文件中的头段变量；第三个参数是一个空格以保证
-台站名和事件名不会连起来。最外面一对引号是title命令的语法要求的。
-
-下面的例子使用SUBSTRING从事件中提取月份信息：
-\begin{SACCode}
-SAC> setbb month (substring 1 3 '&1,kzdate&')
- ==> setbb month mar
-\end{SACCode}
-为什么头段变量KZDATE需要加引号？
-
-下面的例子使用REPLY实现交互\footnote{这个例子是为了演示REPLY的用法，但内容上已经涉及
-到宏的部分，但是有编程基础的话应该很容易看懂，不过这个例子不太好用作实验，看看就行}：
-\begin{SACCode}
-SAC>DO FILE LIST ABC DEF XYZ
-SAC>READ $FILE
-SAC>DO J FROM 1 TO 10
-SAC> MACRO PROCESSFILE
-SAC> PLOT
-SAC> setbb resp (reply "Enter -1 to stop,0 for next file, 1 for same file:")
-SAC> IF %resp LE 0 THEN
-SAC>  BREAK
-SAC> ENDIF
-SAC>ENDDO
-SAC>IF %resp LT 0 THEN
-SAC>  BREAK
-SAC>ENDIF
-SAC>ENDDO 
-\end{SACCode}
-外循环从列表中一次读取一个文件，内循环调用宏文件处理这个文件，内循环执行10次。每次
-执行之后，绘图然后REPLY发送信息到终端，并接收用户的输入以决定是否继续执行。
-
-下面这个例子展示的REPLY有一个缺省值：
-\begin{SACCode}
-SAC> setbb bbday (reply "Enter the day of the week: [Monday]") 
-\end{SACCode}
-当这个函数执行时，引号中的字符串将出现在屏幕上，提示用户输入。如果用户输入，SAC会将
-输入的字符串作为回应值，如果用户只是敲击回车键，SAC则会使用该默认值即MONDAY。
