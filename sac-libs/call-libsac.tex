@@ -1,0 +1,75 @@
+\section{调用libsac库}
+\subsection{next2}
+SAC在做FFT时要保证数据点数为$2^n$个，对于不足$2^n$个点的数据需要补零至$2^n$次方个点。
+
+next2函数定义为：
+\begin{lstlisting}[style=C]
+int next2(int num)  // 输入为num，返回值为大于num的最小2次幂
+\end{lstlisting}
+
+\subsection{xapiir}
+xapiir用于设计IIR滤波器，并对数据进行滤波。这个子函数底层调用了design和apply两个
+子函数。
+\begin{lstlisting}[style=C]
+void 
+xapiir(float    *data,      // 待滤波的数据，滤波后的数据保存在该数组中
+       int       nsamps,    // 数据点数 
+       char     *aproto,    // 滤波器类型
+                            //  - 'BU'  :   butterworth
+                            //  - 'BE'  :   bessel
+                            //  - 'C1'  :   chebyshev type I
+                            //  - 'C2'  :   chebyshev type II
+       double    trbndw,    // chebyshev滤波器的过渡带宽度
+       double    a,         // chebyshev滤波器的衰减因子
+       int       iord,      // 滤波器阶数
+       char     *type,      // 滤波类型，'LP','HP','BP','BR'
+       double    flo,       // 低频截断频率
+       double    fhi,       // 高频截断频率
+       double    ts,        // 采样周期
+       int       passes     // 通道数，1或2
+)
+\end{lstlisting}
+
+相关代码位于\lstinline{sac/doc/examples}的filterc.c和filterf.f中。
+
+\subsection{firtrn}
+\begin{lstlisting}[style=C]
+void                                                                                
+firtrn( char    *ftype,     // 类型，取'HILBERT'或'DERIVATIVE'
+        float   *x,         // 输入数据                      
+        int      n,         // 数据点数                                             
+        float   *buffer,    // 临时数组，长度至少4297
+        float   *y          // 输出数组
+)
+\end{\lstlisting}
+
+\subsection{envelope}
+该子函数用于计算数据的包络函数，其底层调用了firtrn函数。
+\begin{lstlisting}[style=C]
+void                                                                                
+envelope( int    n,     // 数据点数
+          float *in,    // 输入数据
+          float *out    // 输出数据
+)
+\end{lstlisting}
+
+相关代码位于\lstinline{sac/doc/examples}的envelopec.c和envelopef.f中。
+
+\subsection{crscor}
+\begin{lstlisting}[style=C]
+void                                                                                  
+crscor( float   *data1,     // 数据1
+        float   *data2,     // 数据2                                       
+        int      nsamps,    // 数据点数                                               
+        int      nwin,      // 相关窗数目                                            
+        int      wlen,      // 窗内数据点数，最大值为2048                                          
+        char    *type,      // 窗类型，可以取'HAM','HAN','C','R','T'
+        float   *c,         // 输出数据，长度为2*wlen-1
+        int     *nfft,      // 相关序列的数据点数                            
+        char    *err,       // 错误消息                                  
+        int      err_s      // 错误消息长度
+)
+\end{lstlisting}
+
+相关代码位于\lstinline{sac/doc/examples}的convolvec.c、convolvef.f、correlatec.c
+和correlatef.f中。
