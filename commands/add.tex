@@ -5,12 +5,9 @@
 给每一个数据点加上一个常数
 
 \SACTitle{语法}
-%ADD \{v1 \{v2 ... vn\} \}
-ADD [v1 [v2 ... vn]]
-\footnote{
-在语法中，被中括号包围起来的部分表示是可选项，省略号表示选项可以重复出现，
-``|''代表分隔的多个选项最多只能存在一个。以后的命令也用此规则。
-}
+\begin{SACSyntax}
+add [ v1 [ v2 ... vn ] ]
+\end{SACSyntax}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,7 +17,7 @@ ADD [v1 [v2 ... vn]]
 \end{itemize}
 
 \SACTitle{缺省值}
-ADD 0.0
+add 0.0
 
 \SACTitle{说明}
 这个命令给内存中的每个数据文件的每个元素加一个常数。这个常数对于每一个数
