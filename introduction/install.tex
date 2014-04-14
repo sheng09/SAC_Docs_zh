@@ -1,6 +1,6 @@
 \section{安装SAC}
 \label{sec:sac-install}
-本节介绍如何在Linux下安装SAC，要求读者对Linux下的一些基本概念有所了解。
+本节介绍如何在Linux下安装SAC，要求读者了解Linux的一些基本概念和操作。
 
 \subsection*{申请SAC}
 在``\nameref{sec:history}''中已经说到，SAC协议仅允许在IRIS社区内部分享SAC的源码，
@@ -60,7 +60,7 @@ $ sudo make install
 \end{lstlisting}
 
 \subsection*{配置变量}
-修改\lstinline{~/.bashrc}以配置环境变量以及SAC所需要的变量，加入如下语句：
+向\lstinline{~/.bashrc}中加入如下语句以配置环境变量和SAC全局变量：
 \begin{lstlisting}[style=Bash]
 export SACHOME=/usr/local/sac
 export SACAUX=$SACHOME/aux
@@ -73,27 +73,28 @@ export SAC_USE_DATABASE=0
 
 其中，
 \begin{itemize}
-\item \lstinline{SACHOME}为SAC的安装目录；
-\item \lstinline{SACAUX}中包含了SAC的辅助文件；
-\item \lstinline{PATH}为Linux系统环境变量；
-\item \lstinline{SAC_DISPLAY_COPYRIGHT}用于控制是否在启动SAC时显示版本和版权信息，
-    一般设置为1，在Bash或Perl调用多次调用SAC时一般将其值设置为0，设置方法可以参考
-    ``\nameref{chap:sac-bash}''或``\nameref{chap:sac-perl}''中的相关内容；
-\item \lstinline{SAC_PPK_LARGE_CROSSHAIRS}用于控制震相拾取过程中光标的大小，在
+\item \lstinline{SACHOME}~为SAC的安装目录；
+\item \lstinline{SACAUX}~中包含了SAC运行所需的辅助文件；
+\item \lstinline{PATH}~为Linux系统环境变量；
+\item \lstinline{SAC_DISPLAY_COPYRIGHT}~用于控制是否在启动SAC时显示版本和版权信息，
+    一般设置为1。在脚本中多次调用SAC时会重复显示版本和版权信息，影响脚本输出，因而
+    一般将其值设置为0，设置方法可以参考``\nameref{sec:sac-bash}''和``\nameref{sec:sac-perl}''
+    中的相关内容；
+\item \lstinline{SAC_PPK_LARGE_CROSSHAIRS}~用于控制震相拾取过程中光标的大小，在
     ``\nameref{sec:phase-picking}''一节会具体说明；
-\item \lstinline{SAC_USE_DATABASE}用于控制是否允许将SAC格式转换为GSE 2.0格式；
+\item \lstinline{SAC_USE_DATABASE}~用于控制是否允许将SAC格式转换为GSE 2.0格式；
     一般用不到该特性，故而设置其值为0；
 \end{itemize}
 
-使配置的环境变量生效：
+执行以下命令使配置的环境变量生效：
 \begin{lstlisting}[style=Shell]
 $ source ~/.bashrc
 \end{lstlisting}
 
 \subsection*{启动SAC}
-终端键入小写的sac\footnote{Ubuntu的源里也有一个名叫sac的软件，是用来显示登录账户
+终端键入小写的sac\footnote{Ubuntu的源里有一个名叫sac的软件，是用来显示登录账户
 的一些信息；CentOS的源里也有一个名叫sac的软件，是CSS语法分析器的Java接口。所以
-一定不要试图用发行版自带的软件包管理器安装sac!!!}，显示如下则表示SAC正常安装：
+一定不要试图用发行版自带的软件包管理器安装sac!!!}，显示如下则表示SAC安装成功：
 \begin{lstlisting}[style=Shell]
 $ sac
  SEISMIC ANALYSIS CODE [11/11/2013 (Version 101.6a)]
