@@ -1,10 +1,10 @@
 \section{绘图}
 \label{sec:display}
 
-SAC中有四个绘图命令，分别是\nameref{cmd:plot}、\nameref{cmd:plot1}、\nameref{cmd:plot2}、
+SAC中有四个常用的绘图命令，分别是~\nameref{cmd:plot}、\nameref{cmd:plot1}、\nameref{cmd:plot2}、
 \nameref{cmd:plotpk}。
 
-plotpk用于``人机交互''过程中拾取震相，在``\nameref{sec:phase-picking}''一节中会详细讲解。
+plotpk用于``人机交互''过程中拾取震相，在``~\nameref{sec:phase-picking}~''一节中会详细讲解。
 
 下面说说plot、plot1和plot2的区别。
 
@@ -22,11 +22,11 @@ SAC>
 \end{SACCode}
 
 鉴于在SAC绘图中有很多中文意思类似的名词，这里似乎有必要定义一下``窗口''。图
-\ref{fig:plot}展示了一个SAC窗口。同很多其它软件界面类似，这个窗口在左上角显示
+\ref{fig:plot}~展示了一个SAC窗口。同很多其它软件界面类似，这个窗口在左上角显示
 图标，右上角显示``最小化''、``最大化''、``还原''和``关闭''按钮。
 
 左上角的``Graphics Window: 1''指明了当前绘图窗口的编号为``1''。SAC中一共可以同时
-使用5个类似的窗口。
+使用10个类似的窗口。
 
 窗口的中间部分为真正的绘图区，以后的图将只显示绘图区而不显示整个窗口。
 
@@ -56,15 +56,16 @@ SAC>
 点击窗口的``关闭''按钮，窗口依然无法关闭。
 \begin{SACCode}
 SAC> r cdv.[nez]
-SAC> begindevices xwindows      // 启动图形设备xwindows，简写为bd x
+SAC> begindevices xwindows      // 启动图像设备xwindows，简写为bd x
 SAC> p
 Waiting
 Waiting
-SAC> enddevices xwindows        // 关闭图形设备xwindows，简写为ed x
+SAC> enddevices xwindows        // 关闭图像设备xwindows，简写为ed x
 \end{SACCode}
-严格地说，绘图的流程应该是：启动图形设备（xwindows或者sgf）$\rightarrow$绘图$\rightarrow$关闭图形设备。
-这样稍显繁琐，SAC将这一流程进行了简化，在每次绘图前偷偷启动了SAC默认的图形设备xwindows，
-也就是上面所说的窗口，而关闭图形设备这一步需要用户自己完成。
+严格地说，SAC绘图的流程应该是：启动图像设备（xwindows或者sgf）$\rightarrow$绘图$\rightarrow$关闭图像设备。
+这样稍显繁琐，SAC将这一流程进行了简化，在每次绘图前偷偷启动了SAC默认的图像设备xwindows，
+也就是上面所说的窗口，而关闭图像设备这一步需要用户自己完成，当然，在退出SAC时，SAC
+也会自动关闭图像设备。
 
 \subsection{plot1}
 plot1命令会在一个窗口中显示多个波形。这些波形共用一个X轴，但拥有单独的Y轴。
@@ -73,7 +74,7 @@ SAC> r cdv.?
 cdv.e cdv.n cdv.z
 SAC> p1
 \end{SACCode}
-执行plot1命令后，焦点位于图形窗口，显示如图\ref{fig:plot1}。
+执行plot1命令后，焦点位于图形窗口，显示如图~\ref{fig:plot1}。
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{plot1}
@@ -96,6 +97,7 @@ SAC>
 
 \subsection{plot2}
 plot2会在一个窗口内绘制多个波形，波形同时共用X轴和Y轴。
+
 \begin{SACCode}
 SAC> fg seis                     // 生成数据
 SAC> rmean; rtrend; taper        // 预处理
@@ -107,7 +109,9 @@ SAC> r ./seis.[01]               // 读入两个文件
 SAC> color red inc list red blue // 设置颜色
 SAC> p2                          // 绘图
 \end{SACCode}
-绘图效果如图\ref{fig:plot2}，显然plot2比较适合在对比波形时使用。
+图~\ref{fig:plot2}~中红线为滤波前波形，蓝线为滤波后波形，二者共用X轴和Y轴。
+
+plot2适合做多个波形的对比，常用于数据处理前后波形对比或真实波形与合成波形间的对比。
 
 \begin{figure}[H]
 \centering
