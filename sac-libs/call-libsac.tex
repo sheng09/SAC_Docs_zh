@@ -30,7 +30,7 @@ xapiir(float    *data,      // 待滤波的数据，滤波后的数据保存在�
 )
 \end{lstlisting}
 
-相关代码位于\lstinline{sac/doc/examples}的filterc.c和filterf.f中。
+相关示例代码为~\lstinline{filterc.c}~和~\lstinline{filterf.f}~。
 
 \subsection{firtrn}
 \begin{lstlisting}[style=C]
@@ -41,7 +41,7 @@ firtrn( char    *ftype,     // 类型，取'HILBERT'或'DERIVATIVE'
         float   *buffer,    // 临时数组，长度至少4297
         float   *y          // 输出数组
 )
-\end{\lstlisting}
+\end{lstlisting}
 
 \subsection{envelope}
 该子函数用于计算数据的包络函数，其底层调用了firtrn函数。
@@ -53,9 +53,12 @@ envelope( int    n,     // 数据点数
 )
 \end{lstlisting}
 
-相关代码位于\lstinline{sac/doc/examples}的envelopec.c和envelopef.f中。
+相关示例代码为~\lstinline{envelopec.c}~和~\lstinline{envelopef.f}。
 
 \subsection{crscor}
+该子函数用于计算两个数据的互相关，此互相关在频率域中完成，相对时间域互相关而言
+效率更高。
+
 \begin{lstlisting}[style=C]
 void                                                                                  
 crscor( float   *data1,     // 数据1
@@ -71,5 +74,5 @@ crscor( float   *data1,     // 数据1
 )
 \end{lstlisting}
 
-相关代码位于\lstinline{sac/doc/examples}的convolvec.c、convolvef.f、correlatec.c
-和correlatef.f中。
+相关示例代码为~\lstinline{convolvec.c}、~\lstinline{convolvef.f}、~\lstinline{correlatec.c}~
+和~\lstinline{correlatef.f}。

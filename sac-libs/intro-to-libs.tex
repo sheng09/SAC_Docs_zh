@@ -1,29 +1,42 @@
 \section{SAC库简介}
 SAC提供了两个函数库：libsacio.a和libsac.a，用户可以在自己的C或Fortran程序
-中直接使用函数库中的子函数。这些库文件位于\lstinline{sac/lib}中。
+中直接使用函数库中的子函数。这些库文件位于~\lstinline{sac/lib}~中。
 
-\subsection{libsacio.a库}
+\subsection{libsacio库}
 这个库文件的子函数可用于读写SAC数据文件、头段变量、黑板变量。这些子函数可以在用户
 的C或Fortran程序中直接使用。
 
-libsacio.a中可用的子函数如下：
-\begin{itemize}
-\item rsac1 读取等间隔文件；
-\item rsac2 读取不等间隔文件和谱文件；
-\item wsac1 写入等间隔文件；
-\item wsac2 写入不等间隔文件；
-\item wsac0 可以写等间隔文件或不等间隔文件；
-\item getfhv 获取浮点型头段变量值
-\item setfhv 设置浮点型头段变量值
-\item getihv 获取枚举型头段变量值
-\item setihv 设置枚举型头段变量值
-\item getkhv 获取字符串头段变量值
-\item setkhv 设置字符串头段变量值
-\item getlhv 获取逻辑型头段变量值
-\item setlhv 设置逻辑型头段变量值
-\item getnhv 获取整型头段变量值
-\item setnhv 设置整型头段变量值
-\end{itemize}
+libsacio.a中可用的子函数包括：
+\begin{table}[H]
+\centering
+\caption{libsacio子函数}
+\ttfamily
+\begin{tabular}{ll}
+\toprule
+子函数      &       说明            \\
+\midrule    
+rsac1       &       读取等间隔文件  \\
+rsac2       &       读取不等间隔文件和谱文件    \\
+wsac1       &       写入等间隔文件  \\
+wsac2       &       写入不等间隔文件    \\
+wsac0       &       可以写等间隔文件或不等间隔文件  \\
+getfhv      &       获取浮点型头段变量值    \\
+setfhv      &       设置浮点型头段变量值    \\
+getihv      &       获取枚举型头段变量值    \\
+setihv      &       设置枚举型头段变量值    \\
+getkhv      &       获取字符串头段变量值    \\
+setkhv      &       设置字符串头段变量值    \\
+getlhv      &       获取逻辑型头段变量值    \\
+setlhv      &       设置逻辑型头段变量值    \\
+getnhv      &       获取整型头段变量值      \\
+setnhv      &       设置整型头段变量值  \\
+readbbf     &       读取一个黑板变量文件    \\
+writebbf    &       写一个黑板变量文件      \\
+getbbv      &       获取一个黑板变量的值    \\
+setbbv      &       给一个黑板变量赋值      \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 对于C源码，用如下命令编译
 \begin{lstlisting}[style=Shell]
