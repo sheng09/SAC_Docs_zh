@@ -10,6 +10,8 @@
 Perl无法直接引用SAC文件的头段变量值，依然需要利用SAC宏的的语法。Perl的优势在于可以
 一边向SAC传递信息，一边运行自身的命令。
 \lstinputlisting[style=Perl]{./call-in-script/variables.pl}
+本例中第9行，在SAC运行的同时Perl临时定义了一个变量，并成功将其传递给了SAC，这在
+Bash中是不容易做到的。
 
 \subsection{内联函数}
 Perl可以完成各种复杂的数学运算：
@@ -19,5 +21,10 @@ Perl对字符串的处理更是Perl的杀手锏：
 \lstinputlisting[style=Perl]{./call-in-script/string-functions.pl}
 
 \subsection{条件判断和循环控制}
-类似的功能，bash需要多次调用SAC，而Perl只需要调用一次，这在速度上会提升很多。
-\lstinputlisting[style=Perl]{./call-in-script/string-functions.pl}
+Perl也可以很容易地实现条件判断和循环控制：
+\lstinputlisting[style=Perl]{./call-in-script/do-loops.pl}
+这个例子中只启动了一次SAC，然后开始Perl的循环控制，读取当前目录下的每一个SAC文件，
+做一些数据处理，然后写到新文件中。
+
+该Perl脚本与上一个Bash脚本相比，实现了几乎相同的功能，但Perl脚本中仅启动和退出SAC
+一次，与Bash脚本的多次启动相比，其效率要高很多。
