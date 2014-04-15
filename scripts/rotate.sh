@@ -12,11 +12,15 @@ w $sta.r $sta.t
 r $sta.n $sta.e $sta.z 
 qdp off
 fileid type name location ul
+ylim -8 8
+ydiv inc 5
 beginframe
-xvport 0.05 0.48
+yvport 0.55 0.95
+title "Seismograms of NEZ Components"
 p1
 r $sta.r $sta.t $sta.z 
-xvport 0.55 0.98
+yvport 0.08 0.45
+title "Seismograms of RTZ Components"
 p1
 endframe
 saveimg rotate.ps
