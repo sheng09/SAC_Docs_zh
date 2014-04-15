@@ -1,9 +1,9 @@
 \section{组合图}
 \label{sec:composite-plots}
 
-SAC中与窗口有关的概念有三个，如图\ref{fig:window-viewspace-viewport}：
+SAC中与窗口有关的概念有三个，如图~\ref{fig:window-viewspace-viewport}：
 \begin{itemize}
-\item windows：对于xwindows设备，window即图\ref{fig:plot}中的大小，其默认长宽比为
+\item windows：对于xwindows设备，window即图~\ref{fig:plot}~中的大小，其默认长宽比为
     11.0/8.5=1.294；对于sgf或者pdf和ps，可以认为window的大小即为A4纸张的大小。
 \item viewspace：window内可以用于绘图的部分；
 \item viewport：对于组合图，每个子图占据的空间；
@@ -27,9 +27,9 @@ SAC中与窗口有关的概念有三个，如图\ref{fig:window-viewspace-viewpo
 \label{fig:window-viewspace-viewport}
 \end{figure}
 
-默认情况下，在每个使用绘图命令时，整个绘图窗口会更新，所以每次都会显示不同的图像。
-\nameref{cmd:beginframe}命令会关窗口的自动更新，因而可以用于绘制组合图。当然还有
-\nameref{cmd:endframe}来重新启动窗口的自动更新。
+默认情况下，每次在使用绘图命令时，整个绘图窗口会刷新，所以每次都会显示不同的图像。
+~\nameref{cmd:beginframe}~命令会关闭窗口的自动更新，因而可以用于绘制组合图。当然还有
+~\nameref{cmd:endframe}~来重新启动窗口的自动更新。
 
 \begin{SACCode}
 SAC> fg seis                        // 生成数据
@@ -55,7 +55,7 @@ SAC> endframe                       // 启动自动更新
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{composite-plot}
+\includegraphics[width=0.9\textwidth]{composite-plot}
 \caption{绘制组合图}
 \label{fig:composite-plot}
 \end{figure}

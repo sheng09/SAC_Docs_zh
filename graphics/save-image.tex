@@ -15,7 +15,7 @@ SAC> q
 ImageMagick的import命令。
 
 \subsection{sgf}
-SGF图像设备的SAC自己设计的与平台无关的图像格式，其包含了SAC图像的全部信息。其流程
+SGF图像设备是SAC自己设计的与平台无关的图像格式，其包含了SAC图像的全部信息。其流程
 为``启用sgf设备''$\rightarrow$``绘图到sgf''$\rightarrow$``关闭sgf设备，退出SAC''
 $\rightarrow$``将sgf文件转换为其它格式''。
 \begin{SACCode}
@@ -28,8 +28,8 @@ $ ls
 f001.sgf            // 生成sgf文件
 \end{SACCode}
 
-生成的sgf文件可以通过\nameref{sec:sgftops}、\nameref{sec:sgftoeps}转换成ps、eps格式，
-也可以使用\nameref{sec:sgftox}直接将sgf文件显示在绘图窗口中。
+生成的sgf文件可以通过sgftops等命令转换为其它图像格式，在``\nameref{sec:sgftops}''中会介绍，
+也可以使用sgftox直接将sgf文件显示在绘图窗口中。
 
 \subsection{PS和PDF}
 自101.5之后，SAC加入了saveimg命令，以获得更高质量的绘图效果。saveimg会将当前xwindow
@@ -44,7 +44,8 @@ SAC> q
 \end{SACCode}
 
 \subsection{pssac}
-pssac利用GMT的PS绘图库，直接读取SAC文件并绘制到PS文件中，得益于GMT的PS库的灵活性，
+pssac是Prof. Lupei Zhu写的C程序。其利用GMT的PS绘图库，直接读取SAC文件并绘制到PS文件中，
+得益于GMT的PS库的灵活性，
 利用pssac可以绘制出超高质量的图像。关于pssac的用法，参见``\nameref{sec:pssac}''一节。
 
 \subsection{图像保存小结}
@@ -54,5 +55,3 @@ pssac利用GMT的PS绘图库，直接读取SAC文件并绘制到PS文件中，�
 \item saveimg生成的图件质量相对较高，可以满足大多数需求；
 \item pssac功能强大，在需要设计复杂图像时非常有用；
 \end{itemize}
-
-

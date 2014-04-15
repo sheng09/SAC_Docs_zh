@@ -1,16 +1,16 @@
 \section{图像外观}
 \label{sec:plot-appearance}
 
-图\ref{fig:plot-appearance}展示了一个标准的SAC图像所包含的元素。
+图~\ref{fig:plot-appearance}~展示了一个标准的SAC图像所包含的元素。
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{appearance}
+\includegraphics[width=0.9\textwidth]{appearance}
 \caption[绘图外观相关命令]{绘图外观及其相关命令。图中蓝色部分为对绘图外观的说明。}
 \label{fig:plot-appearance}
 \end{figure}
 
-图\ref{fig:plot-appearance}可以用如下命令绘制得到：
+图~\ref{fig:plot-appearance}~可以用如下命令绘制得到：
 \begin{SACCode}
 SAC> fg seis                // 生成数据
 SAC> grid on                // 显示网格                                          
@@ -37,10 +37,10 @@ SAC> p                      // 绘图
     此命令可以修改其代表的具体文本大小值
 \end{description}
 
-图中右下角的``2''称之为``qdp因子''，qdp的全称是``quick and dirty plot''。在SAC设置
-的初期，计算机的性能一般，若数据点数过多，绘图会耗费大量时间，因而SAC采用了``qdp''
-的方式，每隔若干个数据点绘制一个数据点。以目前计算机的性能而言，一般在绘图时使用
-``qdp off''使得绘制全部数据点。
+图中右下角的``2''称之为``qdp因子''，qdp的全称是``quick and dirty plot''。在SAC开发
+的早期，计算机的性能一般，若数据点数过多，绘图会耗费大量时间，因而SAC采用了``qdp''
+的方式，每隔若干个数据点绘制一个数据点。目前计算机的性能已经足以同时绘制所有数据点，
+因而一般关闭qdp，可以使用~\lstinline{qdp off}~命令。
 
 每个绘图都有一个边框，每个边框有上下左右四个边。按照标准的说法，图\ref{fig:plot-appearance}
 中，上边为``border''，右边为``border+ticks''，左边和下边为``border+ticks+annotations''。
@@ -59,29 +59,12 @@ border命令控制是否使用``border''。
 \item [xfudge] 设置fudge因子以控制X轴范围
 \end{description}
 
-在绘制时间序列时一般都使用线性坐标，SAC也提供了对数坐标：
-\begin{table}
-\flushleft
-\scriptsize
-%\caption{坐标相关命令}
-\begin{tabular}{ccc}
-    \toprule
-    命令    &   X轴     &   Y轴     \\
-    \midrule
-    linlin  &   线性    &   线性    \\
-    linlog  &   线性    &   对数    \\
-    loglin  &   对数    &   线性    \\
-    loglog  &   对数    &   对数    \\
-    xlin    &   线性    &   -       \\
-    xlog    &   对数    &   -       \\
-    ylin    &   -       &   线性     \\
-    ylog    &   -       &   对数    \\
-    \bottomrule
-\end{tabular}
-\end{table}
+在绘制时间序列时一般都使用线性坐标，SAC也提供了一堆命令以控制X、Y轴是线性坐标
+还是对数坐标。这些命令包括： \nameref{cmd:linlin}、\nameref{cmd:linlog}、\nameref{cmd:loglin}、
+\nameref{cmd:loglog}、\nameref{cmd:xlin}、\nameref{cmd:xlog}、\nameref{cmd:ylin}、\nameref{cmd:ylog}。
 
-对于对数坐标，还有一些命令可以设置，比如\nameref{cmd:xfull}、\nameref{cmd:loglab}、
+对于对数坐标，还有一些命令可以控制其外观，比如\nameref{cmd:xfull}、\nameref{cmd:loglab}、
 \nameref{cmd:floor}。
 
-对于等值线图而言，还有其它命令\nameref{cmd:zcolors}、\nameref{cmd:zlabels}、
+对于等值线图（即3D数据）而言，还有命令\nameref{cmd:zcolors}、\nameref{cmd:zlabels}、
 \nameref{cmd:zlevels}、\nameref{cmd:zlines}、\nameref{cmd:zticks}。
