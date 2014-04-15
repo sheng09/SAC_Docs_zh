@@ -1,8 +1,4 @@
 \section{SAC宏}
-\subsection{概述}
-最简单的，将一系列要一起执行的SAC命令放在一个文件中即构成了SAC宏文件。所有的命令、
-内联函数、头段变量、黑板变量都可以在SAC宏中使用。除此之外，SAC宏还提供了条件判断和
-循环控制等高级特性。
 
 \subsection{简单的例子}
 假如你有一些重复的工作需要完成，那么SAC宏显然可以帮你节省不少时间。例如，要经常
@@ -39,7 +35,7 @@ SAC> macro mystuff
 如果想要每次读取不同的文件或者乘以不同的值那么必须每次都修改该文件，
 让宏文件在执行之前允许用户输入参数可以大大增加宏文件的灵活性。
 
-SAC宏参数的格式为：\lstinline{$n$}，其中n从1开始。
+SAC宏参数的格式为：~``\lstinline{$n$}''，其中n从1开始。
 
 下面将对先前的宏文件进行修改以使其可以接收文件名作为参数：
 \begin{SACCode}
@@ -49,8 +45,8 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-\lstinline{$1$}、\lstinline{$2$}和\lstinline{$3$}分别表示宏文件接收到的第一、二、三个参数，
-用下面的命令执行这个宏文件：
+~``\lstinline{$1$}''~、~``\lstinline{$2$}''~和~``\lstinline{$3$}''~分别表示宏文件
+接收到的第一、二、三个参数，用下面的命令执行这个宏文件：
 \begin{SACCode}
 SAC> macro mystuff ABC DEF XYZ 
 \end{SACCode}
@@ -73,7 +69,7 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-\lstinline{$keys$}表明``files''和``values''是关键字。可以按照下面的输入来执行这个宏文件：
+\lstinline{$keys$}~表明``files''和``values''是关键字。可以按照下面的输入来执行这个宏文件：
 \begin{SACCode}
 SAC> macro mystuff files ABC DEF XYZ values 4 8 9
 \end{SACCode}
@@ -95,7 +91,7 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-\lstinline{$default$}指定了宏参数\lstinline{values}的缺省值，若在执行宏文件时不输入
+\lstinline{$default$}~指定了宏参数~\lstinline{values}~的缺省值，若在执行宏文件时不输入
 values的参数值那么这些参数将使用缺省值：
 \begin{SACCode}
 SAC> macro mystuff files ABC DEF XYZ 
@@ -165,11 +161,11 @@ SAC宏的条件判断格式如下：
 其中token可以是一个常数、宏参数、黑板变量或头段变量，关系运算符则是GT、GE、LE、LT、EQ、NE
 中的一个。上面的逻辑表达式在计算之前token会被转换为浮点型数。
 
-if语句目前最多支持10次嵌套，且elseif、else是可选的，elseif的次数没有限制。
+条件判断语句目前最多支持10次嵌套，且elseif、else是可选的，elseif的次数没有限制。
 
 下面给出一个例子：
 \begin{SACCode}
-r $1
+r $1$
 markptp
 if &1,user0& ge 2.45
     fft
@@ -178,8 +174,8 @@ else
     message "Peak to peak for $1 below threshold."
 endif
 \end{SACCode}
-在这个例子中，一个文件被读入内存，测出其最大峰峰值，如果这个值大于某一确定值，
-则对其做Fourier变换并绘制振幅图，否则则输出信息到终端。
+在这个例子中，一个文件被读入内存，markptp测出其最大峰峰值，并保存到头段变量user0中，
+若该值大于某一确定值，则对其做Fourier变换并绘制振幅图，否则输出信息到终端。
 
 \subsection{循环控制}
 循环特性允许在一个宏文件中重复执行一系列命令。通过固定循环次数、遍历元素列表或者
@@ -192,7 +188,7 @@ ENDDO
 \end{SACCode}
 
 \begin{SACCode}
-DO variable FROM start TO stop [ BY increment]
+DO variable FROM start TO stop [BY increment]
     commands
 ENDDO
 \end{SACCode}
@@ -216,7 +212,7 @@ ENDDO
 \end{SACCode}
 其中大写字符串均为关键字，不可更改：
 \begin{itemize}
-\item variable是循环变量名，在变量名前后加上\lstinline{$}即可在do循环中引用该变量；
+\item variable是循环变量名，在变量名前后加上~``\lstinline{$}''~即可在do循环中引用该变量；
 \item start、stop、increment 循环变量的初值、终值、增值，start、stop必须为整型数，
     increment缺省值为1
 \item entrylist是do循环执行时变量可以取的所有值的集合，值之间以空格分开，其可以为整型、
@@ -226,7 +222,7 @@ ENDDO
 
 下面给出一些DO循环的例子：
 
-该宏文件对数据使用了DIF命令以预白化数据，施加Fourier变换，然后使用DIVOMEGA命令去除
+该宏文件对数据使用了DIF以进行预白化处理，进行Fourier变换，然后使用DIVOMEGA命令去除
 预白化的影响，有时需要在做变换之前多次预白化，那么就可以这样写：
 \begin{SACCode}
 $keys$ file nprew
@@ -262,7 +258,7 @@ do station list abc def xyz
 enddo
 \end{SACCode}
 
-在下面的例子中我们修改上一个宏文件使得其可以处理目录mydir中所有以".Z"结束的文件：
+在下面的例子中我们修改上一个宏文件使得其可以处理目录mydir中所有以``.Z''结束的文件：
 \begin{SACCode}
 do file wild dir mydir *.Z
     macro preview $file$
@@ -296,17 +292,17 @@ SAC宏提供嵌套功能，不支持递归，但是SAC并不会去检查宏的�
 
 \subsection{中断宏}
 有些时候需要临时中断宏文件的执行，用户自己从终端输入一些命令，然后继续执行宏文件。
-这个可以利用SAC的pause和resume特性做到。当SAC在宏文件中遇到\lstinline{$TERMINAL$}时它会临时停止
-执行宏文件，更改提示符为宏名，然后提示从终端输入命令，然后当SAC在终端中看到\lstinline{$RESUME$}
+这个可以利用SAC的pause和resume特性做到。当SAC在宏文件中遇到~``\lstinline{$TERMINAL$}''~时它会临时停止
+执行宏文件，更改提示符为宏名，然后提示从终端输入命令，然后当SAC在终端中看到~``\lstinline{$RESUME$}''~
 时则会停止从终端读取命令继续从宏文件读取。如果你不想再继续执行宏文件中的命令，可以
-在终端输入\lstinline{$KILL$}，SAC将关闭宏文件，回到上一层。
-在一个宏文件中可以有多个\lstinline{$TERMINAL$}中断。
+在终端输入~``\lstinline{$KILL$}''~，SAC将关闭宏文件，回到上一层。
+在一个宏文件中可以有多个~``\lstinline{$TERMINAL$}''~中断。
 
 \subsection{宏文件中执行其它程序}
 你可以在SAC宏内部执行其他程序，可以向程序传递参数。如果程序是交互式的
 你也可以将输入行发送给它，语法如下：
 \begin{SACCode}
-$RUN program message
+$RUN$ program message
 inputlines
 ENDRUN
 \end{SACCode}
@@ -314,8 +310,8 @@ ENDRUN
 结束，SAC宏会在ENDRUN之后继续执行。
 
 \subsection{转义字符}
-字符\lstinline{$}和\lstinline{%}在SAC中具有特殊的含义，有时在字符串中需要使用这些
-特殊字符，但SAC会将其解释成一个变量，此时就需要使用转义字符，SAC中的转义符为@，
+字符~``\lstinline{$}''~和~``\lstinline{%}''在SAC中具有特殊的含义，有时在字符串中需要使用这些
+特殊字符，但SAC会将其解释成一个变量，此时就需要使用转义字符，SAC中的转义符为~``\lstinline{@}''~，
 可以被转义的特殊符号包括：
 \begin{itemize}
     \item \lstinline{$}  宏参数标识符
