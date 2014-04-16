@@ -244,9 +244,20 @@
         keywordstyle=\color{blue},          % 关键字颜色
     }
 }{}
-\lstnewenvironment{SACSyntax}{
+\lstnewenvironment{SACSTX}{
     \lstset{
-        basicstyle=\footnotesize\ttfamily,
+        basicstyle=\scriptsize\ttfamily,
+        delim=[is][\textcolor{blue}]{!}{!},
+        frame=single,
+        xleftmargin=2pc,
+        xrightmargin=2pc,
+        backgroundcolor=\color{Lavender},
+        rulecolor=\color{Silver}
+    }
+}{}
+\lstnewenvironment{SACDFT}{
+    \lstset{
+        basicstyle=\scriptsize\ttfamily,
         delim=[is][\textcolor{blue}]{!}{!},
         frame=single,
         xleftmargin=2pc,
