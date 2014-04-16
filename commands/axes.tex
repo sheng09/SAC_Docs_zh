@@ -2,36 +2,41 @@
 \label{cmd:axes}
 
 \SACTitle{概要}
-控制注释轴的位置(注释轴指轴上是否显示刻度数字)
+控制注释轴的位置（注释轴表示该轴具有边框、刻度和注释）
 
 \SACTitle{语法}
-AXES ON|OFF|ONLY All|Top|Bottom|Right|Left
-
-\SACTitle{其他形式}
-命令AXES的另一种形式是AXIS
+\begin{SACSTX}
+AXES ON|OFF|ONLY !A!LL|!T!OP|!B!OTTOM|!R!IGHT|!L!EFT
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
 \item ON: 显示列表列出的注释轴，其他不变
 \item OFF: 不显示列表列出的注释轴，其他不变
 \item ONLY: 只显示列表列出的注释轴，其他的不显示
-\item All: 所有的四个注释轴
-\item Top: 绘图上部的X注释轴
-\item Bottom: 绘图下部的X注释轴
-\item Right: 绘图右部的Y注释轴
-\item Left: 绘图左部的Y注释轴
+\item ALL: 所有的四个注释轴
+\item TOP: 绘图上部的X注释轴
+\item BOTTOM: 绘图下部的X注释轴
+\item RIGHT: 绘图右部的Y注释轴
+\item LEFT: 绘图左部的Y注释轴
 \end{itemize}
 
 \SACTitle{缺省值}
-AXES ONLY BOTTOM LEFT	即只显示底部和左边的注释轴
+\begin{SACDFT}
+axes only bottom left
+\end{SACDFT}
+即只有下边和左边使用注释轴
 
 \SACTitle{说明}
-坐标轴可以绘制在一张图四边的任意一或多个边，有很多命令可以控制坐标轴长什么样。坐标轴的注释间隔用XDIV命令设定(即隔多长显示一个数字)，刻度标记的间距可以用TICKS命令单独控制。
+坐标轴可以绘制在一张图四边的任意一或多个边，有很多命令可以控制坐标轴长什么样。
+坐标轴的注释间隔用xdiv命令设定(即隔多长显示一个数字)，刻度标记的间距可以用ticks命令单独控制。
 
-only仅显示后面列表中给出的注释轴，而on和off则仅对列表中的注释轴起到打开
-或关闭的作用，对其他不在列表中的注释轴则不起作用。要获得自己想要的效果，
-使用on或者off时你必须要知道当前已经显示的轴有哪些，哪些是你想要打开或
-关闭的。这是一个有点容易弄错的问题，不如只使用only加上想要显示的轴更加简单一点。
+only表示仅在后面列表中指定的边上使用注释轴，而on和off则表示仅对列表中的边打开
+或关闭注释轴，对其他不在列表中的边不起作用。
+
+要获得自己想要的效果，使用on或者off时你必须要知道当前已经显示的轴有哪些，
+哪些是你想要打开或关闭的。这是一个有点容易弄错的问题，不如只使用only加上想要显示
+的轴更加简单一点。
 
 \SACTitle{例子}
 \begin{SACCode}
@@ -47,8 +52,7 @@ SAC> axes only b //仅显示底部注释轴
 \end{SACCode}
 
 \SACTitle{相关命令}
-XDIV,TICKS
+\nameref{cmd:xdiv}、\nameref{cmd:ticks}
 
 \SACTitle{最近修订}
 January 8, 1983 (Version 8.0)
-

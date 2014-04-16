@@ -5,37 +5,40 @@
 利用SAC内存中的所有文件产生一个台阵或联合台阵的分布图
 
 \SACTitle{语法}
-ARRAYMAP [Array|Coarray]
+\begin{SACSTX}
+!ARRAY!MAP [!A!RRAY|!C!OARRAY]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item ARRAY: 这个选项根据头段变量中的偏移X、Y值绘制台站分布
-\item COARRAY: 这个选项根据各台站之间的相对坐标绘制台站分布图
+\item ARRAY: 根据头段变量中的偏移X、Y值绘制台站分布
+\item COARRAY: 根据各台站之间的相对坐标绘制台站分布图
 \end{itemize}
 
 \SACTitle{缺省值}
-ARRAYMAP ARRAY
+\begin{SACDFT}
+arraymap array
+\end{SACDFT}
 
 \SACTitle{头段数据}
-下面的两个头段变量必须使用SAC宏文件wrxyz或者与之功能相似的其他函数提前设定，所有的偏移是相对于某个参考点的千米数。
-
-USER7: 向东的偏移(x).
-
-USER8: 向北的偏移(y).
-
-这个命令中不使用向上的偏移
+下面的两个头段变量必须使用SAC宏文件wrxyz或者与之功能相似的其他函数提前设定，
+所有的偏移是相对于某个参考点的千米数。
+\begin{itemize}
+\item USER7: 向东的偏移(x).
+\item USER8: 向北的偏移(y).
+\end{itemize}
 
 \SACTitle{说明}
 不是很清楚这个命令的作用是什么，对于每个数据来说，需要用宏文件wrxyz定义头段
-变量USER7和USER8，然后才能利用该命令绘制出arraymap，从命令的名字来理解，应该
+变量user7和user8，然后才能利用该命令绘制出arraymap，从命令的名字来理解，应该
 是绘制某个台站的台站分布图，理论上只需要台站的真实位置即可。不知这个究竟在什
 么场合要使用。
 
 \SACTitle{限制}
-在BBFK中允许的最多台站数
+在bbfk中允许的最多台站数
 
 \SACTitle{相关命令}
-WRXYZ是一个SAC宏文件，位于SACAUX/macros中
+wrxyz是一个SAC宏文件，位于~\lstinline{$SACAUX/macros}~中
 
 \SACTitle{最近修订}
 July 22, 1991 (Version 10.5c)
