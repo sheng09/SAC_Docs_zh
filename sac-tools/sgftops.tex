@@ -20,6 +20,15 @@ Usage: sgftops sgf_file ps_file [line_width scale_id]
 示例如下：
 \begin{lstlisting}[style=Shell]
 $ sgftops foo.sgf foo.ps 2 si
+[seisman@saturn sac]$ sgftops f001.sgf f001.ps 2 si
+First translates (x and y), then rotates, then scales:
+   [Default] landscape: 8 0 90 1  to prompts
+   Sample portrait:  0.5 0.5 0 0.75
+       
+x translation : 0.5  
+y translation : 0.5
+rotation angle: 0
+scale........ : 0.75
 \end{lstlisting}
 
 sgftoeps和sgftox通过调用sgftops，将sgf文件转换为eps文件或直接显示在图形窗口中，
