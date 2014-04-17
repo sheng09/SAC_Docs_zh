@@ -5,45 +5,53 @@
 控制发生在二进制文件操作中的错误
 
 \SACTitle{语法}
-BINOPERR [Npts Fatal|Warning|Ignore] [Delta Fatal|Warning|Ignore]
+\begin{SACSTX}
+BINOPERR [N!PTS! F!ATAL!|W!ARNING!|I!GNORE!] [D!ELTA! F!ATAL!|W!ARNING!|I!GNORE!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item Npts: 改变由于数据点不相等的错误条件 
-\item Delta: 改变由于采样间隔不相等的错误条件 
-\item Fatal: 是错误条件为致命性条件。一旦发生错误，控制立即返回终端，忽略剩余的全部命令。
-\item Warning: 给用户发送警告消息，校正错误条件并继续执行
-\item Ignore: 纠正错误条件继续执行
+\item NPTS: 改变由于数据点不相等的错误条件 
+\item DELAT: 改变由于采样间隔不相等的错误条件 
+\item FATAL: 是错误条件为致命性条件。一旦发生错误，控制立即返回终端，忽略剩余的全部命令。
+\item WARNING: 给用户发送警告消息，校正错误条件并继续执行
+\item IGNORE: 纠正错误条件继续执行
 \end{itemize}
 
 \SACTitle{缺省值}
-BINOPERR NPTS FATAL DELTA FATAL
+\begin{SACDFT}
+binoperr npts fatal delta fatal
+\end{SACDFT}
 
 \SACTitle{说明}
-无论你执行什么二元运算模块中的命令(ADDF, DIVF等)，SAC都会检测一些共同的错误。使用这个命令，你可以控制SAC在遇到这些错误时如何处理。如果你设置错误条件为致命，那么SAC在遇到这种错误时将停止执行当前命令，忽略接下来的所有命令，打印错误信息到终端并将控制权交还。如果设置错误条件为警告，则发送一个警告消息，尽可能纠正错误并继续执行。如果设置错误条件为忽略，则SAC会纠正错误并继续而不告诉你发生了什么。
+在对文件执行二元运算（addf、divf等）时，SAC会检测两个文件的数据点数和采样周期是否匹配。
 
-对于要操作的两个数据文件数据点数不等的错误，SAC会使用数据点最少的那个文件	的数据点数作为参考，以保证正常操作。
+使用这个命令，你可以控制SAC在遇到不匹配时如何处理。如果你设置错误条件为致命，
+那么SAC在遇到这种错误时将停止执行当前命令，忽略接下来的所有命令，打印错误信息到终端
+并将控制权交还。如果设置错误条件为警告，则发送一个警告消息，尽可能纠正错误并继续执行。
+如果设置错误条件为忽略，则SAC会纠正错误并继续而不告诉你发生了什么。
 
-另一种错误出现在两个要操作的文件采样间隔不等，则SAC会使用第一个数据文件的	采样间隔作为结果文件的采样间隔。
+若要操作的两个数据文件数据点数不匹配，SAC会使用数据点最少的那个文件
+的数据点数作为参考，以保证正常操作。
+
+若要操作的两个文件采样周期不匹配，则SAC会使用第一个数据文件的采样周期作为结果文件的采样周期。
 
 \SACTitle{例子}
-假定FILE1有1000个数据点，FILE2有950个数据点::
+假定FILe1有1000个数据点，file2有950个数据点::
 \begin{SACCode}
-SAC> BINOPERR NPTS FATAL
-SAC> READ FILE1
-SAC> ADDF FILE2
-ERROR:  Header field mismatch: NPTS FILE1 FILE2
+SAC> binoperr npts fatal
+SAC> read file1
+SAC> addf file2
+ERROR:  Header field mismatch: NPTS file1 file2
 \end{SACCode}
+
 上例文件加法未执行，假设你输入:
 \begin{SACCode}
-SAC> BINOPERR NPTS WARNING
-SAC> ADDF FILE2
-WARNING:  Header field mismatch: NPTS FILE1 FILE2
+SAC> binoperr npts warning
+SAC> addf file2
+WARNING:  Header field mismatch: NPTS file1 file2
 \end{SACCode}
-文件加法对每个文件的前50个数据执行了加法操作
+文件加法对每个文件的前50个数据执行了加法操作。
 
 \SACTitle{相关命令}
-ADDF, SUBF, MULF, DIVF
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:addf}、\nameref{cmd:subf}、\nameref{cmd:mulf}、\nameref{cmd:divf}
