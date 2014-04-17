@@ -5,7 +5,9 @@
 去除谱文件中的地震Q因子
 
 \SACTitle{语法}
-RQ [ Q v ] [ R v ] [ C v ]
+\begin{SACSTX}
+RQ [Q v] [R v] [C v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ RQ [ Q v ] [ R v ] [ C v ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 RQ Q 1. R 0. C 1.
+\end{SACDFT}
 
 \SACTitle{说明}
 用于校正振幅的方程如下:
@@ -23,7 +27,7 @@ RQ Q 1. R 0. C 1.
 其中f为频率，单位为Hz，R为距离，单位km，C是群速度，单位为km/s。Q是一个无量纲质量因子
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
+depmin, depmax, depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -33,14 +37,8 @@ DEPMIN, DEPMAX, DEPMEN
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]1604: 下面的文件是振幅-相位格式
-	\begin{itemize}
-	\item[-]文件应该是实部-虚部格式
-	\end{itemize}
+\item[-]1604: 下面的文件是振幅-相位格式（文件应该是实部-虚部格式）
 \end{itemize}
 
 \SACTitle{限制}
 各参数目前只能接受常数
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)

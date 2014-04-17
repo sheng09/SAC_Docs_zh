@@ -5,25 +5,16 @@
 从磁盘读取按列排列的字符数字型数据文件到内存
 
 \SACTitle{语法}
-READTABLE [options] [filelist]
-
-其中options为:
-\begin{itemize}
-\item MORE
-\item TRUST ON|OFF
-\item COMMIT|ROLLBACK|RECALLTRACE
-\item DIR CURRENT|name  
-\item FREE|FORMAT text ****注:目前FORMAT选项不可用****
-\item CONTENT text
-\item HEADER number
-\end{itemize}
+\begin{SACSTX}
+READTABLE [MORE] [TRUE ON|OFF] [DIR CURRENT|name] [FREE|FORMAT tex] 
+    [CONTENT text] [HEADER number] [filelist]
+\end{SACSTX}
 所有的选项必须位于filelist之前。最后两个选项可以放在文件自己的第一行
 
 \SACTitle{输入}
 \begin{itemize}
-\item MORE : 将新文件添加到内存中老文件之后，如果这个选项忽略，则新数据将替代老数据。注意：如果MORE选项没有指定则COMMIT, ROLLBACK和RECALLTRACE不起作用 
+\item MORE : 将新文件添加到内存中老文件之后，如果这个选项忽略，则新数据将替代老数据。
 \item TRUST ON|OFF : 这个选项用于解决将文件从SAC转换到CSS格式过程中出现的问题。当转换数据时，匹配的事件id意味着文件含有相同的事件信息，或者可能是两个不同格式合并之后出现的干扰。当TRUST打开时，SAC将更有可能接受匹配事件id作为相同的事件信息，这依赖于READ命令与当前内存中数据的历史。
-\item COMMIT|ROLLBACK|RECALLTRACE 参见具体章节 
 \item DIR CURRENT : 从当前目录读取所有简单文件名，这个目录是你启动SAC的目录 
 \item DIR name : 从目录name中读取全部简单文件，其可以为绝对/相对路径 
 \item FREE : 用自由格式读取文件列表中的数据（以空格分割）
@@ -34,7 +25,9 @@ READTABLE [options] [filelist]
 \end{itemize}
 
 \SACTitle{缺省值}
-READTABLE COMMIT FREE CONTENT Y. DIR CURRENT
+\begin{SACDFT}
+readtable commit free content y. dir current
+\end{SACDFT}
 
 \SACTitle{说明}
 READ命令将二进制文件读入内存，这个命令用于读取字符数字型文件，这些数据文件可以是固定格式或自由格式。它们可能包含多个数据集，一旦读入了内存就可以用WRITE命令创建SAC二进制数据文件。
@@ -58,23 +51,24 @@ READ命令将二进制文件读入内存，这个命令用于读取字符数字�
 \SACTitle{例子}
 为了读取一个或多个自由格式的X-Y数据对：
 \begin{SACCode}
-SAC> READTABLE CONTENT P. FILEA
+SAC> readtable content p. filea
 \end{SACCode}
+
 你不能在文件行之间打断一个X-Y数据对。假设你有一个包含了格式化数据的文件，在每行的中间有一个X-Y数据对。每行的其它数据都没有用。假设每行Y数据在X数据之前，一旦正确的格式声明给出了，就可以用下面的命令:
 \begin{SACCode}
-SAC> READTABLE CONTENT R FORMAT \(24X,F12.3,14X,F10.2\) FILEB
+SAC> readtable content r format \(24x,f12.3,14x,f10.2\) fileb
 \end{SACCode}
 注意：在左括号和右括号两边的"\"是SAC的转义字符，这很重要，因为SAC使用括号作为内联函数。由于没有重复计数器，因而只有一个Y-X数据对被从文件的每行读入。
 
 假设你有一个文件FILEC，其每行包括一个X值和7个不同数据集的Y值，其为(8F10.2)格式。为了在内存中创建7个不同的数据集，可以使用下面的命令：
 \begin{SACCode}
-SAC> READTABLE CONTENT XN . FORMAT \(8F10.2\) FILEC
+SAC> readtable content xn . format \(8f10.2\) filec
 \end{SACCode}
 这将在内存中产生7个不同的数据文件，其名称分别为FILEC01, FILEC02等等。
 
 现在假设你不想读入第5个Y数据集，可以执行下面的命令:
 \begin{SACCode}
-SAC> READTABLE CONTENT XN6 FORMAT \(5F10.20X,2F10.2\) FILEC
+SAC> readtable content xn6 format \(5f10.20x,2f10.2\) filec
 \end{SACCode}
 另一个可以少敲键盘但是稍微低效一点的命令如下:
 \begin{SACCode}
@@ -83,11 +77,7 @@ SAC> READTABLE CONTENT XN4IN2 FORMAT \(8F10.2\) FILEC
 
 \SACTitle{错误消息}
 \begin{itemize}
-\item[-]1301: 未读入数据文件
-	\begin{itemize}
-  	\item[-]未给出要读入的文件列表
-	\item[-] 文件列表中的文件不可读
-	\end{itemize}
+\item[-]1301: 未读入数据文件（未给出要读入的文件列表或文件列表中的文件不可读）
 \item[-]1020: 无效的内联函数名:
 \item[-]1320: 可用内存不足以读取文件
 \item[-]1314: 数据文件列表不得以数字开始
@@ -101,10 +91,7 @@ SAC> READTABLE CONTENT XN4IN2 FORMAT \(8F10.2\) FILEC
 \end{itemize}
 
 \SACTitle{头段变量改变}
-B, E, DELTA, LEVEN, DEPMIN, DEPMAX, DEPMEN.
+b, e, delta, leven, depmin, depmax, depmen.
 
 \SACTitle{相关命令}
-READ, WRITE, COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:read}、\nameref{cmd:write}

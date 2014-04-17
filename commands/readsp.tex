@@ -5,7 +5,9 @@
 读取WRITESP和WRITESPE写的谱文件
 
 \SACTitle{语法}
-READSP [ AMPH | RLIM | SPE ] [ filelist ]
+\begin{SACSTX}
+READSP [AMPH|RLIM|SPE] [filelist]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -16,16 +18,12 @@ READSP [ AMPH | RLIM | SPE ] [ filelist ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 READSP AMPH
+\end{SACDFT}
 
 \SACTitle{说明}
 WRITESP命令将每个谱数据分量作为一个单独的文件写入磁盘，你可以分别处理每个分量。这个命令让你能从两个分量重建谱数据，参见WRITESP。SPE选项允许你读取并转换由WRITESPE写出的谱文件格式。这也使你可以使用MULOMEGA和DIVOMEGA命令
 
 \SACTitle{相关命令}
-WRITESP
-
-\SACTitle{参考文献}
-Spectral Estimation Subprocess Manual
-
-\SACTitle{最近修订}
-April 21, 1989 (Version 10.4c)
+\nameref{cmd:writesp}

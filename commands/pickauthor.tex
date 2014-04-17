@@ -31,4 +31,4 @@ PICKAUTHOR提供了一种在命令行上覆盖参考文件的方法。其可以�
 例：如果作者列表是``john rachel michael''，并且一些文件被用READCSS命令读入，一些到时可能以author = michael读入。（用户可能不会注意到对于某个给出的震相拾取其作者是谁，因为在CSS中的作者字段在SAC格式中并不会出现）。如果用户稍后使用了PICKAUTHOR命令并修改作者列表为``peter doug rachel''，然后READCSS MORE读入更多文件，没有author = michael的文件读入，已经在内存中的文件将丢失以michael作为作者的拾取。不了解这个用户可能会莫名地发现似乎震相拾取会随机消失。更多的信息参见PICKPREFS
 
 \SACTitle{相关命令}
-\nameref{cmd:pickprefs}、\nameref{cmd:readcss}、\nameref{cmd:pickphase}
+\nameref{cmd:pickprefs}、\nameref{cmd:pickphase}

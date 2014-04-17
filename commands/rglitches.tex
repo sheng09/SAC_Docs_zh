@@ -5,7 +5,9 @@
 去掉信号中的坏点和时间标记
 
 \SACTitle{语法}
-RGLITCHES [ THRESHOLD v ] [ TYPE LINEAR | ZERO ] [ WINDOW ON | OFF | pdw ] [METHOD ABSOLUTE | POWER | RUNAVG ]
+\begin{SACSTX}
+RGLITCHES [THRESHOLD v] [TYPE LINEAR|ZERO] [WINDOW ON|OFF|pdw] [METHOD ABSOLUTE|POWER|RUNAVG]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -14,25 +16,32 @@ RGLITCHES [ THRESHOLD v ] [ TYPE LINEAR | ZERO ] [ WINDOW ON | OFF | pdw ] [METH
 \item TYPE ZERO : 将坏点设置为0 
 \item METHOD ABSOLUTE : 校正绝对值不小于阀值v的数据点 
 \item METHOD POWER : 使用反向差分方法计算信号功率，并校正那些功率超过阀值v的数据点 
-\item METHOD RUNAVG : 通过将一个长为SWINLEN的窗从整个道的末尾以一点的增量移动到到的开始，并计算滑动平均和标准差。每个新点都将和平均值相比，如果它们的差超过了THRESH2乘以当前标准差，又或者差大于MINAMP计数器，它则被当前平均值代替这个方法总是用于整个地震图与这个RUNAVG方法有关的三个选项为:
-	\begin{itemize}
-	\item SWINLEN v: 设置滑动平均窗的长度为v
-	\item THRESH2 v: 设置坏点的阀值
-	\item MINAMP  v: 设置坏点的最小幅度
-	\item WINDOW ON: 仅校正前面定义的pdw
-	\item WINDOW OFF: 校正整个数据文件中的数据点
-	\item WINDOW pdw: 仅校正当前定义的pdw中的数据点。
-	\end{itemize} 
+\item METHOD RUNAVG : 通过将一个长为SWINLEN的窗从整个数据的末尾以一点的增量移动到数据
+    的开始，并计算滑动平均和标准差。每个新点都将和平均值相比，如果它们的差超过了THRESH2乘以当
+    前标准差，又或者差大于MINAMP计数器，它则被当前平均值代替。
 \end{itemize}
+    
+RUNAVG方法总是用于整个地震图，与这个RUNAVG方法有关的三个选项为:
+\begin{itemize}
+\item SWINLEN v: 设置滑动平均窗的长度为v
+\item THRESH2 v: 设置坏点的阀值
+\item MINAMP  v: 设置坏点的最小幅度
+\item WINDOW ON: 仅校正前面定义的pdw
+\item WINDOW OFF: 校正整个数据文件中的数据点
+\item WINDOW pdw: 仅校正当前定义的pdw中的数据点。
+\end{itemize} 
 
 \SACTitle{缺省值}
-RGLITCHES THRESHOLD 1.0E+10 TYPE LINEAR WINDOW OFF METHOD ABSOLUTE SWINLEN 0.5 THRESH2 5.0 MINAMP 50
+\begin{SACDFT}
+rglitches threshold 1.0e+10 type linear window off method absolute 
+    swinlen 0.5 thresh2 5.0 minamp 50
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令可以用于平滑由于坏点引起的不规则信号或某些数据采集系统产生的时标。这个命令检查每一个数据点，看它的起始改变量是否大于或等于给定的“起始阀值水平”。然后将这些坏数据点置0或者利用数据点前后的两点进行内插得到一个数据点。可以在整个文件或者某个时间窗内去掉假信号。使用这个选项可以使你去掉那些比整个数据文件中的假信号。
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
+depmin, depmax, depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -40,6 +49,3 @@ DEPMIN, DEPMAX, DEPMEN
 \item[-]1306: 对不等间隔文件非法操作
 \item[-]1307: 对谱文件非法操作
 \end{itemize}
-
-\SACTitle{最近修订}
-March, 1997 (Version 00.53a)

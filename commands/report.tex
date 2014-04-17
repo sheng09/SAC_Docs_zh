@@ -5,7 +5,10 @@
 告知用户当前SAC的状态
 
 \SACTitle{语法}
-REPORT APF | COLOR | CUT | DEVICES | FILEID | GTEXT | HPF | LINE | MEMORY |  MTW | PICKS | SYMBOL | TITLE | XLABEL | XLIM | YLABEL | YLIM  
+\begin{SACSTX}
+REPORT APF|COLOR|CUT|DEVICES|FILEID|GTEXT|HPF|LINE|MEMORY|MTW|PICKS|
+    SYMBOL|TITLE|XLABEL|XLIM|YLABEL|YLIM  
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -34,7 +37,7 @@ REPORT APF | COLOR | CUT | DEVICES | FILEID | GTEXT | HPF | LINE | MEMORY |  MTW
 \SACTitle{例子}
 为了获取当前颜色属性的列表:
 \begin{SACCode}
-SAC> REPORT COLOR
+SAC> report color
  COLOR option is ON
  DATA color is YELLOW
  INCREMENT data color is OFF
@@ -44,10 +47,7 @@ SAC> REPORT COLOR
 
 为了获取HYPO文件名:
 \begin{SACCode}
-SAC> REPORT APF HPF
+SAC> report apf hpf
  Alphanumeric pick file is MYPICKFILE
  HYPO pick file is HYPOPICKFILE
 \end{SACCode}
-
-\SACTitle{最近修订}
-March 20, 1991 (Version 10.6e)

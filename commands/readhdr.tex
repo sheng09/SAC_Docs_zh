@@ -5,18 +5,19 @@
 从SAC数据文件中读取头段到内存
 
 \SACTitle{语法}
-READHDR [ MORE ] [ TRUST ON | OFF ] [COMMIT|ROLLBACK|RECALLTRACE] [ DIR CURRENT | name ] [ filelist ]
+\begin{SACSTX}
+R!EAD!H!DR! [MORE] [TRUST ON|OFF] [DIR CURRENT|name] [filelist]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item MORE : 将新数据头段放在内存中老文件头段之后，如果忽略，则新数据文件头段将代替老的。注意：如果MORE选项没有指定则COMMIT, ROLLBACK和RECALLTRACE不起作用\\
+\item MORE: 将新数据头段放在内存中老文件头段之后，如果忽略，则新数据文件头段将代替老的。注意：如果MORE选项没有指定则COMMIT, ROLLBACK和RECALLTRACE不起作用\\
 \item TRUST ON|OFF : 这个选项用于解决将文件从SAC转换到CSS格式过程中出现的问题。当转换数据时，匹配的事件id意味着文件含有相同的事件信息，或者可能是两个不同格式合并之后出现的干扰。当TRUST打开时，SAC将更有可能接受匹配事件id 作为相同的事件信息，这依赖于READ命令与当前内存中数据的历史。
-\item COMMIT|ROLLBACK|RECALLTRACE  : 参见具体章节 
 \item DIR CURRENT : 从当前目录读取所有简单文件名，这个目录是你启动SAC的目录 
 \item DIR name : 从目录name中读取全部简单文件，其可以为绝对/相对路径 
 \item filelist :  file | wild 
 \item file : 一个文件名。其可以是简单文件名或路径名。路径名可以是相对/绝对路径。 
-\item wild : 通配符以扩展文件名列表 
+\item wild: 通配符以扩展文件名列表 
 \end{itemize}
 
 \SACTitle{说明}
@@ -24,14 +25,10 @@ READHDR [ MORE ] [ TRUST ON | OFF ] [COMMIT|ROLLBACK|RECALLTRACE] [ DIR CURRENT 
 
 \SACTitle{错误消息}
 \begin{itemize}
-\item[-]1301: 未读入数据文件
-	\begin{itemize}
-	\item[-]未给出要读取的文件列表
-	\item[-]列表中文件不可读
-	\end{itemize}
-	\item[-]1314: 数据文件列表不得以数字开头
-	\item[-]1315: 文件列表中的最大数目为1000
-	\item[-]1335: 非法操作-只有头段在内存中
+\item[-]1301: 未读入数据文件（未给出要读取的文件列表或列表中文件不可读）
+\item[-]1314: 数据文件列表不得以数字开头
+\item[-]1315: 文件列表中的最大数目为1000
+\item[-]1335: 非法操作-只有头段在内存中
 \end{itemize}
 
 \SACTitle{警告消息}
@@ -39,13 +36,8 @@ READHDR [ MORE ] [ TRUST ON | OFF ] [COMMIT|ROLLBACK|RECALLTRACE] [ DIR CURRENT 
 \item[-]0101:：打开文件错误
 \item[-]0108:：文件不存在
 \item[-]0114:：读取文件错误
-	\begin{itemize}
-	\item[-]一般SAC遇到这样的错误时会跳过该文件并继续读取余下文件。这些错误可以在READERR设置为fatal
-	\end{itemize}
 \end{itemize}
 
 \SACTitle{相关命令}
-READ,LISTHDR,CHNHDR,WRITEHDR,READERR,COMMIT,ROLLBACK,RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:read}、\nameref{cmd:listhdr}、\nameref{cmd:chnhdr}、\nameref{cmd:writehdr}、
+\nameref{cmd:readerr}

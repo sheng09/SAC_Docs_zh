@@ -5,7 +5,9 @@
 以一个给定的角度选择数据的两个分量
 
 \SACTitle{语法}
-ROTATE [ TO GCP | TO v | THROUGH v ] [ NORMAL | REVERSED ]
+\begin{SACSTX}
+ROTATE [TO GCP|TO v|THROUGH v] [NORMAL|REVERSED]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,7 +19,9 @@ ROTATE [ TO GCP | TO v | THROUGH v ] [ NORMAL | REVERSED ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 ROTATE TO GCP NORMAL
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令可以将两个分量以一定角度旋转。每对数据分量必须有相同的台站名、事件名、采样率。在THROUGH选项中两个分量可简单地以给定的旋转角度旋转数据的两个分量，其中一个可以是垂直分量，在水平面上的旋转由北起算顺时针旋转。垂直分量的旋转为由上起顺时针旋转。
@@ -27,31 +31,26 @@ ROTATE TO GCP NORMAL
 \SACTitle{例子}
 以123.43度旋转一对水平分量:
 \begin{SACCode}
-SAC> READ XYZ.N XYZ.E
-SAC> ROTATE TO 123.43
+SAC> read xyz.n xyz.e
+SAC> rotate to 123.43
 \end{SACCode}
+
 以大圆弧路径旋转两个水平分量数据集:
 \begin{SACCode}
-SAC> READ ABC.N ABC.E DEF.N DEF.E
-SAC> ROTATE TO GCP
-SAC> W ABC.R ABC.T DEF.R DEF.T
+SAC> read abc.n abc.e def.n def.e
+SAC> rotate to gcp
+SAC> w abc.r abc.t def.r def.t
 \end{SACCode}
 上面的例子中如果BAZ头段变量为33度，则径向分量指向213度，切向分量指向303度，如果设置反极性，切向分量指向123度。
 
 \SACTitle{头段变量改变}
-CMPAZ, CMPINC
+cmpaz, cmpinc
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
 \item[-]2001: 命令需要一个偶数个数据文件
-\item[-]2004: 旋转没有足够的头段信息
-	\begin{itemize}
-	\item[-]对于GCP选项STLA, STLO, EVLA, EVLO必须定义
-	\end{itemize}
+\item[-]2004: 旋转没有足够的头段信息（对于GCP选项STLA, STLO, EVLA, EVLO必须定义）
 \item[-]2002: 下面的文件不是一个正交对:
 \item[-]2003: 下面的文件不都是水平分量，TO选项只对水平分量作用
 \end{itemize}
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)

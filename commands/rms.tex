@@ -5,18 +5,22 @@
 利用测量时间窗计算数据的均方根
 
 \SACTitle{语法}
-RMS [ NOISE ON | OFF | pdw ] [ TO USERn ]
+\begin{SACSTX}
+RMS [NOISE ON|OFF|pdw ] [TO USERn]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
 \item NOISE ON : 打开噪声归一化选项  
 \item NOISE OFF : 关闭噪声归一化选项  
-\item NOISE pdw : 打开噪声归一化选项并改变噪声的部分数据窗``partial data window''。关于pdw的详细信息参考CUT命令 
+\item NOISE pdw : 打开噪声归一化选项并改变噪声的部分数据窗``partial data window''。关于pdw的详细信息参考CUT命令
 \item TO USERn : 定义用于储存结果的头段变量USERn，其中n取0到9 
 \end{itemize}
 
 \SACTitle{缺省值}
-RMS NOISE OFF TO USER0
+\begin{SACDFT}
+rms noise off to user0
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令计算当期测量时间窗（参见MTW）中的数据的均方根。结果写入一个浮点型头段变量USERn中，，如果定义了一个噪声时间窗结果可以用于纠正噪声。计算的一般形式是：对信号窗做一次求和并对可选的噪声窗做另一次求和
@@ -24,21 +28,18 @@ RMS NOISE OFF TO USER0
 \SACTitle{例子}
 为了计算两个头段T1和T2间的数据的未修正的均方根，并将结果保存在头段USER4中:
 \begin{SACCode}
-SAC> MTW T1 T2
-SAC> RMS TO USER4
+SAC> mtw t1 t2
+SAC> rms to user4
 \end{SACCode}
+
 使用一个5秒长的噪声窗（结束于头段值T3），并就算修正后的均方根:
 \begin{SACCode}
-SAC> MTW T1 T2
-SAC> RMS NOISE T3 -5.0 0.0
+SAC> mtw t1 t2
+SAC> rms noise t3 -5.0 0.0
 \end{SACCode}
 
 \SACTitle{头段变量改变}
 USERn
 
 \SACTitle{相关命令}
-MTW,CUT
-
-\SACTitle{最近修订}
-March 22, 1991 (Version 10.6d)
-
+\nameref{cmd:mtw}、\nameref{cmd:cut}
