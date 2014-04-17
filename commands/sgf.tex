@@ -5,16 +5,10 @@
 控制SGF设备选项
 
 \SACTitle{语法}
-SGF {options}
-
-其中options可以取：
-\begin{itemize}
-\item PREFIX text  
-\item NUMBER n  
-\item DIRECTORY CURRENT|pathname  
-\item SIZE NORMAL|FIXED v|SCALED v  
-\item OVERWRITE ON|OFF  
-\end{itemize}
+\begin{SACSTX}
+SGF [PREFIX text] [NUMBER n] [DIRECTORY CURRENT|pathname] 
+    [SIZE NORMAL|FIXED v|SCALED v] [OVERWRITE ON|OFF]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -29,7 +23,9 @@ SGF {options}
 \end{itemize}
 
 \SACTitle{缺省值}
-SGF PREFIX F NUMBER 1 DIRECTORY CURRENT SIZE NORMAL
+\begin{SACDFT}
+sgf prefix f number 1 directory current size normal
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令控制图形框架的命名规定和后续SGF文件的最后图形尺寸。每一个框架被储存在磁盘上单独的文件中，每一个框架名由4部分组成，分别为:
@@ -49,27 +45,24 @@ SGFTOPS命令可以完成这个转换，尽管大于单页的图形需要适当�
 \SACTitle{例子}
 定义一个不是你当前目录的目录并重置图形框架号为序列中的下一个值:
 \begin{SACCode}
-SAC> SGF DIRECTORY /MYDIR/SGFSTORE FRAME 0
+SAC> sgf directory /mydir/sgfstore frame 0
 \end{SACCode}
 
 设置视口x方向绘图尺寸为3英寸:
 \begin{SACCode}
-SAC> SGF SIZE FIXED 3.0
+SAC> sgf size fixed 3.0
 \end{SACCode}
 
 创建一个大小相当于贴在墙上的海报的图形
 \begin{SACCode}
-SAC> SGF SIZE FIXED 30.0
+SAC> sgf size fixed 30.0
 \end{SACCode}
 
 设置视口x方向的绘图尺寸为每10秒地震数据1英寸长:
 \begin{SACCode}
-SAC> SGF SIZE SCALED 0.1
+SAC> sgf size scaled 0.1
 \end{SACCode}
 在最后的例子中，持续60秒的数据图形将有6英寸长，而持续600秒的数据将有60英寸长，并且需要特殊的后期处理。
 
 \SACTitle{相关命令}
-BEGINDEVICES
-
-\SACTitle{最近修订}
-May 6, 2010 (Version 101.4)
+\nameref{cmd:begindevices}

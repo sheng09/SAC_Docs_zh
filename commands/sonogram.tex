@@ -5,7 +5,11 @@
 计算一个频谱图，其等价于同一个谱图的两个不同的平滑版本的差
 
 \SACTitle{语法}
-SONOGRAM [ WINDOW v ] [ SLICE v ] [ ORDER n ] [ CBAR ON | OFF ] [ YMIN v ] [ YMAX v ] [ FMIN v ] [ FMAX v ] [ BINARY|FULL ] [ METHOD PDS | MEM | MLM ] [ COLOR | GRAY ] [ PRINT pname ]
+\begin{SACSTX}
+SONOGRAM [WINDOW v] [SLICE v] [ORDER n] [CBAR ON|OFF] 
+    [YMIN v] [YMAX v] [FMIN v] [FMAX v] [BINARY|FULL] 
+    [METHOD PDS|MEM|MLM] [COLOR|GRAY] [PRINT pname]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -24,7 +28,10 @@ SONOGRAM [ WINDOW v ] [ SLICE v ] [ ORDER n ] [ CBAR ON | OFF ] [ YMIN v ] [ YMA
 \end{itemize}
  
 \SACTitle{缺省值}
-SONOGRAM WINDOW 2 SLICE 1 METHOD MEM ORDER 100 YMIN 0 YMAX 	FNYQUIST FMIN 2.0 fmax 6.0 full color
+\begin{SACDFT}
+sonogram window 2 slice 1 method mem order 100 ymin 0 ymax 	
+    fnyquist fmin 2.0 fmax 6.0 full color
+\end{SACDFT}
 
 \SACTitle{说明}
 sonogram命令计算了一个谱图，其等效于同一谱图两种不同平滑版本的差。依赖于平滑参数fmin和fmax的选择，结果谱图可以加强小幅度谱特性，而其在传统谱图中很难观测到。这个在矿井爆炸的地震信号中寻找高频谱时很有用。(c.f., Hedlin, 1990,Wuster,1993).
@@ -36,11 +43,8 @@ sonogram命令计算了一个谱图，其等效于同一谱图两种不同平滑
 目前在头段检查以确定他们有相同的分量且在时间上连续方面还有些错误。
 
 \SACTitle{头段变量}
-需要：DELTA
+需要：delta
 
-修改：NPTS, DELTA, B, E, IFTYPE, DEPMIN, DEPMAX, DEPMEN
+修改：npts, delta, b, e, iftype, depmin, depmax, depmen
 
-创建：NXSIZE, XMINIMUM, XMAXIMUM, ,BREAK NYSIZE, YMINIMUM, YMAXIMUM
-
-\SACTitle{最近修订}
-May 26, 1995 (Version 00.31)
+创建：nxsize, xminimum, xmaximum, ,break nysize, yminimum, ymaximum

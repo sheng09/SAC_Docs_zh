@@ -5,7 +5,9 @@
 给每一个数据点减去一个常数
 
 \SACTitle{语法}
-SUB  [ v1 [ v2 ... vn ] ]
+\begin{SACSTX}
+SUB  [v1 [v2 ... vn]]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ SUB  [ v1 [ v2 ... vn ] ]
 \end{itemize}
 
 \SACTitle{缺省值}
-SUB 0.0
+\begin{SACDFT}
+sub 0.0
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令将给内存中的每一个数据文件的每个元素减一个常数。这个常数对于每一个数据文件来说可以是相同的也可以是不同的。如果内存中数据文件的数目比命令给出的常数要多，那么最后命令中的最后一个常数将用于剩下的所有文件。如果内存中数据文件数目比给出的常数少，则多余的常数将被忽略。
@@ -27,7 +31,4 @@ SUB 0.0
 \end{itemize}
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+depmin, depmax, depmen

@@ -5,18 +5,14 @@
 将图像显示窗口的中图像保存到多种格式的图形文件中
 
 \SACTitle{语法}
+\begin{SACSTX}
 SAVEIMG filename.format
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
 \item filename : 要保存的图像文件名。 
-\item format : 图像文件格式
-	\begin{itemize}
-	\item ps  (Postscript); 
-    \item pdf (Portable Document Format);
-	\item png (Portable Network Graphics);
-	\item xpm (Pixmap format);
-	\end{itemize}
+\item format : 图像文件格式，支持PS、PDF、PNG和XPM。
 \end{itemize}
 
 \SACTitle{说明}
@@ -45,6 +41,3 @@ SAC> save spectrogram.ps
 SAC> save spectrogram.png
 SAC> save spectrogram.pdf
 \end{SACCode}
-
-\SACTitle{最近修订}
-August 2011 (version 101.5) 

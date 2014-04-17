@@ -5,11 +5,12 @@
 根据头段值对内存中的文件进行排序
 
 \SACTitle{语法}
-SORT COMMIT|ROLLBACK|RECALLTRACE header [ ASCEND | DESCEND ] [ header [ ASCEND | DESCEND ]... ]
+\begin{SACSTX}
+SORT header [ASCEND|DESCEND] [header [ASCEND|DESCEND]...]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item COMMIT|ROLLBACK|RECALLTRACE : 参见具体章节
 \item header : 依据该头段排序文件 
 \item ASCEND : 按头段值升序排列 
 \item DESCEND : 按头段值降序排列 
@@ -31,12 +32,3 @@ SORT COMMIT|ROLLBACK|RECALLTRACE header [ ASCEND | DESCEND ] [ header [ ASCEND |
 \item[-]1381: 不是一个有效的SORT参数
 \item[-]1383: SORT失败
 \end{itemize}
-
-\SACTitle{警告消息}
-- 1384
-
-\SACTitle{相关命令}
-COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-October 27, 1998 (Version 0.58)

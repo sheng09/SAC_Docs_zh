@@ -5,8 +5,12 @@
 使用内存中的所有数据计算频谱图
 
 \SACTitle{语法}
-SPECTROGRAM [ WINDOW v ] [ SLICE v ] [ ORDER n ] [ CBAR ON | OFF ] [ SQRT | NLOG |LOG10 | NOSCALING ] [ YMIN v ] [ YMAX v ] [ METHOD PDS | MEM | MLM ] [
-COLOR | GRAY ] [ PRINT pname ]
+\begin{SACSTX}
+SPECTROGRAM [WINDOW v] [SLICE v] [ORDER n] [CBAR ON|OFF] 
+    [SQRT|NLOG|LOG10|NOSCALING]
+    [YMIN v] [YMAX v] [METHOD PDS|MEM|MLM] [COLOR|GRAY] 
+    [PRINT pname]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -23,7 +27,10 @@ COLOR | GRAY ] [ PRINT pname ]
 \end{itemize}
 
 \SACTitle{缺省值}
-SPECTROGRAM WINDOW 2 SLICE 1 METHOD MEM ORDER 100 NOSCALING 	YMIN 0 YMAX FNYQUIST COLOR
+\begin{SACDFT}
+spectrogram window 2 slice 1 method mem order 100 noscaling
+    ymin 0 ymax fnyquist color
+\end{SACDFT}
 
 \SACTitle{说明}
 频谱图是通过计算连续并可能重叠的数据时间窗的功率谱并将谱沿着时间轴绘制产生	的。谱是由一个使用MLM或MEM或PDS得到的被截断的自相关函数。一般会选择高精度的MLM和MEM方法，因为他们提高了精度且不会产生由于不同频率之间能量泄漏导致的人工干扰。这些技术的介绍可以参考Kanasewich(1981)以及Lacoss(1971)。被截断的互相关函数的长度由ORDER参数决定。为了保持和spe子程序的一致性，设置了PDS的默认order为200，MEM和MLM的order默认为100。在SAC中每个数据窗的长度由window参数决定。沿着频谱图时间轴的谱之间的间隔由slice参数决定。这两个参数的不同决定了临近时间窗的重叠量，如下图所示:
@@ -39,11 +46,6 @@ Time ->
 \end{SACCode}
 频谱图时间轴的起始和结束点依赖于要被分析的时间序列的长度以及window、slice参数。频谱图的起始时间是时间序列起始时间迟半个窗对应的时间，因为它被定义为第一个窗的中间时刻。SAC不会对数据的前面补0.
 
-\SACTitle{参考文献}
-Kanasewich, E. R., "Time Sequence Analysis in Geophysics",The University of Alberta Press, 	Edmonton, 1981.
-
-Lacoss, R. T., Data Adaptive Spectral Analysis Methods",Geophysics, Vol. 36, 661-675, 1971.
-
 \SACTitle{限制}
 图形在频率方向的尺寸为512.
 
@@ -51,11 +53,8 @@ Lacoss, R. T., Data Adaptive Spectral Analysis Methods",Geophysics, Vol. 36, 661
 目前在头段检查以确定他们有相同的分量且在时间上连续方面还有些错误。
 
 \SACTitle{头段变量改变}
-需要：DELTA
+需要：delta
 
-改变：NPTS, DELTA, B, E, IFTYPE, DEPMIN, DEPMAX, DEPMEN
+改变：npts, delta, b, e, iftype, depmin, depmax, depmen
 
-创建：NXSIZE, XMINIMUM, XMAXIMUM, ,BREAK NYSIZE, YMINIMUM, YMAXIMUM
-
-\SACTitle{最近修订}
-May 26, 1995 (Version 00.31)
+创建：nxsize, xminimum, xmaximum, ,break nysize, yminimum, ymaximum

@@ -5,7 +5,9 @@
 设置暂存块变量值
 
 \SACTitle{语法}
-SETBB variable  [ APPEND ] value [ variable [ APPEND ] value ... ]
+\begin{SACSTX}
+SETBB variable  [APPEND] value [variable [APPEND] value ...]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,36 +17,31 @@ SETBB variable  [ APPEND ] value [ variable [ APPEND ] value ... ]
 \end{itemize}
 
 \SACTitle{说明}
-暂存块是用于临时储存信息的地方，这些信息稍后可以通过GETBB命令获取，或通过在变量名前加``\%''直接在命令中使用变量值。如果你想在暂存块变量的末尾连接一些其他文本字符串，你需要在变量名的末尾再放置一个百分号。你可以使用EVALUATE对暂存块变量做基本算术操作，并将结果保存在新的暂存块变量中，你也可以通过UNSETBB命令删除一个暂存块变量。
+setbb命令可以给黑板变量赋值，这些值可以通过GETBB命令获取，或在命令中直接引用。
+你可以使用EVALUATE对黑板变量做基本算术操作，并将结果保存在新的黑板变量中，你也可以
+通过UNSETBB命令删除一个黑板变量。
 
 \SACTitle{例子}
-同时设置多个暂存块变量:
+同时设置多个黑板变量:
 \begin{SACCode}
-SAC>  SETBB C1 2.45 C2 4.94
+SAC> setbb c1 2.45 c2 4.94
 \end{SACCode}
 
 稍后在命令中使用这些变量:
 \begin{SACCode}
-SAC>  BANDPASS CORNERS %C1 %C2
+SAC> bandpass corners %c1% %c2%
 \end{SACCode}
 
 设置包含空格的暂存块变量:
 \begin{SACCode}
-SAC>  SETBB MYTITLE 'Sample filter response'
+SAC> setbb mytitle 'sample filter response'
 \end{SACCode}
+
 检查以确保值正确:
 \begin{SACCode}
-SAC>  GETBB MYTITLE
+SAC> getbb mytitle
  MYTITLE = Sample filter response
 \end{SACCode}
 
-在title命令中使用这个变量，其必须用引号括起来，且在变量名前后都要有百分号:
-\begin{SACCode}
-SAC>  TITLE '%MYTITLE%'
-\end{SACCode}
-
 \SACTitle{相关命令}
-GETBB, EVALUATE, UNSETBB
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:getbb}、\nameref{cmd:evaluate}、\nameref{cmd:unsetbb}
