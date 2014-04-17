@@ -11,7 +11,7 @@ R!EAD!H!DR! [MORE] [TRUST ON|OFF] [DIR CURRENT|name] [filelist]
 
 \SACTitle{输入}
 \begin{itemize}
-\item MORE: 将新数据头段放在内存中老文件头段之后，如果忽略，则新数据文件头段将代替老的。注意：如果MORE选项没有指定则COMMIT, ROLLBACK和RECALLTRACE不起作用\\
+\item MORE: 将新数据头段放在内存中老文件头段之后，如果忽略，则新数据文件头段将代替老的。
 \item TRUST ON|OFF : 这个选项用于解决将文件从SAC转换到CSS格式过程中出现的问题。当转换数据时，匹配的事件id意味着文件含有相同的事件信息，或者可能是两个不同格式合并之后出现的干扰。当TRUST打开时，SAC将更有可能接受匹配事件id 作为相同的事件信息，这依赖于READ命令与当前内存中数据的历史。
 \item DIR CURRENT : 从当前目录读取所有简单文件名，这个目录是你启动SAC的目录 
 \item DIR name : 从目录name中读取全部简单文件，其可以为绝对/相对路径 
