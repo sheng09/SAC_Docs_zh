@@ -2,31 +2,24 @@
 \label{cmd:begindevices}
 
 \SACTitle{概要}
-开始向两种图形设备中的一个或两个绘图
+启动某个图像设备
 
 \SACTitle{语法}
-BeginDevices Sgf|Xwindows
-
-\SACTitle{其他形式}
-BEGG以及BG也是这个命令可接受的名字
+\begin{SACSTX}
+B!EGIN!D!EVICES! S!GF!|X!WINDOWS!
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item Sgf: SAC图形文件设备驱动
-\item Xwindows: X-windows窗口显示系统
+\item SGF: SAC图像文件
+\item XWINDOWS: X Window System窗口显示系统
 \end{itemize}
 
 \SACTitle{说明}
-这个命令的参数为一或两个图形设备。该命令之后的绘图将被送到打开的设备中。在下一次执行BEGINDEVICES或ENDDEVICES之前该命令的效果一直有效。
+该命令用于启动一种图像设备，该命令之后的所有绘图都会被传送到该设备中，直到
+再次执行begindevices启动其它图像设备或enddevices结束该图像设备为止。
 
-目前SAC支持两种设备。SAC Graphics File (SGF)，打开一个二进制文件并将绘图命令输送给它。
-XWINDOWS则在屏幕窗口绘图。
-
-*两种设备各有优点，X的特点是直观快捷，SGF的特点是绘图可以保存，且质量较高，因而平时处理数据时一般用X，
-需要出版的绘图可以使用SGF。在不使用bg命令时使用p去绘图默认使用的图形设备是X
+SAC默认使用xwindows图像设备。具体用法参考~``\nameref{sec:save-image}''一节的示例。
 
 \SACTitle{相关命令}
-ENDDEVICES, SGF
-
-\SACTitle{最近修订}
-Mar. 24, 2009 (Version 101.3)
+\nameref{cmd:enddevices}、\nameref{cmd:sgf}

@@ -5,7 +5,11 @@
 利用内存中的全部数据文件计算射线束
 
 \SACTitle{语法}
-BEAM [Bearing v] [Velocity v] [REFerence ON|OFF| lat lon [el]] [OFFSET REF|USER|STATION|EVENT|CASCADE] [Ec anginc survel] [Center x y z] [WRite fname]
+\begin{SACSTX}
+BEAM [B!EARING! v] [V!ELOCITY! v] [REF!ERENCE! ON|OFF| lat lon [el]] 
+    [OFFSET REF|USER|STATION|EVENT|CASCADE] [E!C! anginc survel] 
+    [C!ENTER! x y z] [WR!ITE! fname]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -18,27 +22,22 @@ BEAM [Bearing v] [Velocity v] [REFerence ON|OFF| lat lon [el]] [OFFSET REF|USER|
 \item OFFSET STATION: 偏移量相对于第一个台站的位置，这要求所有文件的STLA、STLO必须定义
 \item OFFSET EVENT: 偏移量相对于第一个事件的位置，这要求所有文件的EVLA、EVLO必须定义
 \item OFFSET CASCADE: SAC将会按照前面给出的顺序考虑决定偏移量的方法，并检查必要的数据是否具备。它将使用第一个满足要求的方法
-\item EC: 高程校正
-	\begin{itemize}
-	\item anginc: 入射角，从z轴算起，单位为度（震源距离越远，入射角越小
-	\item survel: 表面介质速度(km/s)
-	\end{itemize} 
-\item CENTER :用于计算射线束的中心台站
-	\begin{itemize}
-	\item x: 距参考台站的东向偏移
-	\item y: 距参考台站的北向偏移
-	\item z: 距参考台站的向上偏移，其单位为米
-	\end{itemize}
+\item EC: 高程校正。anginc: 入射角，从z轴算起，单位为度（震源距离越远，入射角越小）；
+    survel: 表面介质速度(km/s)。
+\item CENTER :用于计算射线束的中心台站。X为距参考台站的东向偏移；Y为距参考台站的北向偏移；
+	Z为距参考台站的向上偏移，其单位为米；
 \item WRITE fname: 将射线束写入磁盘
 \end{itemize}
 
 \SACTitle{缺省值}
-BEAM  B 90  V 9.0 EC 33  6.0 C  0. 0. 0. W beam
+\begin{SACDFT}
+beam  b 90  v 9.0 ec 33  6.0 c  0. 0. 0. w BEAM
+\end{SACDFT}
 
 \SACTitle{说明}
-BEAM不覆盖SAC内存中的输入数据，因而当变换方位和速度时这一操作可以重复执行。
+BEAM不覆盖SAC内存中的数据，因而当变换方位和速度时这一操作可以重复执行。
 射线结果写入到磁盘文件中，并且每次可以写到不同的文件。这个设计考虑到了用户
-的需求，即比较反复使用这一命令的不同结果，以寻找最佳射线束的方位和速度。
+的需求，即比较多次使用这一命令的不同结果，以寻找最佳射线束的方位和速度。
 
 \SACTitle{头段数据}
 参见BBFK命令
@@ -47,7 +46,4 @@ BEAM不覆盖SAC内存中的输入数据，因而当变换方位和速度时这�
 CENTER参数缺失偏移量，EC参数需要正值
 
 \SACTitle{相关命令}
-MAP
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 10.5c)
+\nameref{cmd:map}
