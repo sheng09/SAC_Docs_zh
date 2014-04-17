@@ -2,10 +2,12 @@
 \label{cmd:trace}
 
 \SACTitle{概要}
-跟踪暂存块变量和头段变量
+跟踪黑板变量和头段变量
 
 \SACTitle{语法}
-TRACE [ ON | OFF ] name [ name ... ]
+\begin{SACSTX}
+TRACE [ON|OFF] name [name ...]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,15 +17,18 @@ TRACE [ ON | OFF ] name [ name ... ]
 \end{itemize}
 
 \SACTitle{缺省值}
-TRACE ON
+\begin{SACDFT}
+trace on
+\end{SACDFT}
 
 \SACTitle{说明}
-这个命令用于在SAC执行过程中跟踪SAC暂存块变量或头段变量的值。其对于调试长的或复杂的宏文件很有用。对一个变量进行跟踪时，将显示其当前值。跟踪选项打开时，个命令执行后都对变量值进行检查。每次暂存块变量或头段变量改变时都将显示一行的信息。跟踪选项关闭时，也最后一次显示它的当前值。
+这个命令用于在SAC执行过程中跟踪SAC黑板变量或头段变量的值。其对于调试长的或复杂的宏文件很有用。对一个变量进行跟踪时，将显示其当前值。跟踪选项打开时，每次命令执行后都对变量值进行检查。
+每次黑板变量或头段变量改变时都将显示一行的信息。跟踪选项关闭时，也最后一次显示它的当前值。
 
 \SACTitle{例子}
-跟踪暂存块变量TEMP1和属于文件MYFILE的头段变量T0:
+跟踪黑板变量TEMP1和属于文件MYFILE的头段变量T0:
 \begin{SACCode}
-SAC> TRACE ON TEMP1 MYFILE,T0
+SAC> trace on temp1 myfile,t0
   TRACE  (on) TEMP1 = 1.45623
   TRACE  (on) MYFILE,T0 = UNDEFINED
 \end{SACCode}
@@ -41,10 +46,7 @@ SAC> TRACE ON TEMP1 MYFILE,T0
 
 当跟踪选项关闭时，SAC最后一次显示当前值:
 \begin{SACCode}
-SAC> TRACE OFF TEMP1 MYFILE,T0
+SAC> trace off temp1 myfile,t0
   TRACE (off) TEMP1 = 1.93242
   TRACE (off) MYFILE,T0 = 10.3451
 \end{SACCode}
-
-\SACTitle{最近修订}
-January 27, 1989 (Version 10.4B)

@@ -5,7 +5,9 @@
 控制文本尺寸属性
 
 \SACTitle{语法}
-TSIZE [ Tiny | Small | Medium | Large v ] [ RATIO v ] [ OLD | NEW ]
+\begin{SACSTX}
+TSIZE [T!INY!|S!MALL!|M!EDIUM!|!LARGE! v ] [RATIO v] [OLD|NEW]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -16,11 +18,15 @@ TSIZE [ Tiny | Small | Medium | Large v ] [ RATIO v ] [ OLD | NEW ]
 \end{itemize}
 
 \SACTitle{缺省值}
-TSIZE RATIO 1.0 NEW
+\begin{SACDFT}
+tsize ratio 1.0 new
+\end{SACDFT}
 
 \SACTitle{说明}
 大多数的文本注释命令(TITLE, XLABEL, FILEID等)允许你改变要显示的文本的尺寸。你可以从四个已命名的尺寸中选择(TINY, SMALL, MEDIUM, 和LARGE.)。每一个命名尺寸有一个初始值，如下表所示。其尺寸是一个字符相对整个视窗的高度。有些时候你想要使用一些不同与默认尺寸的注释。TSIZE允许你重新定义这四个已命令的尺寸。你也可以使用这个命令改变字符的宽-高比。
-\begin{center}
+\begin{table}[!ht]
+\centering
+\caption{SAC标准文本尺寸}
 \begin{tabular}{lccccc}
 \toprule
 NAME	&	A	&	B	&	C	&	D	&	E	\\
@@ -31,7 +37,7 @@ MEDIUM  & 0.030 &	33  &  25  	&	44  &	55	\\
 LARGE	& 0.040 &	25  &  18  	&	33  &	41	\\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 上面做各列的定义如下:
 \begin{itemize}
@@ -45,19 +51,15 @@ LARGE	& 0.040 &	25  &  18  	&	33  &	41	\\
 \SACTitle{例子}
 为了改变MEDIUM的定义，并使用它创建一个特别尺寸的标题:
 \begin{SACCode}
-SAC> TSIZE MEDIUM 0.35
-SAC> TITLE 'Rayleigh Wave Spectra' SIZE MEDIUM
-SAC> PLOT2
+SAC> tsize medium 0.35
+SAC> title 'rayleigh wave spectra' size medium
+SAC> plot2
 \end{SACCode}
 
 为了重置尺寸定义到其缺省值:
 \begin{SACCode}
-SAC> TSIZE NEW
+SAC> tsize new
 \end{SACCode}
 
 \SACTitle{相关命令}
-TITLE, XLABEL, FILEID, PLOTC
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 9.1)
-
+\nameref{cmd:title}、\nameref{cmd:xlabel}、\nameref{cmd:fileid}、\nameref{cmd:plotc}

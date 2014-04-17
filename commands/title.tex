@@ -5,7 +5,10 @@
 定义绘图的标题和属性
 
 \SACTitle{语法}
-TITLE [ ON | OFF | text ] [ LOCATION Top | Bottom | Right | Left ] [ SIZE Tiny | Small | Medium | Large ]
+\begin{SACSTX}
+TITLE [ON|OFF|text] [LOCATION T!OP!|B!OTTOM!|R!IGHT!|L!EFT!] 
+    [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,13 +20,12 @@ TITLE [ ON | OFF | text ] [ LOCATION Top | Bottom | Right | Left ] [ SIZE Tiny |
 \end{itemize}
 
 \SACTitle{缺省值}
-TITLE OFF LOCATION TOP SIZE SMALL
+\begin{SACDFT}
+title off location top size small
+\end{SACDFT}
 
 \SACTitle{说明}
 如果这个选项打开，则在每个图形上都给出标题，标题的尺寸和位置及内容均可改变，文本质量和字体可以通过GTEXT命令设置。
 
 \SACTitle{相关命令}
-GTEXT
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:gtext}

@@ -5,7 +5,9 @@
 控制绘图上时间标记的位置
 
 \SACTitle{语法}
-TICKS ON | OFF | ONLY  ALL | Top | Bottom | Right | Left
+\begin{SACSTX}
+TICKS [ON|OFF|ONLY] [ALL|T!OP!|B!OTTOM!|R!IGHT!|L!EFT!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,7 +22,9 @@ TICKS ON | OFF | ONLY  ALL | Top | Bottom | Right | Left
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 TICKS ON ALL
+\end{SACDFT}
 
 \SACTitle{说明}
 时标可以画在图形四边的一边或几边上。他们以刻度间隔的当前值绘出，其刻度间隔由	XDIV命令控制。时标自动画在由AXES命令指定的轴上。
@@ -28,21 +32,18 @@ TICKS ON ALL
 \SACTitle{例子}
 打开顶端时标，其他不变:
 \begin{SACCode}
-SAC> TICKS ON TOP
+SAC> ticks on top
 \end{SACCode}
 
 关闭所有时标:
 \begin{SACCode}
-SAC> TICKS OFF ALL
+SAC> ticks off all
 \end{SACCode}
 
 打开底部时标，其余关闭:
 \begin{SACCode}
-SAC> TICKS ONLY BOTTOM
+SAC> ticks only bottom
 \end{SACCode}
 
 \SACTitle{相关命令}
-XDIV, AXES
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:xdiv}、\nameref{cmd:axes}

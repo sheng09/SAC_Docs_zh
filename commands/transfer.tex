@@ -5,44 +5,46 @@
 反卷积以去除仪器响应并卷积以加入其它仪器响应。
 
 \SACTitle{语法}
-TRANSfer [ FROM type [options] ] [ TO type [options] ] [ FREQlimits f1 f2 f3 f4 ] [ PREWhitening ON | OFF | n ]
+\begin{SACSTX}
+TRANS!FER! [FROM type [options]] [TO type [options]] 
+    [FREQ!LIMITS! f1 f2 f3 f4] [PREWH!ITENING! ON|OFF|n]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
 \item FROM type : 通过谱域除法做反卷积要去除的仪器类型。 
 \item TO type : 通过谱域乘法做卷积来加入的仪器类型。 
+\item FREQLIMITS f1 f2 f3 f4：设定频率段，以处理超高频和超低频信号。
+\item PREWHITENING ON|OFF|n：预白化处理。
 \end{itemize}
 
 \SACTitle{缺省值}
-TRANS FROM NONE TO NONE
+\begin{SACDFT}
+trans from none to none
+\end{SACDFT}
 
 \SACTitle{说明}
-在TRANSFTER中默认仪器的输入输出都是位移，在SAC中定义为NONE。因而如果FROM类型或者TO类型未指定，SAC会假定其为NONE。
+关于仪器响应以及transfer命令，参考~``\nameref{sec:instrument-response}''一节。
 
-若输出仪器是NONE，则SAC头段中的IDEP将设置为DISPLACEMENT(单位为nm). 对于下表列出的全部地震仪，TO NONE的输出单位为nm。如果TRANSFER选择为TO VEL或TO ACC，SAC中的头段变量IDEP将根据内存中的波形而改变。
+在TRANSFTER中默认仪器的输入输出都是位移，在SAC中定义为NONE。
+因而如果FROM类型或者TO类型未指定，SAC会假定其为NONE。
 
-如果TO指定为除NONE、VEL、ACC外的其他类型，内存中的波形将被转换为相应的仪器类型。如果FROM仪器类型是NONE，则不会去除仪器响应，原始的地震道数据认定为位移，这常用于向合成地震图中加入仪器响应。
+若输出仪器是NONE，则SAC头段中的IDEP将设置为DISPLACEMENT(单位为nm). 如果TRANSFER选择为TO VEL
+或TO ACC，SAC中的头段变量IDEP将根据内存中的波形而改变。
+
+如果TO指定为除NONE、VEL、ACC外的其他类型，内存中的波形将被卷积上相应的仪器类型。如果FROM仪器类型是NONE，则不会去除仪器响应，原始的地震道数据认定为位移，这常用于向合成地震图中加入仪器响应。
 
 在同一个SAC会话中，当第二次调用TRANSFER时一定要特别小心，因为第二次调用TRANSFER时会使用第一次调用时的参数，除非显式指定其参数。
 
-很多仪器都有参数以进一步指定其仪器响应，最常见的选项是仪器子类型。极少数仪器需要一些给出数值参数而非子类型选项。详情参见下表。
-
-20年前TRANSFER命令引入时，数据获取系统相对简单。当今，多数数据是从IRIS的数据管理中心下载得到，一般为SEED格式。RDSEED程序可以读取SEED数据，EVALRESP程序可以从RDSEED产生的响应文件RESP中计算出完整的系统响应。EVALRESP程序目前已经嵌入到TRANSFER命令的仪器类型选择中，使得用户可以根据RESP文件对数据做卷积或反卷积来处理仪器响应。
-
-SEED文件的格式说明及程序RDSEED和EVALRESP的代码可以由此获得:\\
-\href{http://www.iris.edu/software/downloads/seed_tools/}{http://www.iris.edu/software/downloads/seed\_tools/}
-
-SAC中Laplace/Fourier变换中的符号定义与RDSEED和EVALRESP相同：因果响应的相位随着频率增大而减小。对于位移，SAC的单位是nm，而RDSEED的RESP文件使用m为单位。TRANSFER的EVALRESP选项对此做了纠正以使得输出符合SAC的规定。对于其他选项(FAP, PZ)，可能会需要修改其单位。（参见下面的例子）
-
-FREQLIMITS f1 f2 f3 f4 : 所有的地震仪在0频率处都具有零响应。当做反卷积但不卷积其他响应的时候(e.g. ``TO NONE'')，就有必要修改超低频率处的响应以防止频率域除0。在高频区域，信噪比通常很低，因而有必要对其响应进行抑制。FREQLIMITS即可满足此要求。FREQLIMITS包含了低通和高通的尖灭器（taper）。四个频率满足f1<f2<f3<f4，尖灭器在f2和f3间为1，在f1以下和f4以上为0。频率f1和f2确定了高通滤波器的特性，频率f3和f4指定了低通滤波器的特性。
-
-f1与f2之间以及f3与f4之间分别为余弦波的四分之一个周期。
+所有的地震仪在0频率处都具有零响应。当做反卷积但不卷积其他响应的时候(e.g. ``TO NONE'')，就有必要修改超低频率处的响应以防止频率域除0。在高频区域，信噪比通常很低，因而有必要对其响应进行抑制。FREQLIMITS即可满足此要求。FREQLIMITS包含了低通和高通的尖灭器（taper）。四个频率满足f1<f2<f3<f4，尖灭器在f2和f3间为1，在f1以下和f4以上为0。频率f1和f2确定了高通滤波器的特性，频率f3和f4指定了低通滤波器的特性。f1与f2之间以及f3与f4之间分别为余弦波的四分之一个周期。
 
 如果你想要一个低通滤波器但在低频处不滤波，一种方法是设置f1=-2和f2=-1；如果你想要一个高通滤波器但在高频处不滤波，对于Nyquist频率为0.5，设置f3=10和f4=20。
 
 注意：由于滤波器还有零相位，因而其是非因果。如果数据点数npts不为2的指数幂次，会导致在频段(f1,f4)之外振幅不为0。如果想要数据点数为2的幂次方个，可以参考SAC中的CUT命令。
 
-缺省值中是没有FREQLIMITS选项的，强烈建议在做反卷积时包含FREQLIMITS选项。
+缺省值中是没有FREQLIMITS选项的，在使用FREQLIMITSEVALRESP和POLEZERO选项时，应该加上FREQLIMITS选项以处理超高频和超低频。
+
+PREWHITENING控制数据的预白化：
 \begin{itemize}
 \item PREWHITENING: 预白化可以将输入时间序列在变换到频率域之前，进行谱的平化。这	会减小谱值的动态范围，并提高数据在高频的计算精度。默认prewhitening是关闭的。参见WHITEN命令。
 \item PREWHITENING ON : 在谱操作之前在频率域进行谱白化，并在谱操作后在时间域做谱白化的补偿。
@@ -50,22 +52,17 @@ f1与f2之间以及f3与f4之间分别为余弦波的四分之一个周期。
 \item PREWHITENING n : 打开预白化选项并设置其阶数。如果打开预白化但不指定阶数，则缺省n=6,除非在WHITEN命令中已经修改了预白化阶数。
 \end{itemize}
 
-
-\SACTitle{说明}
-如EVALRESP和POLEZERO选项，应该加上FREQLIMITS选项以处理超高频和超低频。
-
-
 \SACTitle{例子}
 为了将NYKM.Z去除台站RSTN的仪器响应，并应用DSS的仪器响应：
 \begin{SACCode}
-SAC> READ NYKM.Z
-SAC> TRANS FROM RSTN SUBTYPE NYKM.Z TO DSS PREW OFF
+SAC> read nykm.z
+SAC> trans from rstn subtype nykm.z to dss prew off
 \end{SACCode}  	
 
 为了去除LLL宽频带仪器响应，应用SRO仪器响应，并对频带做尖灭及预白化：
 \begin{SACCode}
-SAC> READ ABC.Z
-SAC> TRANS FROM LLL TO SRO FREQ .02 .05 1. 2. PREW 2
+SAC> read abc.z
+SAC> trans from lll to sro freq .02 .05 1. 2. prew 2
 \end{SACCode}
 得到的地震数据的通带，在0.05Hz到1Hz是平的，在0.02Hz以下及2Hz以上为0。
 
@@ -73,16 +70,6 @@ SAC> TRANS FROM LLL TO SRO FREQ .02 .05 1. 2. PREW 2
 
 为了将电磁仪器响应转换为位移：
 \begin{SACCode}
-SAC>  READ XYZ.Z
-SAC>  TRANSFER FROM ELMAG FREEP 15. MAG 750. TO NONE
+SAC>  read xyz.z
+SAC>  transfer from elmag freep 15. mag 750. to none
 \end{SACCode}
-
-\SACTitle{致谢}
-Roger Hanscom 首先实现了Keith Nakanishi 的TRANSFER程序的转换。
-
-George 	Randall 加入了预白化选项。
-
-Doug Dodge加入了EVALRESP选项.
-
-\SACTitle{最近修订}
-August 2011 (Version 101.5) 

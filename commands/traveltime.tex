@@ -5,7 +5,10 @@
 根据预定义的速度模型计算指定震相的走时。
 
 \SACTitle{语法}
-TRAVELTIME [ MODEL string ] [ PICKS number ] [ PHASE phase list ] [ VERBOSE | QUIET ] [ M | KM ]
+\begin{SACSTX}
+T!RAVEL!TIME [MODEL string] [PICKS number] [PHASE phase list] 
+    [VERBOSE|QUIET] [M|KM]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,13 +20,13 @@ TRAVELTIME [ MODEL string ] [ PICKS number ] [ PHASE phase list ] [ VERBOSE | QU
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 MODEL iasp91 KM PHASE P S Pn Pg Sn Sg
+\end{SACDFT}
 
 \SACTitle{说明}
-内存中的波形文件的事件和台站位置以及发震时刻必须定义。
-
-该命令使用iaspei-tau程序计算走时，详细信息参考：\\
-\href{http://www.iris.edu/software/downloads/processing/}{http://www.iris.edu/software/downloads/processing/}
+该命令使用\href{http://www.iris.edu/software/downloads/processing/}{iaspei-tau}
+程序计算走时，要求内存中的波形文件的事件和台站位置以及发震时刻必须定义。
 
 内存中所有文件拾取的震相的到时存储在头段变量Tn中，其中n的范围为0到9。计算的走时是相对于发震时刻(O)的，但存储在Tn中的时间是相对于文件起始时间(B)。
 
@@ -82,6 +85,3 @@ SAC> setbb station :1,KSTNM:
 SAC> write %station%.z
 \end{SACCode}
 保存的文件OR075.z单位为km，并且各个震相Pn、Pg、Sn及Sg都有注释。震相名是大小敏感的，具体参见iaspei-tau的文档。
-
-\SACTitle{最近修订}
-August, 2011 (Version 101.5)

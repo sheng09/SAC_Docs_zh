@@ -5,7 +5,9 @@
 在数据两端应用对称的taper函数，使得数据在两端平滑地衰减到零
 
 \SACTitle{语法}
-TAPER [ TYPE HANNING | HAMMING | COSINE ] [ WIDTH v ]
+\begin{SACSTX}
+TAPER [TYPE HANNING|HAMMING|COSINE] [WIDTH v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -14,7 +16,9 @@ TAPER [ TYPE HANNING | HAMMING | COSINE ] [ WIDTH v ]
 \end{itemize}
 
 \SACTitle{缺省值}
-TAPER TYPE HANNING WIDTH 0.05
+\begin{SACDFT}
+taper type hanning width 0.05
+\end{SACDFT}
 
 \SACTitle{说明}
 taper函数是在0和1之间取值的单调变化的函数。它对称地施加于数据的首尾两端。
@@ -52,12 +56,6 @@ COSINE	&	$\frac{\pi}{2N}$	&	1.00	&	1.00	\\
 \end{tabular}
 \end{center}
 
-\begin{figure}[h]
-\caption{Taper函数对比图}
-\centering
-\includegraphics[width=8cm]{taper}
-\end{figure}
-
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
@@ -65,7 +63,4 @@ COSINE	&	$\frac{\pi}{2N}$	&	1.00	&	1.00	\\
 \end{itemize}
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{最近修订}
-January 15, 1985 (Version 9.10)
+depmin, depmax, depmen
