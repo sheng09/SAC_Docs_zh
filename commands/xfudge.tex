@@ -5,7 +5,9 @@
 改变X轴的``插入因子''
 
 \SACTitle{语法}
-XFUDGE ON | OFF | v
+\begin{SACSTX}
+XFUDGE ON|OFF|v
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ XFUDGE ON | OFF | v
 \end{itemize}
 
 \SACTitle{缺省值}
-XFUDGE 0.03
+\begin{SACDFT}
+xfudge 0.03
+\end{SACDFT}
 
 \SACTitle{说明}
 当这个选项打开时，实际轴范围将由插入因子改变，确定线性坐标轴范围的方法是:
@@ -25,7 +29,4 @@ XFUDGE 0.03
 其中XMIN和XMAX是数据的极值，XFUDGE是插入因子，这个算法对于对数坐标也是相似的。插入选项值应用于坐标轴的范围设置为数据极值时(参见XLIM)
 
 \SACTitle{相关命令}
-XLIM
-
-\SACTitle{最近修订}
-JanuarX 8, 1983 (Version 8.0)
+\nameref{cmd:xlim}

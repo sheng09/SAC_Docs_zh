@@ -5,7 +5,10 @@
 定义X轴标签及属性
 
 \SACTitle{语法}
-XLABEL [ ON | OFF | text ] [ LOCATION Top | Bottom | Right | Left ] [ SIZE Tiny| Small | Medium | Large ]
+\begin{SACSTX}
+XLABEL [ON|OFF|text] [LOCATION T!OP!|B!OTTOM!|R!IGHT!|L!EFT!] 
+    [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -21,13 +24,12 @@ XLABEL [ ON | OFF | text ] [ LOCATION Top | Bottom | Right | Left ] [ SIZE Tiny|
 \end{itemize}
 
 \SACTitle{缺省值}
-XLABEL OFF LOCATION BOTTOM SIZE SMALL
+\begin{SACDFT}
+xlabel off location bottom size small
+\end{SACDFT}
 
 \SACTitle{说明}
 如果这个选项为开，则X轴标签将放在每张图上，其尺寸和位置以及文本均可以改变。文本质量以及字体可以使用GTEXT命令设置
 
 \SACTitle{相关命令}
-GTEXT
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:gtext}
