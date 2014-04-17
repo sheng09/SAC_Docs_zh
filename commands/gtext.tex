@@ -5,18 +5,22 @@
 控制绘图中文本质量以及字体
 
 \SACTitle{语法}
-GTEXT [ Software | Hardware ] [ Font n ] [ Size Tiny | Small | Medium | Large]
+\begin{SACSTX}
+GTEXT [S!oftware!|H!ardware!] [F!ont! n] [S!ize! T!iny!|S!mall!|M!edium!|L!arge!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item SOFTWARE :  绘图中使用软件文本
-\item HARDWARE :  绘图中使用硬件文本 
-\item FONT n :  设置软件文本字体为n,n取值为1到8 
-\item SIZE size :  改变缺省文本大小，具体请参考TSIZE 
+\item SOFTWARE:  绘图中使用软件文本
+\item HARDWARE:  绘图中使用硬件文本 
+\item FONT n:  设置软件文本字体为n,n取值为1到8 
+\item SIZE size:  改变缺省文本大小，具体请参考TSIZE 
 \end{itemize}
 
 \SACTitle{缺省值}
-GTEXT SOFTWARE FONT 1 SIZE SMALL
+\begin{SACDFT}
+gtext software font 1 size small
+\end{SACDFT}
 
 \SACTitle{说明}
 软件文本使用了图形库的文本显示功能，字符作为小线段存储，因而具有任意的大小以及旋转至任意的角度，使用软件文本将在不同图形设备上产生相同的结果，但是其速度会慢于硬件文本，尤其对于终端来说。目前有8种可用的软件字体：simplex block (font 1), simplex italics (2), duplex block(3), duplex italics (4), complex block (5), complex italics(6), triplex block (7),以及triplex italics (8).  
@@ -26,11 +30,8 @@ GTEXT SOFTWARE FONT 1 SIZE SMALL
 \SACTitle{例子}
 选择triplex软件字体:
 \begin{SACCode}
-SAC> GTEXT SOFTWARE FONT 6
+SCA> gtext software font 6
 \end{SACCode}
 
 \SACTitle{相关命令}
-TSIZE
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 9.1)
+\nameref{cmd:tsize}

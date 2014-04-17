@@ -5,9 +5,12 @@
 产生内存中数据的灰度图像
 
 \SACTitle{语法}
-GRAYSCALE [ VIDEOTYPE NORMAL|REVERSED ] [ SCALE v ] [ ZOOM n ] [XCROP n1 n2 | ON | OFF ] [ YCROP n1 n2 | ON | OFF ]
+\begin{SACSTX}
+GRAYSCALE [VIDEOTYPE NORMAL|REVERSED] [SCALE v] [ZOOM n] [XCROP n1 n2 | ON | OFF] 
+    [YCROP n1 n2|ON|OFF]
+\end{SACSTX}
 
-**注意** 这个命令使用了未在SAC中发布的命令，要使用这个命令你必须安装Utah 	Raster Toolkit.。
+注意：这个命令使用了未在SAC中发布的命令，要使用这个命令你必须安装Utah Raster Toolkit.。
 
 \SACTitle{输入}
 \begin{itemize}
@@ -24,7 +27,9 @@ GRAYSCALE [ VIDEOTYPE NORMAL|REVERSED ] [ SCALE v ] [ ZOOM n ] [XCROP n1 n2 | ON
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 GRAYSCALE VIDEOTYPE NORMAL SCALE 1.0 ZOOM 1 XCROP OFF YCROP OFF
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令可以用于绘制SPECTROGRAM命令输出的灰度图， 用这个命令显示的SAC数据须是"xyz"文件。
@@ -34,19 +39,11 @@ GRAYSCALE VIDEOTYPE NORMAL SCALE 1.0 ZOOM 1 XCROP OFF YCROP OFF
 \SACTitle{限制}
 最大只能显示512*1000
 
-\SACTitle{致谢}
-这个程序由Terri Quinn开发，灰度图像的操作和显示使用了University of Utah's RasterToolkit。
-
 \SACTitle{头段变量改变}
 需要：IFTYPE, NXSIZE, NYSIZE
 
 \SACTitle{错误消息}
-SAC > getsun: Command not found.  
-
-- 需要Utah Raster Toolkit提供一些工具程序
+SAC > getsun: Command not found.  （需要Utah Raster Toolkit提供一些工具程序）
 
 \SACTitle{相关命令}
-SPECTROGRAM
-
-\SACTitle{最近修订}
-March 22, 1990 (Version 10.5a)
+\nameref{cmd:spectrogram}

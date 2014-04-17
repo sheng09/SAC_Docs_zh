@@ -2,10 +2,13 @@
 \label{cmd:getbb}
 
 \SACTitle{概要}
-获取或打印暂存块变量值
+获取或打印黑板变量的值
 
 \SACTitle{语法}
-GETBB [ TO TERMinal | filename ] [ NAMES ON | OFF ] [ NEWLINE ON | OFF ] ALL|variable [variable ...]
+\begin{SACSTX}
+GETBB [TO TERM!inal!|filename] [NAMES ON|OFF] [NEWLINE ON|OFF] 
+    ALL|variable [variable ...]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,28 +23,35 @@ GETBB [ TO TERMinal | filename ] [ NAMES ON | OFF ] [ NEWLINE ON | OFF ] ALL|var
 \end{itemize}
 
 \SACTitle{缺省值}
-GETBB TO TERMINAL NAMES ON NEWLINE ON ALL
+\begin{SACDFT}
+getbb to terminal names on newline on all
+\end{SACDFT}
 
 \SACTitle{说明}
-暂存块是用于临时储存信息的地方，这个命令允许你打印你选择的头段变量值。变量可以由SETBB定义，也可以由EVALUATE命令对头段变量进行基本算术操作并将结果储存在新头段变量中得到。头段变量也可以在SAC命令中直接引用。详情参见宏文件帮助文档。
+这个命令允许你打印指定的黑板变量。变量可以由SETBB定义，也可以由EVALUATE命令对黑板变量
+进行基本算术操作并将结果储存在新黑板变量中。黑板变量也可以在SAC命令中直接引用。
+
 命令控制打印哪些值以及打印的格式，你可以将其打印到终端或者文件中。你可以使用这些选项对一系列数据文件进行测量，将结果保存到文本文件中，然后用READALPHA命令将这个文件读回SAC，绘图或者进行更多的分析。
 
 \SACTitle{例子}
 假设你已经设置了一些头段变量:
 \begin{SACCode}
-SAC> SETBB C1 2.45 C2 4.94
+SAC> setbb c1 2.45 c2 4.94
 \end{SACCode}
+
 稍后可以这样打印他们的值:
 \begin{SACCode}
-SAC> GETBB C1 C2
- C1 = 2.45
- C2 = 4.94
+SAC> getbb c1 c2
+ c1 = 2.45
+ c2 = 4.94
 \end{SACCode}
+
 想要在一行内只打印其值:
 \begin{SACCode}
-SAC> GETBB NAMES OFF NEWLINE OFF C1 C2
+SAC> getbb names off newline off c1 c2
  2.45 4.94
 \end{SACCode}
+
 假设你有一个宏文件叫GETXY，其可以对单个文件进行某些分析操作，并将结果储存在两个头段变量中X和Y中。你想要对当前目录中所有垂直分量进行操作，保存每对X和Y的值，然后绘图。下面的宏文件的第一个参数是用于储存这些结果的文本文件:
 \begin{SACCode}
 DO FILE WILD *Z
@@ -56,7 +66,4 @@ PLOT
 最终这个文本文件将包含成对的x-y数据点，每行一个，对应一个垂直分量的数据文件。为了关闭文本文件并清空缓存区，最后将输出重定向到终端的GETBB命令是必要的。
 
 \SACTitle{相关命令}
-SETBB, EVALUATE
-
-\SACTitle{最近修订}
-Sept. 1, 1988 (Version 10.3E)
+\nameref{cmd:setbb}、\nameref{cmd:evaluate}
