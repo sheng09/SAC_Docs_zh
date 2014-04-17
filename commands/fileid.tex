@@ -5,7 +5,10 @@
 控制文件id在SAC绘图上的显示
 
 \SACTitle{语法}
-FILEID [ ON | OFF ] [ Type Default | Name | List hdrlist ]Location [ UR | UL | LR | LL ] [ Format Equals | Colons | Nonames]
+\begin{SACSTX}
+FILEID [ON|OFF] [T!ype! D!efault!|N!ame!|L!ist! hdrlist] Location [UR|UL|LR|LL] 
+    [F!ormat! E!quals!|C!olons!|N!onames!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -21,7 +24,9 @@ FILEID [ ON | OFF ] [ Type Default | Name | List hdrlist ]Location [ UR | UL | L
 \end{itemize}
 
 \SACTitle{缺省值}
-FILEID ON TYPE DEFAULT LOCATION UR FORMAT NONAMES
+\begin{SACDFT}
+fileid on type default location ur format nonames
+\end{SACDFT}
 
 \SACTitle{说明}
 文件id标识了绘图的内容，默认的文件id包括事件名、台站名、分量、参考日期及时间。如果需要也可以使用文件名代替默认的文件id。还可以定义一个特殊的文件id，这个id最多由10个SAC头段变量构成。文件id的位置以及格式也可以修改。
@@ -29,18 +34,15 @@ FILEID ON TYPE DEFAULT LOCATION UR FORMAT NONAMES
 \SACTitle{例子}
 将文件名放在左上角:
 \begin{SACCode}
-SAC> FILEID LOCATION UL TYPE NAME
+SAC> fileid location ul type name
 \end{SACCode}
 
 定义一个特殊的文件id，包含台站分量、经纬度:
 \begin{SACCode}
-SAC> FILEID TYPE LIST KSTCMP STLA STLO
+SAC> fileid type list kstcmp stla stlo
 \end{SACCode}
 
 文件id为头段名后加一个冒号:
 \begin{SACCode}
-SAC> FILEID FORMAT COLON
+SAC> fileid format colon
 \end{SACCode}
-
-\SACTitle{最近修订}
-October 11, 1984 (Version 9.1)

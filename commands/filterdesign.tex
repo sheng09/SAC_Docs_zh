@@ -5,40 +5,29 @@
 产生一个滤波器的数字和模拟特性的图形显示，包括：振幅，相位，脉冲响应和群延迟。
 
 \SACTitle{语法}
-FilterDesign [ PRINT [ pname ] ] [ FILE [ prefix ] ] [ filteroptions ] [ delta ]
+\begin{SACSTX}
+F!ilter!D!esign! [PRINT [ pname ] ] [ FILE [ prefix ] ] [ filteroptions ] [ delta ]
+\end{SACSTX}
+其中filteroptions与SAC中其他的滤波命令相同，包括滤波器类型。delta是数据的采样间隔。
 
-其中filteroptions与SAC中其他的滤波命令相同，包括滤波器类型。
-delta是数据的采样间隔。
-
-**注意**选项的顺序很重要，如果使用了PRINT选项，则其必须是第一个选项。如果使用了FILE选项，其必须放在滤波器选项之前。
+注意：选项的顺序很重要，如果使用了PRINT选项，则其必须是第一个选项。如果使用了FILE选项，其必须放在滤波器选项之前。
 
 \SACTitle{输入}
 \begin{itemize}
 \item PRINT pname : 将输出结果打印到打印机pname，若未给定名字，则使用默认打印机。
-\item FILE prefix : 将三个SAC文件（后缀为spec、gd、imp）写入磁盘，这些文件包括该命令的数字响应。 
-	\begin{itemize}
-	\item prefix.spec：该命令产生的振幅相位信息，为振幅-相位格式谱文件。
-	\item prefix.gd：该命令产生的群延迟信息，是时间序列文件。**注意** 尽管这个文件是时间序列文件，但是实际上群延迟是频率的函数。用户要记住，虽然绘图时横轴单位是秒，实际的单位却是Hz
-	\item prefix.imp: 时间序列文件，包含脉冲响应信息
-	\end{itemize}
+\item FILE prefix : 生成的三个SAC文件的前缀
 \end{itemize}
+
+这三个SAC文件分别为prefix.spec、prefix.grd、prefix.imp。其中prefix.spec为
+该命令产生的振幅相位信息，为振幅-相位格式谱文件。prefix.gd为该命令产生的群延迟信息，
+是时间序列文件。需要注意的是，尽管这个文件是时间序列文件，但是实际上群延迟是频率的函数。
+用户要记住，虽然绘图时横轴单位是秒，实际的单位却是Hz。prefix.imp是时间序列文件，
+包含脉冲响应信息。
 
 在这三个SAC文件中，用户自定义头段变量USERn、KUSERn设置如下:
 \begin{itemize}
-\item user0:  pass code
-	\begin{itemize}
-	\item 1 low pass
-	\item 2 high pass
- 	\item 3 band pass
-	\item 4 band reject
-	\end{itemize}
-\item user1:  type code
-	\begin{itemize}
-	\item 1 Butterworth
-	\item 2 Bessel
-	\item 3 C1
-	\item 4 C2
-	\end{itemize}
+\item user0: 表示pass code。1代表LP；2代表HP；3代表BP；4代表BR；
+\item user1: type code。1代表BU，2代表BE，3代表C1，4代表C2；
 \item user2:  number of poles
 \item user3:  number of passes
 \item user4:  tranbw
@@ -65,11 +54,4 @@ SAC> fd hp c 2 n 6 p 2 delta .025
 \end{SACCode}
 
 \SACTitle{相关命令}
-HIGHPASS, LOWPASS, BANDPASS, BANDREJECT
-
-\SACTitle{参考文献}
-UCRL-ID-106005. XAPiir: A Recursive Digital Filtering Package. David Harris.
-September 21, 1990 In Xwindows,
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 0.58)
+\nameref{cmd:highpass}、\nameref{cmd:lowpass}、\nameref{cmd:bandpass}、\nameref{cmd:bandrej}

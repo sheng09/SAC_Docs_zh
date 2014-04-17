@@ -5,7 +5,9 @@
 应用一个有限脉冲响应(FIR)滤波器
 
 \SACTitle{语法}
+\begin{SACSTX}
 FIR [ REC | FFT ] file
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -14,17 +16,16 @@ FIR [ REC | FFT ] file
 \item file : 包含FIR滤波器的文件名
 \end{itemize}
  
-\SACTitle{其他形式}
-DFT 可以用于代替FFT
-
 \SACTitle{缺省值}
-FIR FFT FIR
+\begin{SACDFT}
+fir fft fir
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令中使用的滤波器必须首先用DFIR交互式滤波器设计。这个滤波器通过变换方法应用，除非你要求使用递归方法或者数据点数对于变换方法来说太大。这些滤波器都没有相位失真但在脉冲信号前会产生前驱波。
 
-\SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
+\SACTitle{头段变量}
+depmin, depmax, depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -37,14 +38,8 @@ DEPMIN, DEPMAX, DEPMEN
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]1602: 内存不足以使用FFT进行FIR滤波
-	\begin{itemize}
-	\item[-]自动使用递归方法
-	\end{itemize}
+\item[-]1602: 内存不足以使用FFT进行FIR滤波（自动使用递归方法）
 \end{itemize}
 
 \SACTitle{限制}
 变换方法的最大数据点数是4096。
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 8.0)

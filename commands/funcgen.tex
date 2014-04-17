@@ -6,15 +6,14 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-!f!unc!g!en [!type!] [ !d!elta v ] [ !n!pts n ] [ !be!gin v ]
+F!UNC!G!EN! [type] [D!ELTA! v] [N!PTS! n] [BE!GIN! v]
 \end{SACSTX}
-%FuncGen [ type ] [ Delta v ] [ Npts n ] [ BEgin v ]
-
 其中type是下面中的一个：
-
-IMPulse | STep | Boxcar | Triangle | SINE [v1 v2] | Line [v1 v2] |
-Quadratic [v1 v2 v3] | CUBIC [v1 v2 v3 v4] | SEISmogram | Random [v1 v2]
-| IMPSTRIN  [n1 n2 ... nN]
+\begin{SACSTX}
+IMP!ULSE!|ST!EP!|B!OXCAR!|T!RIANGLE!|SINE [v1 v2]|L!INE! [v1 v2] |
+Q!UADRATIC! [v1 v2 v3] | CUBIC [v1 v2 v3 v4] | SEIS!MOGRAM! | R!ANDOM! [v1 v2] |
+IMPSTRIN  [n1 n2 ... nN]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -35,7 +34,9 @@ Quadratic [v1 v2 v3] | CUBIC [v1 v2 v3 v4] | SEISmogram | Random [v1 v2]
 \end{itemize}
 
 \SACTitle{缺省值}
-FUNCGEN IMPULSE NPTS 100 DELTA 1.0 BEGIN 0.
+\begin{SACDFT}
+funcgen impulse npts 100 delta 1.0 begin 0.
+\end{SACDFT}
 
 对于正弦函数频率和相位缺省值分别为0.05和0.
 
@@ -50,7 +51,4 @@ FUNCGEN IMPULSE NPTS 100 DELTA 1.0 BEGIN 0.
 在函数生成时内存中的头段变量也会相应生成。
 
 \SACTitle{相关命令}
-DATAGEN
-
-\SACTitle{最近修订}
-October 11, 1984 (Version 9.1)
+\nameref{cmd:datagen}
