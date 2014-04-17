@@ -5,7 +5,9 @@
 控制绘图过程中空值的绘制
 
 \SACTitle{语法}
-NULL [ ON | OFF | value ]
+\begin{SACSTX}
+NULL [ON|OFF|value]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,13 +17,12 @@ NULL [ ON | OFF | value ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 NULL OFF
+\end{SACDFT}
 
 \SACTitle{说明}
 在有些情况下，数据中有间断，此时没有有用的值，称为空值。在多数情况下将空值设置为一个预订的值，一般来说是0.0, -1.0, -99。通常用户不希望这些值在绘图时显示。NULL命令允许用户定义NULL值并在绘图时不连接这些点，为了设置NULL值为-1.0并打开NULL选项:
 \begin{SACCode}
-SAC> NULL ON -1.0
+SAC> null on -1.0
 \end{SACCode}
-
-\SACTitle{最近修订}
-March 20, 1992 (Version 10.6e)
