@@ -5,7 +5,9 @@
 用方向标记标识等值线
 
 \SACTitle{语法}
-ZTICKS  [ ON | OFF ] [ Spacing v ] [ LEngth v ] [ Direction DOWN | UP ] [ LIst c1 c2 ... cn ]
+\begin{SACSTX}
+ZTICKS [ON|OFF] [Spacing v] [LE!NGTH! v] [D!IRECTION! DOWN|UP] [!LIST! c1 c2 ... cn]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,13 +19,12 @@ ZTICKS  [ ON | OFF ] [ Spacing v ] [ LEngth v ] [ Direction DOWN | UP ] [ LIst c
 \end{itemize}
 
 \SACTitle{缺省值}
-ZTICKS  OFF  SPACING 0.1  LENGTH 0.005  DIRECTION DOWN  LIST ON
+\begin{SACDFT}
+zticks off spacing 0.1 length 0.005 direction down list on
+\end{SACDFT}
 
 \SACTitle{例子}
-参见CONTOUR例子中ZTICKS的使用
+参考contour例子中zticks的使用
 
 \SACTitle{相关命令}
-CONTOUR
-
-\SACTitle{最近修订}
-April 30, 1990 (Version 10.5b)
+\nameref{cmd:contour}

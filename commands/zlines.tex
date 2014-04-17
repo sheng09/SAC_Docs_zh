@@ -5,7 +5,9 @@
 控制后续等值线绘图上的等值线线型
 
 \SACTitle{语法}
-ZLINES  [ ON | OFF ] [ LIST n1 n2 ... nn ] [ REGIONS v1 v2 ... vn ]
+\begin{SACSTX}
+ZLINES  [ON|OFF] [LIST n1 n2 ... nn] [REGIONS v1 v2 ... vn]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,21 +17,20 @@ ZLINES  [ ON | OFF ] [ LIST n1 n2 ... nn ] [ REGIONS v1 v2 ... vn ]
 \end{itemize}
 
 \SACTitle{缺省值}
-ZLINES ON LIST 1
+\begin{SACDFT}
+zlines on list 1
+\end{SACDFT}
 
 \SACTitle{例子}
 循环四种不同线型，建立等值线:
 \begin{SACCode}
-SAC> ZLINES LIST 1 2 3 4
+SAC> zlines list 1 2 3 4
 \end{SACCode}
 
 设置虚线表示低于0.0等值线，实线表示高于0.0的等值线:
 \begin{SACCode}
-SAC> ZLINES LIST 2 1 REGIONS 0.0
+SAC> zlines list 2 1 regions 0.0
 \end{SACCode}
 
 \SACTitle{相关命令}
-CONTOUR
-
-\SACTitle{最近修订}
-April 30, 1990 (Version 10.5b)
+\nameref{cmd:contour}

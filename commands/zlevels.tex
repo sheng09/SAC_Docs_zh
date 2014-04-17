@@ -5,7 +5,9 @@
 控制后续等值线图上的等值线间隔
 
 \SACTitle{语法}
-ZLEVELS [ SCALE ] [ RANGE v1 v2 ] [ INCREMENT v ] [ NUMBER n ] [ LIST v1 v2 ... vn ]
+\begin{SACSTX}
+ZLEVELS [SCALE] [RANGE v1 v2] [INCREMENT v] [NUMBER n] [LIST v1 v2 ... vn]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,16 +19,15 @@ ZLEVELS [ SCALE ] [ RANGE v1 v2 ] [ INCREMENT v ] [ NUMBER n ] [ LIST v1 v2 ... 
 \end{itemize}
 
 \SACTitle{缺省值}
-ZLEVELS SCALE NUMBER 20
+\begin{SACDFT}
+zlevels scale number 20
+\end{SACDFT}
 
 \SACTitle{例子}
-参见CONTOUR中ZLEVELS的使用
+参考contour中zlevels的使用
 
 \SACTitle{限制}
 等值线的最多数目为40
 
 \SACTitle{相关命令}
-CONTOUR
-
-\SACTitle{最近修订}
-April 30, 1990 (Version 10.5b)
+\nameref{cmd:contour}
