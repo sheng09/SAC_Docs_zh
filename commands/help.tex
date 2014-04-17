@@ -5,10 +5,14 @@
 显示SAC命令的信息以及特性
 
 \SACTitle{语法}
-Help [ item ... ]
+\begin{SACSTX}
+H!ELP! [item ... ]
+\end{SACSTX}
 
 \SACTitle{输入}
-item 命令（全名或简写）、模块、子程序、特性等等。如果item为空，则输入帮助文件包的介绍
+\begin{itemize}
+\item item：命令（全名或简写）、模块、子程序、特性等等。如果item为空，则输入帮助文件包的介绍
+\end{itemize}
 
 \SACTitle{说明}
 帮助文档包中的每一个帮助文档都会按照item中的顺序列出，在输入整屏之后用户可以通过上下箭头查看该item的其他内容。输入``q''可以退出当前item的帮助文档，进入下一item帮助文档。
@@ -24,6 +28,3 @@ SAC> h r cut bd p       //一次获取多个命令信息
 \begin{itemize}
 \item[-]1103: 没有可用的帮助文档包
 \end{itemize}
-
-\SACTitle{最近修订}
-November 13, 1998 (Version 0.58)

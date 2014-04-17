@@ -5,7 +5,9 @@
 应用Hilbert变换
 
 \SACTitle{语法}
+\begin{SACSTX}
 HILBERT
+\end{SACSTX}
 
 \SACTitle{说明}
 每个文件列表中的数据文件y(n)将会被它的Hilbert变换x(n)所替代。这个变换通过在时间域与一个201点的FIR滤波器卷积实现。滤波器脉冲响应是具有HANNING窗的理想Hilbert变换的脉冲响应。在频率域，这个滤波器近似为传递函数，这里的变换满足相位判据（每个频率上相移为90度）。
@@ -13,10 +15,4 @@ HILBERT
 注意这个操作在直流和重叠频率附近的小区域这个操作是不精确的，如果是取频率很低的数据，比如长周期面波，信号首先要进行抽取。由于是在时间域进行变换，所以计算使用迭加-储存算法，其对于文件长度没有限制
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{致谢}
-用于Hilbert变换的子程序有Dave Harris设计并开发
-
-\SACTitle{最近修订}
-April 21, 1989 (Version 10.4c)
+depmin, depmax, depmen
