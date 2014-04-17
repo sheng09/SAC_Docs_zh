@@ -15,6 +15,8 @@ run:
 	sh attribution1.sh
 	sh attribution2.sh
 	sh composite-plot.sh
+	sh contour1.sh
+	sh contour2.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -29,3 +31,5 @@ install:
 	mv attribution1.eps ${FIGURE}
 	mv attribution2.eps ${FIGURE}
 	mv composite-plot.eps ${FIGURE}
+	mv contour1.eps ${FIGURE}
+	mv contour2.eps ${FIGURE}

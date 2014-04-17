@@ -5,9 +5,10 @@
 实现数据文件格式的转换
 
 \SACTitle{语法}
-CONVert [FROM] [format] infile [TO [format] outfile]|[OVER [format]]
-
-其中format可以为SAC|ALPHA
+\begin{SACSTX}
+CONV!ERT! [FROM] [format] infile [TO [format] outfile]|[OVER [format]]
+\end{SACSTX}
+其中format可以为~\lstinline{SAC|ALPHA}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -19,10 +20,9 @@ CONVert [FROM] [format] infile [TO [format] outfile]|[OVER [format]]
 \end{itemize}
 
 \SACTitle{缺省值}
-CONVERT FROM SAC infile OVER SAC
+\begin{SACDFT}
+convert from sac INFILE over sac
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令将单个文件从一种格式转换为另一种格式。这个命令将会逐渐被READ和WRITE取代
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)

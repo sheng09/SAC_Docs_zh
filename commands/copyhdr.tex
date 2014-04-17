@@ -5,7 +5,9 @@
 从内存中一个文件copy头段变量给其他所有文件
 
 \SACTitle{语法}
+\begin{SACSTX}
 COPYHDR [FROM name|n] hdrlist
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ COPYHDR [FROM name|n] hdrlist
 \end{itemize}
 
 \SACTitle{缺省值}
-COPYHDR FROM 1
+\begin{SACDFT}
+copyhdr from 1
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令允许你从内存中的一个文件copy任意头段变量值到内存中其他所有文件。你可以
@@ -30,13 +34,11 @@ SAC> ... use cursor to mark times T3 and T4.
 SAC> r more FILE2 FILE3
 SAC> copyhdr from 1 T3 T4
 \end{SACCode}
+
 假设你读取了很多文件，你想要copy文件ABC中的头段变量evla和evlo到其他所有文件中去，这时使用文件名而非数字会更简单:
 \begin{SACCode}
-SAC> COPYHDR FROM ABC STLA STLO
+SAC> copyhdr from abc stla stlo
 \end{SACCode}
 
 \SACTitle{头段变量改变}
 几乎所有头段变量都可以改变
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)

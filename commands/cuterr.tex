@@ -2,10 +2,12 @@
 \label{cmd:cuterr}
 
 \SACTitle{概要}
-控制由于坏的裁剪参数引起的错误
+控制由于坏的截窗参数引起的错误
 
 \SACTitle{语法}
-CUTERR FAtal|Usebe|FIllz
+\begin{SACSTX}
+CUTERR FA!TAL!|U!SEBE!|FI!LLZ!
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -26,14 +28,11 @@ CUTERR FAtal|Usebe|FIllz
 \SACTitle{例子}
 假设文件FILE1起始时间为B=25s，初动到时A=40s,采样率为0.01s。
 \begin{SACCode}
-SAC> CUT A -20 E
-SAC> READ FILE1
+SAC> cut a -20 e
+SAC> read file1
 \end{SACCode}
 裁剪起始值为20s，产生了一个错误条件。在USEBE模式下，裁剪起始值将替换为25s(即B)。在FILLZ模式下，
 在数据之前将将插入500个0(5秒钟，每秒100个点)，裁剪起始值保持为20s。
 
 \SACTitle{相关命令}
-CUT, READ
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:cut}、\nameref{cmd:read}

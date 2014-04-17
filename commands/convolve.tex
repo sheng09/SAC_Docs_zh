@@ -5,25 +5,29 @@
 计算主信号与其自己以及一个或多个其他的卷积
 
 \SACTitle{语法}
-CONVOlve [Master name|n] [Number n] [Length ON|OFF|v] [Type type]
-
+\begin{SACSTX}
+CONVOl!VE! [M!ASTER! name|n] [N!UMBER! n] [L!ENGTH! ON|OFF|v] [T!YPE! type]
+\end{SACSTX}
 其中type可以取
-
-Rectangle|HAMming|HANning|Cosine|Triangle
+\begin{SACSTX}
+R!ECTANGLE!|HAM!MING!|HAN!NING!|C!OSINE!|T!RIANGLE!
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item Master name|n: 通过文件名或文件号指定某文件为主文件，其他文件将对这个文件卷积
-\item Number n: 设置要使用的卷积窗的数目
-\item Length ON: 打开固定窗长选项开关
-\item Length OFF: 关闭固定窗长开关
-\item Length v: 打开固定窗长选项开关，并将窗长度设置为v秒
-\item Type Rectangle: 对每个窗应用一个矩形函数，这等价于不对窗加上函数
-\item Type HAMming|HANning|Cosine|Triangle: 对每个窗应用xx函数
+\item MASTER name|n: 通过文件名或文件号指定某文件为主文件，其他文件将对这个文件卷积
+\item NUMBER n: 设置要使用的卷积窗的数目
+\item LENGTH ON: 打开固定窗长选项开关
+\item LENGTH OFF: 关闭固定窗长开关
+\item LENGTH v: 打开固定窗长选项开关，并将窗长度设置为v秒
+\item TYPE RECTANGLE: 对每个窗应用一个矩形函数，这等价于不对窗加上函数
+\item TYPE HAMMING|HANNING|COSINE|TRIANGle: 对每个窗应用xx函数
 \end{itemize}
 
 \SACTitle{缺省值}
-CONVOLVE MASTER 1 NUMBER 1 LENGTH OFF TYPE RECTANGLE
+\begin{SACDFT}
+convolve master 1 number 1 length off type rectangle
+\end{SACDFT}
 
 \SACTitle{说明}
 这个卷积命令允许用于将一个主信号对自己卷积以及和其他信号做卷积。这个命令按照如下公式计算卷积:
@@ -34,10 +38,4 @@ CONVOLVE MASTER 1 NUMBER 1 LENGTH OFF TYPE RECTANGLE
 其语法和输出都与CORRELATE命令很相似，除了互相关波形被卷积波形取代之外。
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{致谢}
-这个命令基于Dave Harris(DBH)开发的算法。
-
-\SACTitle{最近修订}
-Dec. 4, 1996 (Version 52a)
+depmin, depmax, depmen
