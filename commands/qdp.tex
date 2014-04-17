@@ -5,7 +5,9 @@
 控制低分辨率快速绘图选项``quick and dirty plot''
 
 \SACTitle{语法}
-QDP [ ON | OFF | n ] [ TERM ON | OFF | n ] [ SGF ON | OFF | n ]
+\begin{SACSTX}
+QDP [ON|OFF|n] [TERM ON|OFF|n] [SGF ON|OFF|n]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -18,7 +20,9 @@ QDP [ ON | OFF | n ] [ TERM ON | OFF | n ] [ SGF ON | OFF | n ]
 \end{itemize}
 
 \SACTitle{缺省值}
-QDP TERM 5000 SGF 5000
+\begin{SACDFT}
+qdp term 5000 sgf 5000
+\end{SACDFT}
 
 \SACTitle{说明}
 绘制大型文件会消耗很长的时间，``quick and dirty plot''选项通过不绘制每一个点来加速绘图。
@@ -31,15 +35,13 @@ SAC然后后计算出每个区间内最小和最大数据点数。如果这个�
 \SACTitle{例子}
 假设文件FILE1有20000个数据点，文件FILE2有40000个数据点，如果你输入:
 \begin{SACCode}
-SAC> READ FILE1 FILE2
-SAC> BEGINDEVICES TERMINAL
-SAC> PLOT
-\end{SACCode}
-那么两张图都将准确包含5000个点，第一个文件将每4个点取一个点用于绘图，第二个每8个点取一个点绘图。数据区间的尺寸尽量取下限以保证你至少可以看到你所要求的点数。如果你要将图绘制到SGF:
-\begin{SACCode}
-SAC> BEGINDEVICES SGF
-SAC> PLOT
+sac> r file1 file2
+sac> bd x
+sac> p
 \end{SACCode}
 
-\SACTitle{最近修订}
-February 20, 1985 (Version 9.13)
+那么两张图都将准确包含5000个点，第一个文件将每4个点取一个点用于绘图，第二个每8个点取一个点绘图。数据区间的尺寸尽量取下限以保证你至少可以看到你所要求的点数。如果你要将图绘制到SGF:
+\begin{SACCode}
+SAC> begindevices sgf
+SAC> plot
+\end{SACCode}

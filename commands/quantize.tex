@@ -5,7 +5,9 @@
 将连续数据数字化
 
 \SACTitle{语法}
-QUANTIZE [ GAINS n ... ] [ LEVEL v ] [ MANTISSA n ]
+\begin{SACSTX}
+QUANTIZE [GAINS n ...] [LEVEL v] [MANTISSA n]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ QUANTIZE [ GAINS n ... ] [ LEVEL v ] [ MANTISSA n ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 QUANTIZE GAINS 128 32 8 1 LEVEL 0.00001 MANTISSA 14
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令类似于Oppenheim和Schafer(1975, Fig. 9.1)描述的``rounding'' quantization算法。在这个算法中位数划分为多个用于描述特征的位、符号位和尾数位。用户可以指定尾数的位数。量化水平(最小有效数字位或LSB)也可由用户指定，缺省的量化水平为10微伏，这个量化函数描述的信号误差是这个量化水平的一半。在频率域中，这个误差或量化噪声为:
@@ -25,11 +29,5 @@ QUANTIZE GAINS 128 32 8 1 LEVEL 0.00001 MANTISSA 14
 
 增益可以由用户指定，以在自动增益系统中模拟增益步骤，缺省的增益是区域地震实验台网的增益。
 
-\SACTitle{参考文献}
-Oppenheim, Alan V., and Ronald W. Schafer;Digital Signal Processing; Prentice-Hall; 1975; 585pp.
-
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+depmin, depmax, depmen
