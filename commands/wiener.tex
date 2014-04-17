@@ -5,7 +5,9 @@
 设计并应用一个自适应Wiener滤波器
 
 \SACTitle{语法}
-WIENER [ WINDOW pdw ] [ NCOEFF n ] [ MU OFF | ON | v ] [ EPS ILON OFF | ON | e ]
+\begin{SACSTX}
+WIENER [WINDOW pdw] [NCOEFF n] [MU OFF|ON|v] [EPS ILON OFF|ON|e]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -19,7 +21,9 @@ WIENER [ WINDOW pdw ] [ NCOEFF n ] [ MU OFF | ON | v ] [ EPS ILON OFF | ON | e ]
 \end{itemize}
 
 \SACTitle{缺省值}
-WIENER WINDOW B 0 10 NCOEFF 30 MU OFF EPSILON OFF
+\begin{SACDFT}
+wiener window b 0 10 ncoeff 30 mu off epsilon off
+\end{SACDFT}
 
 \SACTitle{说明}
 误差预测滤波器使用Yule-Walker方法，从指定的部分数据窗中由自相关函数给出。这个窗口可以是文件的任何部分，然后滤波器应用到这个个信号，即信号由残差序列置换。这个滤波器可以用作预白化或用作瞬时信号的检波预处理器。对MU指定非0值，滤波器可作成时域自适应的，大MU可能会导致不稳定。
@@ -27,27 +31,24 @@ WIENER WINDOW B 0 10 NCOEFF 30 MU OFF EPSILON OFF
 \SACTitle{例子}
 下面的命令将应用一个非自适应滤波器，将第一个十秒指定为窗:
 \begin{SACCode}
-SAC> WIENER WINDOW B 0 10 MU 0.
+SAC> wiener window b 0 10 mu 0.
 \end{SACCode}
 
 下面命令将应用带40个系数的滤波器，指定设计窗为从文件开始到第一个到时前1秒:
 \begin{SACCode}
-SAC> WIENER NCOEFF 40 WINDOW B A -1
+SAC> wiener ncoeff 40 window b a -1
 \end{SACCode}
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
+depmin, depmax, depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
 \item[-]1306: 对不等间隔文件的非法操作
 \item[-]1307: 对谱文件的非法操作
-\item[-]1608: 不良的Wiener滤波器噪声窗口
-	\begin{itemize}
-	\item[-]滤波器设计窗口不在文件窗口内
-	\item[-]用于窗口的头段变量值一定要定义
-	\end{itemize}
+\item[-]1608: 不良的Wiener滤波器噪声窗口（滤波器设计窗口不在文件窗口内，或用于窗口的
+    头段变量值未定义）
 \end{itemize}
 
 \SACTitle{警告消息}
@@ -56,8 +57,4 @@ DEPMIN, DEPMAX, DEPMEN
 \end{itemize}
 
 \SACTitle{相关命令}
-CUT
-
-\SACTitle{最近修订}
-March 12, 1997 (Version 00.53)
-
+\nameref{cmd:cut}

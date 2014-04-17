@@ -5,7 +5,9 @@
 设置读命令中用于扩展文件表的通配符
 
 \SACTitle{语法}
-WILD [ ECHO ON | OFF ] [ SINGLE char ] [ MULTIPLE char ] [ CONCATENATION chars ]
+\begin{SACSTX}
+WILD [ECHO ON|OFF] [SINGLE char] [MULTIPLE char] [CONCATENATION chars]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -56,8 +58,9 @@ SAC使用通配符完成文件名的扩展，通常有几个步骤:
 
 \SACTitle{例子}
 假定当前目录中包含如下次序的文件:
-
+\begin{SACCode}
 ABC DEF STA01E STA01N STA01Z STA02E STA02N STA02Z STA03Z
+\end{SACCode}
 
 同样假定扩展文件设置回显，下面显示怎样使用各种通配符去将上面文件表的一部分读入内存:
 \begin{SACCode}
@@ -79,7 +82,4 @@ SAC> READ *1[Z,N,E] *2[ ]
 在一个标识中只可以有一个连接串
 
 \SACTitle{相关命令}
-READ, READALPHA, READHDR
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:read}、\nameref{cmd:readtable}、\nameref{cmd:readhdr}

@@ -5,7 +5,9 @@
 将谱文件作为一般文件写入磁盘
 
 \SACTitle{语法}
-WriteSP [ ASIS | RLIM | AMPH | RL | IM | AM | PH ] [ COMMIT|ROLLBACK|RECALLTRACE]  [ OVER | filelist ]
+\begin{SACSTX}
+W!RITE!SP [ASIS|RLIM|AMPH|RL|IM|AM|PH] [OVER|filelist]
+\end{SACSTX}
  
 \SACTitle{输入}
 \begin{itemize}
@@ -20,7 +22,9 @@ WriteSP [ ASIS | RLIM | AMPH | RL | IM | AM | PH ] [ COMMIT|ROLLBACK|RECALLTRACE
 \end{itemize}
 
 \SACTitle{缺省值}
-WRITESP ASIS COMMIT
+\begin{SACDFT}
+writesp asis
+\end{SACDFT}
 
 \SACTitle{说明}
 SAC数据文件可以为时间序列文件或谱文件。头段中的IFTYPE用于区分这两种格式。当你读取一个时间序列到内存，对其做快速Fourier变换，然后将数据写回磁盘，此时的文件即为谱文件。
@@ -34,23 +38,23 @@ SAC数据文件可以为时间序列文件或谱文件。头段中的IFTYPE用�
 \SACTitle{例子}
 假设你想要对FILE1的谱文件振幅进行一些操作:
 \begin{SACCode}
-SAC> READ FILE1
-SAC> FFT AMPH
-SAC> WRITESP OVER
+SAC> read file1
+SAC> fft amph
+SAC> writesp over
 \end{SACCode}
 
 SAC将输出两个文件FILE1.AM和FILE1.PH，现在可以对振幅文件进行操作:
 \begin{SACCode}
-SAC> READ FILE1.AM
+SAC> read file1.am
 SAC> ...perform operations.
-SAC> WRITE OVER
+SAC> write over
 \end{SACCode}
 
 现在磁盘中的文件为修改后的谱文件，如果你想要重建SAC谱数据并进行反变换:
 \begin{SACCode}
-SAC> READSP FILE1
-SAC> IFFT
-SAC> WRITE FILE2
+SAC> readsp file1
+SAC> ifft
+SAC> write file2
 \end{SACCode}
 
 \SACTitle{错误消息}
@@ -60,10 +64,7 @@ SAC> WRITE FILE2
 \end{itemize}
 
 \SACTitle{头段变量改变}
-磁盘文件中的B, E, DELTA将包含频率的起始值、结束值和增值，单位Hz
+磁盘文件中的b, e, delta将包含频率的起始值、结束值和增值，单位hz
 
 \SACTitle{相关命令}
-READSP, COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:readsp}

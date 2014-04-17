@@ -5,7 +5,9 @@
 设置图形窗口被创建时的位置和形状
 
 \SACTitle{语法}
-WINdow n [ Xsize xwmin xwmax ]  [ Ysize ywmin ywmax ]
+\begin{SACSTX}
+WINdow n [X!SIZE! xwmin xwmax]  [Y!SIZE! ywmin ywmax]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ WINdow n [ Xsize xwmin xwmax ]  [ Ysize ywmin ywmax ]
 \end{itemize}
 
 窗口位置缺省值（前5个）： 
-
+\begin{table}[!ht]
+\centering
+\caption{SAC标准窗口}
 \begin{tabular}{ccccc}
 \toprule
  n & xwmin & xwmax & ywmin & ywmax  \\
@@ -27,16 +31,13 @@ WINdow n [ Xsize xwmin xwmax ]  [ Ysize ywmin ywmax ]
  5 & 0.13  & 0.93  & 0.13  & 0.68 \\
 \bottomrule
 \end{tabular}
+\end{table}
 
 \SACTitle{说明}
-参见BEGINWINDOW
+参见beginwindow命令
 
 \SACTitle{例子}
 为了设置窗口3的垂直位置而不修改其水平位置:
 \begin{SACCode}
-SAC> WINDOW 3 Y 0.1 0.9
+SAC> window 3 y 0.1 0.9
 \end{SACCode}
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
-

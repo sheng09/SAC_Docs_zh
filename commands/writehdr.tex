@@ -5,15 +5,9 @@
 用内存中的头段值覆盖磁盘文件中的相应头段值
 
 \SACTitle{语法}
-WriteHdr [ COMMIT|ROLLBACK|RECALLTRACE ]
+W!RITE!H!DR!
 
 \SACTitle{输入}
-\begin{itemize}
-\item COMMIT|ROLLBACK|RECALLTRACE 参见具体章节
-\end{itemize}
-
-\SACTitle{缺省值}
-WRITEHDR COMMIT
 
 \SACTitle{说明}
 该命令并不会覆盖磁盘文件中的数据，使用WRITE将覆盖头段和数据。当CUT选项打开时，WRITEHDR命令无法使用，内存中的头段被修改以反应CUT选项的效果，但是磁盘上的数据不会被修改。对被CUT的数据使用WRITEHDR命令将可能导致磁盘中的数据产生类似于平移或截断的影响。
@@ -23,14 +17,11 @@ WRITEHDR COMMIT
 \item[-]1301: 未读入数据文件
 \end{itemize}
 
-\SACTitle{头段变量改变}
+\SACTitle{头段变量}
 更新磁盘的头段
 
 \SACTitle{限制}
-参见CUT和WRITEHDR
+参见cut和writehdr
 
 \SACTitle{相关命令}
-CUT, WRITE, COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:cut}、\nameref{cmd:write}

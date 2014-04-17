@@ -5,25 +5,10 @@
 将内存中的数据写入磁盘
 
 \SACTitle{语法}
-Write {options} {namingoptions}
-
-其中options可以取：
-\begin{itemize}
-\item SAC|ALPHA|XDR
-\item COMMIT|ROLLBACK|RECALLTRACE  
-\item DIR OFF|CURRENT|name  
-\item KSTCMP
-\end{itemize}
-这些options必须位于namingoptions的任何元素之前:
-\begin{itemize}
-\item OVER  
-\item APPEND text  
-\item PREPEND text  
-\item DELETE text  
-\item CHANGE text1 text2  
-\item filelist  
-\end{itemize}
-每次只允许使用namingoptions中的一个
+\begin{SACSTX}
+WRITE [SAC|ALPHA|XDR] [DIR OFF|CURRENT|name] [KSTCMP] 
+    [OVER|APPEND text|PREPEND text|DELETE text|CHANGE text1 text2] filelist
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -45,7 +30,9 @@ Write {options} {namingoptions}
 \end{itemize}
 
 \SACTitle{缺省值}
-WRITE SAC COMMIT
+\begin{SACDFT}
+write sac
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令允许你在数据处理的任一步将结果写入磁盘。这个命令运用于几种磁盘文件格式。内存中的每个文件都将不经过裁剪或减采样地写入磁盘。
@@ -57,40 +44,30 @@ WRITE SAC COMMIT
 \SACTitle{例子}
 对一组数据文件进行滤波，然后将结果存入一组新数据文件:
 \begin{SACCode}
-SAC> READ D1 D2 D3
-SAC> LOWPASS BUTTER NPOLES 4
-SAC> WRITE F1 F2 F3
+SAC> read d1 d2 d3
+SAC> lowpass butter npoles 4
+SAC> write f1 f2 f3
 \end{SACCode}
 
 也可以使用CHANGE选项完成这一操作:
 \begin{SACCode}
-SAC> READ D1 D2 D3
-SAC> LOWPASS BUTTER NPOLES 4
-SAC> WRITE CHANGE D F
-s:  F1 F2 F3
+SAC> read d1 d2 d3
+SAC> lowpass butter npoles 4
+SAC> write change d f
 \end{SACCode}
 
 注意这种情况下SAC输出写文件表，若用滤波数据置换原始数据，则上例的第三行要变成:
 \begin{SACCode}
-SAC> WRITE OVER
+SAC> write over
 \end{SACCode}
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
 \item[-]1311: 没有要写的文件列表
-\item[-]1312: 写文件表中文件数目错误
-	\begin{itemize}
-	\item[-]写文件表中的文件数必须等于读入内存中的文件的数目
-	\end{itemize}
-\item[-]1303: 文件未打开覆盖写标志
-	\begin{itemize}
-	\item[-]头段变量LOVROK是.FALSE. 
-	\end{itemize}
+\item[-]1312: 写文件表中文件数目错误（写文件表中的文件数必须等于读入内存中的文件的数目）
+\item[-]1303: 文件未打开覆盖写标志（头段变量LOVROK是.FALSE. ）
 \end{itemize}
 
 \SACTitle{相关命令}
-READ, COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:read}

@@ -5,7 +5,9 @@
 将一个暂存块变量写入磁盘
 
 \SACTitle{语法}
-WriteBBF {file}
+\begin{SACSTX}
+W!RITE!BBF [file]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -13,14 +15,12 @@ WriteBBF {file}
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 WRITEBBF BBF
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令让你能够将暂存块变量写入磁盘，其可以稍后用READBBF命令读入SAC，这个特性允许你保存SAC某次执行得到信息到另一个。你也可以在自己的程序中写代码去访问这些暂存块变量文件的信息。这使你可以在自己的程序与SAC之间交换信息。
 
 \SACTitle{相关命令}
-READBBF, SETBB, GETBB
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
-
+\nameref{cmd:readbbf}、\nameref{cmd:setbb}、\nameref{cmd:getbb}
