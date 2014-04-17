@@ -5,10 +5,9 @@
 作离散反Fourier变换
 
 \SACTitle{语法}
+\begin{SACSTX}
 IFFT
-
-\SACTitle{其他形式}
-IDFT
+\end{SACSTX}
 
 \SACTitle{说明}
 数据文件必须在之前使用过FFT命令，其操作对象为两种格式的谱文件
@@ -19,7 +18,7 @@ B, DELTA和NPTS被改成起始频率，采样频率和变换的数据点数。B,
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入文件
-\item[-] 1305: 对时间序列的非法操作
+\item[-]1305: 对时间序列的非法操作
 \item[-]1606: 超过允许作IFFT的最大数据点数
 \end{itemize}
 
@@ -27,7 +26,4 @@ B, DELTA和NPTS被改成起始频率，采样频率和变换的数据点数。B,
 允许作IFFT的最大数据点数为65536
 
 \SACTitle{相关命令}
-FFT
-
-\SACTitle{最近修订}
-October 11, 1984 (Version 9.1)
+\nameref{cmd:fft}

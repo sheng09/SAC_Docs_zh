@@ -17,6 +17,7 @@ run:
 	sh composite-plot.sh
 	sh contour1.sh
 	sh contour2.sh
+	sh image.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -33,3 +34,4 @@ install:
 	mv composite-plot.eps ${FIGURE}
 	mv contour1.eps ${FIGURE}
 	mv contour2.eps ${FIGURE}
+	mv image.eps ${FIGURE}

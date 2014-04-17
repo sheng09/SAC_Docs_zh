@@ -5,12 +5,14 @@
 插值等间距或不等间距文件，获得新采样率
 
 \SACTitle{语法}
-INTERPolcate [ Delta v ] [ Epsilon v ] [ Begin v | OFF ] [ Npts n | OFF ]
+\begin{SACSTX}
+INTERP!OLCATE! [D!ELTA! v] [E!PSILON! v] [B!EGIN! v|OFF] [N!PTS! n|OFF]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item DELTA v : 设置新采样率为v.
-\item EPSILON v : 设置内插收敛因子为v
+\item DELTA v: 设置新采样率为v.
+\item EPSILON v: 设置内插收敛因子为v
 \item BEGIN v :  在v处开始内插，这个值作为内插生成文件的起始值 
 \item BEGIN OFF : 在未插值数据的起始时间开始插值 
 \item NPTS n : 强制插值后文件数据点为n 
@@ -18,28 +20,30 @@ INTERPolcate [ Delta v ] [ Epsilon v ] [ Begin v | OFF ] [ Npts n | OFF ]
 \end{itemize}
 
 \SACTitle{缺省值}
-INTERPOLATE DELTA 0.025 EPSILON 0.0001 BEGIN OFF NPTS OFF
+\begin{SACDFT}
+interpolate delta 0.025 epsilon 0.0001 begin off npts off
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令使用Wiggins内插方法将不等间距数据转换为等间距数据并重采样等间距数据得到新的采样率
 
 \SACTitle{例子}
-假设文件FILEA是不等间距文件，为了将其转换为采样率为0.01s的等间距文件:
+假设文件filea是不等间距文件，为了将其转换为采样率为0.01s的等间距文件:
 \begin{SACCode}
-SAC> READ FILEA
-SAC> INTERPOLATE DELTA 0.01
+SAC> read filea
+SAC> interpolate delta 0.01
 \end{SACCode}
 
-假设文件FILEB是采样率为0.025s的等间隔文件，将其转换为采样率为0.02s:
+假设文件fileb是采样率为0.025s的等间隔文件，将其转换为采样率为0.02s:
 \begin{SACCode}
-SAC> READ FILEB
-SAC> INTERPOLATE DELTA 0.02
+SAC> read fileb
+SAC> interpolate delta 0.02
 \end{SACCode}
 
 假设你想强制插值后文件采样率为0.005，起始时间为18.237，有400个点:
 \begin{SACCode}
-SAC> READ FILEC
-SAC> INTERPOLATE DELTA 0.005 BEGIN 18.237 NPTS 400
+SAC> read filec
+SAC> interpolate delta 0.005 begin 18.237 npts 400
 \end{SACCode}
 
 \SACTitle{警告消息}
@@ -52,7 +56,4 @@ SAC> INTERPOLATE DELTA 0.005 BEGIN 18.237 NPTS 400
 Wiggins, 1976, BSSA, 66, p.2077.
 
 \SACTitle{头段变量改变}
-DELTA, NPTS, E, (LEVEN if unevenly spaced.)
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 10.4c)
+delta, npts, e
