@@ -5,17 +5,21 @@
 对内存中的数据进行微分
 
 \SACTitle{语法} 
-DIF [TWo|THree|Five]
+\begin{SACSTX}
+DIF [TW!O!|TH!REE!|F!IVE!]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item TWo : 两点差分操作
-\item THree : 三点差分操作
+\item TWO : 两点差分操作
+\item THREE : 三点差分操作
 \item FIVE : 五点差分操作
 \end{itemize}
 
 \SACTitle{缺省值}
-DIF TWO
+\begin{SACDFT}
+dif two
+\end{SACDFT}
 
 \SACTitle{说明}
 两点差分算法:
@@ -37,7 +41,4 @@ DIF TWO
 \end{itemize}
 
 \SACTitle{头段变量改变}
-NPTS, B, E, DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{最近修订}
-January 15, 1985 (Version 9.10)
+npts, b, e, depmin, depmax, depmen

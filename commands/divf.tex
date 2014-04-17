@@ -5,7 +5,9 @@
 将一组文件中的数据分别除以内存中不同文件的数据
 
 \SACTitle{语法}
+\begin{SACSTX}
 DIVF [NEWHDR ON|OFF] filelist
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -22,6 +24,7 @@ DIVF [NEWHDR ON|OFF] filelist
 SAC> READ FILE1 FILE2 FILE3
 SAC> DIVF FILE4
 \end{SACCode}
+
 将两个文件除以另外两个文件:
 \begin{SACCode}
 SAC> READ FILE1 FILE2
@@ -34,7 +37,7 @@ SAC> DIVF FILE3 FILE4
 如果NEWHDR ON，内存中的头段将被filelist文件的头段取代。
 
 下面列出可能会改变的几个头段变量：
-DEPMIN, DEPMAX, DEPMEN
+depmin, depmax, depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -43,23 +46,13 @@ DEPMIN, DEPMAX, DEPMEN
 \item[-]1306: 对不等间隔文件的非法操作
 \item[-]1307: 对谱文件的非法操作
 \item[-]1317: 文件不是SAC数据文件
-\item[-]1801: 头段值不匹配
-	\begin{itemize}
-	\item[-]采样间隔或数据点数不相等
-	\item[-]可以通过BINOPERR命令控制是否严格执行限制
-	\end{itemize}
+\item[-]1801: 头段值不匹配（采样周期或数据点数不匹配）
 \end{itemize}
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]1802: 时间重叠  *什么意思？如何犯错？*
-	\begin{itemize}
-	\item[-]文件相加操作依然会执行
-	\end{itemize}
+\item[-]1802: 时间重叠
 \end{itemize}
 
 \SACTitle{相关命令}
-READBINOPERR
-
-\SACTitle{最近修订}
-May 26, 1999 (Version 0.58)
+\nameref{cmd:read}、\nameref{cmd:binoperr}

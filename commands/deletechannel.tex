@@ -5,9 +5,13 @@
 从内存中文件列表中删去一个或多个文件
 
 \SACTitle{语法}
-DeleteChannel ALL
-
-DeleteChannel filename|filenumber|range [filename|filenumber|range ... ]
+\begin{SACSTX}
+D!ELETE!C!HANNEL! ALL
+\end{SACSTX}
+或
+\begin{SACSTX}
+D!ELETE!C!HANNEL! FILENAME|FILENUMBER|RANGE [FILENAME|FILENUMBER|RANGE ... ]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -32,5 +36,4 @@ DeleteChannel filename|filenumber|range [filename|filenumber|range ... ]
 \end{itemize}
 
 \SACTitle{相关命令}
-DELETESTACK, FILENUMBER
-
+\nameref{cmd:filenumber}
