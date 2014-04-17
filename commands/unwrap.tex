@@ -5,7 +5,9 @@
 计算振幅谱并展开相位谱
 
 \SACTitle{语法}
-UNWRAP [ FILL ON | OFF | n ] [ INTTHR v ] [ PVTHR v ]
+\begin{SACSTX}
+UNWRAP [FILL ON|OFF|n] [INTTHR v] [PVTHR v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -16,7 +18,9 @@ UNWRAP [ FILL ON | OFF | n ] [ INTTHR v ] [ PVTHR v ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 UNWRAP FILL OFF INTTHR 1.5 PVTHR 0.5
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令将内存中的时间序列数据转换为谱数据，其包含了振幅谱和展开相位谱的频谱数据。这个过程作用于具有光滑变换相位的数据。数据在转换之前补0以使数目为2的幂数倍，你可以使用FILL选项指定大量补充零点。
@@ -37,21 +41,11 @@ UNWRAP FILL OFF INTTHR 1.5 PVTHR 0.5
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]1610: 对文件中数据点的相位展开失败。
-	\begin{itemize}
-	\item[-]调整阀值然后重试
-	\end{itemize}
+\item[-]1610: 对文件中数据点的相位展开失败（调整阀值然后重试）
 \end{itemize}
 
 \SACTitle{头段变量改变}
-B, E 和 DELTA 分别改变为变换的起始频率、结束频率和采样频率。原始的B,E和DELTA被保存在为SB、SE、SDELTA，当进行反变换时将值带回。
+b, e 和 delta 分别改变为变换的起始频率、结束频率和采样频率。原始的b,e和delta被保存在为sb、se、sdelta，当进行反变换时将值带回。
 
 \SACTitle{限制}
 目前可以转换的数据最大长度为4096。
-
-\SACTitle{参考文献}
-Tribolet, Jose M.; "A New Phase Unwrapping Algorithm"; IEEE Transactions on Acoustics, 	Speech, and Signal Processing; Vol. ASSP-25, No 2, April 1977;page 170.
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
-

@@ -5,7 +5,9 @@
 删除暂存块变量
 
 \SACTitle{语法}
-UNSETBB ALL | variable ...
+\begin{SACSTX}
+UNSETBB ALL|variable ...
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -14,21 +16,19 @@ UNSETBB ALL | variable ...
 \end{itemize}
 
 \SACTitle{说明}
-暂存块是用于临时储存信息的地方，这些信息稍后可以通过GETBB命令获取，或通过变量名前加``\%''直接在命令中使用变量值。如果你想在暂存块变量的末尾连接一些其他文本字符串，你需要在变量名的末尾再放置一个百分号。你可以使用EVALUATE对暂存块变量做基本算术操作，并将结果保存在新的暂存块变量中。这个命令可以删除全部或部分暂存块变量。
+黑板变量通过getbb命令赋值，通过GETBB命令获取黑板变量的值，也可直接在命令行中
+引用黑板变量。unsetbb命令可以删除全部或部分黑板变量。
 
 \SACTitle{例子}
-一次删除多个暂存块变量:
+一次删除多个黑板变量:
 \begin{SACCode}
-SAC> UNSETBB C1 C2 X
+SAC> unsetbb c1 c2 x
 \end{SACCode}
 
-删除所有暂存块变量:
+删除所有黑板变量:
 \begin{SACCode}
-SAC> UNSETBB ALL
+SAC> unsetbb all
 \end{SACCode}
 
 \SACTitle{相关命令}
-SETBB, EVALUATE, GETBB
-
-\SACTitle{最近修订}
-January 26, 1989 (Version 10.4B)
+\nameref{cmd:setbb}、\nameref{cmd:evaluate}、\nameref{cmd:getbb}
