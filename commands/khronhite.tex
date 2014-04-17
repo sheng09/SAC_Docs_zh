@@ -5,7 +5,9 @@
 对数据应用Khronhite滤波器
 
 \SACTitle{语法}
-KHRONHITE {v}
+\begin{SACSTX}
+KHRONHITE [v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -13,13 +15,12 @@ KHRONHITE {v}
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 KHRONHITE 2.0
+\end{SACDFT}
 
 \SACTitle{说明}
 这个低通滤波器是带有串取二级四阶Butterworth低通滤波器的模拟滤波器的数值逼近。其拐角频率为0.1Hz以加强区域范围内基谐瑞利波(Rg)的振幅信号。
 
 \SACTitle{头段变量改变}
-DEPMIN, DEPMAX, DEPMEN
-
-\SACTitle{最近修订}
-February 15, 1987
+depmin, depmax, depmen

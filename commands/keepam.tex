@@ -5,10 +5,9 @@
 保留SAC内存中谱文件的振幅部分（谱文件可以是AMPH或RLIM格式）
 
 \SACTitle{语法}
+\begin{SACSTX}
 KEEPAM
+\end{SACSTX}
 
 \SACTitle{说明}
 这个命令使得用户可以很容易的丢弃相位部分，以便对幅度部分进行一维数组的代数运	算操作。如果文件是RLIM格式，则数据在丢弃相位之前首先转换为AMPH格式，最后得到的结果文件中的振幅分量数据为一般xy文件，因此其可以与时间域文件区分开。
-
-\SACTitle{最近修订}
-May 28, 1991(Version 10.5c)
