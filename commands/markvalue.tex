@@ -5,7 +5,9 @@
 在数据文件中搜索并标记某个值
 
 \SACTitle{语法}
-MARKVALUE [ GE | LE v ] [ TO marker ]
+\begin{SACSTX}
+MARKVALUE [GE|LE v] [TO marker]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -16,7 +18,9 @@ MARKVALUE [ GE | LE v ] [ TO marker ]
 \end{itemize}
 
 \SACTitle{缺省值}
-MARKVALUE GE 1 TO T0
+\begin{SACDFT}
+markvalue ge 1 to t0
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令在每一个数据文件中搜索，满足要求的值并将第一次出现该值的时间标记下来，如果测量时间窗已经被定义(参见MTW），则只有那部分的文件才会被搜索。否则将搜索整个文件，结构写入头段中的时间标记中
@@ -24,20 +28,17 @@ MARKVALUE GE 1 TO T0
 \SACTitle{例子}
 搜索文件中第一个值大于3.4的点并将结果保存在头段T7中:
 \begin{SACCode}
-SAC> MARKVALUE GE 3.4 TO T7
+SAC> markvalue ge 3.4 to t7
 \end{SACCode}
 
 稍后在以T4起始的10s测量时间窗中使用相同的搜索:
 \begin{SACCode}
-SAC> MTW T4 0 10
-SAC> MARKVALUE
+SAC> mtw t4 0 10
+SAC> markvalue
 \end{SACCode}
 
 \SACTitle{头段变量改变}
 Tn, KTn
 
 \SACTitle{相关命令}
-MTW
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:mtw}

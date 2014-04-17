@@ -2,14 +2,15 @@
 \label{cmd:merge}
 
 \SACTitle{概要}
-将一系列文件合并(首位相连)内存中的数据中
+将一系列文件合并(首尾相连)内存中的数据中
 
 \SACTitle{语法}
-MERGE [ COMMIT|ROLLBACK|RECALLTRACE] [ filelist ]
+\begin{SACSTX}
+MERGE [ filelist ]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item COMMIT|ROLLBACK|RECALLTRACE 参见专门的说明
 \item filelist: SAC二进制数据文件列表
 \end{itemize}
 
@@ -17,21 +18,22 @@ MERGE [ COMMIT|ROLLBACK|RECALLTRACE] [ filelist ]
 在文件列表中的数据将会附加在内存中数据之后。每一对要合并的文件将被检查以保证他们拥有相同的采样间隔以及台站名。第一个文件的结束时间同样也要与第二个文件的开始时间做比较。如果在这些时间之间有间断，则产生警告并在两个文件之间放入正确数目的零再合并。如果时间之间有重叠，则给出错误信息并不再合并
 
 \SACTitle{例子}
-分别将文件FILE3和FILE4与FILE1和FILE2合并:
+分别将文件file3和file4与file1和file2合并:
 \begin{SACCode}
-SAC> READ FILE1 FILE2
-SAC> MERGE FILE3 FILE4
+SAC> read file1 file2
+SAC> merge file3 file4
 \end{SACCode}
+
 合并一个台站在不同目录下的四个不同的事件:
 \begin{SACCode}
-SAC> READ /data/event1/elko.z
-SAC> MERGE /data/event2/elko.z
-SAC> MERGE /data/event3/elko.z
-SAC> MERGE /data/event4/elko.z
+SAC> r /data/event1/elko.z
+SAC> merge /data/event2/elko.z
+SAC> merge /data/event3/elko.z
+SAC> merge /data/event4/elko.z
 \end{SACCode}
 
 \SACTitle{头段变量改变}
-NPTS, DEPMIN, DEPMAX, DEPMEN, E
+npts, depmin, depmax, depmen, e
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -39,10 +41,7 @@ NPTS, DEPMIN, DEPMAX, DEPMEN, E
 \item[-]1803: 未读入二进制文件
 \item[-]1307: 对谱文件非法操作
 \item[-]1306: 对不等间隔文件的非法操作
-\item[-]1801: 头段不匹配:
-	\begin{itemize}
-	\item[-]采样间隔或台站名不同
-	\end{itemize}
+\item[-]1801: 头段不匹配（采样间隔或台站名不同）
 \item[-]1802: 时间混叠
 \end{itemize}
 
@@ -52,7 +51,4 @@ NPTS, DEPMIN, DEPMAX, DEPMEN, E
 \end{itemize}
 
 \SACTitle{相关命令}
-READ, COMMIT, ROLLBACK, RECALLTRACE
-
-\SACTitle{最近修订}
-Oct. 27, 1998 (Version 0.58)
+\nameref{cmd:read}

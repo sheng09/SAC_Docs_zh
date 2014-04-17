@@ -5,7 +5,9 @@
 在测量时间窗内测量并标记最大峰峰值
 
 \SACTitle{语法}
-MARKPtp [ Length v ] [ To marker ]
+\begin{SACSTX}
+MARKP!TP! [L!ENGTH! v] [T!O! marker]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,7 +17,9 @@ MARKPtp [ Length v ] [ To marker ]
 \end{itemize}
 
 \SACTitle{缺省值}
-MARKPTP LENGTH 5.0 TO T0
+\begin{SACDFT}
+markptp length 5.0 to t0
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令测量数据在当前测量时间窗内最大峰峰值对应的时间和幅度。结果写入头段变量中。波谷对应的时间写入命令给出的时间标记中，波峰对应的时间写入下一个命令标记。峰峰值写入USER0中，这个结果也可以通过OAFP命令写入字符数字型震相拾取文件。
@@ -23,21 +27,18 @@ MARKPTP LENGTH 5.0 TO T0
 \SACTitle{例子}
 设置测量时间窗为头段T4和T5之间，并使用默认的滑动时间窗长和标记:
 \begin{SACCode}
-SAC> MTW T4 T5
-SAC> MARKPTP
+SAC> mtw t4 t5
+SAC> markptp
 \end{SACCode}
 
 设置测量时间窗为初动之后的30s，滑动时间窗为3s，起始时间标记为T7:
 \begin{SACCode}
-SAC> MTW A 0 30
-SAC> MARKP L 3. TO T7
+SAC> mtw a 0 30
+SAC> markp l 3. to t7
 \end{SACCode}
 
-\SACTitle{头段变量改变}
+\SACTitle{头段变量}
 Tn, USER0, KTn, KUSER0
 
 \SACTitle{相关命令}
-MTW , OAPF
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:mtw}、\nameref{cmd:oapf}

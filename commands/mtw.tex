@@ -5,7 +5,9 @@
 决定接下来命令中所使用的测量时间窗
 
 \SACTitle{语法}
-MTW [ ON | OFF | pdw ]
+\begin{SACSTX}
+MTW [ON|OFF|pdw]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,10 +17,12 @@ MTW [ ON | OFF | pdw ]
 \end{itemize}
 
 \SACTitle{缺省值}
-MTW OFF
+\begin{SACDFT}
+mtw off
+\end{SACDFT}
 
 \SACTitle{说明}
-当这个选项为开时，测量只对这个窗内有效，当这个选项为关时，测量针对整个文件。这个选项目前只对MARKPTP和MARKVALUE命令有效
+当这个选项为开时，测量只对这个窗内有效，当这个选项为关时，测量针对整个文件。这个选项目前只对markptp和markvalue命令有效
 
 \SACTitle{例子}
 pdw的一些例子如下:
@@ -31,7 +35,4 @@ pdw的一些例子如下:
 \end{itemize}
 
 \SACTitle{相关命令}
-CUT , MARKPTP , MARKVALUE
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:cut}、\nameref{cmd:markptp}、\nameref{cmd:markvalue}

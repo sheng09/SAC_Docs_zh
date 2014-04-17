@@ -5,7 +5,9 @@
 执行SAC宏文件
 
 \SACTitle{语法}
-Macro name [ arguments ]
+\begin{SACSTX}
+M!ACRO! name [arguments]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -14,10 +16,7 @@ Macro name [ arguments ]
 \end{itemize}
 
 \SACTitle{说明}
-关于SAC宏文件的详细信息请参考相关文档。宏文件可以在当前目录，也可以在用SETMACRO预先指定的目录，或者在SAC的全局宏目录sac/aux/macros下。
+关于SAC宏文件的详细信息请参考相关文档。宏文件可以在当前目录，也可以在用setmacro预先指定的目录，或者在SAC的全局宏目录~\lstinline{sac/aux/macros}~下。
 
 \SACTitle{相关命令}
-SETMACRO, INSTALLMACRO
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:setmacro}、\nameref{cmd:installmacro}

@@ -5,7 +5,10 @@
 根据一个速度集得到走时并对数据文件进行标记
 
 \SACTitle{语法}
-MARKTimes [ To marker ] [ Distance Header | v ] [ Origin Header | v | GMT time ] [ Velocities v ... ]
+\begin{SACSTX}
+MARKT!IMES! [T!O! marker] [D!ISTANCE! H!EADER!|v] [O!RIGIN! H!EADER!|v|GMT time] 
+    [V!ELOCITIES! v ... ]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,11 +23,11 @@ MARKTimes [ To marker ] [ Distance Header | v ] [ Origin Header | v | GMT time ]
 \item VELOCITIES v ... : 设置用于走时计算的速度集，最多可以输入10个速度 
 \end{itemize}
 
-\SACTitle{其他形式}
-可以使用UTC即Universal Time Coordinate代替GMT
-
 \SACTitle{缺省值}
-MARKTIMES VELOCITIES 2. 3. 4. 5. 6.  DISTANCE HEADER ORIGIN HEADER TO T0
+\begin{SACDFT}
+marktimes velocities 2. 3. 4. 5. 6.  distance header origin header to t0
+\end{SACDFT}
+
 \SACTitle{说明}
 这个命令在头段中标记震相的到时，给定事件的发生时间，震中距以及速度即可计算到	时。下面的方程用于简单估计走时:
  		\[ time(j) = origin + \frac{distance}{velocity(j)} \]
@@ -33,21 +36,18 @@ MARKTIMES VELOCITIES 2. 3. 4. 5. 6.  DISTANCE HEADER ORIGIN HEADER TO T0
 \SACTitle{例子}
 使用默认的速度集，强制距离为340km，第一个时间标记为T4:
 \begin{SACCode}
-SAC> MARKTIMES DISTANCE 340. TO T4
+SAC> marktimes distance 340. to t4
 \end{SACCode}
 
 选择一个不同的速度集:
 \begin{SACCode}
-SAC> MARKT V 3.5 4.0 4.5 5.0 5.5
+SAC> markt v 3.5 4.0 4.5 5.0 5.5
 \end{SACCode}
 
 设置新的参考时间并将结果保存在T2中:
 \begin{SACCode}
-u: MARKT ORIGIN GMT 1984 231 12 43 17 237 TO T2
+SAC> markt origin gmt 1984 231 12 43 17 237 to t2
 \end{SACCode}
 
 \SACTitle{头段变量改变}
 Tn, KTn
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)

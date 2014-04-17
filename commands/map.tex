@@ -8,7 +8,13 @@ GMT地图，也可以在命令行上指定一个事件文件。每个
 并将该文件在屏幕上显示，同时产生一个绘制该图的shell脚本。
 
 \SACTitle{语法}
-MAP\quad [ MERcator | EQuidistant | AZimuthal\_equidistant | ROBinson ] [ WEST minlon ] [ EAST maxlon ] [ NORTH maxlat ] [ SOUTH minlat ] [ MAGnitude | REsidual | RMean\_residual ] [ EVentfile filename ] [ TOPOgraphy ] [ STANames ] [MAPSCALE on | off ] [ PLOTSTATIONS on | off ] [ PLOTEVENTS on | off ] [ PLOTLEGEND on | off ] [ LEGENDXY x y ] [ FILE output-file ]
+\begin{SACSTX}
+MAP [MER!CATOR!|EQ!UIDISTANT!|AZ!IMUTHAL_EQUIDISTANT!|ROB!INSON!] 
+    [WEST minlon] [EAST maxlon] [NORTH maxlat] [SOUTH minlat] 
+    [MAG!NITUDE!|RE!SIDUAL!|RM!EAN_RESIDUAL!] [EV!EVNTFILE! filename] 
+    [TOPO!GRAPHY!] [STAN!AMES!] [MAPSCALE on|off] [PLOTSTATIONS on|off] 
+    [PLOTEVENTS on|off] [PLOTLEGEND on|off] [LEGENDXY x y] [FILE output-file]
+\end{SACSTX}
 
 \SACTitle{输入}
 SAC中可以使用的投影方式包括：
@@ -51,12 +57,14 @@ SAC中可以使用的投影方式包括：
 可以用SAC的TITLE命令指定其标题
 
 \SACTitle{缺省值}
-   MAP MERCATOR TOPO off STAN off FILE gmt.ps PLOTSTATIONS on PLOTEVENTS on
+\begin{SACDFT}
+map mercator topo off stan off file gmt.ps plotstations on plotevents on
+\end{SACDFT}
 
 \SACTitle{例子}
 利用SAC提供的一些数据作为例子：
 \begin{SACCode}
-SAC> r /opt/sac/aux/datagen/regional/*.z
+SAC> dg sub regional *.z
 SAC> map stan on 
 Using Default Postscript Viewer
 	gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE 
@@ -66,52 +74,12 @@ Using Default Postscript Viewer
 绘制出的地图如图\ref{fig:map}所示，整个地图的边界控制的还算不错，还算比较美观，
 三角形代表台站位置，圆形代表地震位置，大小也控制的不错。生成这个图的同时，还有
 一个可以用于生成该地图的shell脚本。
-\begin{SACCode}
-#!/bin/csh -f
 
-# Set the output file
-set psfile = "./gmt.ps"
-
-# Start the Postscript file 
-psbasemap -JM6.5i -R-120.572/-110.404/33.754/41.380 \
--Ba3.000f3.000/a2.000f2.000NEWS:."": -X0.75i -Y1.0i -P -K > $psfile 
-
-# Add the Coastline and National Boundaries
-pscoast -K -O -J -R -B -N1 -N2 -W -Dl -A78 -G250/250/200  >> $psfile 
-
-# Add station location labels.  
-# Input are longitude, latitude, and name.
-pstext -K -O -D0.10i/0.10i -J  -R -S0.25/255 -G0/0/0 <<EOF >> $psfile 
--115.239 40.745  10 0 0 BL  ELK      
--112.822 37.017  10 0 0 BL  KNB      
--116.411 34.390  10 0 0 BL  LAC      
--118.154 38.432  10 0 0 BL  MNV      
-EOF
-
-# Add station locations.  
-# Input are longitude latitude.
-psxy -K -O -J -R -St0.25i -G0/0/0 <<EOF >> $psfile 
--115.239 40.745 
--112.822 37.017 
--116.411 34.390 
--118.154 38.432 
-EOF
-
-# Add event locations.
-# Input are longitude latitude.
-psxy -O -K -J -R -W10/0/0/0  -Sc0.25i  <<EOF >> $psfile 
--118.123 37.852 
-EOF
-
-# End the Postscript File
-psxy -R -J -O /dev/null >> $psfile 
-\end{SACCode}
-
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering
-\caption{map例子示意图}
+\includegraphics[width=0.7\textwidth]{map}
+\caption{map绘制地震、台站分布图}
 \label{fig:map}
-\includegraphics[width=10cm]{map}
 \end{figure}
 
 \SACTitle{头段数据}
@@ -127,10 +95,11 @@ psxy -R -J -O /dev/null >> $psfile
 
 MAP命令的结果将自动被显示。用于显示的默认程序是gs(ghostscript)。用户可以通过设置环境变量SACPSVIEWER选择其他显示工具。\\
 在csh下可以这样设置：
-\begin{SACCode}
+\begin{lstlisting}[style=Shell]
 setenv SACPSVIEWER "gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE"
-\end{SACCode}
+\end{lstlisting}
+
 在bash下可以这样设置：
-\begin{SACCode}
+\begin{lstlisting}[style=Shell]
 export SACPSVIEWER="gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE"
-\end{SACCode}
+\end{lstlisting}
