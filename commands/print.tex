@@ -5,15 +5,19 @@
 打印最近的SGF文件，这个命令需要在此之前至少产生一个SFG文件
 
 \SACTitle{语法}
-PRINT {printer}
+\begin{SACSTX}
+PRINT [printer]
+\end{SACSTX}
 
 \SACTitle{输入}
 printer 将输出发送到打印机printer，如果没有指定则使用系统默认打印机
 
-*如果自从登录之后SGF设备一直 保持关闭，那么print命令就不会工作。使用bd打开SGF设备，使用SGF命令设置SGF设备的属性*
+如果自从登录之后SGF设备一直保持关闭，那么print命令就不会工作。使用bd打开SGF设备，使用SGF命令设置SGF设备的属性
 
 \SACTitle{缺省值}
-PRINT
+\begin{SACDFT}
+print
+\end{SACDFT}
 
 \SACTitle{错误信息}
 \begin{itemize}
@@ -21,7 +25,4 @@ PRINT
 \end{itemize}
 
 \SACTitle{相关命令}
-SGF, BEGINDEVICES
-
-\SACTitle{最近修订}
-April 22, 1999 (Version 0.58)
+\nameref{cmd:sgf}、\nameref{cmd:begindevices}

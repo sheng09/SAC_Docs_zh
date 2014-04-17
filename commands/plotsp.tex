@@ -5,7 +5,9 @@
 用多种格式绘制谱数据
 
 \SACTitle{语法}
-PlotSP [ ASIS | RLIM | AMPH | RL | IM | AM | PH ] [ LINLIN | LINLOG | LOGLIN | LOGLOG ]
+\begin{SACSTX}
+P!LOT!SP [ASIS|RLIM|AMPH|RL|IM|AM|PH] [LINLIN|LINLOG|LOGLIN|LOGLOG]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,7 +22,9 @@ PlotSP [ ASIS | RLIM | AMPH | RL | IM | AM | PH ] [ LINLIN | LINLOG | LOGLIN | L
 \end{itemize}
 
 \SACTitle{缺省值}
-PLOTSP ASIS LOGLOG
+\begin{SACDFT}
+plotsp asis loglog
+\end{SACDFT}
 
 \SACTitle{说明}
 SAC数据文件可能包含时间序列文件或谱文件，IFTYPE决定文件所有哪种类型。多数绘图命令只能对时间序列文件起作用，这个命令则可以绘制谱文件。
@@ -30,9 +34,9 @@ SAC数据文件可能包含时间序列文件或谱文件，IFTYPE决定文件�
 \SACTitle{例子}
 获得一个谱文件振幅的对数-线性的绘图:
 \begin{SACCode}
-SAC> READ FILE1
-SAC> FFT
-SAC> PLOTSP AM LOGLIN
+SAC> read file1
+SAC> fft
+SAC> plotsp am loglin
 \end{SACCode}
 
 \SACTitle{错误消息}
@@ -40,6 +44,3 @@ SAC> PLOTSP AM LOGLIN
 \item[-]1301: 未读入数据文件
 \item[-]1305: 对时间序列的非法操作
 \end{itemize}
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)

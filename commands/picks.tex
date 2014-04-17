@@ -5,7 +5,9 @@
 控制在多数绘图上时间标记的显示
 
 \SACTitle{语法}
-PICKS [ ON | OFF ] [ tmarker VERTICAL |HORIZONTAL | CROS ] [ WIDTH v ] [ HEIGHT v ]
+\begin{SACSTX}
+PICKS [ON|OFF] [tmarker VERTICAL|HORIZONTAL|CROS] [WIDTH v] [HEIGHT v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,8 +22,9 @@ PICKS [ ON | OFF ] [ tmarker VERTICAL |HORIZONTAL | CROS ] [ WIDTH v ] [ HEIGHT 
 \end{itemize}
 
 \SACTitle{缺省值}
-PICK ON WIDTH 0.1 HEIGHT 0.1
-
+\begin{SACDFT}
+pick on width 0.1 height 0.1
+\end{SACDFT}
 所有的拾取标记类型都是VERTICAL
 
 \SACTitle{说明}
@@ -30,9 +33,5 @@ PICK ON WIDTH 0.1 HEIGHT 0.1
 \SACTitle{例子}
 以交叉符号显示时间标记T4、T5和T6，并改变交叉符号的高度和宽度:
 \begin{SACCode}
-SAC> PICKS T4 C T5 C T6 C W 0.3 H 0.1
+SAC> picks t4 c t5 c t6 c w 0.3 h 0.1
 \end{SACCode}
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
-

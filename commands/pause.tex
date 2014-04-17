@@ -5,7 +5,9 @@
 发送信息到终端并暂停
 
 \SACTitle{语法}
-PAUSE [ MESSAGE text ] [ PERIOD ON | OFF | v ]
+\begin{SACSTX}
+PAUSE [MESSAGE text] [PERIOD ON|OFF|v]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -16,13 +18,12 @@ PAUSE [ MESSAGE text ] [ PERIOD ON | OFF | v ]
 \end{itemize}
 
 \SACTitle{缺省值}
+\begin{SACDFT}
 PAUSE MESSAGE 'Pausing' PERIOD OFF
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令使你能够暂时挂起SAC宏文件的执行。当这个命令被执行时，SAC发送信息到终端，暂停，然后等到你输入回车或者暂停时间到。当你想要研究一个特定命令的输出时可以让宏文件暂停执行再继续。它在用于说明或者教学时特别有用。ECHO命令也很有用的
 
 \SACTitle{相关命令}
-ECHO
-
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+\nameref{cmd:echo}

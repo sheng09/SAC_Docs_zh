@@ -5,7 +5,9 @@
 定义一般绘图的标签以及它们的属性
 
 \SACTitle{语法}
-PLABEL [ n ] [ ON | OFF | text ] [ SIZE Tiny | Small | Medium | Large ] [ BELOW | POSITION x y [ a ] ]
+\begin{SACSTX}
+PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!] [BELOW|POSITION x y [a]]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -23,9 +25,7 @@ PLABEL [ n ] [ ON | OFF | text ] [ SIZE Tiny | Small | Medium | Large ] [ BELOW 
 \end{itemize}
 
 \SACTitle{缺省值}
-默认字体大小为small，标签1的位置为0.15 0.2 0. 
- 
-默认其他标签的位置为上一个标签之下
+默认字体大小为small，标签1的位置为0.15 0.2 0.。默认其他标签的位置为上一个标签之下。
 
 \SACTitle{说明}
 这个命令允许你定义一般用途的绘图标签用于后面的绘图命令，你可以定义每个标签的位置。文本质量以及字体可以用GTEXT命令设定，也可以使用TITLE、XLABEL、YLABEL生成图形的标题以及轴标签。
@@ -45,7 +45,4 @@ SAC> PLABEL 5 'LLNL station: CDV' S T P .12 .12
 \end{SACCode}
 
 \SACTitle{相关命令}
-GTEXT , TITLE , XLABEL , YLABEL
-
-\SACTitle{最近修订}
-July 22, 1991 (Version 9.1)
+\nameref{cmd:gtext}、\nameref{cmd:title}、\nameref{cmd:xlabel}、\nameref{cmd:ylabel}

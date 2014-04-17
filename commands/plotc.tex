@@ -5,7 +5,9 @@
 使用光标标注SAC图形和创建图件
 
 \SACTitle{语法}
-PlotC [ Replay | Create ] [ File | Macro filename ] [ Border ON | OFF ] 
+\begin{SACSTX}
+P!LOT!C [R!EPLAY!|C!REATE!] [F!ILE!|M!ACRO! filename] [B!ORDER! ON|OFF] 
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -17,7 +19,9 @@ PlotC [ Replay | Create ] [ File | Macro filename ] [ Border ON | OFF ]
 \end{itemize}
 
 \SACTitle{缺省值}
-PLOTC CREATE FILE OUT BORDER ON
+\begin{SACDFT}
+plotc create file out border on
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令让你可以注释一个SAC绘图或者创建一个用于会议或报告的图件。简单的说就是一个简单的``画图''软件。你需要一个具有光标的图形设备。你可以通过在终端屏幕上放置一个目标（比如圆、方）或者文本创建一个图件。光标的位置决定了目标绘制的位置，敲入的字符决定了要绘制哪个目标。目标包括圆、矩形、多边形、线、箭头、弧，还有多种放置文本的方法。
@@ -52,15 +56,15 @@ SAC> plotc create file bandpass               //开始在图上做注释
 SAC> endframe
 \end{SACCode}
 
-PLOTSP用于绘制滤波响应曲线以及两个轴，PLOTC用于用于交互式地添加注释。VSPACE命令限制了图形中纵横比为3：4的区域为绘图区域。这个对于之后将输出发送到具有纵横比3：4的SGF设备来说很有必要。在这之后你将有一个叫做``BANDPASS.PCF''的文件，其中包很了这个图形的注释信息。
+PLOTSP用于绘制滤波响应曲线以及两个轴，PLOTC用于用于交互式地添加注释。VSPACE命令限制了图形中纵横比为3:4的区域为绘图区域。这个对于之后将输出发送到具有纵横比3:4的SGF设备来说很有必要。在这之后你将有一个叫做``BANDPASS.PCF''的文件，其中包很了这个图形的注释信息。
 
 为了将注释写入SGF文件:
 \begin{SACCode}
-SAC> BEGINDEVICES SGF                       //打开SGF设备
-SAC> BEGINFRAME
-SAC> PLOTSP 
-SAC> PLOTC REPLAY                           //重新绘制上一注释图
-SAC> ENDFRAME
+SAC> begindevices sgf                       //打开sgf设备
+SAC> beginframe
+SAC> plotsp 
+SAC> plotc replay                           //重新绘制上一注释图
+SAC> endframe
 \end{SACCode}
 这样一个包含注释绘图的SGF文件就建立了。
 
@@ -73,15 +77,14 @@ SAC> ENDFRAME
 例如： WINDOW 1 X 0.05 0.80 Y 0.05 0.74。这个命令必须在窗口被创建之前执行。（即在BEGINWINDOW或BEGINDEVICES之前)
 
 \SACTitle{相关命令}
-VSPACE, BEGINDEVICES, BEGINFRAME, ENDFRAME
+\nameref{cmd:vspace}、\nameref{cmd:begindevices}、\nameref{cmd:beginframe}、\nameref{cmd:endframe}
 
-\SACTitle{最近修订}
-March 20, 1992 (Version 10.6e)
-
-\begin{table}[h]
-\caption{PLOTC命令表}
+\begin{table}[!ht]
 \centering
-\begin{tabular}{p{1cm}p{14cm}}
+\ttfamily
+\small
+\caption{plotc命令表}
+\begin{tabular}{p{1cm}p{10cm}}
 	\toprule
 	字符	& 	含义	\\
 	\midrule
@@ -91,12 +94,14 @@ March 20, 1992 (Version 10.6e)
 	D		&	从replay文件中删除最后一个动作选项	\\
 	G		&	设置ORIGIN，并将其全局化	\\
 	L		& 	绘制一条从ORIGIN到CURSOR的线	\\
-	M		&	在CURSOR处插入一个宏文件（输入宏文件名，比例因子和旋转角。若没有指定，则使用上一次的值，默认是OUT，1.0，0）\\
+	M		&	在CURSOR处插入一个宏文件（输入宏文件名，比例因子和旋转角。
+                若没有指定，则使用上一次的值，默认是OUT，1.0，0）\\
 	O		&	设置ORIGIN为CURSOR		\\
 	N		&	绘制一个中心在ORIGIN，一个顶点位于CURSOR的n边形 \\
 	Q		&	退出PLOTC	\\
 	R		&	绘制对脚位于ORIGIN和CURSOR的长方形	\\
-	S		&	绘制一个圆心位于ORIGIN的扇形（用光标的移动来指定扇形的角度，键入S来绘制一个小于180度的扇形，或者键入C绘制它的补集）\\
+	S		&	绘制一个圆心位于ORIGIN的扇形（用光标的移动来
+                指定扇形的角度，键入S来绘制一个小于180度的扇形，或者键入C绘制它的补集）\\
 	T		&	在CURSOR处放置一行文本，文本以回车键结束	\\
 	U		&	在CURSOR处放置多行文本，文本以空白行结束	\\
 	\bottomrule
@@ -115,7 +120,3 @@ March 20, 1992 (Version 10.6e)
 Q选项，则显示其内容并退出。文件中以星号开头的行为注释行。
 PLOTC还有一些更复杂的选项，但是运行起来好像有点问题，有兴趣的可以试试
 ``help plotctable''。
-
-
-	
-	

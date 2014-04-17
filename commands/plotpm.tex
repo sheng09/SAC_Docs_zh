@@ -5,7 +5,9 @@
 针对一对数据文件产生一个``质点运动''图
 
 \SACTitle{语法}
-PlotPM [ PRINT pname ]
+\begin{SACSTX}
+P!LOT!PM [PRINT pname]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -18,28 +20,25 @@ PlotPM [ PRINT pname ]
 \SACTitle{例子}
 创建一个两个地震图的质点运动图:
 \begin{SACCode}
-SAC> READ XYZ.T XYZ.R
-SAC> XLABEL 'Radial component'
-SAC> YLABEL 'Transverse component'
-SAC> TITLE 'Particle-motion plot for station XYZ'
-SAC> PLOTPM
+SAC> read xyz.t xyz.r
+SAC> xlabel 'radial component'
+SAC> ylabel 'transverse component'
+SAC> title 'particle-motion plot for station xyz'
+SAC> plotpm
 \end{SACCode}
 
 如果你想要值绘制每个文件在初动附近的一部分，你可以使用XLIM命令:
 \begin{SACCode}
-SAC>  XLIM A -0.2 2.0
-SAC>  PLOTPM
-\end{SACCode}
-你也可以使用PLOTPK在之前的绘图窗口中设置新的区域，然后绘制命令如下:
-
-\begin{SACCode}
-SAC> BEGINWINDOW 2
-SAC> PLOTPK
-SAC> ... mark the portion you want using X and S
-SAC> ... terminate PLOTPK with a Q
-SAC> BEGINWINDOW 1
+SAC> xlim a -0.2 2.0
 SAC> PLOTPM
 \end{SACCode}
 
-\SACTitle{最近修订}
-May 15, 1987 (Version 10.2)
+你也可以使用PLOTPK在之前的绘图窗口中设置新的区域，然后绘制命令如下:
+\begin{SACCode}
+SAC> beginwindow 2
+SAC> plotpk
+ ... mark the portion you want using X and S
+ ... terminate PLOTPK with a Q
+SAC> beginwindow 1
+SAC> plotpm
+\end{SACCode}

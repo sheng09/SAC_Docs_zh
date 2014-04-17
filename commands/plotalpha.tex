@@ -5,7 +5,10 @@
 从磁盘读入字符数据型文件到内存并将数据绘制出来，这个与readtable之后跟个plot不同，因为它允许你在每个数据点上绘制标签
 
 \SACTitle{语法}
-PlotAlpha [ MORE ] [ DIR CURRENT | name ] [ FREE | FORMAT text ] [ CONTENT text ] [ PRINT printer ] [ filelist ]
+\begin{SACSTX}
+P!LOT!A!LPHA! [MORE] [DIR CURRENT|name] [FREE|FORMAT text] [CONTENT text] 
+    [PRINT printer] [filelist]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -20,25 +23,23 @@ PlotAlpha [ MORE ] [ DIR CURRENT | name ] [ FREE | FORMAT text ] [ CONTENT text 
 \end{itemize}
 
 \SACTitle{缺省值}
-PLOTALPHA FREE CONTENT Y. DIR CURRENT
+\begin{SACDFT}
+plotalpha free content y. dir current
+\end{SACDFT}
 
 \SACTitle{说明}
-参见READTABLE命令
+参考readtabel命令的相关说明。
 
 \SACTitle{例子}
 读取并绘制一个自由格式的X-Y数据，且其第一个字段是标签:
 \begin{SACCode}
-SAC> PLOTALPHA CONTENT LP FILEA
+SAC> plotalpha content lp filea
 \end{SACCode}
 
 \SACTitle{错误消息}
 \begin{itemize}
-\item[-]1301: 未读入数据文件
-	\begin{itemize}
-	\item[-]未给出文件列表
-	\item[-]列表中的文件不可读
-	\end{itemize}
-\item[-]1020: 无效的内联函数名
+\item[-]1301: 未读入数据文件（未给出文件列表或列表中的文件不可读）
+\item[-]1020: 无效的内置函数名
 \item[-]1320: 可用内存太小不足以读取文件
 \item[-]1314: 数据文件列表不能以数字开头
 \item[-]1315: 数据文件列表中文件的最大数目为：
@@ -51,10 +52,7 @@ SAC> PLOTALPHA CONTENT LP FILEA
 \end{itemize}
 
 \SACTitle{头段变量改变}
-B, E, DELTA, LEVEN, DEPMIN, DEPMAX, DEPMEN.
+b, e, delta, leven, depmin, depmax, depmen.
 
 \SACTitle{相关命令}
-READ , WRITE, READALPHA
-
-\SACTitle{最近修订}
-July 22, 1992 (Version 10.6f)
+\nameref{cmd:read}、\nameref{cmd:write}、\nameref{cmd:readtable}
