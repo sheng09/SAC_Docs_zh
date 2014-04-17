@@ -2,28 +2,28 @@
 \label{cmd:ygrid}
 
 \SACTitle{概要}
-控制绘图时的y方向的网格线
+控制绘图时的Y方向的网格线
 
 \SACTitle{语法}
-YGRID ON | OFF | Solid | Dotted
+\begin{SACSTX}
+YGRID ON|OFF|S!OLID!|D!OTTED!
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item ON : 打开y方向网格绘图但不改变网格类型 
-\item OFF : 关闭y方向网格绘图 
-\item SOLID : 打开y方向网格绘图并使用实网格线 
-\item DOTTED : 打开y方向网格绘图并使用虚线绘制网格线 
+\item ON : 打开Y方向网格绘图但不改变网格类型 
+\item OFF : 关闭Y方向网格绘图 
+\item SOLID : 打开Y方向网格绘图并使用实网格线 
+\item DOTTED : 打开Y方向网格绘图并使用虚线绘制网格线 
 \end{itemize}
 
 \SACTitle{缺省值}
-YGRID OFF
+\begin{SACDFT}
+ygrid off
+\end{SACDFT}
 
 \SACTitle{说明}
 这个命令控制Y坐标轴网格
 
 \SACTitle{相关命令}
-GRID, XGRID
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
-
+\nameref{cmd:grid}、\nameref{cmd:ygrid}

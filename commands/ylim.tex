@@ -2,27 +2,28 @@
 \label{cmd:ylim}
 
 \SACTitle{概要}
-确定图形中y轴的范围
+确定图形中Y轴的范围
 
 \SACTitle{语法}
-YLIM [ ON | OFF | pdw | SIGNAL ]
+\begin{SACSTX}
+YLIM [ON|OFF|pdw|SIGNAL]
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item ON : 打开x轴范围选项，但不改变范围值 
-\item OFF : 关闭x轴范围选项 
-\item pdw : 打开x轴范围选项并设置范围为新的"partial data window"。关于pdw请参见CUT命令 
+\item ON : 打开Y轴范围选项，但不改变范围值 
+\item OFF : 关闭Y轴范围选项 
+\item pdw : 打开Y轴范围选项并设置范围为新的"partial data window"。关于pdw请参见CUT命令 
 \item SIGNAL : 等同于输入： A -1 F +1. 
 \end{itemize}
 
 \SACTitle{缺省值}
-YLIM OFF
+\begin{SACDFT}
+ylim off
+\end{SACDFT}
 
 \SACTitle{说明}
-当这个选项打开时，x轴的范围固定，当这个选项为关时，这个范围与数据的大小成正比。界定x轴上的绘图范围可以可以用于``放大''当前内存中数据的图形。
+当这个选项打开时，Y轴的范围固定，当这个选项为关时，这个范围与数据的大小成正比。界定Y轴上的绘图范围可以可以用于``放大''当前内存中数据的图形。
 
 \SACTitle{相关命令}
-CUT
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:cut}

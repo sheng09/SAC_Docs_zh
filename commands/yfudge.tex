@@ -5,7 +5,9 @@
 改变Y轴的``插入因子''
 
 \SACTitle{语法}
-YFUDGE ON | OFF | v
+\begin{SACSTX}
+YFUDGE ON|OFF|v
+\end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
@@ -15,17 +17,16 @@ YFUDGE ON | OFF | v
 \end{itemize}
 
 \SACTitle{缺省值}
-YFUDGE 0.03
+\begin{SACDFT}
+yfudge 0.03
+\end{SACDFT}
 
 \SACTitle{说明}
 当这个选项打开时，实际轴范围将由插入因子改变，确定线性坐标轴范围的方法是:
-\[ YDIFF=YFUDGE*(YMAX-YMIN) \]
+\[ YDIFF=YFUDGE*(YMAC-YMIN) \]
 \[ YMIN=YMIN-YDIFF \]
-\[ YMAX=YMAX+YDIFF \]
+\[ YMAC=YMAX+YDIFF \]
 其中YMIN和YMAX是数据的极值，YFUDGE是插入因子，这个算法对于对数坐标也是相似的。插入选项值应用于坐标轴的范围设置为数据极值时(参见YLIM)
 
 \SACTitle{相关命令}
-YLIM
-
-\SACTitle{最近修订}
-January 8, 1983 (Version 8.0)
+\nameref{cmd:ylim}
