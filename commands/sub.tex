@@ -2,7 +2,7 @@
 \label{cmd:sub}
 
 \SACTitle{概要}
-给每一个数据点减去一个常数
+给每个数据点减去同一个常数
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,11 +10,11 @@ SUB  [v1 [v2 ... vn]]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item v1 :  乘到第一个文件的常数 
-\item v2 :  乘到第二个文件的常数 
-\item vn :  乘到第n个文件的常数 
-\end{itemize}
+\begin{description}
+\item [v1] 从第一个文件中减去的常数 
+\item [v2] 从第二个文件中减去的常数 
+\item [vn] 从第n个文件中减去的常数 
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -22,7 +22,7 @@ sub 0.0
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令将给内存中的每一个数据文件的每个元素减一个常数。这个常数对于每一个数据文件来说可以是相同的也可以是不同的。如果内存中数据文件的数目比命令给出的常数要多，那么最后命令中的最后一个常数将用于剩下的所有文件。如果内存中数据文件数目比给出的常数少，则多余的常数将被忽略。
+参见~\nameref{cmd:add}~的相关说明。
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -31,4 +31,4 @@ sub 0.0
 \end{itemize}
 
 \SACTitle{头段变量改变}
-depmin, depmax, depmen
+depmin、depmax、depmen
