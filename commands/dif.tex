@@ -2,7 +2,7 @@
 \label{cmd:dif}
 
 \SACTitle{概要}
-对内存中的数据进行微分
+对数据进行微分
 
 \SACTitle{语法} 
 \begin{SACSTX}
@@ -10,11 +10,11 @@ DIF [TW!O!|TH!REE!|F!IVE!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item TWO : 两点差分操作
-\item THREE : 三点差分操作
-\item FIVE : 五点差分操作
-\end{itemize}
+\begin{description}
+\item [TWO]   应用两点差分算子
+\item [THREE] 应用三点差分算子
+\item [FIVE]  应用五点差分算子
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -22,17 +22,21 @@ dif two
 \end{SACDFT}
 
 \SACTitle{说明}
-两点差分算法:
-\[ OUT(j) =\frac{DATA(j+1) -DATA(j)}{DELTA} \]
-输出的最后一个点在这个算法中没有定义，它也不是一个中心算法。SAC通过将文件点数(NPTS)减去1并且将开始时间(B)增加采样间隔(DELTA)的一半来解决输出点数的问题。 
+要求数据必须是等间隔采样的时间序列文件。
 
-三点差分(中心两点)算法:
-\[ OUT(j) = \frac{1}{2} \frac{DATA(j+1) -DATA(j-1)}{DELTA} \]
-这个算法未定义输出点的第一个和最后一个。SAC将NPTS减去2，将B加上DELTA
+两点差分算法：
+\[ Out(j) =\frac{Data(j+1) - Data(j)}{\Delta} \]
+这个差分算子不是中心差分算法。此算法的最后一个输出值是未定义的，SAC的处理方式是：
+令数据点数减1，文件起始时间B增加半个采样周期（$\frac{1}{2}\Delta$）。
 
-五点差分算法(中心四点)算法:
-\[ OUT(j) = \frac{2}{3} \frac{DATA(j+1) -DATA(j-1)}{DELTA} - \frac{1}{12} \frac{DATA(j+2) -DATA(j-2)}{DELTA} \]
-算法未定义输出的前两个和后两个点。SAC对第二个和倒数第二个两个点运用三点操作，将NPTS减去2，将B增加DELTA
+三点差分（中心两点）算法：
+\[ Out(j) = \frac{1}{2} \frac{Data(j+1) - Data(j-1)}{\Delta} \]
+此算法输出值的第一个和最后一个是未定义的，SAC将数据点数减去2，并将B增加一个采样周期。
+
+五点差分算法（中心四点）算法：
+\[ Out(j) = \frac{2}{3} \frac{Data(j+1) - Data(j-1)}{\Delta} - \frac{1}{12} \frac{Data(j+2) - Data(j-2)}{\Delta} \]
+此算法输出值的首尾各两个点是未定义的，SAC使用三点差分算符计算第二个和倒数第二个点
+的值，并将数据点数减2，将B增加一个采样周期。
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -41,4 +45,4 @@ dif two
 \end{itemize}
 
 \SACTitle{头段变量改变}
-npts, b, e, depmin, depmax, depmen
+npts、b、e、depmin、depmax、depmen、idep
