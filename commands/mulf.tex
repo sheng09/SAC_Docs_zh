@@ -2,37 +2,28 @@
 \label{cmd:mulf}
 
 \SACTitle{概要}
-将一组文件中的数据分别乘以内存中不同文件的数据
+使内存中的一组数据乘以另一组数据
 
 \SACTitle{语法}
 \begin{SACSTX}
-MULF [NEWHDR ON|OFF] filelist
+MULF [NEWHDR [ON|OFF]] filelist
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item NEWHDR ON|OFF : 操作得到的结果文件默认从内存中的原始文件获取头段值，如果NEWHDR ON，则结果文件的头段将从filelist中的新文件获取 
-\item filelist : SAC二进制文件列表。这个列表可以包含简单的文件名， 绝对或相对路径以及通配符。详细信息参见READ命令。
-\end{itemize}
+\begin{description}
+\item [NEWHDR ON|OFF] 若为OFF，则生成的数据文件使用内存中原文件的头段；          
+    若为ON，则生成的数据文件使用filelist中新文件的头段。缺省值为OFF。
+\item [filelist] SAC二进制文件列表。
+\end{description}
 
 \SACTitle{说明}
-这个命令用于将一个文件或者将一群文件乘以另一群文件。下面针对每种情况各给出一个例子。为了使得文件与文件之间能够相除乘，必须保证这些文件是等间隔的而且需要有相同的采样间隔和数据点数。后面两个限制可以通过使用BINOPERR命令得到削弱。如果内存中的文件数多于filelsit中文件数，则filelist的最后一个文件将加到余下的全部文件中。
+参见~\nameref{cmd:addf}~命令的相关说明。
 
-\SACTitle{例子}
-将一个文件乘以其他三个文件:
-\begin{SACCode}
-SAC> read file1 file2 file3
-SAC> mulf file4
-\end{SACCode}
-
-将两个文件乘以另外两个文件:
-\begin{SACCode}
-SAC> read file1 file2
-SAC> mulf file3 file4
-\end{SACCode}
+\SACTitle{示例}
+参见~\nameref{cmd:addf}~命令的相关示例。
 
 \SACTitle{头段变量}
-如果NEWHDR OFF(默认情况)内存中的头段大部分不会被改变。如果NEWHDR ON，内存中的头段将被filelist文件的头段取代。下面列出可能会改变的几个头段变量：depmin, depmax, depmen
+depmin、depmax、depmen、npts、delta
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -46,7 +37,7 @@ SAC> mulf file3 file4
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]1802: 时间重叠  *什么意思？如何犯错？*
+\item[-]1802: 时间不匹配
 \end{itemize}
 
 \SACTitle{相关命令}
