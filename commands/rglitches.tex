@@ -2,35 +2,35 @@
 \label{cmd:rglitches}
 
 \SACTitle{概要}
-去掉信号中的坏点和时间标记
+去掉信号中的坏点
 
 \SACTitle{语法}
 \begin{SACSTX}
-RGLITCHES [THRESHOLD v] [TYPE LINEAR|ZERO] [WINDOW ON|OFF|pdw] 
-    [METHOD ABSOLUTE|POWER|RUNAVG]
+RGL!ITCHES! [TH!RESHOLD! v] [TY!PE! L!INEAR!|Z!ERO!] [W!INDOW! ON|OF!F!|pdw] 
+    [METHOD A!BSOLUTE!|P!OWER!|R!UNAVG!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item THRESHOLD v : 设置起始的阀值水平为v，校正那些绝对值大于或等于v的数
-\item TYPE LINEAR : 在坏数据点的两边的数据点之间线性内插以校正坏点 
-\item TYPE ZERO : 将坏点设置为0 
-\item METHOD ABSOLUTE : 校正绝对值不小于阀值v的数据点 
-\item METHOD POWER : 使用反向差分方法计算信号功率，并校正那些功率超过阀值v的数据点 
-\item METHOD RUNAVG : 通过将一个长为SWINLEN的窗从整个数据的末尾以一点的增量移动到数据
-    的开始，并计算滑动平均和标准差。每个新点都将和平均值相比，如果它们的差超过了THRESH2乘以当
-    前标准差，又或者差大于MINAMP计数器，它则被当前平均值代替。
-\end{itemize}
+\begin{description}
+\item [WINDOW ON|OFF|pdw] 指定需要做校正的数据段。缺省值为OFF，即校正整个数据文件；
+    pdw指定了时间窗，表示仅对该时间窗内的数据进行检测和校正；ON表示只校正上一次pdw定义
+    的时间窗内的数据；
+\item [THRESHOLD v] 设置阈值水平为v。当某个特定的指标大于该阈值时即认为
+    是坏点，并做校正
+\item [METHOD ABSOLUTE] 若数据点的绝对值大于或等值阈值v，则做校正
+\item [METHOD POWER] 用向后差分法计算信号的能量，若能量超过阈值v则做校正
+\item [METHOD RUNAVG] 将一个长为SWINLEN的窗从整个数据的末尾以一个数据点的增量移动到数据
+    的开头，并计算每个滑动窗内的平均值和标准差。若某个点与当前窗的均值的差的绝对值大于标准差
+    的THRESH2倍，且大于MINAMP，则认为其是坏点，其值将用当前窗的均值代替。此方法不受WINDOW选项
+    的影响，总是适用于整段波形数据。
+\end{description}
     
-RUNAVG方法总是用于整个地震图，与这个RUNAVG方法有关的三个选项为:
-\begin{itemize}
-\item SWINLEN v: 设置滑动平均窗的长度为v
-\item THRESH2 v: 设置坏点的阀值
-\item MINAMP  v: 设置坏点的最小幅度
-\item WINDOW ON: 仅校正前面定义的pdw
-\item WINDOW OFF: 校正整个数据文件中的数据点
-\item WINDOW pdw: 仅校正当前定义的pdw中的数据点。
-\end{itemize} 
+对于RUNAVG方法，另有三个与之相关的选项：
+\begin{description}
+\item [SWINLEN v] 设置滑动平均窗的长度为v
+\item [THRESH2 v] 设置坏点的阀值
+\item [MINAMP v] 设置坏点的最小幅度
+\end{description} 
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -39,14 +39,17 @@ rglitches threshold 1.0e+10 type linear window off method absolute
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令可以用于平滑由于坏点引起的不规则信号或某些数据采集系统产生的时标。这个命令检查每一个数据点，看它的起始改变量是否大于或等于给定的“起始阀值水平”。然后将这些坏数据点置0或者利用数据点前后的两点进行内插得到一个数据点。可以在整个文件或者某个时间窗内去掉假信号。使用这个选项可以使你去掉那些比整个数据文件中的假信号。
+此命令可以用于由于平滑数据采集系统故障或测试
+\footnote{有些台网会在每天的指定时间生成若干个人工脉冲，以检测数据采集系统是否正常运行。}
+而产生的坏点。该命令会检查每一个数据点是否超过指定的阈值，然后将这些坏点置零或者线性插值。
+使用RUNAVG方法，甚至可以去掉那些比整个数据的最大值要小的坏点。
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+\SACTitle{头段变量}
+depmin、depmax、depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
-\item[-]1306: 对不等间隔文件非法操作
-\item[-]1307: 对谱文件非法操作
+\item[-]1306: 对不等间隔文件的非法操作
+\item[-]1307: 对谱文件的非法操作
 \end{itemize}
