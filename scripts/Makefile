@@ -18,7 +18,8 @@ run:
 	sh contour1.sh
 	sh contour2.sh
 	sh image.sh
-	sh map.sh
+	sh gmt.sh
+	sh taper.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -37,3 +38,4 @@ install:
 	mv contour2.eps ${FIGURE}
 	mv image.eps ${FIGURE}
 	mv gmt.eps ${FIGURE}
+	mv taper.eps ${FIGURE}

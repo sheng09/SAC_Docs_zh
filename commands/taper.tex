@@ -2,17 +2,17 @@
 \label{cmd:taper}
 
 \SACTitle{概要}
-在数据两端应用对称的taper函数，使得数据在两端平滑地衰减到零
+对数据两端应用对称的taper函数，使得数据两端平滑地衰减到零
 
 \SACTitle{语法}
 \begin{SACSTX}
-TAPER [TYPE HANNING|HAMMING|COSINE] [WIDTH v]
+TAPER [T!YPE! HAN!NING!|HAM!MING!|C!OSINE!] [W!IDTH! v]
 \end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
 \item TYPE HANNING|HAMMIN|COSINE : 应用Hanning、Hamming、余弦衰减窗
-\item WIDTH v : 设置位于数据首末两端的衰减窗的宽度为v，这个值在0.0和0.5之间
+\item WIDTH v : 设置衰减窗的宽度占数据总点数（npts）的比值为v，v取值在0.0和0.5之间
 \end{itemize}
 
 \SACTitle{缺省值}
@@ -21,30 +21,24 @@ taper type hanning width 0.05
 \end{SACDFT}
 
 \SACTitle{说明}
-taper函数是在0和1之间取值的单调变化的函数。它对称地施加于数据的首尾两端。
-对于数据的首端，taper函数的第一个点\footnote{究竟是第0个点还是第1个点，这个
-问题比较纠结，当初从FORTRAN改写成SAC的时候，遗留下来一些历史问题。}值为0，第NPTS*WIDTH个点的值为1
-（NPTS为数据总点数，WIDTH为命令中设置的参数\footnote{这下知道为什么WIDTH只能取0.0-0.5了吧。}）。
-将taper函数与数据相乘即使得数据的首端从0开始不断光滑地增加到其原始值。数据
-末端完全类似，只是数据由其原始值不断光滑地减小到0。正如taper的英译，``逐渐
-消失''，有时候也翻译为``尖灭''。
+taper函数是在0和1之间取值的单调函数，若将其对称地施加于数据的首尾两端，则可实现
+数据的``尖灭''。
 
-taper命令的本质如下式所示：
-\begin{displaymath}
-Data(j) = \left\{
-		  \begin{array}{ll}
-		  Data(j)*Taper(j) & \textrm{j $\in$ [1,\ npts*width]} \\
-		  Data(j)*Taper(npts-j) & \textrm{j $\in$ [npts-npts*width,\ npts]} \\
-		  \end{array}
-\right.
-\end{displaymath}
+taper函数共计$npts*v$个点，第一个点值为0，最后一个点的值为1，将此函数的每个点依次
+于数据的第1至$npts*v$个点相乘，使得数据数据的首端从0开始光滑地增加到其原始值。
+数据的末端完全类似，此时数据由其原始值不断光滑地减小到0。
 
-其中taper函数可以表示为:
-\[ Taper(j)=F_0 - F_1\cos(\omega(j-1))	\quad j \in [1,\ npts*width] \]
+taper命令的通用形式为
+\[
+    Data(j) = Data(j)*(F_0 - F_1\cos(\omega(j-1)))
+\]
+此公式应用于数据的首端，另一个完全对称的数据用于数据的尾端。
 
-下表定义了不同的衰减的各种参数。在这个表中，N为首尾两端的衰减数据的长度，即NPTS*WIDTH。
-
-\begin{center}
+表~\ref{table:taper-functions}~定义了不同的衰减函数的参数，其中N为衰减窗的宽度，即$npts*v$。
+\begin{table}[ht]
+\centering
+\caption{taper衰减函数参数一览}
+\label{table:taper-functions}
 \begin{tabular}{llll}
 \toprule
 类型 & $\omega$ & $F_0$	& $F_1$	\\
@@ -54,7 +48,16 @@ HAMMING	&	$\frac{\pi}{N}$	&	0.54	&	0.46	\\
 COSINE	&	$\frac{\pi}{2N}$	&	1.00	&	1.00	\\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
+
+图~\ref{fig:taper-functions}~给出了不同taper衰减函数的曲线图，图中可以看出，HAMMING
+窗实际上并没有完全实现尖灭。
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{taper}
+\caption{taper衰减函数曲线}
+\label{fig:taper-functions}
+\end{figure}
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -62,5 +65,5 @@ COSINE	&	$\frac{\pi}{2N}$	&	1.00	&	1.00	\\
 \item[-]1306: 对不等间隔文件的非法操作
 \end{itemize}
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+\SACTitle{头段变量}
+depmin、depmax、depmen
