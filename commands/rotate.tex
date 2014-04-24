@@ -2,28 +2,33 @@
 \label{cmd:rotate}
 
 \SACTitle{概要}
-以一个给定的角度选择数据的两个分量
+将一对正交的分量旋转一个角度
 
 \SACTitle{语法}
 \begin{SACSTX}
-ROTATE [TO GCP|TO v|THROUGH v] [NORMAL|REVERSED]
+ROT!ATE! [TO G!CP!|TO v|TH!ROUGH! v] [N!ORMAL!|R!EVERSED!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item TO GCP : 旋转到大圆弧路径（``great circle path''）。两个分量必须都是水平分量。必须定义台站和事件坐标的头段变量 
-\item TO v : 旋转角度为v度，两个分量必须都是水平分量 
-\item THROUGH v : 旋转角度为v度，一个分量可以是垂直的 
-\item NORMAL : 输出分量为正极性 
-\item REVERSED : 输出分量为负极性 
-\end{itemize}
+\begin{description}
+\item [TO GCP] 旋转到大圆弧路径（``great circle path''）。两个分量必须都是水平分量且
+    头段中必须定义台站和事件的经纬度
+\item [TO v] 旋转一定角度使得第一个分量的方位角为v度。两个分量必须都是水平分量 
+\item [THROUGH v] 顺时针旋转v度。其中一个分量可以是垂直分量
+\item [NORMAL|REVERSED] 输出分量为正/负极性 
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-ROTATE TO GCP NORMAL
+rotate to gcp normal
 \end{SACDFT}
 
 \SACTitle{说明}
+此命令可以对多对分量旋转一定的角度。每对分量必须拥有相同的台站名、事件名、采样率
+和数据点数。
+
+对于一对正交的水平分量而言，可以使用
+
 这个命令可以将两个分量以一定角度旋转。每对数据分量必须有相同的台站名、事件名、采样率。在THROUGH选项中两个分量可简单地以给定的旋转角度旋转数据的两个分量，其中一个可以是垂直分量，在水平面上的旋转由北起算顺时针旋转。垂直分量的旋转为由上起顺时针旋转。
 
 如果使用TO选项，两个分量必须都是水平分量，这意味着CMPAZ必须定义CMPINC必须是90度。旋转完成后，每一对的第一个分量将指向TO选项给出的角度，如使用TO GCP选项，则这个分量将指向台站-事件向后方位角加减180度的方向。因此，这个分量由事件指向台站，台站和事件坐标头段变量(STLA,STLO,EVLA，EVLO)必须定义，以便由这些值出发计算向后方位角NORMAL和REVERSED选项也可以仅用于水平旋转。如果使用NORMAL选项，则第二个分量比第一个分量超前90度，如果使用REVERSED选项则第二个分量比第一个分量落后90度。
