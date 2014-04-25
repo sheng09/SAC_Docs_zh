@@ -2,7 +2,7 @@
 \label{cmd:quantize}
 
 \SACTitle{概要}
-将连续数据数字化
+将连续数据数字化\footnote{无法理解这个命令，请阅读官方文档}
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,24 +10,35 @@ QUANTIZE [GAINS n ...] [LEVEL v] [MANTISSA n]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item GAINS n ...: 设置允许的增益表，他们必须递减的，增益最大值为8 
-\item LEVEL v :  设置最低增益的量子化水平，这是最小有效位数的伏特值 
-\item MANTISSA n : 设置尾数的位数 
-\end{itemize}
+\begin{description}
+\item [GAINS n ...] 设置允许的增益表，必须单调递减的，增益的最大数目为8 
+\item [LEVEL v] 设置最低增益的量化水平，即Least Significant Bit，单位为伏特 
+\item [MANTISSA n] 设置Bits，用其尾数表示。
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-QUANTIZE GAINS 128 32 8 1 LEVEL 0.00001 MANTISSA 14
+quantize gains 128 32 8 1 level 0.00001 mantissa 14
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令类似于Oppenheim和Schafer(1975, Fig. 9.1)描述的``rounding'' quantization算法。在这个算法中位数划分为多个用于描述特征的位、符号位和尾数位。用户可以指定尾数的位数。量化水平(最小有效数字位或LSB)也可由用户指定，缺省的量化水平为10微伏，这个量化函数描述的信号误差是这个量化水平的一半。在频率域中，这个误差或量化噪声为:
+此命令演示了与Oppenheim和Schafer(1975, Fig. 9.1)描述的``rounding''量化算法类似的
+一个量化算法。
 
-其中DELTA是采样频率。量化噪声单位是counts*counts/Hz，相当于功率谱密度。量化噪声的均方根为:
-然而，仅当信号的均方根水平远大于量化噪声的均方根值时，这才是量化引起的噪声的一个精确的近似。换句话说，如果分辨率不是几百个counts那么在量化噪声与量化的	信号之间便是有关联的。关联系数近似于LEVEL与量化信号的均方根之比。( Fig. 11.13, 	Oppenheim and Schaffer, 1975).
+算法中的位数通过其尾数表示，则若尾数mantissa为$n$，则表示其所能允许的范围是
+$\pm \frac{2^n-1}{2}$。
 
-增益可以由用户指定，以在自动增益系统中模拟增益步骤，缺省的增益是区域地震实验台网的增益。
+量化水平level即least significant bit的值，表征了系统所能识别的最小的电压变化，
+缺省值为10微伏。
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+这个量化函数描述的信号误差是量化水平的一半。在频率域中，这个误差或量化噪声为：
+\[
+    Err = \frac{1}{12}(Delta*Level^2)
+\]
+
+其中Delta是采样周期。量化噪声的单位是counts*counts/Hz，相当于功率谱密度。
+量化噪声的均方根为$\frac{1}{6}Level^2$。然而，仅当信号的均方根水平远大于量化噪声的
+均方根值时，才是量化噪声的一个精确的近似。
+
+\SACTitle{头段变量}
+depmin、depmax、depmen
