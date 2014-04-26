@@ -2,18 +2,18 @@
 \label{cmd:stretch}
 
 \SACTitle{概要}
-拉伸(内插)数据，并加上一个可选的FIR滤波器
+拉伸（增采样）数据，包含了一个可选的FIR滤波器
 
 \SACTitle{语法}
 \begin{SACSTX}
-STRETCH  n [FILTER ON|OFF]
+STRETCH  n [F!ILTER! ON|OF!F!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item n : 设置增采样因子，必须在2和7之间 
-\item FILTER ON|OFF: 打开/关闭内插FIR滤波器选项 
-\end{itemize}
+\begin{description}
+\item [n] 设置增采样因子，取值为2到7
+\item [FILTER ON|OFF] 打开/关闭插值FIR滤波器选项
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -21,7 +21,9 @@ stretch 2 filter on
 \end{SACDFT}
 
 \SACTitle{说明}
-通过使用内插FIR滤波器，这个命令可以用于创建一个更小的采样间隔（更多数据点）但看起来与原始文件相似的文件。在使用这个命令时要注意，因为滤波器对频谱成分是有影响的，当关闭这个滤波器选项时，在原始数据点之间，将简单地插入适当数目的零值。
+此命令对数据进行拉伸，即增采样。当关闭滤波器选项时，仅仅在原始数据点之间插入适当
+数目的零值。若使用了内插FIR滤波器，则通过对数据进行滤波可以创建一个与原始波形相似
+但是采样周期更小的文件。需要注意的是，滤波器对频谱成分是有影响的。
 
-\SACTitle{头段变量改变}
-npts, delta, e, depmin, depmax, depmen
+\SACTitle{头段变量}
+npts、delta、e、depmin、depmax、depmen
