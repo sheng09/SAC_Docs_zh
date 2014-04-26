@@ -32,4 +32,20 @@
 \item \nameref{cmd:merge}：将多个数据文件合并成一个文件
 \end{itemize}
 
+\subsection*{信号校正模块}
+\begin{itemize}
+\item \nameref{cmd:rq}：从谱文件中去除Q因子
+\item \nameref{cmd:rglitches}：去掉信号中的坏点
+\item \nameref{cmd:rmean}：去除均值
+\item \nameref{cmd:rtrend}：去除线性趋势
+\item \nameref{cmd:taper}：对数据两端应用对称的taper函数，使得数据两端平滑地衰减到零
+\item \nameref{cmd:rotate}：将成对的正交分量旋转一个角度
+\item \nameref{cmd:quantize}：将连续数据数字化
+\item \nameref{cmd:interpolate}：对等间隔或不等间隔数据进行插值以得到新采样率
+\item \nameref{cmd:stretch}：拉伸（增采样）数据，包含了一个可选的FIR滤波器
+\item \nameref{cmd:decimate}：对数据减采样，包含了一个可选的抗混叠FIR滤波器
+\item \nameref{cmd:smooth}：对数据应用算术平滑算法
+\item \nameref{cmd:reverse}：将所有数据点逆序
+\end{itemize}
+
 \newpage
