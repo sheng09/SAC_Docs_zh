@@ -2,58 +2,56 @@
 \label{cmd:interpolate}
 
 \SACTitle{概要}
-插值等间距或不等间距文件，获得新采样率
+对等间隔或不等间隔数据进行插值以得到新采样率
 
 \SACTitle{语法}
 \begin{SACSTX}
-INTERP!OLCATE! [D!ELTA! v] [E!PSILON! v] [B!EGIN! v|OFF] [N!PTS! n|OFF]
+INTERP!OLCATE! [D!ELTA! v|N!PTS! v] [B!EGIN! v]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item DELTA v: 设置新采样率为v.
-\item EPSILON v: 设置内插收敛因子为v
-\item BEGIN v :  在v处开始内插，这个值作为内插生成文件的起始值 
-\item BEGIN OFF : 在未插值数据的起始时间开始插值 
-\item NPTS n : 强制插值后文件数据点为n 
-\item NPTS OFF : 由SAC根据起始、结束时间以及新采样率自动计算插值后的数据点数. 
-\end{itemize}
-
-\SACTitle{缺省值}
-\begin{SACDFT}
-interpolate delta 0.025 epsilon 0.0001 begin off npts off
-\end{SACDFT}
+\begin{description}
+\item [DELTA v] 设置新采样率为v。数据的时间跨度（E-B）保持不变，npts变化，E由于
+    需要与b的间距为delta的整数倍，所以可能会有微调。
+\item [NPTS n] 强制设置插值后文件的数据点数为n。时间宽度不变，delta发生变化。
+\item [BEGIN v] 在v处开始插值，该值将作为插值文件的起始时间。BEGIN可以和DELTA或NPTS选项
+    一起使用。
+\end{description}
 
 \SACTitle{说明}
-这个命令使用Wiggins内插方法将不等间距数据转换为等间距数据并重采样等间距数据得到新的采样率
+该命令使用Wiggins的weighted average-sloped插值方法将不等间隔数据转换为等间隔数据，
+以及对等间隔数据插值得到新的采样率。不像三次样条插值，在输入样本数据点间不会存在
+极值。如果要降低采样率，即减采样，由于该命令没有抗混叠滤波器，所以最好使用decimate命令。
+
+DELTA选项和NPTS选项只能同时使用一个，若二者同时使用，则命令中的后者起作用。
+
+BEGIN选项用于控制输入数据的插值起点，也可以通过cut命令设置b和e再进行插值操作。
 
 \SACTitle{例子}
-假设文件filea是不等间距文件，为了将其转换为采样率为0.01s的等间距文件:
+假定filea是等间隔数据，采样率为0.025，为了将转换到采样率为0.02秒：
 \begin{SACCode}
-SAC> read filea
-SAC> interpolate delta 0.01
+SAC> r filea
+SAC> interp delta 0.02
+\end{SACCode}
+由于新delta小于原数据delta，可能会出现混叠现象，所以会输出警告信息。
+
+假定fileb数据点数npts=3101，想要保持其时间跨度，并采样至npts=4096个点：
+\begin{SACCode}
+SAC> r fileb
+SAC> interp npts 4096
 \end{SACCode}
 
-假设文件fileb是采样率为0.025s的等间隔文件，将其转换为采样率为0.02s:
-\begin{SACCode}
-SAC> read fileb
-SAC> interpolate delta 0.02
-\end{SACCode}
-
-假设你想强制插值后文件采样率为0.005，起始时间为18.237，有400个点:
+假设filec是不等间隔数据，为了将其转换为采样率为0.01秒的等间隔数据：
 \begin{SACCode}
 SAC> read filec
-SAC> interpolate delta 0.005 begin 18.237 npts 400
+SAC> interpolate delta 0.01
 \end{SACCode}
 
 \SACTitle{警告消息}
 \begin{itemize}
-\item[-]2008: 要求的开始时间小于文件起始时间。
-\item[-]2009: 要求的结束时间大于文件结束时间
+\item[-]2008: 要求的开始时间小于文件起始时间（输出会被截断）
+\item[-]2015: 要求的开始时间大于文件结束时间（不执行操作）
 \end{itemize}
 
-\SACTitle{参考文献}
-Wiggins, 1976, BSSA, 66, p.2077.
-
-\SACTitle{头段变量改变}
-delta, npts, e
+\SACTitle{头段变量}
+delta、npts、e、b、leven
