@@ -2,27 +2,23 @@
 \label{cmd:printhelp}
 
 \SACTitle{概要}
-打印SAC命令的帮助文档到打印机
+调用打印机打印帮助文档
 
 \SACTitle{语法}
 \begin{SACSTX}
-PRINTHELP [item ...]
+P!RINT!H!ELP! [item ...]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item item : 命令、模块、子程序、特性的全称或简称
-\end{itemize}
-
-\SACTitle{默认值}
-若没有指定item，则打印help包的简介
+\begin{description}
+\item [item] 命令、模块、子程序、特性的全称或简称
+\end{description}
 
 \SACTitle{说明}
-该命令与help命令的用法相同，只是其会调用系统的默认打印机将文档打印出来
+该命令与help命令的用法相同，其调用系统默认打印机将文档打印出来。
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1130：没有可用的帮助文档包
-\item[-]SAC无法找到文档包，检查你的环境变量SACAUX	
-\item[-]lpr：错误 - 没有默认目的位置。系统未设置默认打印机
+\item[-]lpr：错误 - 没有默认目的位置（系统未设置默认打印机）
 \end{itemize}

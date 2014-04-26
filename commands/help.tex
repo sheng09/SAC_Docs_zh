@@ -2,7 +2,7 @@
 \label{cmd:help}
 
 \SACTitle{概要}
-显示SAC命令的信息以及特性
+在终端显示SAC命令的语法和功能信息
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,21 +10,22 @@ H!ELP! [item ... ]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item item：命令（全名或简写）、模块、子程序、特性等等。如果item为空，则输入帮助文件包的介绍
-\end{itemize}
+\begin{description}
+\item [item] 命令（全称或简写）、模块、子程序等等。若item为空，则显示SAC的帮助文档的介绍
+\end{description}
 
 \SACTitle{说明}
-帮助文档包中的每一个帮助文档都会按照item中的顺序列出，在输入整屏之后用户可以通过上下箭头查看该item的其他内容。输入``q''可以退出当前item的帮助文档，进入下一item帮助文档。
+SAC的帮助文档位于~\lstinline{$SACHOME/aux/help}~中，该命令的实质是读取帮助文档并显示
+到终端中。item列表中每一项会按照顺序依次显示在终端中，若输出超过一屏，可以使用PgUp、
+PgDn、Enter、空格、方向键等实现翻页。直接输入``q''则退出当前项文档并显示下一项文档。
 
-\SACTitle{例子}
+\SACTitle{示例}
 \begin{SACCode}
 SAC> h                  //获得帮助文档包的介绍
 SAC> h r cut bd p       //一次获取多个命令信息
-屏幕出现一堆输出，输入q进入下一item的帮助文档，直至最后一项
 \end{SACCode}
 
 \SACTitle{错误信息}
 \begin{itemize}
-\item[-]1103: 没有可用的帮助文档包
+\item[-]1103: 没有可用的帮助文档包（检测~\lstinline{$SACHOME/aux/help}~文件夹）
 \end{itemize}
