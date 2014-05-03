@@ -2,7 +2,7 @@
 \label{cmd:ifft}
 
 \SACTitle{概要}
-作离散反Fourier变换
+对数据进行离散反傅立叶变换
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,20 +10,21 @@ IFFT
 \end{SACSTX}
 
 \SACTitle{说明}
-数据文件必须在之前使用过FFT命令，其操作对象为两种格式的谱文件
+数据文件必须是之前利用FFT命令生成的谱文件，可以是实部-虚部格式或振幅-相位格式。
 
-\SACTitle{头段变量改变}
-B, DELTA和NPTS被改成起始频率，采样频率和变换的数据点数。B, DELTA和NPTS的原始值保存在SB, SDELTA,NSNPTS中，当进行IFFT时这些值回到原来的位置
+\SACTitle{头段变量}
+B、DELTA和NPTS被修改为原始数据的起始时间、采样周期、数据点数。频率域的起始频率B、
+采样频率DELTA、采样点数NPTS被保存到SB、SDELTA、NSNPTS中。
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入文件
 \item[-]1305: 对时间序列的非法操作
-\item[-]1606: 超过允许作IFFT的最大数据点数
+\item[-]1606: 超过IFFT所允许的最大数据点数
 \end{itemize}
 
 \SACTitle{限制}
-允许作IFFT的最大数据点数为65536
+目前IFFT所允许的最大数据点数为65536。
 
 \SACTitle{相关命令}
 \nameref{cmd:fft}
