@@ -6,19 +6,19 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-W!IE!N!E!R [WINDOW pdw] [NCOEFF n] [MU OFF|ON|v] [EPS ILON OFF|ON|e]
+W!IE!N!E!R [W!INDOW! pdw] [N!COEFF! n] [MU OFF|ON|v] [EPS!ILON! OFF|ON|e]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item WINDOW pdw : 设置滤波器设计窗口为pdw。关于pdw参见CUT命令 
-\item NCOEFF n : 设置滤波器系数为n个 
-\item MU off | on | v : 设置自适应步长参数 
-\item Off : 将mu设置为0 
-\item On : 将mu设置为mu = 1.95 / Rho(0)。其中Rho(0)是pdw中延迟为0时的自相关系数。 
-\item v : 设置 mu = v. 
-\item EPSILON e :  Set ridge regression parameter to epsilon. 
-\end{itemize}
+\begin{description}
+\item [WINDOW pdw] 设置滤波器设计窗口为pdw。关于pdw参见~\nameref{cmd:cut}~命令 
+\item [NCOEFF n] 设置滤波器系数为n个 
+\item [MU off|on|v] 设置自适应步长参数 
+\item [MU Off] 设置自适应步长参数为0
+\item [MU ON] 设置自适应步长为1.95/Rho(0)，其中Rho(0)是pdw中延迟为0时的自相关系数
+\item [MU v] 设置自适应步长为v
+\item [EPSILON e] 设置ridge回归参数为e。
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -26,9 +26,12 @@ wiener window b 0 10 ncoeff 30 mu off epsilon off
 \end{SACDFT}
 
 \SACTitle{说明}
-误差预测滤波器使用Yule-Walker方法，从指定的部分数据窗中由自相关函数给出。这个窗口可以是文件的任何部分，然后滤波器应用到这个个信号，即信号由残差序列置换。这个滤波器可以用作预白化或用作瞬时信号的检波预处理器。对MU指定非0值，滤波器可作成时域自适应的，大MU可能会导致不稳定。
+预测误差滤波器使用Yule-Walker方法，从指定的部分数据窗中由自相关函数给出。
+这个窗口可以是文件的任何部分，然后滤波器应用到整个个信号，即信号被残差序列替换。
+这个滤波器可以用作预白化或用作瞬时信号的检波预处理器。若mu指定为非0值，则滤波器
+为时域自适应的，大值mu可能会导致不稳定。
 
-\SACTitle{例子}
+\SACTitle{示例}
 下面的命令将应用一个非自适应滤波器，将第一个十秒指定为窗:
 \begin{SACCode}
 SAC> wiener window b 0 10 mu 0.
@@ -39,8 +42,8 @@ SAC> wiener window b 0 10 mu 0.
 SAC> wiener ncoeff 40 window b a -1
 \end{SACCode}
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+\SACTitle{头段变量}
+depmin、depmax、depmen
 
 \SACTitle{错误消息}
 \begin{itemize}
