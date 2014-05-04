@@ -2,27 +2,23 @@
 \label{cmd:convolve}
 
 \SACTitle{概要}
-计算主信号与其自己以及一个或多个其他的卷积
+计算主信号与内存中所有信号的卷积
 
 \SACTitle{语法}
 \begin{SACSTX}
-CONVO!LVE! [M!ASTER! name|n] [N!UMBER! n] [L!ENGTH! ON|OFF|v] [T!YPE! type]
-\end{SACSTX}
-其中type可以取
-\begin{SACSTX}
-R!ECTANGLE!|HAM!MING!|HAN!NING!|C!OSINE!|T!RIANGLE!
+CONVO!LVE! [M!ASTER! name|n] [N!UMBER! n] [L!ENGTH! ON|OFF|v] 
+    [T!YPE! R!ECTANGLE!|HAM!MING!|HAN!NING!|C!OSINE!|T!RIANGLE!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item MASTER name|n: 通过文件名或文件号指定某文件为主文件，其他文件将对这个文件卷积
-\item NUMBER n: 设置要使用的卷积窗的数目
-\item LENGTH ON: 打开固定窗长选项开关
-\item LENGTH OFF: 关闭固定窗长开关
-\item LENGTH v: 打开固定窗长选项开关，并将窗长度设置为v秒
-\item TYPE RECTANGLE: 对每个窗应用一个矩形函数，这等价于不对窗加上函数
-\item TYPE HAMMING|HANNING|COSINE|TRIANGle: 对每个窗应用xx函数
-\end{itemize}
+\begin{description}
+\item [MASTER name|n] 通过文件名或文件号指定某文件为主文件，内存中的所有文件将与主文件进行卷积
+\item [NUMBER n] 设置卷积窗的数目
+\item [LENGTH ON] 打开/关闭固定窗长选项开关
+\item [LENGTH v] 打开固定窗长选项开关，并设置窗长度为v秒
+\item [TYPE RECTANGLE] 对每个窗应用一个矩形函数，这等价于不对窗加上函数
+\item [TYPE HAMMING|HANNING|COSINE|TRIANGlE] 对每个窗应用xx函数，详情参考correlate命令中的说明
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -30,12 +26,15 @@ convolve master 1 number 1 length off type rectangle
 \end{SACDFT}
 
 \SACTitle{说明}
-这个卷积命令允许用于将一个主信号对自己卷积以及和其他信号做卷积。这个命令按照如下公式计算卷积:
+该命令允许用户指定一个主信号，并将主信号与自己及其它信号做卷积。如果内存中有N个SAC文件，
+则输出文件为N个文件与主文件卷积的结果。卷积公式如下，
 	\[ CV(t) = \int_{-\infty} ^\infty f(\tau)g(t-\tau)d\tau \]
-这里没有1/N的归一化。其非常类似于如下定义的互相关:
-	\[ CC(t) = \int_{-\infty} ^\infty f(\tau)g(t+\tau)d\tau \]
-	
-其语法和输出都与CORRELATE命令很相似，除了互相关波形被卷积波形取代之外。
+需要注意的是，实际代码中该卷积在频率域完成，且没有进行归一化。内存中所有的信号需要
+有相同的delta。
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+该算法鉴定所有的时间序列都是因果的，因此如果你想要将信号卷积上一个boxcar函数
+（非因果低通滤波器，可用于平滑合成波形中的尖峰），输出信号将出现半个boxcar宽度的
+时移。
+
+\SACTitle{头段变量}
+depmin、depmax、depmen
