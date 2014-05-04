@@ -10,12 +10,13 @@ ENVELOPE
 \end{SACSTX}
 
 \SACTitle{说明}
-这个命令用于对内存中的数据计算包络函数。包络函数定义为
+这个命令用于计算内存中的数据的包络函数。包络函数定义为
 	\[ Envelope(n)= \sqrt{x(n)^2+y(n)^2} \]
-其中x(n)是原始信号，y(n)是它的Hilbert变换（参见HILBERT）。和HILBERT一样，超长数据需要在处理之前进行减采样。
+其中x(n)是原始信号，y(n)是x(n)的Hilbert变换。
+和HILBERT一样，超长周期的数据需要在处理之前进行减采样。
 
-\SACTitle{头段变量改变}
-depmin, depmax, depmen
+\SACTitle{头段变量}
+depmin、depmax、depmen
 
 \SACTitle{相关命令}
 \nameref{cmd:hilbert}、\nameref{cmd:decimate}
