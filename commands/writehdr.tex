@@ -2,26 +2,22 @@
 \label{cmd:writehdr}
 
 \SACTitle{概要}
-用内存中的头段值覆盖磁盘文件中的相应头段值
+用内存中文件的头段区覆盖磁盘文字中的头段区
 
 \SACTitle{语法}
 W!RITE!H!DR!
 
-\SACTitle{输入}
-
 \SACTitle{说明}
-该命令并不会覆盖磁盘文件中的数据，使用WRITE将覆盖头段和数据。当CUT选项打开时，WRITEHDR命令无法使用，内存中的头段被修改以反应CUT选项的效果，但是磁盘上的数据不会被修改。对被CUT的数据使用WRITEHDR命令将可能导致磁盘中的数据产生类似于平移或截断的影响。
+write命令的over选项可以用内存中头段区和数据区覆盖磁盘文件中的头段区和数据区。
+该命令用内存中头段区覆盖磁盘文件中的头段区，数据区不会被覆盖。如果使用了cut命令，
+读取数据时将仅读入部分数据，内存中的头段区将会做相应修改以反映cut命令的效果，
+但是磁盘中的数据并没有被修改，因而此时不能使用writehdr命令。对被cut的数据
+使用WRITEHDR命令将可能导致磁盘中的数据产生类似于平移或截断的效果。
 
 \SACTitle{错误消息}
 \begin{itemize}
 \item[-]1301: 未读入数据文件
 \end{itemize}
-
-\SACTitle{头段变量}
-更新磁盘的头段
-
-\SACTitle{限制}
-参见cut和writehdr
 
 \SACTitle{相关命令}
 \nameref{cmd:cut}、\nameref{cmd:write}
