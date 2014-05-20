@@ -2,7 +2,7 @@
 \label{cmd:writebbf}
 
 \SACTitle{概要}
-将一个暂存块变量写入磁盘
+将黑板变量文件写入到磁盘
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,17 +10,19 @@ W!RITE!BBF [file]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item file : 暂存块变量文件的名字，其可以是简单文件名或相对/绝对路径。
-\end{itemize}
+\begin{description}
+\item [file] 黑板变量文件的文件名，其可以是简单文件名或包含相对路径或绝对路径
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-WRITEBBF BBF
+writebbf bbf
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令让你能够将暂存块变量写入磁盘，其可以稍后用READBBF命令读入SAC，这个特性允许你保存SAC某次执行得到信息到另一个。你也可以在自己的程序中写代码去访问这些暂存块变量文件的信息。这使你可以在自己的程序与SAC之间交换信息。
+这个命令让你能够将当前会话的所有黑板变量写入到磁盘文件中，稍后可以使用readbbf命令
+将黑板变量文件重新读入SAC，该特性允许你保存某次SAC会话的信息，并用于另一次SAC会话中。
+你也可以在自己的程序中调用SAC函数库以访问黑板变量文件中的信息。
 
 \SACTitle{相关命令}
 \nameref{cmd:readbbf}、\nameref{cmd:setbb}、\nameref{cmd:getbb}
