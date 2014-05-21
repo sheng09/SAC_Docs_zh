@@ -2,45 +2,45 @@
 \label{cmd:ticks}
 
 \SACTitle{概要}
-控制绘图上时间标记的位置
+控制绘图上刻度轴的位置
 
 \SACTitle{语法}
 \begin{SACSTX}
-TICKS [ON|OFF|ONLY] [ALL|T!OP!|B!OTTOM!|R!IGHT!|L!EFT!]
+TICKS [ON|OFF|ONLY] [A!LL!] [T!OP!] [B!OTTOM!] [R!IGHT!] [L!EFT!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON : 在所列出的边上打开时标，其他不变 
-\item OFF : 在所列出的边上关闭时标，其他不变 
-\item ONLY : 仅在列出的边上打开时标，其他关闭 
-\item ALL : 所有四边都有时标 
-\item TOP : 时标位于视口上部的X轴 
-\item BOTTOM : 时标位于视口的下部上的X轴 
-\item RIGHT : 时标位于视口右边的Y轴 
-\item LEFT : 时标位于视口左边的Y轴 
-\end{itemize}
+\begin{description}
+\item [ON] 在指定的边上显示刻度，其他不变 
+\item [OFF] 在指定的边上不显示刻度，其他不变 
+\item [ONLY] 仅在指定的边上显示刻度，其他关闭 
+\item [ALL] 所有四条边
+\item [TOP] 视口上部的X轴
+\item [BOTTOM] 视口的下部的X轴 
+\item [RIGHT] 视口右边的Y轴 
+\item [LEFT] 视口左边的Y轴 
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-TICKS ON ALL
+ticks on all
 \end{SACDFT}
 
 \SACTitle{说明}
-时标可以画在图形四边的一边或几边上。他们以刻度间隔的当前值绘出，其刻度间隔由	XDIV命令控制。时标自动画在由AXES命令指定的轴上。
+刻度轴可以画图形四边的一边或几边上，刻度间隔由XDIV命令控制。
 
-\SACTitle{例子}
-打开顶端时标，其他不变:
+\SACTitle{示例}
+显示上部刻度轴，其他不变：
 \begin{SACCode}
 SAC> ticks on top
 \end{SACCode}
 
-关闭所有时标:
+关闭所有刻度轴：
 \begin{SACCode}
 SAC> ticks off all
 \end{SACCode}
 
-打开底部时标，其余关闭:
+显示底部刻度轴，其余关闭：
 \begin{SACCode}
 SAC> ticks only bottom
 \end{SACCode}

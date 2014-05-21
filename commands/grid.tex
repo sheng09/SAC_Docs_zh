@@ -10,20 +10,20 @@ GRID [ON|OFF|S!OLID!|D!OTTED!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON : 打开网格绘图但不改变网格类型
-\item OFF : 关闭网格绘图 
-\item SOLID : 打开网格绘图并使用实网格线 
-\item DOTTED : 打开网格绘图并使用虚线绘制网格线 
-\end{itemize}
+\begin{description}
+\item [ON] 绘制网格，但不改变网格类型
+\item [OFF] 不绘制网格
+\item [SOLID] 用实线绘制网格
+\item [DOTTED] 用虚线绘制网格
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-GRID OFF
+grid off
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令控制X和Y两个坐标轴，XGRID和YGRID分别控制单个坐标轴的网格类型.
+这个命令控制X和Y轴的网格线的绘制。可以使用XGRID和YGRID分别控制单个坐标轴的网格类型。
 
 \SACTitle{相关命令}
 \nameref{cmd:xgrid}、\nameref{cmd:ygrid}

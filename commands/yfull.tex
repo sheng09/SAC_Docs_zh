@@ -6,13 +6,13 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-YFULL ON|OFF
+YFULL [ON|OFF]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON|OFF 打开/关闭整对数绘图选项
-\end{itemize}
+\begin{description}
+\item [ON|OFF] 打开/关闭整对数绘图选项
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -20,7 +20,8 @@ yfull on
 \end{SACDFT}
 
 \SACTitle{说明}
-整对数绘图选项仅应用于使用对数坐标且固定范围选项关闭的情况。这个选项打开时，实际坐标轴范围将被设置为数据范围前后的第一个整十数，当关闭这个选项时，将使用实际数据范围。
+整对数绘图选项仅应用于使用对数坐标且坐标范围不固定（ylim off）的情况。当此选项打开时，
+实际的坐标轴范围将被设置为数据范围前后的第一个整十数。当关闭这个选项时，将使用实际数据范围。
 
 \SACTitle{相关命令}
 \nameref{cmd:ylim}
