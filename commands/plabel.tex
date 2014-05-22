@@ -2,7 +2,7 @@
 \label{cmd:plabel}
 
 \SACTitle{概要}
-定义一般绘图的标签以及它们的属性
+定义通用标签及其属性
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -11,25 +11,23 @@ PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item n : 绘图标签号目前有5个，如果省略，则为上一个标签号加1
-\item ON : 打开绘图标签选项 
-\item OFF : 关闭绘图标签选项 
-\item text : 改变绘图标签的文本内容，同时打开了绘图标签选项 
-\item SIZE size :  改变绘图标签的尺寸 
-\item TINY : 微小尺寸，每行132个字符 
-\item SMALL :  小尺寸，每行100个字符 
-\item MEDIUM : 中等尺寸，每行80字符 
-\item LARGE : 大尺寸，每行50字符 
-\item BELOW : 将这个标签放在以前的标签的下面 
-\item POSITION x y a : 定义该标签的位置，其中x的取值为0～1，y的取值为0到最大视口（一般为0.75），a是标签相对于水平线的顺时针旋转的角度
-\end{itemize}
+\begin{description}
+\item [n] 通用标签号。若省略，则在前一个标签号上加1
+\item [ON] 打开绘图标签选项，但不改变标签文本
+\item [OFF] 关闭绘图标签选项 
+\item [text] 改变绘图标签的文本内容，同时打开了绘图标签选项 
+\item [SIZE TINY|SMALL|MEDIUM|LARGE] 修改绘图标签的文本尺寸。TINY、SMALL、MEDIUM、LARGE分别表示
+    一行132、100、80、50个字符。
+\item [BELOW] 将此标签放在前一标签的下面
+\item [POSITION x y a] 定义该标签的位置。其中x的取值为0到1，y的取值为0到最大视口（一般为0.75），a是标签相对于水平方向顺时针旋转的角度。
+\end{description}
 
 \SACTitle{缺省值}
 默认字体大小为small，标签1的位置为0.15 0.2 0.。默认其他标签的位置为上一个标签之下。
 
 \SACTitle{说明}
-这个命令允许你定义一般用途的绘图标签用于后面的绘图命令，你可以定义每个标签的位置。文本质量以及字体可以用GTEXT命令设定，也可以使用TITLE、XLABEL、YLABEL生成图形的标题以及轴标签。
+这个命令允许你为接下来的绘图命令定义通用的绘图标签。你可以定义每个标签的位置及文本尺寸。
+文本质量以及字体可以用GTEXT命令设定，也可以使用TITLE、XLABEL、YLABEL生成图形的标题以及轴标签。
 
 \SACTitle{例子}
 下面的命令将在接下来的绘图中在左上角产生一个四行的标签:

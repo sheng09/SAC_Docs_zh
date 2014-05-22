@@ -10,9 +10,9 @@ B!EGIN!W!INDOW! n
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item n: 要启用的绘图窗口的编号，目前n的取值为1到10
-\end{itemize}
+\begin{description}
+\item [n] 要启用的绘图窗口的编号，目前n的取值为1到10
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -20,10 +20,10 @@ beginwindow 1
 \end{SACDFT}
 
 \SACTitle{说明}
-现在的计算机系统大多支持多窗口，即同时在多个窗口中显示相同或不同的图像。
+现在的图形终端或工作站大多支持多窗口，即启动多个窗口，并在每个窗口中显示相同或不同的图像。
 
 windows命令可以控制每个X绘图窗口的位置和形状，而beginwindow则用于启用该绘图
-窗口，接下来所有的绘图命令都将显示在该绘图窗口中。若你你所选择的绘图窗口没有打开，
+窗口，接下来所有的绘图命令都将显示在该绘图窗口中。若你所选择的绘图窗口没有打开，
 则beginwindow会首先创建这个窗口。
 
 需要注意的是，window命令只在绘图窗口被创建之前起作用，即window命令是一个参数设定类
