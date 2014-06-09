@@ -6,20 +6,20 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-ECHO ON | OFF E!RRORS! | W!ARNINGS! | O!UTPUT! | C!OMMANDS! | M!ACROS! | P!ROCESS!
+ECHO ON|OFF E!RRORS!|W!ARNINGS!|O!UTPUT!|C!OMMANDS!|M!ACROS!|P!ROCESS!
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON: 打开下面列出的echo选项
-\item OFF: 关闭下面列出的echo选项 
-\item ERRORS: 命令执行过程中的错误信息 
-\item WARNINGS: 命令执行过程中的警告信息 
-\item OUTPUT: 命令执行过程中的输出信息  
-\item COMMANDS: 终端输入的原始命令 
-\item MACROS: 宏文件中的原始宏命令 
-\item PROCESSED: 经过处理后的终端或宏文件命令，命令中的变量等都被替换成具体数值
-\end{itemize}
+\begin{description}
+\item [ON|OFF] 打开/关闭接下来列出的项的回显选项
+\item [ERRORS] 命令执行过程中生成的错误信息 
+\item [WARNINGS] 命令执行过程中生成的警告信息 
+\item [OUTPUT] 命令执行过程中生成的输出信息  
+\item [COMMANDS] 终端键入的原始命令 
+\item [MACROS] 宏文件中出现的原始命令 
+\item [PROCESSED] 经过处理后的终端命令或宏文件命令。这里所说的处理包含宏参数、黑板
+    变量、头段变量、内联函数的计算和代入。
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -27,4 +27,10 @@ echo on errors warnings output off commands macros processed
 \end{SACDFT}
 
 \SACTitle{说明}
-这个命令控制SAC输入输出流中哪一类要被回显到终端或屏幕。输出有三大类：错误消息、警告消息、输出消息；输入也有三大类：终端中输入的命令、宏文件中执行的命令、以及处理后的命令。处理后的命令指所有的宏参数、暂存块变量、头段变量、内嵌	函数首先被计算，并代入后来的命令而形成的命令。你可以分别控制这些类的回显。当你在终端输入命令时，操作系统一般会回显每个字符，因此这个命令在交互式程序中没有太大作用，而宏命令和处理后的命令选项在调试宏文件时是很有用的。
+该命令控制SAC输入输出流中哪一类要被回显到终端或屏幕。
+输出分为三大类：错误消息、警告消息、输出消息；输入也分为三大类：终端键入的命令、宏文件中执行的命令
+以及处理后的命令。处理后的命令指所有的宏参数、黑板变量、头段变量、内联函数首先被计算，并代入到命令中
+而形成的命令。你可以分别控制这些类的回显。
+
+当你在终端键入命令时，操作系统一般会显示你键入的每个字符，因此该命令在交互式会话中没有太大作用，
+而宏命令和处理后的命令在调试宏文件时是很有用的。

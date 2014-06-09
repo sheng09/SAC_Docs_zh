@@ -2,7 +2,7 @@
 \label{cmd:production}
 
 \SACTitle{概要}
-控制作业方式的选择
+控制作业模式选项
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,9 +10,9 @@ PROD!UCTION! ON|OFF
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON|OFF 打开/关闭作业模式
-\end{itemize}
+\begin{description}
+\item [ON|OFF] 打开/关闭作业模式选项
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -20,4 +20,5 @@ prod off
 \end{SACDFT}
 
 \SACTitle{说明}
-当这个选项打开时，致命错误将立刻终止SAC。当这个选项为关时，在致命后将控制回到终端，可以继续执行SAC
+当打开该选项时，致命错误将立刻终止SAC的运行。当关闭该选项时，遇到致命错误后
+将控制权返回到终端，可以继续执行SAC。

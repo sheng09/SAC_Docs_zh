@@ -2,7 +2,7 @@
 \label{cmd:comcor}
 
 \SACTitle{概要}
-控制SAC的命令纠正选项
+控制SAC的命令校正选项
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -14,8 +14,18 @@ COMCOR [ON|OFF]
 comcor off
 \end{SACDFT}
 
+\SACTitle{输入}
+\begin{description}
+\item [ON] 打开命令校正选项；
+\item [OFF] 关闭命令校正选项；
+\end{description}
+
+\SACTitle{缺省值}
+\begin{SACDFT}
+comcor off
+\end{SACDFT}
+
 \SACTitle{说明}
-SAC会检查你输入的每一个命令的格式和内容。当SAC发现一个错误时，其会发送一个错误
-信息到终端告诉错误是什么、在哪里出现了错误。如果命令纠正选项开启，SAC	
-将允许你纠正这个错误然后SAC自动重新执行它。如果纠正选项关了，
-SAC只是打印错误消息，将控制权返回给你。
+SAC会检查你输入的每个命令的格式和内容。当SAC发现错误时，会给你发送一个错误消息并
+告诉错误是原因及其位置。若开启了命令校正选项，SAC将允许你修正这个命令然后SAC自动重新执行它。
+若关闭校正，SAC只是打印错误消息，将控制权返回给你。
