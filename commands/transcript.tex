@@ -2,7 +2,7 @@
 \label{cmd:transcript}
 
 \SACTitle{概要}
-控制输出副本文件
+控制输出到副本文件
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -12,18 +12,19 @@ TRANSCRIPT [OPEN|CREATE|CLOSE|CHANGE|WRITE|HISTORY] [FILE filename]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item OPEN : 打开副本文件，并在已存在的文件底部添加副本 
-\item CREATE : 创建一个新的副本文件 
-\item CLOSE : 关闭一个已经打开的副本文件 
-\item CHANGE : 改变一个已经打开的副本文件的内容 
-\item WRITE : 写信息到一个副本文件，不改变其状态或内容 
-\item HISTORY FILE filename : 将命令行历史保存到文件 
-\item FILE filename : 定义副本文件的名字 
-\item MESSAGE text : 向副本文件中写入text给出的信息。这个信息可以用于指定正在进行的进程或指定正在处理的不同事件，在两次执行这个命令的过程之中这个信息不保存。 
-\item CONTENTS ALL : 定义副本文件的内容为全部输入输出的信息。 
-\item CONTENTS list : 定义副本文件的内容，即包含在文件中的输入输出的类型表
-\end{itemize}
+\begin{description}
+\item [OPEN] 打开副本文件，并在已存在的文件底部添加副本 
+\item [CREATE] 创建一个新的副本文件 
+\item [CLOSE] 关闭一个已经打开的副本文件 
+\item [CHANGE] 改变一个已经打开的副本文件的内容 
+\item [WRITE] 写信息到一个副本文件，不改变其状态或内容 
+\item [HISTORY FILE filename] 将命令行历史保存到文件 
+\item [FILE filename] 定义副本文件的名字 
+\item [MESSAGE text] 向副本文件中写入文本。这个信息可以用于指定正在进行的进程或指定正在
+    处理的不同事件，在两次执行这个命令的过程中这个信息不保存。 
+\item [CONTENTS ALL] 定义副本文件的内容为全部输入输出的信息。 
+\item [CONTENTS list] 定义副本文件的内容，即包含在文件中的输入输出的类型表
+\end{description}
 其中list可以取：
 \begin{itemize}
 \item ERRORS : 执行命令期间产生的错误消息
@@ -31,7 +32,7 @@ TRANSCRIPT [OPEN|CREATE|CLOSE|CHANGE|WRITE|HISTORY] [FILE filename]
 \item OUTPUT : 执行命令期间的输出消息 
 \item COMMANDS : 终端输出的原始命令 
 \item MACROS : 宏文件中出现的原始命令 
-\item PROCESSED : 经终端或宏处理之后的命令。处理之后的命令其所有宏参数、黑板变量、头段变量、内联函数都会被计算并带入原始命令中形成新的命令。
+\item PROCESSED : 经终端或宏处理之后的命令
 \end{itemize}
 
 \SACTitle{缺省值}
@@ -40,7 +41,9 @@ transcript open file transcript contents all
 \end{SACDFT}
 
 \SACTitle{说明}
-副本文件用于记录SAC执行的结果。其可以是一个全部结果或部分结果的副本，可以包含一个或多个操作的执行结果，你可以一次最多拥有5个活动的副本文件，每个文件用于跟踪不同的方面。一个用处是记录在终端输入的命令然后用于一个宏文件中，如下例所示。
+副本文件用于记录SAC执行的结果。其可以是一个完整或部分副本，可以包含一次或多次执行
+的结果。你可以同时拥有5个活动的副本文件，每个文件用于追踪不同的方面。
+其中的一个用途是记录终端输入的命令然后用于一个宏文件中，如下例所示。
 
 \SACTitle{例子}
 为了创建一个新的副本文件，文件名为MYTRAN，包含了除已处理命令之外的其他全部类型:
@@ -64,10 +67,15 @@ SAC> transcript open file errortran contents errors
 SAC> transcript write message 'processing event 1'
 \end{SACCode}
 
-这些命令将放在处理每个事件的宏文件中，它假设事件名作为第一个参数带入宏。使用打开选项，运行信息和出错信息将天骄到文件的后面，第二天检查一下这个出错信息副本文件，就可以快速查阅在处理期间是否出现了错误。
+这些命令将放在处理每个事件的宏文件中，它假设事件名作为第一个参数带入宏。使用打开选项，
+运行信息和出错信息将添加到文件的后面，第二天检查一下这个出错信息副本文件，就可以快速
+查阅在处理期间是否出现了错误。
 
 为了将保存一个命令行副本，以记录SAC当前和将来要运行的命令:
 \begin{SACCode}
 SCA> transcript history file .sachist
 \end{SACCode}
-这就在当前目录创建并写入了一个副本文件``./.sachist''。任何储存在那里的文件将被载入命令历史中。如果这个命令位于你的启动初始化宏文件中，则每次你运行SAC时将在当前目录产生一个单独的命令行历史。在一个新执行的SAC中，上下键将浏览完整的命令历史，你可以修改以前输入的命令并再次执行它，如果你没有在SAC内或初始化宏文件中输入这个命令，则命令行历史将自动保存到~\lstinline{~/.sac_history}
+这就在当前目录创建并写入了一个副本文件``./.sachist''。任何储存在那里的文件将被载入命令历史中。
+如果这个命令位于你的启动初始化宏文件中，则每次你运行SAC时将在当前目录产生一个单独的命令行历史。
+在一个新执行的SAC中，上下键将浏览完整的命令历史，你可以修改以前输入的命令并再次执行它，
+如果你没有在SAC内或初始化宏文件中输入这个命令，则命令行历史将自动保存到~\lstinline{~/.sac_history}

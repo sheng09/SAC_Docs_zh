@@ -2,7 +2,7 @@
 \label{cmd:setbb}
 
 \SACTitle{概要}
-设置暂存块变量值
+设置黑板变量的值
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,11 +10,11 @@ SETBB variable  [APPEND] value [variable [APPEND] value ...]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item variable : 暂存块变量名，可以是一个新变量或一个已经有值的变量，变量名最多32字符长
-\item value : 暂存块变量的新值，如果也空格必须用引号括起来 
-\item APPEND : 将值加到变量的旧值之后，如果该选项忽略，则新值将代替旧值 
-\end{itemize}
+\begin{description}
+\item [variable] 黑板变量名。可以是一个新变量或一个已经有值的变量，变量名最多32字符长
+\item [value] 黑板变量的新值。若包含空格则必须用引号括起来 
+\item [APPEND] 将值加到变量的旧值之后。如果该选项忽略，则新值将代替旧值 
+\end{description}
 
 \SACTitle{说明}
 setbb命令可以给黑板变量赋值，这些值可以通过GETBB命令获取，或在命令中直接引用。
@@ -32,15 +32,20 @@ SAC> setbb c1 2.45 c2 4.94
 SAC> bandpass corners %c1% %c2%
 \end{SACCode}
 
-设置包含空格的暂存块变量:
+设置包含空格的黑板变量:
 \begin{SACCode}
 SAC> setbb mytitle 'sample filter response'
 \end{SACCode}
 
-检查以确保值正确:
+检查以确保黑板变量的值正确:
 \begin{SACCode}
 SAC> getbb mytitle
  MYTITLE = Sample filter response
+\end{SACCode}
+
+稍后在title命令中使用该黑板变量，需要将黑板变量包围在引号内：
+\begin{SACCode}
+SAC> title '%MYTITLE%'
 \end{SACCode}
 
 \SACTitle{相关命令}
