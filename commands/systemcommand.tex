@@ -10,10 +10,16 @@ S!YSTEM!C!OMMAND! command [ options ]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item command : 系统命令名 
-\item options : 命令需要的选项 
-\end{itemize}
+\begin{description}
+\item [command] 系统命令名 
+\item [options] 命令需要的选项
+\end{description}
 
 \SACTitle{说明}
 这个命令允许你在执行SAC的同时执行系统命令
+
+\SACTitle{示例}
+调用系统命令删除某些SAC文件：
+\begin{SACCode}
+SAC> sc rm *.SAC
+\end{SACCode}

@@ -2,7 +2,7 @@
 \label{cmd:installmacro}
 
 \SACTitle{概要}
-将一个宏文件安装到SAC全局宏目录中
+将宏文件安装到SAC全局宏目录中
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,13 +10,13 @@ INSTALLMACRO name [name ...]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item name SAC宏文件名
-\end{itemize}
+\begin{description}
+\item [name] SAC宏文件名
+\end{description}
 
 \SACTitle{说明}
-这个命令让你将你自己的宏文件安装到全局宏目录中，这样所有人都可以使用，全局宏目录位于
-~\lstinline{sac/aux/macros}~。
+该命令允许你将宏文件安装到SAC全局宏目录中，使得所有人都可以使用。
+全局宏目录位于~\lstinline{sac/aux/macros}~。
 
 \SACTitle{相关命令}
 \nameref{cmd:macro}

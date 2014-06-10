@@ -2,7 +2,7 @@
 \label{cmd:cut}
 
 \SACTitle{概要}
-定义要读入文件中的哪部分
+定义要读入文件中的哪部分（即数据截窗）
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,12 +10,12 @@ CUT [ON|OFF|pdw|SIGNAL]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ON : 打开cut开关但不改变pdw 
-\item OFF : 关闭cut开关
-\item pdw : 打开cut选项并设置pdw。
-\item SIGNAL : 即pdw为 A -1 F +1，代表读取文件中从到时前一秒到信号结束后一秒的数据 
-\end{itemize}
+\begin{description}
+\item [ON] 打开截窗选项但不改变pdw
+\item [OFF] 关闭截窗选项
+\item [pdw] 打开截窗选项并修改pdw。关于pdw，参考\nameref{subsec:pdw}一节。
+\item [SIGNAL] 等效于设置pdw为~\lstinline{A -1 F +1}~，即a前一秒到f后一秒的数据窗
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -23,50 +23,69 @@ cut off
 \end{SACDFT}
 
 \SACTitle{说明}
-pdw即partial data window，其定义了自变量的一个开始值和一个结束值，
-这两个值定义了文件中要被读取的部分，其一般格式为~\lstinline{ref offset ref offset}。
-其中ref为参考时刻标识，可以取~\lstinline{Z|B|E|O|A|F|N|Tn}，而offset为相对于ref的
-时间偏移量。
+cut命令仅仅设置了要读取的时间窗选项，并不对内存中的数据进行截取。因而，若要
+该命令起作用，需要在cut命令设置时间窗后使用read命令。与此相反，cutim命令会
+在命令执行时直接对内存中的数据进行截取。
 
-如果起始或结束offset省略则认为其为0，如果起始参考值省略则认为其为Z，如果结束
-参考值省略则认为其值与起始参考值相同。若cut选项为关，则读取整个文件，cut为开，
-则值读取由pdw定义的部分。
+若截窗选项为关，则读取整个文件；若截窗选项为开，则只读取由pdw定义的部分。
 
-下面的一些助记符号用于代表自变量的确定值：
-\begin{itemize}
-\item B: 磁盘文件起始值
-\item E: 磁盘文件结束值
-\item Z: 参考时间
-\item N: 将offset解释为数据点数而非自变量。其只用于结束值。
-\end{itemize}
+如果你想对一组有不同参考时刻的文件使用同样的时间窗，必须在执行cut前先使用synchronize
+命令使所有文件具有相同的参考时刻。synchronize命令修改了文件的头段使得所有文件
+具有相同的参考时刻，并调整所有相对时间。因而，你需要先读取所有文件，执行synchronize
+命令，使用writehdr将修改后的头段写入到磁盘文件中，然后再执行cut命令，并读取数据，
+这样才能得到正确的结果。
 
-下面的助记符号代表储存在SAC头段中的参考时间，常用于cut时间序列文件：
-\begin{itemize}
-\item O: 事件开始时间
-\item A: 初动到时
-\item F: 信号结束时间
-\item Tn: 用户自定义时间标记，n = 0,1...9
-\end{itemize}
-
-上面的助记符再加上可选的offset即定义了一个一个起始或结束值。O、A、 F以及Tn可以使用CHNHDR命令来定义。
-A和F也可以用自动事件拾取算法APK拾取得到或者人工绘图拾取(PLOTPK)到。如果你想对于一组有不同参考时间的
-文件使用同样的时间窗，你必须在执行cut和read命令之前先使用SYNCHRONIZE命令使得所有文件具有的参考时间。
-SYNCHRONIZE修改了文件的头使得所有文件具有相同的参考时间，并且调整所有相对到时，使得事件的GMT时间保持
-不变。由于cut命令作用在磁盘文件的头段，你必须在SYNCHRONIZE命令之后、READ命令之前，使用WRITEHDR将修改
-后的头段写入磁盘文件中，这样才能得到正确的结果。
-
-\SACTitle{例子}
-在下面的例子展示了pdw的可能情况，我们假定时间是自变量，单位为秒:
+\SACTitle{示例}
+下面的宏文件展示了cut命令的一些常见用法。建议将此宏文件的结果与cutim命令的宏文件
+结果进行比较：
 \begin{SACCode}
- B E  磁盘文件开始到文件结束-与cut off相同
- B 0 30  磁盘文件起始的30秒
- A -10 30  初动前10秒到初动后30秒
- B N 2048   磁盘文件最初的2048个点
- 30.2 48  相对磁盘文件0点的30.2到48秒
+fg seismo 
+wrie seismo.sac                                                                
+echo on                                                                        
+* no cutting                                                                   
+lh b e a kztime                                                                
+read seismo.sac                                                                
+* begin to end---same as not cutting.                                          
+cut B E                                                                        
+read                                                                           
+lh b e a kztime                                                                
+read seismo.sac                                                                
+* First 3 secs of the file                                                     
+cut B 0 3                                                                      
+read                                                                           
+lh b e a kztime                                                                
+read seismo.sac                                                                
+* First 100 points of the file.                                                
+cut B N 100                                                                    
+read                                                                           
+lh b e a delta kztime                                                          
+read seismo.sac                                                                
+* From 0.5 secs before to 3 secs after first arrival                           
+cut A -0.5 3                                                                   
+read                                                                           
+lh b e a kztime                                                                
+read seismo.sac                                                                
+* From 19 to 15 secs relative to zero (DIFFERENT FROM CUTIM).                  
+cut 10 15                                                                      
+read                                                                           
+lh b e a kztime                                                                
+read seismo.sac                                                                
+* First 3 secs of the file and next 3 sec                                      
+cut b 0 3                                                                      
+read                                                                           
+write tmp.1                                                                    
+read seismo.sac                                                                
+cut b 3 6                                                                      
+read                                                                           
+write tmp.2                                                                    
+cut off                                                                        
+read tmp.?                                                                     
+lh b e a kztime                                                                
+p1  
 \end{SACCode}
 
-你也可以在CUTERR命令中使用FILLZ选项，在文件的开始或结尾处补0，这种做法适用于定义一个cut长度
-大于文件长度的cut操作，然后使用READ命令读入内存。
+当要截取的窗超过了文件的时间范围时，可以使用CUTERR命令的FILLZ选项，
+在文件的开始或结尾处补0，再使用READ命令读入内存。
 \begin{SACCode}
 SAC> r N11A.lhz
 SAC> lh npts
@@ -81,17 +100,14 @@ npts = 4096
  
 \SACTitle{错误消息}
 \begin{itemize}
-\item[-]1322: 未定义文件剪裁的起始（可能原因是头段中的参考值未定义，这个错误可以用
+\item[-]1322: 未定义文件截窗的起始（可能原因是头段中的参考值未定义，这个错误可以用
     CUTERR命令控制，当这个错误被关闭时，使用磁盘文件起始值作为替代）
 \item[-]1323: 未定义文件裁剪的结束值
-\item[-]1324: 起始裁剪值小于文件开始值（这个错误可以使用CUTERR来控制，当这个错误被
+\item[-]1324: 截窗起始值小于文件开始值（这个错误可以使用CUTERR来控制，当这个错误被
     关闭时，使用文件的起始值代替错误值或者在文件起始补0）
 \item[-]1325: 结束裁剪值大于文件结束值
 \item[-]1326: 起始裁剪值大于文件结束值（错误的cut参数）
 \end{itemize}
-
-注意: 由于这是一个参数设定类型的命令，因而上面的错误在执行read命令之前是不会出现的。
-当然上面的一些错误也可以通过cuterr命令转换为警告。
 
 \SACTitle{限制}
 目前不支持非等间隔文件或谱文件的截断。该命令对ASCII格式的SAC文件无效。
