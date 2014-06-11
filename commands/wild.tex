@@ -2,7 +2,7 @@
 \label{cmd:wild}
 
 \SACTitle{概要}
-设置读命令中用于扩展文件表的通配符
+设置读命令中用于扩展文件列表的通配符
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,13 +10,13 @@ WILD [ECHO ON|OFF] [SINGLE char] [MULTIPLE char] [CONCATENATION chars]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ECHO ON : 打开扩展文件表回应开关，当这个选项打开并且在文件表中有通配符时才有回应。 
-\item ECHO OFF : 关闭扩展文件表回应开关 
-\item SINGLE char : 改变用于匹配单个字符的通配符 
-\item MULTIPLE char : 改变用于匹配多个字符的通配符 
-\item CONCATENATION chars : 改变用于字符串两侧的两个字符连接串 
-\end{itemize}
+\begin{description}
+\item [ECHO ON] 打开扩展文件表回显选项；当该选项打开时，会回显被通配符展开的文件列表
+\item [ECHO OFF] 关闭扩展文件表回显开关
+\item [SINGLE char] 修改用于匹配单个字符的通配符
+\item [MULTIPLE char] 修改用于匹配多个字符的通配符 
+\item [CONCATENATION chars] 修改用于将联接字符串括起来的字符
+\end{description}
 
 \SACTitle{缺省值}
 \begin{center}
@@ -33,7 +33,9 @@ CONCATENATION& [,] & 	(,)  	&	[,]		\\
 \end{center}
 
 \SACTitle{说明}
-很多现代操作系统都提供了通配符特性，也可以称为文件扩展。它是一个可以让你使用简短文件名以及简单的简写形式去指定一组文件的代号。SAC在READ、READTABLE以及READHDR命令中使用通配符及一些扩展名，使用这些代号，你可以很容易地访问一些文件组:
+很多现代操作系统都提供了通配符特性，也可以称为文件扩展。它是一个可以让你使用
+简短文件名以及简单的简写形式去指定一组文件的表示符号。SAC在READ、READTABLE以及READHDR
+命令中使用通配符及一些扩展名，使用这些表示符号，你可以很容易地访问一组文件：
 \begin{itemize}
 \item 所有以字母``abc''开头的文件
 \item 所有以``z''结尾的文件
@@ -56,7 +58,7 @@ SAC使用通配符完成文件名的扩展，通常有几个步骤:
 
 下例将帮助你理解怎样使用这些通配符元素，一个有用的特征是SAC保存包含在连接表上的字符串，当你输入一个空表，则前面的表将被重复使用，这可以节省许多输入的操作。
 
-\SACTitle{例子}
+\SACTitle{示例}
 假定当前目录中包含如下次序的文件:
 \begin{SACCode}
 ABC DEF STA01E STA01N STA01Z STA02E STA02N STA02Z STA03Z

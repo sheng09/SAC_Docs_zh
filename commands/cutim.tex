@@ -2,7 +2,7 @@
 \label{cmd:cutim}
 
 \SACTitle{概要}
-裁剪内存中的文件，其可以从每个文件裁剪多段
+截取内存中的文件
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,26 +10,49 @@ CUTIM pdw [pdw ... ]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-    \item pdw : Partial Data Window，它包含了一个自变量的起始值和结束值，其定义了文件中要读取的部分。pdw的一般形式为\lstinline{ref offset ref offset}
-\item ref : 参考值，可以取Z|B|E|O|A|F|Tn（n=0,1...9）中的一个，具体参见cut
-\item offset : 加到参考值上的一个正数或负数 
-\end{itemize}
+\begin{description}
+\item [pdw] 要截取的时间窗。参考\nameref{subsec:pdw}
+\end{description}
 
 \SACTitle{缺省值}
 如果起始或结束offset省略则认为其为0，如果起始参考值省略则认为其为Z，如果结束参考值省略则认为其值与起始参考值相同。
 
 \SACTitle{说明}
-CUT命令只能要截取的数据点然后等待下一个READ命令，CUTIM则在这个命令给出的时候执行截取操作，
-用户可以READ一个文件，然后输入CUTIM以及需要的截取区间，SAC将不通过磁盘直接裁剪文件。CUTIM也允许多对数据截取区间，
-用户可以READ三个文件到SAC，然后使用有4个截取区间的CUTIM命令，最终内存中将得到12个文件。
+cut命令设置截窗选项，仅对即将读取的文件进行截窗，而对内存中的数据没有效果。
+cutim则在这个命令给出的时候对内存中的数据进行截窗操作。
 
-**注意**  N选项对于CUTIM不可用
+用户可以用read读入文件，然后用cutim对内存中的文件直接进行截窗。
+cutim也允许使用多个截取区间，用户可以READ三个文件到内存，然后使用有4个截取区间的
+CUTIM命令，最终内存中将得到12个文件。
 
-\SACTitle{例子}
-如果一个结束时间是用震相拾取信息标记的，并且下一个起始时间是一个相对0时刻的偏移量，
-那就要避免给出一个以0时刻为参考的结束时间``T1 T2 0 1000 1500''，
-否则，1000会被当作相对T2的偏移，SAC将认为第二个起始时间(1500)缺少了一个	结束时间
+\SACTitle{示例}
+下面的宏文件展示了cutim命令的常见用法：
+\begin{SACCode}
+fg seismo
+echo on
+* no cutting
+lh b e a kztime
+* begin to end---same as not cutting. 
+cutim B E
+lh b e a kztime
+fg seismo
+* First 3 secs of the file.
+cutim B 0 3 
+lh b e a kztime
+fg seismo
+* From 0.5 secs before to 3 secs after first arrival
+cutim A -0.5 3
+lh b e a kztime
+fg seismo
+* From 0.5 to 5 secs relative to disk file start.
+cutim 0.5 5 
+lh b e a kztime
+fg seismo
+* First 3 secs of the file and next 3 sec
+cutim b 0 3 b 3 6 
+lh b e a kztime
+p1
+\end{SACCode}
 
 \SACTitle{错误消息}
 \begin{itemize}
@@ -39,8 +62,6 @@ CUT命令只能要截取的数据点然后等待下一个READ命令，CUTIM则�
 \item[-]1325: 结束裁剪值大于文件结束值
 \item[-]1326: 起始裁剪值大于文件结束值
 \end{itemize}
-
-**注意** 上面的一些错误也可以通过CUTERR命令变成警告
 
 \SACTitle{限制}
 目前不支持截取非等间隔数据或谱文件
