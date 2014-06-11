@@ -2,7 +2,7 @@
 \label{cmd:whiten}
 
 \SACTitle{概要}
-平滑输入的时间序列的频谱。
+平滑输入的时间序列的频谱
 
 \SACTitle{语法}
 \begin{SACSTX}
@@ -10,10 +10,10 @@ W!H!IT!EN! n [F!ILTER!D!ESIGN!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item n :  阶数(极数)。这个数越大，结果数据就越平滑。高阶可以更好的清除一些数据，但是也可能会导致对数据处理过多而丢掉一些重要的数据。默认值为6。 
-\item FD : 进行一些类似于filterdesign的命令，使用白化系数，设计一个白化滤波器。详情可以参考filterdesign命令。
-\end{itemize}
+\begin{description}
+\item [n]  阶数(极数)。这个数越大，结果数据就越平滑。高阶可以更好的清除一些数据，但是也可能会导致对数据处理过多而丢掉一些重要的数据。默认值为6。 
+\item [FD] 进行一些类似于filterdesign的命令，使用白化系数，设计一个白化滤波器。详情可以参考filterdesign命令。
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}

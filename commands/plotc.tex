@@ -10,13 +10,13 @@ P!LOT!C [R!EPLAY!|C!REATE!] [F!ILE!|M!ACRO! filename] [B!ORDER! ON|OFF]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item REPLAY : 重新显示或绘制一个已经存在的文件或宏，关于文件和宏的区别见下 
-\item CREATE : 创建一个新的文件或宏 
-\item FILE filename : 重新显示或创建一个文件。如果省略文件名则使用上一个文件
-\item MACRO filename : 重新显示或创建一个宏 
-\item BORDER ON|OFF : 打开/关闭图形的边界 
-\end{itemize}
+\begin{description}
+\item [REPLAY] 重新显示或绘制一个已经存在的文件或宏，关于文件和宏的区别见下 
+\item [CREATE] 创建一个新的文件或宏 
+\item [FILE filename] 重新显示或创建一个文件。如果省略文件名则使用上一个文件
+\item [MACRO filename] 重新显示或创建一个宏 
+\item [BORDER ON|OFF] 打开/关闭图形的边界 
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -36,7 +36,7 @@ plotc create file out border on
 
 为了注释一个SAC绘图，要执行VSPACE命令设置正确的横纵比，然后执行BEGINFRAME命令关闭自动刷新，执行需要的SAC绘图命令，执行PLOTC命令（创建或者重新显示），然后执行ENDFRAME命令恢复自动刷新。
 
-\SACTitle{例子}
+\SACTitle{示例}
 下面的例子展示了如何使用PLOTC命令给一个SAC标准绘图添加注释。命令如下，括号中的内容为注释:
 \begin{SACCode}
 SAC> fg impulse npts 1024                      //生成文件

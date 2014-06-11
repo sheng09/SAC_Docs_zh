@@ -2,19 +2,18 @@
 \label{cmd:plot2}
 
 \SACTitle{概要}
-产生一个多道（multi-trace）单窗口(即重叠)绘图
+产生一个多波形单窗口绘图
 
 \SACTitle{语法}
 \begin{SACSTX}
-P!LOT!2 [A!BSOLUTE!|R!ELATIVE!] [PRINT pname]
+P!LOT!2 [A!BSOLUTE!|R!ELATIVE!]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item ABSOLUTE : 所有文件时间为绝对时间，具有不同的文件开始时间的文件将会相对于第一个文件移动 
-\item RELATIVE : 每个文件相对于自己的开始时间绘图 
-\item PRINT {pname} : 打印绘图结果到打印机 
-\end{itemize}
+\begin{description}
+\item [ABSOLUTE] 所有文件时间为绝对时间，具有不同的文件开始时间的文件将会相对于第一个文件移动 
+\item [RELATIVE] 每个文件相对于自己的开始时间绘图 
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -26,7 +25,7 @@ p2 absolute
 
 注意:由于某些原因，可能在内存中同时存在时间序列文件和谱文件并且没有选择相对绘图选项，则时间序列将以绝对模式绘图，谱文件将以相对模式绘图。相对模式意味着相对于第一个文件。因而内存中文件的顺序将影响绘图之间的关系。
 
-\SACTitle{例子}
+\SACTitle{示例}
 \begin{SACCode}
 SAC> read mnv.z.am knb.z.am elk.z.am
 SAC> xlim 0.04 0.16

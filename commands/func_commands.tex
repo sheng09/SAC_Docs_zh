@@ -147,6 +147,7 @@
 \item \nameref{cmd:width}：控制图形设备的线宽
 \item \nameref{cmd:color}：控制彩色图形设备的颜色选项
 \item \nameref{cmd:line}：控制绘图中的线型
+\item \nameref{cmd:symbol}：控制符号绘图属性
 \end{itemize}
 
 \subsection*{图像控制模块}
@@ -159,6 +160,21 @@
 \item \nameref{cmd:pause}：发送信息到终端并暂停
 \item \nameref{cmd:wait}：控制SAC在绘制多个图形时是否暂停
 \item \nameref{cmd:print}：打印最近的SGF文件
+\end{itemize}
+
+\subsection*{图像绘制模块}
+\begin{itemize}
+\item \nameref{cmd:plot}：绘制单波形单窗口图形
+\item \nameref{cmd:plot1}：绘制多波形多窗口图形
+\item \nameref{cmd:plot2}：产生一个多波形单窗口绘图
+\item \nameref{cmd:plotpk}：产生一个用于拾取到时的图
+\item \nameref{cmd:plotdy}：绘制一个带有误差棒的图
+\item \nameref{cmd:plotxy}：以一个文件为自变量，一个或多个文件为因变量绘图
+\item \nameref{cmd:plotalpha}：从磁盘读入字符数据型文件到内存并将数据绘制出来
+\item \nameref{cmd:plotc}：使用光标标注SAC图形和创建图件
+\item \nameref{cmd:plotsp}：用多种格式绘制谱数据
+\item \nameref{cmd:plotpm}：针对一对数据文件产生一个``质点运动''图
+\item \nameref{cmd:erase}：清除图形显示区域
 \end{itemize}
 
 \subsection*{谱分析模块}
@@ -177,11 +193,69 @@
 \item \nameref{cmd:benioff}：对数据使用Benioff滤波器
 \item \nameref{cmd:unwrap}：计算振幅和展开相位
 \item \nameref{cmd:wiener}设计并应用一个自适应Wiener滤波器
+\item \nameref{cmd:plotsp}：用多种格式绘制谱数据
+\item \nameref{cmd:readsp}：读取WRITESP和WRITESPE写的谱文件
+\item \nameref{cmd:writesp}：将谱文件作为一般文件写入磁盘
+\item \nameref{cmd:bandpass}：对数据文件使用无限脉冲带通滤波器
+\item \nameref{cmd:highpass}：对数据文件应用一个无限脉冲高通滤波器
+\item \nameref{cmd:lowpass}：对数据文件应用一个无限脉冲高通滤波器
+\item \nameref{cmd:bandrej}：应用一个无限脉冲带阻滤波器
+\item \nameref{cmd:fir}：应用一个有限脉冲响应滤波器
 \end{itemize}
 
 \subsection*{分析工具}
 \begin{itemize}
 \item \nameref{cmd:linefit}：对内存中数据的进行最小二乘线性拟合
+\item \nameref{cmd:correlate}：计算自相关和互相关函数
+\item \nameref{cmd:convolve}：计算主信号与内存中所有信号的卷积
+\item \nameref{cmd:envelope}：利用Hilbert变换计算包络函数
+\item \nameref{cmd:filterdesign}：产生一个滤波器的数字和模拟特性的图形显示，包括：振幅，相位，脉冲响应和群延迟。
+\item \nameref{cmd:map}：利用SAC内存中的所有数据文件生成GMT地图
+\item \nameref{cmd:whiten}：平滑输入的时间序列的频谱
+\item \nameref{cmd:arraymap}：利用SAC内存中的所有文件产生一个台阵或联合台阵的分布图
+\end{itemize}
+
+\subsection*{事件分析模块}
+\begin{itemize}
+\item \nameref{cmd:ohpf}：打开一个HYPO格式的震相文件
+\item \nameref{cmd:chpf}：关闭当前打开的HYPO震相拾取文件
+\item \nameref{cmd:whpf}：将辅助内容写入HYPO格式的震相拾取文件中
+\item \nameref{cmd:oapf}：打开一个字母数字型震相拾取文件
+\item \nameref{cmd:capf}：关闭目前打开的字符数字型震相拾取文件
+\item \nameref{cmd:apk}：对波形使用自动事件拾取算法（由连续信号判断是否其中是否包含地震事件）
+\item \nameref{cmd:plotpk}：产生一个用于拾取到时的图
+\item \nameref{cmd:mtw}：决定接下来命令中所使用的测量时间窗
+\item \nameref{cmd:markptp}：在测量时间窗内测量并标记最大峰峰值
+\item \nameref{cmd:marktimes}：根据一个速度集得到走时并对数据文件进行标记
+\item \nameref{cmd:markvalue}：在数据文件中搜索并标记某个值
+\item \nameref{cmd:rms}：利用测量时间窗计算数据的均方根
+\item \nameref{cmd:traveltime}：根据预定义的速度模型计算指定震相的走时
+\end{itemize}
+
+\subsection*{XYZ数据模块}
+\begin{itemize}
+\item \nameref{cmd:spectrogram}：使用内存中的所有数据计算频谱图
+\item \nameref{cmd:sonogram}：计算一个频谱图，其等价于同一个谱图的两个不同的平滑版本的差
+\item \nameref{cmd:image}：利用内存中的数据文件绘制彩色图
+\item \nameref{cmd:loadctable}：允许用户在彩色绘图中选择一个新的颜色表
+\item \nameref{cmd:grayscale}：产生内存中数据的灰度图像
+\item \nameref{cmd:contour}：利用内存中的数据绘制等值线图
+\item \nameref{cmd:zlevels}：控制后续等值线图上的等值线间隔
+\item \nameref{cmd:zcolors}：控制等值线的颜色显示
+\item \nameref{cmd:zlines}：控制后续等值线绘图上的等值线线型
+\item \nameref{cmd:zticks}：用方向标记标识等值线
+\item \nameref{cmd:zlabels}：根据等值线的值控制等值线的标记
+\end{itemize}
+
+\subsection*{仪器校正模块}
+\begin{itemize}
+\item \nameref{cmd:transfer}：反卷积以去除仪器响应并卷积以加入其它仪器响应
+\end{itemize}
+
+\subsection*{FK谱}
+\begin{itemize}
+\item \nameref{cmd:bbfk}：利用SAC内存中的所有文件计算宽频频率-波数谱估计
+\item \nameref{cmd:beam}：利用内存中的全部数据文件计算射线束
 \end{itemize}
 
 \newpage

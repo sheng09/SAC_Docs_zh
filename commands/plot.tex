@@ -2,21 +2,20 @@
 \label{cmd:plot}
 
 \SACTitle{概要}
-绘制单道(single-trace)单窗口图形
+绘制单波形单窗口图形
 
 \SACTitle{语法}
 \begin{SACSTX}
-P!LOT! [PRINT [pname]]
+P!LOT!
 \end{SACSTX}
 
-\SACTitle{输入}
-\begin{itemize}
-\item PRINT pname : 打印绘图结果到打印机
-\end{itemize}
-
 \SACTitle{说明}
-每个数据文件绘制在单独的图上，图形的整天大小由当前是口决定(参见XVPORT和VPORT)。每个图形的Y轴范围由数据的极值决定，也可以自己限制y轴的范围（参见YLIM命令）。X轴的范围由XLIM命令控制。用户可以控制每张图的文件id(参见FILEID)。时间标记也可以显示出来(see PICKS)。
-SAC会在每张图之间暂停给你机会检查每张图，其将会在终端输出``Waiting''并等待你的响应。你可以输入回车以查看下一张图，关键字``go''或``g''可以不暂停地绘制余下的所有文件，或者关键字``kill''或``k''可以中止绘制余下的文件。
+每个数据文件绘制在单独的图上，图形的整天大小由当前是口决定（参见XVPORT和VPORT）。
+每个图形的Y轴范围由数据的极值决定，也可以自己限制y轴的范围（参见YLIM命令）。
+X轴的范围由XLIM命令控制。用户可以控制每张图的文件id（参见FILEID）。时间标记也可以
+显示出来（参考PICKS）。SAC会在每张图之间暂停给你机会检查每张图，其将会在终端输出
+``Waiting''并等待你的响应。你可以输入回车以查看下一张图，关键字``go''或``g''
+可以不暂停地绘制余下的所有文件，或者关键字``kill''或``k''可以中止绘制余下的文件。
 
 \SACTitle{错误消息}
 \begin{itemize}

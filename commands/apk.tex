@@ -10,11 +10,11 @@ APK [param v [param v] ... ] [V!ALIDATION! ON|OFF]
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item param v：给参数赋值，param的可能取值在说明中会说到。
-\item VALIDATION ON：打开震相检验。
-\item VALIDATION OFF：关闭震相检验。
-\end{itemize}
+\begin{description}
+\item [param v] 给参数赋值，param的可能取值在说明中会说到。
+\item [VALIDATION ON] 打开震相检验。
+\item [VALIDATION OFF] 关闭震相检验。
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -50,7 +50,7 @@ apk c1 0.985 c2 3.0 c3 0.6 c4 0.03 c5 5.0 c6 0.0039 c7 100. c8 -0.1
 \SACTitle{头段变量改变}
 事件读取到的时间储存在A(即初动到时)中，运动的质量和方向储存在KA中，事件结束时间储存在F中
 
-\SACTitle{例子}
+\SACTitle{示例}
 \begin{SACCode}
 SAC> fg seis                //利用这个数据做个例子
 SAC> lh a                   //这个数据本身是标有A的，即初动到时

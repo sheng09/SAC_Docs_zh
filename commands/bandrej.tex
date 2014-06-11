@@ -11,17 +11,17 @@ B!AND!R!EJ! [BU!TTER!|BE!SSEL!|C1|C2] [C!ORNERS! v1 v2] [N!POLES! n] [P!ASSES! n
 \end{SACSTX}
 
 \SACTitle{输入}
-\begin{itemize}
-\item BUTTER: 应用一个Butterworth滤波器
-\item BESSEL:  应用一个Bessel滤波器
-\item C1: 应用一个Chebyshev I型滤波器
-\item C2: 应用一个Chebyshev II滤波器
-\item CORNERS v1 v2: 设定拐角频率分别为V1和V2
-\item NPOLES n: 设置极数为N, 范围: 1-10
-\item PASSES n: 设通道数为N, 范围: 1-2
-\item TRANBW v: 设置Chebyshev转换带宽为v
-\item ATTEN v: 设置Chebyshev衰减因子为v
-\end{itemize}
+\begin{description}
+\item [BUTTER] 应用一个Butterworth滤波器
+\item [BESSEL] 应用一个Bessel滤波器
+\item [C1] 应用一个Chebyshev I型滤波器
+\item [C2] 应用一个Chebyshev II滤波器
+\item [CORNERS v1 v2] 设定拐角频率分别为v1和v2，即频率通带为v1-v2
+\item [NPOLES n] 设置极数为N，范围: 1-10
+\item [PASSES n] 设通道数为N，范围: 1-2
+\item [TRANBW v] 设置Chebyshev转换带宽为v
+\item [ATTEN v] 设置Chebyshev衰减因子为v
+\end{description}
 
 \SACTitle{缺省值}
 \begin{SACDFT}
@@ -31,7 +31,7 @@ bandrej butter corner 0.1 0.4 npoles 2 passes 1 tranbw 0.3 atten 30
 \SACTitle{说明}
 参见命令bandpass的说明
 
-\SACTitle{例子}
+\SACTitle{示例}
 应用一个四极Butterworth滤波器，拐角频率为2 、5 Hz.:
 \begin{SACCode}
 SAC> br n 4 c 2 5
