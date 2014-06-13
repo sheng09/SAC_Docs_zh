@@ -34,6 +34,8 @@ f001.sgf            // 生成sgf文件
 \subsection{PS和PDF}
 自101.5之后，SAC加入了saveimg命令，以获得更高质量的绘图效果。saveimg会将当前xwindow
 窗口显示的图像以ps或pdf格式保存到图像文件中。
+    \footnote{该命令也支持输出为png和xpm格式，但png和xpm为位图图像格式，精度不够，
+    且依赖于其它函数库，因而不推荐使用。}
 
 \begin{SACCode}
 SAC> fg seis
