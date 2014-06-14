@@ -20,6 +20,7 @@ run:
 	sh image.sh
 	sh gmt.sh
 	sh taper.sh
+	sh ppm.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}

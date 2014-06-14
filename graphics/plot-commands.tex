@@ -1,6 +1,6 @@
 \section{绘图命令}
 SAC提供了许多与绘图有关的命令，包括控制图像外观的参数控制类命令以及执行绘图功能
-的操作执行类命令。这一节将一一介绍这些操作执行类命令。
+的操作执行类命令。这一节将一一介绍操作执行类命令。
 
 \subsection{plot}
 plot命令在一个窗口中每次只显示一个波形，并在每两个波形之间暂停以等待用户的输入。
@@ -53,6 +53,30 @@ plotpk与plot1类似，可以在一个窗口中显示指定个数的波形，所
 的Y轴。该命令主要用于震相拾取，在``~\nameref{sec:phase-picking}~''一节有详细介绍。
 
 \subsection{plotpm}
+plotpm绘制一对波形数据的质点运动图。从质点运动图中，可以得到震相的相关信息。
+
+下面的例子利用垂直和径向分量的波形数据绘制Rayleigh面波的质点运动轨迹：
+\begin{SACCode}
+SAC> dg sub tele nykl.z             // Z分量        
+SAC> w nykl.z           
+SAC> dg sub tele nykl.e nykl.n      // E、N分量
+SAC> rotate to gcp                  // 旋转至大圆路径
+SAC> w nykl.r nykl.t                // R、T分量
+SAC> r nykl.z nykl.r                // 读入Z和R分量
+SAC> xlabel 'Radial component'
+SAC> ylabel 'Vertical component'
+SAC> title 'Particle-motion plot for partial Rayleigh wave'
+SAC> xlim 1300 1340                 // 仅绘制Rayleigh面波的部分时间窗
+SAC> ppm                            // 绘制质点运动图
+\end{SACCode}
+
+可以看到，Rayleigh面波运动轨迹呈标准的逆进椭圆：
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{ppm}
+\caption[质点运动图。]{Rayleigh面波的部分时间窗内的质点运动轨迹，为标准的逆进椭圆。}
+\label{fig:ppm}
+\end{figure}
 
 \subsection{plotalpha}
 \subsection{plotc}
