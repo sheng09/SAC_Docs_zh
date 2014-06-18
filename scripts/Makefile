@@ -21,6 +21,7 @@ run:
 	sh gmt.sh
 	sh taper.sh
 	sh ppm.sh
+	sh plotsp.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -40,3 +41,5 @@ install:
 	mv image.eps ${FIGURE}
 	mv gmt.eps ${FIGURE}
 	mv taper.eps ${FIGURE}
+	mv ppm.eps ${FIGURE}
+	mv plotsp.eps ${FIGURE}

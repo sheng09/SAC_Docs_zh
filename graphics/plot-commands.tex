@@ -79,3 +79,19 @@ SAC> ppm                            // 绘制质点运动图
 \end{figure}
 
 \subsection{plotsp}
+plotsp命令用于绘制不同格式的谱文件，可以绘制``振幅+相位''或者``实部+虚部''，
+同时可以任意指定X、Y轴为线性轴或对数轴。
+
+下面的命令对波形数据进行FFT得到谱文件，并使用plotsp命令绘制其振幅谱：
+\begin{SACCode}
+SAC> fg seis
+SAC> fft
+SAC> psp am loglog
+\end{SACCode}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{plotsp}
+\caption{plotsp绘制振幅谱}
+\label{fig:plotsp}
+\end{figure}
