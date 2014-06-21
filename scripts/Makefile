@@ -22,6 +22,7 @@ run:
 	sh taper.sh
 	sh ppm.sh
 	sh plotsp.sh
+	sh linefill.sh
 
 install:
 	mv SAC_logo.eps ${FIGURE}
@@ -43,3 +44,4 @@ install:
 	mv taper.eps ${FIGURE}
 	mv ppm.eps ${FIGURE}
 	mv plotsp.eps ${FIGURE}
+	mv linefill.eps ${FIGURE}
