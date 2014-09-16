@@ -6,7 +6,7 @@
 在``\nameref{sec:history}''中已经说到，SAC协议仅允许在IRIS社区内部分享SAC的源码，
 所以SAC不像很多软件一样可以很方便地通过软件包管理器安装或者直接从网络下载源码。
 
-软件包申请地址~:~\url{http://www.iris.edu/forms/sac\_request.htm}
+软件包申请地址~:~\url{http://www.iris.edu/ds/nodes/dmc/forms/sac/}
 
 认真填写个人信息，尤其注意Email那一栏，需要填写单位邮箱，如果使用
 QQ、163这样的邮箱很容易直接被拒绝，如果没有单位邮箱，需要提供其它
@@ -33,7 +33,7 @@ $ sudo apt-get install libncurses5-dev libsm-dev libice-dev \
 \begin{lstlisting}[style=Shell]
 $ sudo yum groupinstall 'Development Tools'
 $ sudo yum install glibc ncurses-devel libSM-devel libICE-devel \
-        libXpm-devel libX11-devel zlib-devel 
+        libXpm-devel libX11-devel zlib-devel
 \end{lstlisting}
 
 \subsection*{安装}
@@ -45,7 +45,7 @@ $ sudo yum install glibc ncurses-devel libSM-devel libICE-devel \
 $ tar -zxvf sac-101.6a-linux_x86_64.tar.gz
 \end{lstlisting}
 
-复制sac文件夹到安装目录(推荐安装目录为\lstinline{/usr/local})：
+复制sac文件夹到安装目录（推荐安装目录为\lstinline{/usr/local}）：
 \begin{lstlisting}[style=Shell]
 $ sudo cp -r sac /usr/local
 \end{lstlisting}
@@ -66,9 +66,9 @@ export SACHOME=/usr/local/sac
 export SACAUX=$SACHOME/aux
 export PATH=$SACHOME/bin:$PATH
 
-export SAC_DISPLAY_COPYRIGHT=1                                                   
+export SAC_DISPLAY_COPYRIGHT=1
 export SAC_PPK_LARGE_CROSSHAIRS=1
-export SAC_USE_DATABASE=0                                                        
+export SAC_USE_DATABASE=0
 \end{lstlisting}
 
 其中，
@@ -100,5 +100,5 @@ $ sac
  SEISMIC ANALYSIS CODE [11/11/2013 (Version 101.6a)]
  Copyright 1995 Regents of the University of California
 
-SAC> 
+SAC>
 \end{lstlisting}
