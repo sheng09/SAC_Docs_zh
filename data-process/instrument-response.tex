@@ -3,7 +3,7 @@
 相关命令：\nameref{cmd:transfer}
 
 地震仪器观测到的地面运动记录可以表示为
-\[  u(t) = s(t) * g(t) * i(t) \] 
+\[  u(t) = s(t) * g(t) * i(t) \]
 其中$s(t)$代表震源项， $g(t)$代表路径效应，$i(t)$代表仪器响应，星号代表卷积。
 
 四个量中，$u(t)$是仪器记录的结果，已知；$i(t)$在仪器设计的时候会给出各种参数，已知；
@@ -22,7 +22,7 @@ $s(t)$和$g(t)$是未知的，也是地震学研究的两个主要内容：震�
 \subsection{transfer}
 transfer命令的基本语法是
 \begin{SACSTX}
-!TRANS!FER [FROM type [!SUB!TYPE subtype]] [TO type [!SUB!TYPE subtype]] 
+!TRANS!FER [FROM type [!SUB!TYPE subtype]] [TO type [!SUB!TYPE subtype]]
 [!FREQ!LIMITS f1 f2 f3 f4] [!PREW!HITENING ON|OFF|n]
 \end{SACSTX}
 
@@ -70,20 +70,20 @@ SAC> trans from WWSP to VEL
 \centering
 \ttfamily
 \small
-\caption{SAC内置仪器类型列表}	
+\caption{SAC内置仪器类型列表}
 \label{table:instrument-type}
 \begin{tabular}{ll}
 \toprule
 type	 &	说明	\\
 \midrule
 BBDISP   &  Blacknest specification of Broadband Displacement \\
-BBVEL    &  Blacknest specification of Broadband Velocity	\\	
+BBVEL    &  Blacknest specification of Broadband Velocity	\\
 BENBOG   &  Blacknest specification of Benioff by Bogert	\\
-DSS      &  LLNL Digital Seismic System	\\	
+DSS      &  LLNL Digital Seismic System	\\
 DWWSSN   &  Digital World Wide Standard Seismograph Station	\\
 EKALP6   &  Blacknest specification of EKA LP6	\\
 EKASP2   &  Blacknest specification of EKA SP2	\\
-ELMAG    &  Electromagnetic	\\	
+ELMAG    &  Electromagnetic	\\
 GBALP    &  Blacknest specification of GBA LP	\\
 GBASP    &  Blacknest specification of GBA SP	\\
 GENERAL  &  General seismometer	\\
@@ -91,24 +91,24 @@ GSREF    &  USGS Refraction	\\
 HFSLPWB  &  Blacknest specification of HFS LPWB	\\
 IW       &  EYEOMG-spectral differentiation	\\
 LLL      &  LLL broadband analog seismometer	\\
-LLSN     &  LLSN L-4 seismometer	\\	
+LLSN     &  LLSN L-4 seismometer	\\
 LNN      &  Livermore NTS Network instrument	\\
 LRSMLP   &  Blacknest specification of LRSM LP	\\
 LRSMSP   &  Blacknest specification of LRSM SP	\\
 NORESS   &  NORESS (NRSA)	\\
 NORESSHF &  NORESS high frequency element	\\
 OLDBB    &  Old Blacknest specification of BB	\\
-OLDKIR   &  Old Blacknest specification of Kirnos	\\	
+OLDKIR   &  Old Blacknest specification of Kirnos	\\
 PORTABLE &  Portable seismometer with PDR2	\\
 PTBLLP   &  Blacknest specification of PTBL LP	\\
-REDKIR   &  Blacknest specification of RED Kirnos	\\	
+REDKIR   &  Blacknest specification of RED Kirnos	\\
 REFTEK   &  Reftek 97-01 portable instrument	\\
 RSTN     &  Regional Seismic Test Network	\\
 S750     &  S750 Seismometer	\\
 SANDIA   &  Sandia system 23 instrument	\\
 SANDIA3  &  Sandia new system with SL-210	\\
 SRO      &  Seismic Research Observatory	\\
-WA       &  Wood-Anderson	\\	
+WA       &  Wood-Anderson	\\
 WABN     &  Blacknest specification of Wood-Anderson	\\
 WIECH    &  Wiechert seismometer	\\
 WWLPBN   &  Blacknest specification of WWSSN long period	\\
@@ -222,7 +222,7 @@ RESP文件中包含了仪器响应的所有细节，因而相对来说较为繁�
 地震仪器的响应函数（即线性系统脉冲响应）一般用Laplace域的零极点来表示。响应函数
 $H(s)$由$nz$个零点和$np$个极点构成，如下式所示：
 \[ H(s) = \frac{(s-z_1)(s-z_2)\ldots(s-z_{nz})}{(s-p_1)(s-p_2)\ldots(p-z_{np})}\]
-其中，Laplace变量$s=2\pi f i$，$f$为频率，单位$Hz$。 
+其中，Laplace变量$s=2\pi f i$，$f$为频率，单位$Hz$。
 
 PZ文件中宏包含零点、极点、常数值以及注释行，其中常数是比例因子。常数行的缺省值为1.0。
 
@@ -267,17 +267,17 @@ PZ文件中还包含格式化的注释行信息，以帮助用户组织和理解
     * SENSITIVITY       : 5.247780e+09 (M/S)
     * A0                : 7.273290e+01
     * **********************************
-    ZEROS	6	
-    -7.853982e+01	+0.000000e+00	
-    -1.525042e-01	+0.000000e+00	
-    -1.525042e-01	+0.000000e+00	
+    ZEROS	6
+    -7.853982e+01	+0.000000e+00
+    -1.525042e-01	+0.000000e+00
+    -1.525042e-01	+0.000000e+00
     POLES	6
-    -1.207063e-02	+1.224561e-02	
-    -1.207063e-02	-1.224561e-02	
-    -1.522510e-01	+9.643684e-03	
-    -1.522510e-01	-9.643684e-03	
-    -4.832398e+01	+5.817080e+01	
-    -4.832398e+01	-5.817080e+01	
+    -1.207063e-02	+1.224561e-02
+    -1.207063e-02	-1.224561e-02
+    -1.522510e-01	+9.643684e-03
+    -1.522510e-01	-9.643684e-03
+    -4.832398e+01	+5.817080e+01
+    -4.832398e+01	-5.817080e+01
     CONSTANT	3.816863e+11
 \end{SACCode}
 
@@ -312,7 +312,7 @@ SAC> mul 1.0e9          // 由于是to none，这里必须乘以1.0e9
 SAC> w OR075.z          // 此时数据为位移量，单位为nm
 \end{SACCode}
 
-加入在上面的例子中，没有使用~\lstinline{SAC_PZs_XC_OR075_LHZ}，而是使用了错误
+假如在上面的例子中，没有使用~\lstinline{SAC_PZs_XC_OR075_LHZ}，而是使用了错误
 的PZ文件~\lstinline{SAC_PZs_wrong}，下面的过程给出如何调用transfer命令去除不正确的
 响应并加入正确的响应：
 \begin{SACCode}
