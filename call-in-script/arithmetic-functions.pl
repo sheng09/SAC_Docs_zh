@@ -5,8 +5,6 @@ use Math::Trig;
 $ENV{SAC_DISPLAY_COPYRIGHT}=0;
 
 my $var1 = (1+2)*3/4;
-print "$var1 $var2 $var3\n";
-
 open(SAC, "| sac") or die "Error in opening sac\n";
 print SAC "fg seis \n";
 print SAC "rmean; rtr; taper \n";
