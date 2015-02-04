@@ -2,7 +2,7 @@
 \label{sec:save-image}
 
 \subsection{xwindows}
-xwindows是SAC中最常用绘图设备，对于震相拾取等交互式操作更是比不可缺。
+xwindows是SAC中最常用绘图设备，对于震相拾取等交互式操作更是必不可缺。
 \begin{SACCode}
 SAC> fg seis
 SAC> bd x       // begindevice xwinows，可省略
@@ -20,10 +20,10 @@ SGF图形设备会将图像信息保存到SGF文件中。其使用方式为：``
 \begin{SACCode}
 SAC> fg seis
 SAC> bd sgf         // 启动sgf设备，不可省略
-SAC> p 
+SAC> p
 SAC> ed sgf         // 关闭sgf设备，可省略
 SAC> q
-$ ls 
+$ ls
 f001.sgf            // 生成sgf文件
 \end{SACCode}
 
