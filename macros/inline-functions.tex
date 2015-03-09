@@ -20,7 +20,7 @@ SAC提供了如下几类内联函数：
 \subsection{算术运算符}
 算术运算符即常规的加减乘除运算符，但又有不同，其一般形式如下：
 \begin{SACCode}
-    ( number operator number ) 
+    ( number operator number )
 \end{SACCode}
 所有的操作数都被认为是实型的，所有的算术运算都按照双精度浮点型进行运算；
 
@@ -28,10 +28,10 @@ SAC支持的操作符是包括：``\lstinline{ +  -  *  /  ** }''
 
 看几个简单的例子:
 \begin{SACCode}
-SAC> echo on                
+SAC> echo on
 SAC> setbb var1 4+7             // 忘记加括号了！"4+7"被当成了字符串
  setbb var1 4+7
-SAC> setbb var2 (4+7)           
+SAC> setbb var2 (4+7)
  setbb var2 (4+7)
  ==>  setbb var2 11             // 4+7=11
 SAC> setbb var3 (4+7/3)         // 优先级正确
@@ -129,7 +129,7 @@ SAC> setbb vmax (max &1,depmax& &2,depmax& &3,depmax& &4,depmax&)
 SAC> setbb vmin (min &1,depmin& &2,depmin& &3,depmin& &4,depmin&)
  ==> setbb vmin -2.123371
 SAC> div ( max (abs %vmax%) (abs %vmin%) )      // 嵌套
- ==>  div 2.123371 
+ ==>  div 2.123371
 \end{SACCode}
 此例可以通过多重嵌套的方式在单个命令中完成，但上面的写法可读性更强。
 
@@ -191,7 +191,7 @@ SAC> title (conc "Seismogram of " &1,kevnm& " " &1,kstnm&)
  ==>  title Seismogram of K8108838 CDV                  // 错误标题！
 SAC> title '(conc "Seismogram of " &1,kevnm& " " &1,kstnm&)'
  ==>  title "(conc "Seismogram of " K8108838 " " CDV)"  // 错误标题！
-SAC> title "Seismogram of &1,kevnm& &1,kstnm&"          
+SAC> title "Seismogram of &1,kevnm& &1,kstnm&"
  ==>  title "Seismogram of K8108838 CDV"                // 正确标题！
 \end{SACCode}
 
