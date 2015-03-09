@@ -19,7 +19,7 @@ psp am
 SAC> macro mystuff
 \end{SACCode}
 终端中并不会显示正在执行的宏文件中的命令，可以使用echo命令来设置在终端显示哪些东西。
-另外，任意一行的第一列若有星号则意味着该行为注释行，SAC不会不解释该行。
+另外，若某行的第一列为星号则该行为注释行，SAC不会去执行注释行。
 
 \subsection{宏搜索路径}
 当你执行一个宏文件而又没有给出宏文件的绝对路径时,SAC会按照下面的路径顺序搜索宏文件：
@@ -49,7 +49,7 @@ psp am
 ~``\lstinline{$1$}''~、~``\lstinline{$2$}''~和~``\lstinline{$3$}''~分别表示宏文件
 接收到的第一、二、三个参数，用下面的命令执行这个宏文件：
 \begin{SACCode}
-SAC> macro mystuff ABC DEF XYZ 
+SAC> macro mystuff ABC DEF XYZ
 \end{SACCode}
 
 可以用下面的命令再次执行这个宏文件，但读取不同的文件：
@@ -95,7 +95,7 @@ psp am
 \lstinline{$default$}~指定了宏参数~\lstinline{values}~的缺省值，若在执行宏文件时不输入
 values的参数值那么这些参数将使用缺省值：
 \begin{SACCode}
-SAC> macro mystuff files ABC DEF XYZ 
+SAC> macro mystuff files ABC DEF XYZ
 \end{SACCode}
 如果想要使用不同的值，可以像下面这样输入：
 \begin{SACCode}
@@ -116,13 +116,13 @@ files? ABC DEF XYZ          // 用户输入ABC DEF XYZ
 头段变量、黑板变量、宏参数以及字符串可以直接联接在一起。
 
 \begin{SACCode}
-$keys$ station                                                                   
-fg seis                                                                          
-echo on                                                                          
-setbb sta $station$.z                                                            
-setbb tmp ABC                                                                    
-setbb tmp1 XYZ%tmp%                                                              
-setbb tmp2 (&1,o&)                                                               
+$keys$ station
+fg seis
+echo on
+setbb sta $station$.z
+setbb tmp ABC
+setbb tmp1 XYZ%tmp%
+setbb tmp2 (&1,o&)
 setbb fname $station$%tmp%%tmp1%%tmp2%.SAC
 \end{SACCode}
 
@@ -247,7 +247,7 @@ do time2 from 2 to 10 by 2
     title 'Particle motion from %time1% to $time2$'
     plotpm
     setbb time1 $time2$
-enddo 
+enddo
 \end{SACCode}
 
 在下面的例子中，一个宏文件调用另一个名为preview的宏文件，通过do循环以达到多次调用preview的目的：
@@ -263,7 +263,7 @@ enddo
 \begin{SACCode}
 do file wild dir mydir *.Z
     macro preview $file$
-enddo 
+enddo
 \end{SACCode}
 
 最后一个例子有三个参数，第一个是文件名，第二个是一个常数，第三个是一个阀值。宏文件读取了
@@ -272,7 +272,7 @@ enddo
 r $1$
 while &1,depmax& gt $3$
     mul $2$
-enddo 
+enddo
 \end{SACCode}
 
 另一个与break有关的宏文件：
@@ -283,7 +283,7 @@ while 1 gt 0
     if &1,depmax& gt $3$
         break
     endif
-enddo 
+enddo
 \end{SACCode}
 这个while循环是一个无限循环，它只能通过break来中断。
 
