@@ -8,9 +8,6 @@ SAC参考手册
 - 文档发布页：http://seisman.info/sac-manual.html
 - 源码：LaTeX
 
-test for pull request
-
-
 依赖
 ----
 
