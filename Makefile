@@ -1,7 +1,15 @@
-all:
-	xelatex SAC_Docs
-	xelatex SAC_Docs
-	xelatex SAC_Docs
+#
+# Makefile for LaTeX project SAC_Docs_zh
+#
+# Reference: http://tex.stackexchange.com/questions/40738/
+#
+
+.PHONY: SAC_Docs.pdf all clean
+
+all: SAC_Docs.pdf
+
+SAC_Docs.pdf: SAC_Docs.tex
+	latexmk -pdf -pdflatex="xelatex -interactive=nonstopmode" -use-make SAC_Docs.tex
 
 clean:
-	-rm *.aux *.lof *.log *.out *.toc *.lot
+	latexmk -CA
