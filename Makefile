@@ -12,4 +12,4 @@ SAC_Docs.pdf: SAC_Docs.tex
 	latexmk -pdf -pdflatex="xelatex -interactive=nonstopmode" -use-make SAC_Docs.tex
 
 clean:
-	latexmk -CA
+	latexmk -c
