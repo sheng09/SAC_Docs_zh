@@ -8,7 +8,11 @@ For users:
 
 - 修复bugs和typos；
 - 命令整理：`systemcommand`；
-- 新增内容：“波形排序”、“标记震相理论走时的三种方法”；
+- 新增内容
+
+  - 波形排序
+  - 标记震相理论走时的三种方法
+  - 图像格式转换
 
 For developers:
 
