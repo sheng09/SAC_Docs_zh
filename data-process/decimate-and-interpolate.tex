@@ -15,7 +15,7 @@ SAC> lh delta npts
   FILE: SEISMOGR - 1
  --------------
 
-     delta = 1.000000e-02
+     delta = 1.000000e-02       //采样间隔delta=0.01
       npts = 1000
 SAC> decimate 5; decimate 2     // 减采样10倍
 SAC> lh delta npts
@@ -23,7 +23,7 @@ SAC> lh delta npts
   FILE: SEISMOGR - 1
  --------------
 
-     delta = 9.999999e-02       // delta=0.001，忽略此处的数值误差
+     delta = 9.999999e-02       //采样间隔delta=0.1，忽略此处的数值误差
       npts = 100
 SAC> interpolate delta 0.015    // 重新插值到delta=0.015
 SAC> lh delta npts
