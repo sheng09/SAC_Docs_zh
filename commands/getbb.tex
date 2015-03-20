@@ -6,7 +6,7 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-GETBB [TO TERM!inal!|filename] [NAMES ON|OFF] [NEWLINE ON|OFF] 
+GETBB [TO TERM!inal!|filename] [NAMES ON|OFF] [NEWLINE ON|OFF]
     ALL|variable [variable ...]
 \end{SACSTX}
 
@@ -15,10 +15,10 @@ GETBB [TO TERM!inal!|filename] [NAMES ON|OFF] [NEWLINE ON|OFF]
 \item [TO TERMINAL] 打印值到终端
 \item [TO filename] 将值追加到文件filename后
 \item [NAMES ON] 输出格式为``黑板变量名=黑板变量值''
-\item [NAMES OFF] 只打印黑板变量值 
-\item [NEWLINE ON] 打印每个黑板变量后换行 
-\item [NEWLINE OFF] 打印黑板变量后不换行 
-\item [ALL] 打印当前定义的全部黑板变量 
+\item [NAMES OFF] 只打印黑板变量值
+\item [NEWLINE ON] 打印每个黑板变量后换行
+\item [NEWLINE OFF] 打印黑板变量后不换行
+\item [ALL] 打印当前定义的全部黑板变量
 \item [variable] 打印列表指定的黑板变量
 \end{description}
 
@@ -32,7 +32,7 @@ getbb to terminal names on newline on all
 你可以将黑板变量打印到终端或者文本文件中。你可以使用这些选项对一系列数据文件进行测量，
 将结果保存到文本文件中，然后用READALPHA命令将这个文件读回SAC，绘图或者进行更多的分析。
 
-\SACTitle{例子}
+\SACTitle{示例}
 假设你已经设置了一些黑板变量:
 \begin{SACCode}
 SAC> setbb c1 2.45 c2 4.94

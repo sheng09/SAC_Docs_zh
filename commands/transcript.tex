@@ -6,32 +6,32 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-TRANSCRIPT [OPEN|CREATE|CLOSE|CHANGE|WRITE|HISTORY] [FILE filename]  
-    [CONTENTS ALL|ERRORS|WARNINGS|OUTPUT|COMMANDS|MACROS|PROCESSED] 
+TRANSCRIPT [OPEN|CREATE|CLOSE|CHANGE|WRITE|HISTORY] [FILE filename]
+    [CONTENTS ALL|ERRORS|WARNINGS|OUTPUT|COMMANDS|MACROS|PROCESSED]
     [MESSAGE text]
 \end{SACSTX}
 
 \SACTitle{输入}
 \begin{description}
-\item [OPEN] 打开副本文件，并在已存在的文件底部添加副本 
-\item [CREATE] 创建一个新的副本文件 
-\item [CLOSE] 关闭一个已经打开的副本文件 
-\item [CHANGE] 改变一个已经打开的副本文件的内容 
-\item [WRITE] 写信息到一个副本文件，不改变其状态或内容 
-\item [HISTORY FILE filename] 将命令行历史保存到文件 
-\item [FILE filename] 定义副本文件的名字 
+\item [OPEN] 打开副本文件，并在已存在的文件底部添加副本
+\item [CREATE] 创建一个新的副本文件
+\item [CLOSE] 关闭一个已经打开的副本文件
+\item [CHANGE] 改变一个已经打开的副本文件的内容
+\item [WRITE] 写信息到一个副本文件，不改变其状态或内容
+\item [HISTORY FILE filename] 将命令行历史保存到文件
+\item [FILE filename] 定义副本文件的名字
 \item [MESSAGE text] 向副本文件中写入文本。这个信息可以用于指定正在进行的进程或指定正在
-    处理的不同事件，在两次执行这个命令的过程中这个信息不保存。 
-\item [CONTENTS ALL] 定义副本文件的内容为全部输入输出的信息。 
+    处理的不同事件，在两次执行这个命令的过程中这个信息不保存。
+\item [CONTENTS ALL] 定义副本文件的内容为全部输入输出的信息。
 \item [CONTENTS list] 定义副本文件的内容，即包含在文件中的输入输出的类型表
 \end{description}
 其中list可以取：
 \begin{itemize}
 \item ERRORS : 执行命令期间产生的错误消息
 \item WARNINGS : 执行命令期间产生的警告消息
-\item OUTPUT : 执行命令期间的输出消息 
-\item COMMANDS : 终端输出的原始命令 
-\item MACROS : 宏文件中出现的原始命令 
+\item OUTPUT : 执行命令期间的输出消息
+\item COMMANDS : 终端输出的原始命令
+\item MACROS : 宏文件中出现的原始命令
 \item PROCESSED : 经终端或宏处理之后的命令
 \end{itemize}
 
@@ -45,7 +45,7 @@ transcript open file transcript contents all
 的结果。你可以同时拥有5个活动的副本文件，每个文件用于追踪不同的方面。
 其中的一个用途是记录终端输入的命令然后用于一个宏文件中，如下例所示。
 
-\SACTitle{例子}
+\SACTitle{示例}
 为了创建一个新的副本文件，文件名为MYTRAN，包含了除已处理命令之外的其他全部类型:
 \begin{SACCode}
 SAC> transcript create file mytran cont err warn out com macros
