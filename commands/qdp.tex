@@ -11,12 +11,12 @@ QDP [ON|OFF|n] [TERM ON|OFF|n] [SGF ON|OFF|n]
 
 \SACTitle{输入}
 \begin{description}
-\item [ON|OFF] 打开/关闭终端和SGF设备的QDP选项 
-\item [n] 打开终端和SGF设备的QDP选项，并设定要绘制的点数为n 
+\item [ON|OFF] 打开/关闭终端和SGF设备的QDP选项
+\item [n] 打开终端和SGF设备的QDP选项，并设定要绘制的点数为n
 \item [TERM ON|OFF] 打开/关闭终端qdp绘图选项
-\item [TERM n] 打开终端的QDP选项，并设定要绘制的数据点数为n 
-\item [SGF ON|OFF] 打开/关闭SGF设备的qdp绘图选项 
-\item [SGF n] 打开SGF设备的QDP选项，并设定绘制的数据点数为n 
+\item [TERM n] 打开终端的QDP选项，并设定要绘制的数据点数为n
+\item [SGF ON|OFF] 打开/关闭SGF设备的qdp绘图选项
+\item [SGF n] 打开SGF设备的QDP选项，并设定绘制的数据点数为n
 \end{description}
 
 \SACTitle{缺省值}
@@ -35,7 +35,7 @@ qdp term 5000 sgf 5000
 
 以目前计算机的性能而言，大型文件的绘制基本都是瞬间完成的，所以一般都设置关闭此选项。
 
-\SACTitle{例子}
+\SACTitle{示例}
 假设文件FILE1有20000个数据点，文件FILE2有40000个数据点，如果你输入:
 \begin{SACCode}
 sac> r file1 file2
@@ -46,5 +46,5 @@ sac> p
 如果想要绘制全部数据点，则需要关闭QDP选项：
 \begin{SACCode}
 SAC> qdp off
-SAC> plot
+SAC> p
 \end{SACCode}

@@ -6,26 +6,26 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-W!RITE! [SAC|ALPHA|XDR] [DIR OFF|CURRENT|name] [KSTCMP] 
+W!RITE! [SAC|ALPHA|XDR] [DIR OFF|CURRENT|name] [KSTCMP]
     [OVER|APPEND text|PREPEND text|DELETE text|CHANGE text1 text2] filelist
 \end{SACSTX}
 
 \SACTitle{输入}
 \begin{description}
 \item [无参数] 使用以前的数据格式和文件列表
-\item [SAC] 以SAC二进制文件格式写入磁盘 
+\item [SAC] 以SAC二进制文件格式写入磁盘
 \item [ALPHA] 写SAC字符数字型写入磁盘
 \item [XDR] 用SAC二进制xdr格式写文件。这个格式用于实现不同构架的二进制数据的转换
-\item [DIR OFF] 关闭目录选项，即写入当前目录 
-\item [DIR CURRENT] 打开目录选项并设置写目录为当前目录 
+\item [DIR OFF] 关闭目录选项，即写入当前目录
+\item [DIR CURRENT] 打开目录选项并设置写目录为当前目录
 \item [DIR name] 打开目录选项并设置写目录为name。将所有的文件写入目录name中，其可以是相对路径或绝对路径
 \item [KSTCMP] 使用KSTNM和KCMPNM头段变量为内存中每个数据文件定义一个文件名。生成的文件名将检查是否唯一，如果不唯一，则在文件名后加序号以避免文件名冲突
 \item [OVER] 使用当前读文件列表作为写文件列表，用内存中的文件覆盖磁盘中的文件
 \item [APPEND text] 在当前读文件列表的文件名后附加字符串text以创建写文件列表
-\item [PREPEND text] 在当前读文件列表的文件名前附加字符串text以创建写文件列表 
-\item [DELETE text] 在当前读文件列表的文件名中删除第一次出现的text以创建写文件表 
-\item [CHANGE text1 text2] 将当前读文件表中每个文件名中第一次出现的text1修改为text2来创建写文件表 
-\item [filelist] 将写文件列表设置为filelist，这个列表可以包含文件名、相对/绝对路径，不可以包含通配符。 
+\item [PREPEND text] 在当前读文件列表的文件名前附加字符串text以创建写文件列表
+\item [DELETE text] 在当前读文件列表的文件名中删除第一次出现的text以创建写文件表
+\item [CHANGE text1 text2] 将当前读文件表中每个文件名中第一次出现的text1修改为text2来创建写文件表
+\item [filelist] 将写文件列表设置为filelist，这个列表可以包含文件名、相对/绝对路径，不可以包含通配符。
 \end{description}
 
 \SACTitle{缺省值}
@@ -47,7 +47,7 @@ APPEND、PREPEND、DELETE、CHANGE选项通过以所需要的方式修改每个�
 风格的一致。当使用这四个选项中的任意一个时，命令执行时会在终端输出文件列表，使得你可以
 看到实际写入磁盘的文件名。
 
-\SACTitle{例子}
+\SACTitle{示例}
 该命令的简单示例可以参考``\nameref{sec:read-and-write}''一节。
 
 对一组数据文件进行滤波，然后将结果存入一组新数据文件:

@@ -6,7 +6,7 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!] 
+PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
     [BELOW|POSITION x y [a]]
 \end{SACSTX}
 
@@ -14,8 +14,8 @@ PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
 \begin{description}
 \item [n] 通用标签号。若省略，则在前一个标签号上加1
 \item [ON] 打开绘图标签选项，但不改变标签文本
-\item [OFF] 关闭绘图标签选项 
-\item [text] 改变绘图标签的文本内容，同时打开了绘图标签选项 
+\item [OFF] 关闭绘图标签选项
+\item [text] 改变绘图标签的文本内容，同时打开了绘图标签选项
 \item [SIZE TINY|SMALL|MEDIUM|LARGE] 修改绘图标签的文本尺寸。TINY、SMALL、MEDIUM、LARGE分别表示
     一行132、100、80、50个字符。
 \item [BELOW] 将此标签放在前一标签的下面
@@ -29,7 +29,7 @@ PLABEL [n] [ON|OFF|text] [SIZE T!INY!|S!MALL!|M!EDIUM!|L!ARGE!]
 这个命令允许你为接下来的绘图命令定义通用的绘图标签。你可以定义每个标签的位置及文本尺寸。
 文本质量以及字体可以用GTEXT命令设定，也可以使用TITLE、XLABEL、YLABEL生成图形的标题以及轴标签。
 
-\SACTitle{例子}
+\SACTitle{示例}
 下面的命令将在接下来的绘图中在左上角产生一个四行的标签:
 \begin{SACCode}
 SAC> PLABEL 'Sample seismogram' POSITION .12 .5

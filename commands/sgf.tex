@@ -6,7 +6,7 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-SGF [PREFIX text] [NUMBER n] [DIRECTORY CURRENT|pathname] 
+SGF [PREFIX text] [NUMBER n] [DIRECTORY CURRENT|pathname]
     [SIZE NORMAL|FIXED v|SCALED v] [OVERWRITE ON|OFF]
 \end{SACSTX}
 
@@ -15,14 +15,14 @@ SGF [PREFIX text] [NUMBER n] [DIRECTORY CURRENT|pathname]
 \item [PREFIX text] 设置SGF文件的前缀为text（最多24字符长）
 \item [NUMBER n] 设置下一个SGF文件的序号为n。若n为0，则SAC搜索SGF文件目录下的SGF文件
     最大序号，并将其值加1。
-\item [DIRECTORY CURRENT] 将SGF文件放在当前目录 
-\item [DIRECTORY pathname] 将SGF放在指定目录下 
+\item [DIRECTORY CURRENT] 将SGF文件放在当前目录
+\item [DIRECTORY pathname] 将SGF放在指定目录下
 \item [SIZE NORMAL] 产生一个常规大小绘图，常规图形有一个10*7.5英寸的视窗（最大绘图区域）。
     视口的缺省值（视窗中除轴和标签之外的绘图区）为8*5英寸。
-\item [SIZE FIXED v] 产生一个在X方向视口为v英寸长的图形。 
-\item [SIZE SCALED v] 产生一个视口在X方向上为v乘以X坐标极限值的图形  
+\item [SIZE FIXED v] 产生一个在X方向视口为v英寸长的图形。
+\item [SIZE SCALED v] 产生一个视口在X方向上为v乘以X坐标极限值的图形
 \item [OVERWRITE ON|OFF] 当打开时，文件号不递增，每个新文件将擦除先前的文件，
-    这个在多数绘图命令的PRINT选项中特别有用。 
+    这个在多数绘图命令的PRINT选项中特别有用。
 \end{description}
 
 \SACTitle{缺省值}
@@ -44,9 +44,9 @@ sgf prefix f number 1 directory current size normal
 
 有多个选项可以控制绘图的尺寸，常规的绘图为10*7.5英寸的视口范围，使用默认的视口的结果是产生一个近似为8*5英寸的图形区。你可强制视口的x方向为固定长度或将视口的x方向与整个坐标范围成比例。这个尺寸的信息写入SGF文件。把SGF文件转换到一个特定输出设备上产生正确尺寸的图形编码是程序中要做的事。
 
-SGFTOPS命令可以完成这个转换，尽管大于单页的图形需要适当的后期处理 
+SGFTOPS命令可以完成这个转换，尽管大于单页的图形需要适当的后期处理
 
-\SACTitle{例子}
+\SACTitle{示例}
 定义一个不是你当前目录的目录并重置图形框架号为序列中的下一个值:
 \begin{SACCode}
 SAC> sgf directory /mydir/sgfstore frame 0

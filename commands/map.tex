@@ -9,10 +9,10 @@ GMT地图，也可以在命令行上指定一个事件文件。每个
 
 \SACTitle{语法}
 \begin{SACSTX}
-MAP [MER!CATOR!|EQ!UIDISTANT!|AZ!IMUTHAL_EQUIDISTANT!|ROB!INSON!] 
-    [WEST minlon] [EAST maxlon] [NORTH maxlat] [SOUTH minlat] 
-    [MAG!NITUDE!|RE!SIDUAL!|RM!EAN_RESIDUAL!] [EV!EVNTFILE! filename] 
-    [TOPO!GRAPHY!] [STAN!AMES!] [MAPSCALE on|off] [PLOTSTATIONS on|off] 
+MAP [MER!CATOR!|EQ!UIDISTANT!|AZ!IMUTHAL_EQUIDISTANT!|ROB!INSON!]
+    [WEST minlon] [EAST maxlon] [NORTH maxlat] [SOUTH minlat]
+    [MAG!NITUDE!|RE!SIDUAL!|RM!EAN_RESIDUAL!] [EV!EVNTFILE! filename]
+    [TOPO!GRAPHY!] [STAN!AMES!] [MAPSCALE on|off] [PLOTSTATIONS on|off]
     [PLOTEVENTS on|off] [PLOTLEGEND on|off] [LEGENDXY x y] [FILE output-file]
 \end{SACSTX}
 
@@ -28,13 +28,13 @@ SAC中可以使用的投影方式包括：
 
 下面的选项允许用户指定地图的区域，其默认使用台站以及事件经纬度的最小最大值（如果真是如此，这样的缺省值并不合适，因为那样意味着某些台站或事件将位于地图的边界处，但是实际上地图范围给的还是不错的）：
 \begin{itemize}
-\item WEST :  地图的最小经度 
-\item EAST : 地图的最大经度 
-\item NORTH : 地图的最大纬度 
-\item SOUTH : 地图的最小纬度 
-\item AUTOLIMITS:  自动决定地图的区域 [缺省值] 
+\item WEST :  地图的最小经度
+\item EAST : 地图的最大经度
+\item NORTH : 地图的最大纬度
+\item SOUTH : 地图的最小纬度
+\item AUTOLIMITS:  自动决定地图的区域 [缺省值]
 \end{itemize}
-  
+
 下面的选项允许用户向地图中添加位置和注释:
 \begin{itemize}
 \item STANames on | off :  在地图上绘制台站名[默认为off]
@@ -48,7 +48,7 @@ SAC中可以使用的投影方式包括：
 \item MAGnitude : user0定义地震震级，user0越大，则事件符号越大。
 \item REsidual : user0定义残差。根据user0的绝对值定义事件符号的大小。正值为(+) 负值为(-).
 \item RMean\_residual : 与residual相同，除了将所有残差去除均值之外
-\item PLTLEGEND on | off : 绘制地震震级以及残差的图例[默认为on] 
+\item PLTLEGEND on | off : 绘制地震震级以及残差的图例[默认为on]
 \item LEGENDXY x y : 绘制图例的绝对位置，默认为[1,1]。位置是相对于页面的左下角，其单位为inch。 这是一个与地震震级和残差有关的图例。
 \item EVENTFILE : 指定一个自由格式的ASCII文本文件，其包含了额外的事件数据,文件的每一行包含单个事件的数据。每行的头两列必须包含纬度和经度（单位为度）。第三列可以包含符号大小信息（比如震级、深度、走时残差等）。
 \item TOPOgraphy on | off : 设置TOPO为开允许用户向地图中添加地形和海洋深度。这个命令读取GMT中grdraster.info的第一个地形文件，当然地形文件中必须要有该区域的数据。地形彩色图使用\$SACAUX/ctables/gmt.cpt。网格文件被写入当前目录
@@ -61,13 +61,13 @@ SAC中可以使用的投影方式包括：
 map mercator topo off stan off file gmt.ps plotstations on plotevents on
 \end{SACDFT}
 
-\SACTitle{例子}
+\SACTitle{示例}
 利用SAC提供的一些数据作为例子：
 \begin{SACCode}
 SAC> dg sub regional *.z
-SAC> map stan on 
+SAC> map stan on
 Using Default Postscript Viewer
-	gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE 
+	gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE
 	Set an alternative through the SACPSVIEWER environment variable
 	Press any key to continue
 \end{SACCode}

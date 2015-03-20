@@ -6,14 +6,14 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-COL!OR! [ON|OFF|color] [I!NCREMENT! [ON|OFF]] [S!KELETON! color] 
+COL!OR! [ON|OFF|color] [I!NCREMENT! [ON|OFF]] [S!KELETON! color]
     [B!ACKGROUND! color] [L!IST! S!TANDARD!|colorlist]
 \end{SACSTX}
 color是下面中的一个:
 \begin{SACSTX}
 W!HITE!|R!ED!|G!REEN!|Y!ELLOW!|BLU!E!|M!AGENTA!|C!YAN!|BLA!CK!
 \end{SACSTX}
-		
+
 这里有些参数在缩写的情况下可能会有歧义，请谨慎使用，而且LIST选项必须放在命令的最后
 
 \SACTitle{输入}
@@ -22,7 +22,7 @@ W!HITE!|R!ED!|G!REEN!|Y!ELLOW!|BLU!E!|M!AGENTA!|C!YAN!|BLA!CK!
 \item [OFF] 关闭颜色选项
 \item [color] 打开颜色选项并将数据设置为颜色color
 \item [INCREMENT ON] 每个数据文件绘出后，根据colorlist的顺序改变颜色
-\item [INCREMENT OFF] 不改变数据颜色 
+\item [INCREMENT OFF] 不改变数据颜色
 \item [SKELETON colo]: 按照标准颜色名或颜色号修改边框颜色
 \item [BACKGROUND color] 修改背景色为color
         \footnote{白色背景与黑色线条对比强烈，可以考虑设置背景色为cyan}
@@ -32,7 +32,7 @@ W!HITE!|R!ED!|G!REEN!|Y!ELLOW!|BLU!E!|M!AGENTA!|C!YAN!|BLA!CK!
 
 \SACTitle{缺省值}
 \begin{SACDFT}
-color black increment off skeleton black background white 
+color black increment off skeleton black background white
     list standard
 \end{SACDFT}
 
@@ -53,7 +53,7 @@ color black increment off skeleton black background white
 RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, BLACK
 \end{lstlisting}
 
-\SACTitle{例子}
+\SACTitle{示例}
 为了使数据颜色从红色开始不断变换:
 \begin{SACCode}
 SAC> color red increment
