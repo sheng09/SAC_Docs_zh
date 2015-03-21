@@ -48,8 +48,8 @@ SAC参考手册
 依赖
 ----
 
-- TeX引擎：TeXLive 2014
-- 中文字体：Adobe楷体、Adobe黑体、Adobe宋体、Adobe仿宋
+- TeX发行版：TeXLive 2014
+- 中文字体：Fandol（由TeXLive提供）
 - 英文字体：Adobe Garamond Pro
 - 构建系统：make或scons
 
@@ -64,6 +64,11 @@ SAC参考手册
 
 2. 安装TeXLive 2014，并更新至最新版本；
 
-3. 将中英文字体文件放在`.fonts`目录下（目前使用了非开源字体，囧rz）
+3. 将非开源的英文字体文件放在`.fonts`目录下
 
-4. 根据个人喜好，执行`make`或`scons`以编译文档
+4. 中文字体随TeXLive发布，直接做一个软链接即可
+
+     cd ~/.fonts
+     ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol
+
+5. 根据个人喜好，执行`make`或`scons`以编译文档
