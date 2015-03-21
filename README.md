@@ -13,37 +13,37 @@ SAC参考手册
 
 文档源码的结构如下：
 
-	.
-	|-- README.md           # 本文档
+    .
+    |-- README.md           # 本文档
     |-- ChangeLog.md        # 记录修订历史
     |
-	|-- Makefile            # make构建文件
-	|-- SConstruct          # scons构建文件
+    |-- Makefile            # make构建文件
+    |-- SConstruct          # scons构建文件
     |
-	|-- SAC_macros.tex      # 文档设置
-	|-- SAC_Docs.tex        # 主文档
-	|-- cover.tex           # 封面页
-	|-- frontmatterIII.tex  # 废话页
-	|-- version.tex         # 版本页
+    |-- SAC_macros.tex      # 文档设置
+    |-- SAC_Docs.tex        # 主文档
+    |-- cover.tex           # 封面页
+    |-- frontmatterIII.tex  # 废话页
+    |-- version.tex         # 版本页
     |-- contributor.tex     # 维护者列表
     |
-	|-- figures             # 插图：eps、jpg等
-	|-- scripts             # 用于绘制插图的脚本与数据
+    |-- figures             # 插图：eps、jpg等
+    |-- scripts             # 用于绘制插图的脚本与数据
     |
-	|-- introduction        # 第一部分
-	|-- basic
-	|-- fileformat
-	|-- data-process
-	|-- graphics
-	|-- macros
-	|-- call-in-script
-	|-- sac-libs
-	|-- sacio
-	|-- sac-tools
+    |-- introduction        # 第一部分
+    |-- basic
+    |-- fileformat
+    |-- data-process
+    |-- graphics
+    |-- macros
+    |-- call-in-script
+    |-- sac-libs
+    |-- sacio
+    |-- sac-tools
     |
-	|-- commands            # 第二部分
-	|-- sss
-	`-- spe
+    |-- commands            # 第二部分
+    |-- sss
+    `-- spe
 
 依赖
 ----
@@ -56,17 +56,17 @@ SAC参考手册
 
 1. 获取源码
 
-   ``
-       git clone https://github.com/seisman/SAC_Docs_zh.git
-   ``
+   ```
+   git clone https://github.com/seisman/SAC_Docs_zh.git
+   ```
 
 2. 安装TeXLive 2014，并更新至最新版本；
 
 3. 中文字体Fandol随TeXLive发布，直接做一个软链接即可
 
-   ``
-       cd ~/.fonts
-       ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol
-   ``
+   ```
+   cd ~/.fonts
+   ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol
+   ```
 
 4. 根据个人喜好，执行`make`或`scons`以编译文档
