@@ -1,10 +1,10 @@
-ChangeLog
-=========
+更新历史
+========
 
 xxxx-xx-xx 3.2版
 ----------------
 
-For users:
+对于用户:
 
 - 修复bugs和typos；
 - 命令整理：`systemcommand`；
@@ -15,10 +15,11 @@ For users:
   - 图像格式转换
   - SAC初始化宏文件
 
-For developers:
+对于维护者:
 
 - 更新README，可根据说明自行编译源码生成PDF；
 - 修改Makefile，对依赖的检测更加智能；
+- 新增ChangeLog
 
 2014-09-25 3.1版
 ----------------

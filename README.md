@@ -14,14 +14,19 @@ SAC参考手册
 文档源码的结构如下：
 
 	.
-	|-- README.md
+	|-- README.md           # 本文档
+    |-- ChangeLog.md        # 记录修订历史
+    |
 	|-- Makefile            # make构建文件
 	|-- SConstruct          # scons构建文件
+    |
 	|-- SAC_macros.tex      # 文档设置
 	|-- SAC_Docs.tex        # 主文档
 	|-- cover.tex           # 封面页
 	|-- frontmatterIII.tex  # 废话页
 	|-- version.tex         # 版本页
+    |-- contributor.tex     # 维护者列表
+    |
 	|-- figures             # 插图：eps、jpg等
 	|-- scripts             # 用于绘制插图的脚本与数据
     |
