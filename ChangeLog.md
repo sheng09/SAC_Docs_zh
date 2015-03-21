@@ -13,6 +13,7 @@ For users:
   - 波形排序
   - 标记震相理论走时的三种方法
   - 图像格式转换
+  - SAC初始化宏文件
 
 For developers:
 
