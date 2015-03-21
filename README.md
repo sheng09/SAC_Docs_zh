@@ -64,7 +64,9 @@ SAC参考手册
 
 3. 中文字体Fandol随TeXLive发布，直接做一个软链接即可
 
-     cd ~/.fonts
-     ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol
+   ``
+       cd ~/.fonts
+       ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol
+   ``
 
 4. 根据个人喜好，执行`make`或`scons`以编译文档
