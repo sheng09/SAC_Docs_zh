@@ -13,7 +13,7 @@ QQ、163这样的邮箱很容易直接被拒绝，如果没有单位邮箱，需
 信息以验证你的身份。
 
 IRIS提供了SAC源码包、Linux 64位二进制包和Mac 64位二进制包。对于Linux
-用户，可以通过``\lstinline{uname -a}''命令查看当前系统是32位还是64位。对于64位系统，
+用户，可以通过``\verb+uname -a+''命令查看当前系统是32位还是64位。对于64位系统，
 可以直接使用Linux 64位二进制包；对于Linux 32位系统，则必须手动编译SAC源码。
 
 考虑到在申请提交之后，需要人工审核，两三个工作日后才会通过邮箱获取SAC软件包，
@@ -23,45 +23,45 @@ IRIS提供了SAC源码包、Linux 64位二进制包和Mac 64位二进制包。�
 Linux下安装软件最麻烦的一个问题就是软件之间的依赖关系。
 
 对于Ubuntu/Debian系\footnote{很久不用Ubuntu，无法保证完全正确。}：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 $ sudo apt-get install build-essential
 $ sudo apt-get install libncurses5-dev libsm-dev libice-dev
 $ sudo apt-get install libxpm-dev libx11-dev zlib1g-dev
-\end{lstlisting}
+\end{minted}
 
 对于CentOS/Fedora/RHEL系：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 $ sudo yum groupinstall 'Development Tools'
 $ sudo yum install glibc ncurses-devel libSM-devel libICE-devel
 $ sudo yum install libXpm-devel libX11-devel zlib-devel
-\end{lstlisting}
+\end{minted}
 
 \subsection*{安装}
 安装的方法在这一步分成两个部分，分别是二进制包安装和源代码编译，根据实际情况
 二者选一。
 \subsubsection*{二进制包安装}
 解压sac二进制包：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 $ tar -zxvf sac-101.6a-linux_x86_64.tar.gz
-\end{lstlisting}
+\end{minted}
 
-复制sac文件夹到安装目录（推荐安装目录为\lstinline{/usr/local}）：
-\begin{lstlisting}[style=Shell]
-$ sudo cp -r sac /usr/local
-\end{lstlisting}
+复制sac文件夹到安装目录（推荐安装目录为\verb+/usr/local+）：
+%\begin{minted}{console}
+%$ sudo cp -r sac /usr/local
+%\end{minted}
 
 \subsubsection*{源代码编译}
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 $ tar -zxvf sac-101.6a_source.tar.gz
 $ cd sac-101.6a
 $ ./configure --prefix=/usr/local/sac
 $ make
 $ sudo make install
-\end{lstlisting}
+\end{minted}
 
 \subsection*{配置变量}
-向~\lstinline{~/.bashrc}~中加入如下语句以配置环境变量和SAC全局变量：
-\begin{lstlisting}[style=Bash]
+向~\verb+~/.bashrc+~中加入如下语句以配置环境变量和SAC全局变量：
+\begin{minted}{bash}
 export SACHOME=/usr/local/sac
 export SACAUX=$SACHOME/aux
 export PATH=$SACHOME/bin:$PATH
@@ -69,36 +69,36 @@ export PATH=$SACHOME/bin:$PATH
 export SAC_DISPLAY_COPYRIGHT=1
 export SAC_PPK_LARGE_CROSSHAIRS=1
 export SAC_USE_DATABASE=0
-\end{lstlisting}
+\end{minted}
 
 其中，
 \begin{itemize}
-\item \lstinline{SACHOME}~为SAC的安装目录；
-\item \lstinline{SACAUX}~中包含了SAC运行所需的辅助文件；
-\item \lstinline{PATH}~为Linux系统环境变量；
-\item \lstinline{SAC_DISPLAY_COPYRIGHT}~用于控制是否在启动SAC时显示版本和版权信息，
+\item \verb+SACHOME+~为SAC的安装目录；
+\item \verb+SACAUX+~中包含了SAC运行所需的辅助文件；
+\item \verb+PATH+~为Linux系统环境变量；
+\item \verb+SAC_DISPLAY_COPYRIGHT+~用于控制是否在启动SAC时显示版本和版权信息，
     一般设置为1。在脚本中多次调用SAC时会重复显示版本和版权信息，干扰脚本的正常输出，因而
     在脚本中一般将其值设置为0，设置方法可以参考``\nameref{sec:sac-bash}''、``\nameref{sec:sac-perl}''和``\nameref{sec:sac-python}''
     中的相关内容；
-\item \lstinline{SAC_PPK_LARGE_CROSSHAIRS}~用于控制震相拾取过程中光标的大小，在
+\item \verb+SAC_PPK_LARGE_CROSSHAIRS+~用于控制震相拾取过程中光标的大小，在
     ``\nameref{sec:phase-picking}''一节会具体说明；
-\item \lstinline{SAC_USE_DATABASE}~用于控制是否允许将SAC格式转换为GSE 2.0格式；
+\item \verb+SAC_USE_DATABASE+~用于控制是否允许将SAC格式转换为GSE 2.0格式；
     一般用不到该特性，故而设置其值为0；
 \end{itemize}
 
-修改完~\lstinline{~/.bashrc}~后，执行以下命令使配置的环境变量生效：
-\begin{lstlisting}[style=Shell]
+修改完~\verb+~/.bashrc+~后，执行以下命令使配置的环境变量生效：
+\begin{minted}{console}
 $ source ~/.bashrc
-\end{lstlisting}
+\end{minted}
 
 \subsection*{启动SAC}
 终端键入小写的sac\footnote{Ubuntu的源里有一个名叫sac的软件，是用来显示登录账户
 的一些信息；CentOS的源里也有一个名叫sac的软件，是CSS语法分析器的Java接口。所以
 一定不要试图用发行版自带的软件包管理器安装sac!!!}，显示如下则表示SAC安装成功：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 $ sac
  SEISMIC ANALYSIS CODE [11/11/2013 (Version 101.6a)]
  Copyright 1995 Regents of the University of California
 
 SAC>
-\end{lstlisting}
+\end{minted}
