@@ -169,6 +169,10 @@
 \setminted{linenos, frame=leftline, xleftmargin=2pc, numbersep=6pt}
 \setminted[console]{linenos=false, frame=none}
 
+% http://tex.stackexchange.com/questions/203/how-to-obtain-verbatim-text-in-a-footnote
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+
 % 解决代码复制问题
 \usepackage{accsupp}
 \newcommand\emptyaccsupp[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
