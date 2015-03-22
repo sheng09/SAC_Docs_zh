@@ -121,7 +121,12 @@
 \usepackage[usenames,dvipsnames,svgnames]{xcolor} % 用于code
 % lstings的默认设置, 主要用于lstinline
 \lstset{
-    basicstyle=\ttfamily,	% 使字体保持当前的系列与形状属性，但转变为打字机族属性
+    basicstyle=\footnotesize\ttfamily,
+    xleftmargin=2pc,                    % 整体布局
+    xrightmargin=2pc,
+    backgroundcolor=\color{Lavender},   % 背景色
+    rulecolor=\color{Silver},           % 边框颜色
+    frame=single,                       % 边框
 }
 \lstdefinelanguage{SAC} {
     keywords={SAC>},   % SAC提示符
@@ -133,37 +138,11 @@
 \lstnewenvironment{SACCode}{
     \lstset{
         language={SAC},                     % 语言
-        basicstyle=\scriptsize\ttfamily,    % 字体
-        xleftmargin=2pc,                    % 整体布局
-        xrightmargin=2pc,
-        backgroundcolor=\color{Lavender},   % 背景色
-        frame=single,                       % 边框
-        rulecolor=\color{Silver},           % 边框颜色
         keywordstyle=\color{blue},          % 关键字颜色
     }
 }{}
-\lstnewenvironment{SACSTX}{
-    \lstset{
-        basicstyle=\scriptsize\ttfamily,
-        delim=[is][\textcolor{gray}]{!}{!},
-        frame=single,
-        xleftmargin=2pc,
-        xrightmargin=2pc,
-        backgroundcolor=\color{Lavender},
-        rulecolor=\color{Silver}
-    }
-}{}
-\lstnewenvironment{SACDFT}{
-    \lstset{
-        basicstyle=\scriptsize\ttfamily,
-        delim=[is][\textcolor{blue}]{!}{!},
-        frame=single,
-        xleftmargin=2pc,
-        xrightmargin=2pc,
-        backgroundcolor=\color{Lavender},
-        rulecolor=\color{Silver}
-    }
-}{}
+\lstnewenvironment{SACSTX}{\lstset{delim=[is][\textcolor{gray}]{!}{!},}}{}
+\lstnewenvironment{SACDFT}{}{}
 
 \usepackage{minted}
 \setminted{linenos, frame=leftline, xleftmargin=2pc, numbersep=6pt}
