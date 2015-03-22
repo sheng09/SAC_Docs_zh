@@ -23,14 +23,14 @@ cdv.e  cdv.n  cdv.z
 SAC中，在指定文件名的时候，可以使用绝对路径，也可以使用相对路径。可以使用
 其全名，也可以使用通配符。SAC的通配符与Unix定义的通配符一致，只包含如下三种：
 \begin{enumerate}
-\item ``\lstinline{*}'' 匹配任意长度的字符串（包括零长度）；
-\item ``\lstinline{?}'' 匹配任意单个非空字符；
-\item ``\lstinline{[]}'' 匹配列表中的任意单一字符；
+\item ``\verb+*+'' 匹配任意长度的字符串（包括零长度）；
+\item ``\verb+?+'' 匹配任意单个非空字符；
+\item ``\verb+[]+'' 匹配列表中的任意单一字符；
     \begin{itemize}
-        \item ``\lstinline{[ABC]}'' 匹配单个字符A或B或C
-        \item ``\lstinline{[A,B,C]}'' 匹配单个字符A或B或C
-        \item ``\lstinline{[0-9]}'' 匹配任意一位数字
-        \item ``\lstinline{[a-g]}'' 匹配从a到g范围内的任意单个字符
+        \item ``\verb+[ABC]+'' 匹配单个字符A或B或C
+        \item ``\verb+[A,B,C]+'' 匹配单个字符A或B或C
+        \item ``\verb+[0-9]+'' 匹配任意一位数字
+        \item ``\verb+[a-g]+'' 匹配从a到g范围内的任意单个字符
     \end{itemize}
 \end{enumerate}
 
