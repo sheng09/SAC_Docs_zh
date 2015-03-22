@@ -95,11 +95,11 @@ Using Default Postscript Viewer
 
 MAP命令的结果将自动被显示。用于显示的默认程序是gs(ghostscript)。用户可以通过设置环境变量SACPSVIEWER选择其他显示工具。\\
 在csh下可以这样设置：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 setenv SACPSVIEWER "gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE"
-\end{lstlisting}
+\end{minted}
 
 在bash下可以这样设置：
-\begin{lstlisting}[style=Shell]
+\begin{minted}{console}
 export SACPSVIEWER="gs -sDEVICE=x11 -q -dNOPROMPT -dTTYPAUSE"
-\end{lstlisting}
+\end{minted}
