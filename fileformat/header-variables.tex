@@ -61,7 +61,7 @@ SAC> lh kzdate kztime
 
 \subsubsection{\texttt{iftype}*}
 SAC文件类型，其决定了头段区之后有几个子数据区。该头段变量为枚举类型
-\footnote{枚举型在C源码中实际为``\lstinline{\#define ITIME 1}''的形式。}
+\footnote{枚举型在C源码中实际为``\verb+\#define ITIME 1+''的形式。}
 ，可以取如下几个枚举值
 \footnote{枚举值一律使用大写，且以I开头。} ：
 \begin{itemize}
@@ -216,8 +216,8 @@ iqual\footnote{\dag 标识仅表示SAC程序内部未使用该头段变量，即
 此功能，列举如下：
 \begin{itemize}
 \item \url{http://www.seis.sc.edu/software/distaz/}
-\item SAC源码~\lstinline{src/ucf/distaz.c}
-\item CPS330\footnote{\url{http://www.eas.slu.edu/eqc/eqccps.html}}源码~\lstinline{VOLI/src/udelaz.c}
+\item SAC源码~\verb+src/ucf/distaz.c+
+\item CPS330\footnote{\url{http://www.eas.slu.edu/eqc/eqccps.html}}源码~\verb+VOLI/src/udelaz.c+
 \end{itemize}
 
 \subsubsection{\texttt{o, ko}}
