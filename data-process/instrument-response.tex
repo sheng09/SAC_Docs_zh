@@ -27,7 +27,7 @@ transfer命令的基本语法是
 \end{SACSTX}
 
 先不管FREQ和PREW这两个选项，该命令就是将波形数据从（from）一种仪器类型转换到（to）
-另一种仪器类型，即反卷积~\lstinline{from}~选项给出的仪器响应，并卷积上~\lstinline{to}~
+另一种仪器类型，即反卷积~\verb+from+~选项给出的仪器响应，并卷积上~\verb+to+~
 选项给出的仪器响应。
 
 SAC内置了很多标准地震仪器的仪器响应，即type的取值如表~\ref{table:instrument-type}~所示。
@@ -169,7 +169,7 @@ RESP文件中包含了仪器响应的零极点信息及其所对应的台网名�
 使用指定的仪器响应文件。
 
 如果FNAME选项未指定，EVALRESP将尝试按照一般格式在当前工作目录下寻找合适的RESP文件，
-其一般格式为~``\lstinline{RESP.<NET>.<STA>.<LOCID>.<CHAN>}''，比如：~``\lstinline{RESP.IU.ANMO..BHZ}''~。
+其一般格式为~``\verb+RESP.<NET>.<STA>.<LOCID>.<CHAN>+''，比如：~``\verb+RESP.IU.ANMO..BHZ+''~。
 
 evalresp本质上是独立的程序，SAC将其内嵌到SAC的代码中。由于evalresp默认使用$m$作为基本单位，
 而SAC以$nm$作为基本单位，在使用evalresp选项对波形数据去仪器响应得到位移场、速度场或
@@ -185,7 +185,7 @@ SAC> taper
 SAC> trans from evalresp to none freq 0.004 0.007 0.2 0.4
 \end{SACCode}
 
-若RESP文件位于~``\lstinline{/tmp/Responses/RESP.TA.N11A..LHZ}''~:
+若RESP文件位于~``\verb+/tmp/Responses/RESP.TA.N11A..LHZ+''~:
 \begin{SACCode}
 SAC> setbb resp /tmp/Responses/RESP.TA.N11A..LHZ
 SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
@@ -194,7 +194,7 @@ SAC> taper
 SAC> trans from evalresp fname %resp% to none freq 0.004 0.007 0.2 0.4
 \end{SACCode}
 
-为了从文件~\lstinline{16.42.05.5120.TS.PAS.BHZ.SAC}~中去除仪器响应，
+为了从文件~\verb+16.42.05.5120.TS.PAS.BHZ.SAC+~中去除仪器响应，
 并添加台站COL相同周期的响应：
 \begin{SACCode}
 SAC> r 16.42.05.5120.TS.PAS.BHZ.SAC
@@ -230,7 +230,7 @@ PZ文件中宏包含零点、极点、常数值以及注释行，其中常数是
 每行两个浮点数，分别代表实部和虚部。
 
 以关键字``ZEROS''起始的行给出零点个数（nz）。一般地，零极点文件中可能包含一个或多个
-~\lstinline{(0.0,0.0)}~这样的零点，在SAC中这样的零点不出现在PZ文件中，所以接下来
+~\verb+(0.0,0.0)+~这样的零点，在SAC中这样的零点不出现在PZ文件中，所以接下来
 列出的零点数可能会少于nz个。
 
 PZ文件中还包含格式化的注释行信息，以帮助用户组织和理解PZ文件中的内容。目前PZ零极点
@@ -300,7 +300,7 @@ SAC为了解决这个问题，可以指定仪器类型为POLEZERO，子类型为
 应手动乘以比例因子$10^9$以保证数据的正确性。
 
 \subsubsection{POLEZEROS例子}
-PZ文件~\lstinline{SAC_PZs_XC_OR075_LHZ}~是需要从波形~\lstinline{OR075_LHZ.SAC}~
+PZ文件~\verb+SAC_PZs_XC_OR075_LHZ+~是需要从波形~\verb+OR075_LHZ.SAC+~
 中去除的仪器响应零极点文件：
 \begin{SACCode}
 SAC> setbb pzfile "SAC_PZs_XC_OR075_LHZ"
@@ -312,8 +312,8 @@ SAC> mul 1.0e9          // 由于是to none，这里必须乘以1.0e9
 SAC> w OR075.z          // 此时数据为位移量，单位为nm
 \end{SACCode}
 
-假如在上面的例子中，没有使用~\lstinline{SAC_PZs_XC_OR075_LHZ}，而是使用了错误
-的PZ文件~\lstinline{SAC_PZs_wrong}，下面的过程给出如何调用transfer命令去除不正确的
+假如在上面的例子中，没有使用~\verb+SAC_PZs_XC_OR075_LHZ+，而是使用了错误
+的PZ文件~\verb+SAC_PZs_wrong+，下面的过程给出如何调用transfer命令去除不正确的
 响应并加入正确的响应：
 \begin{SACCode}
 SAC> r OR075.z                  // 使用了错误的仪器响应文件
@@ -346,8 +346,8 @@ EVALRESP v3.3.2可以输出为FAPfile，使用EVALRESP生成的FAPFILE而非POLE
 以包含更丰富的仪器响应，且可以显式控制需要校正的频率段。
 
 \subsubsection{FAPfile例子}
-假设有fapfile文件~\lstinline{fap.n11a.lhz_0.006-0.2}，其名字表示频率段位0.006 Hz到0.2 Hz，
-要从波形~\lstinline{2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC}中移除该仪器响应：
+假设有fapfile文件~\verb+fap.n11a.lhz_0.006-0.2+，其名字表示频率段位0.006 Hz到0.2 Hz，
+要从波形~\verb+2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC+中移除该仪器响应：
 \begin{SACCode}
 SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
 SAC> rtr

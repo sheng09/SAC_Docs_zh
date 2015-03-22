@@ -15,8 +15,8 @@ SAC中有两个命令可以用于数据截窗，分别是cut和cutim，二者的
 SAC中用pdw来定义要读取的时间窗。
 
 pdw即partial data window，其包含了自变量的一个开始值和一个结束值，定义了要读取的
-数据窗。其一般格式为~\lstinline{ref offset ref offset}。
-其中ref为参考时刻标识，可以取~\lstinline{Z|B|E|O|A|F|N|Tn}，而offset为相对于参考
+数据窗。其一般格式为~\verb+ref offset ref offset+。
+其中ref为参考时刻标识，可以取~\verb+Z|B|E|O|A|F|N|Tn+，而offset为相对于参考
 时刻的时间偏移量。
 
 若开始或结束offset省略则认为其值为0。若开始ref省略则认为其为Z；若结束ref省略则
