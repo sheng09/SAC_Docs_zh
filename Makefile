@@ -13,3 +13,4 @@ SAC_Docs.pdf: SAC_Docs.tex
 
 clean:
 	latexmk -c
+	-rm -r _minted-SAC_Docs
