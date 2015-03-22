@@ -9,7 +9,7 @@
 all: SAC_Docs.pdf
 
 SAC_Docs.pdf: SAC_Docs.tex
-	latexmk -pdf -pdflatex="xelatex -interactive=nonstopmode" -use-make SAC_Docs.tex
+	latexmk -pdf -pdflatex="xelatex -shell-escape -interactive=nonstopmode" -use-make SAC_Docs.tex
 
 clean:
 	latexmk -c

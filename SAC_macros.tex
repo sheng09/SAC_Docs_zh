@@ -281,6 +281,18 @@
     }
 }{}
 
+\usepackage{minted}
+\setminted{linenos, frame=leftline, xleftmargin=2pc, numbersep=6pt}
+\setminted[console]{linenos=false, frame=none}
+\setmintedinline{}
+
+% 解决代码复制问题
+\usepackage{accsupp}
+\newcommand\emptyaccsupp[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
+%default definition is: \def\theFancyVerbLine{\rmfamily\tiny\arabic{FancyVerbLine}}
+\let\theHFancyVerbLine\theFancyVerbLine% don't apply our patch to hyperref's version
+\def\theFancyVerbLine{\rmfamily\tiny\emptyaccsupp{\arabic{FancyVerbLine}}}
+
 % 列表
 \usepackage{enumitem}	% 列表宏包
 % itemsep 设置列表间距
