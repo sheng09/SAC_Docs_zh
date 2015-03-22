@@ -12,11 +12,11 @@ plot1命令会绘制内存块中的所有波形数据，在一个窗口中一次
 该命令的绘图效果如图~\ref{fig:plot1}所示。
 
 当一次性读入多个波形数据时，若直接使用plot1绘图，会一次性显示全部波形，导致
-窗口内波形太密，反而什么都看不清。plot1提供了``\lstinline{perplot n}''选项以
+窗口内波形太密，反而什么都看不清。plot1提供了``\verb+perplot n+''选项以
 指定窗口内一次最多显示多少个波形，余下的波形则处于等待状态。
 
 在查看波形的时候，经常需要将每个台站的三分量波形记录放在一起看，此时设置选项
-~\lstinline{perplot}~的参数值为~\lstinline{3}即可。
+~\verb+perplot+~的参数值为~\verb+3+即可。
 \begin{SACCode}
 SAC> dg sub local cdv.[enz] cvl.[enz] cvy.[enz]  // 生成9个地震波形
 cdv.e cdv.n cdv.z cvl.e cvl.n cvl.z cvy.e cvy.n cvy.z
@@ -26,9 +26,9 @@ Waiting
 SAC> 
 \end{SACCode}
 
-默认情况下，所有的波形数据会按照绝对时间（~\lstinline{absolute}）对齐，若波形数据
+默认情况下，所有的波形数据会按照绝对时间（~\verb+absolute+）对齐，若波形数据
 具有不同的开始时间，则波形数据之间会出现相对错动；也可以使所有的波形数据相对于
-（~\lstinline{relative}~）各自的开始时间绘图，此时X轴的起始坐标为0。
+（~\verb+relative+~）各自的开始时间绘图，此时X轴的起始坐标为0。
 
 \subsection{plot2}
 plot2会一次性将内存块中的所有波形绘制在一个窗口内，所有的波形共用X轴，因而绘图

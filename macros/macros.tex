@@ -36,7 +36,7 @@ SAC> macro mystuff
 如果想要每次读取不同的文件或者乘以不同的值那么必须每次都修改该文件，
 让宏文件在执行之前允许用户输入参数可以大大增加宏文件的灵活性。
 
-SAC宏参数的格式为：~``\lstinline{$n$}''，其中n从1开始。
+SAC宏参数的格式为：~``\verb+$n$+''，其中n从1开始。
 
 下面将对先前的宏文件进行修改以使其可以接收文件名作为参数：
 \begin{SACCode}
@@ -46,7 +46,7 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-~``\lstinline{$1$}''~、~``\lstinline{$2$}''~和~``\lstinline{$3$}''~分别表示宏文件
+~``\verb+$1$+''~、~``\verb+$2$+''~和~``\verb+$3$+''~分别表示宏文件
 接收到的第一、二、三个参数，用下面的命令执行这个宏文件：
 \begin{SACCode}
 SAC> macro mystuff ABC DEF XYZ
@@ -70,7 +70,7 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-\lstinline{$keys$}~表明``files''和``values''是关键字。可以按照下面的输入来执行这个宏文件：
+\verb+$keys$+~表明``files''和``values''是关键字。可以按照下面的输入来执行这个宏文件：
 \begin{SACCode}
 SAC> macro mystuff files ABC DEF XYZ values 4 8 9
 \end{SACCode}
@@ -92,7 +92,7 @@ fft
 bg sgf
 psp am
 \end{SACCode}
-\lstinline{$default$}~指定了宏参数~\lstinline{values}~的缺省值，若在执行宏文件时不输入
+\verb+$default$+~指定了宏参数~\verb+values+~的缺省值，若在执行宏文件时不输入
 values的参数值那么这些参数将使用缺省值：
 \begin{SACCode}
 SAC> macro mystuff files ABC DEF XYZ
@@ -213,7 +213,7 @@ ENDDO
 \end{SACCode}
 其中大写字符串均为关键字，不可更改：
 \begin{itemize}
-\item variable是循环变量名，在变量名前后加上~``\lstinline{$}''~即可在do循环中引用该变量；
+\item variable是循环变量名，在变量名前后加上~``\verb+$+''~即可在do循环中引用该变量；
 \item start、stop、increment 循环变量的初值、终值、增值，start、stop必须为整型数，
     increment缺省值为1
 \item entrylist是do循环执行时变量可以取的所有值的集合，值之间以空格分开，其可以为整型、
@@ -293,11 +293,11 @@ SAC宏提供嵌套功能，不支持递归，但是SAC并不会去检查宏的�
 
 \subsection{中断宏}
 有些时候需要临时中断宏文件的执行，用户自己从终端输入一些命令，然后继续执行宏文件。
-这个可以利用SAC的pause和resume特性做到。当SAC在宏文件中遇到~``\lstinline{$TERMINAL$}''~时它会临时停止
-执行宏文件，更改提示符为宏名，然后提示从终端输入命令，然后当SAC在终端中看到~``\lstinline{$RESUME$}''~
+这个可以利用SAC的pause和resume特性做到。当SAC在宏文件中遇到~``\verb+$TERMINAL$+''~时它会临时停止
+执行宏文件，更改提示符为宏名，然后提示从终端输入命令，然后当SAC在终端中看到~``\verb+$RESUME$+''~
 时则会停止从终端读取命令继续从宏文件读取。如果你不想再继续执行宏文件中的命令，可以
-在终端输入~``\lstinline{$KILL$}''~，SAC将关闭宏文件，回到上一层。
-在一个宏文件中可以有多个~``\lstinline{$TERMINAL$}''~中断。
+在终端输入~``\verb+$KILL$+''~，SAC将关闭宏文件，回到上一层。
+在一个宏文件中可以有多个~``\verb+$TERMINAL$+''~中断。
 
 \subsection{宏文件中执行其它程序}
 你可以在SAC宏内部执行其他程序，可以向程序传递参数。如果程序是交互式的
@@ -311,13 +311,13 @@ ENDRUN
 结束，SAC宏会在ENDRUN之后继续执行。
 
 \subsection{转义字符}
-字符~``\lstinline{$}''~和~``\lstinline{%}''在SAC中具有特殊的含义，有时在字符串中需要使用这些
-特殊字符，但SAC会将其解释成一个变量，此时就需要使用转义字符，SAC中的转义符为~``\lstinline{@}''~，
+字符~``\verb+$+''~和~``\verb+%+''在SAC中具有特殊的含义，有时在字符串中需要使用这些
+特殊字符，但SAC会将其解释成一个变量，此时就需要使用转义字符，SAC中的转义符为~``\verb+@+''~，
 可以被转义的特殊符号包括：
 \begin{itemize}
-    \item \lstinline{$}  宏参数标识符
-    \item \lstinline{%}  黑板变量标识符
-    \item \lstinline{&}  头段变量标识符
-    \item \lstinline{@}  转义字符本身
-    \item \lstinline{()}  内联函数起始符
+    \item \verb+$+  宏参数标识符
+    \item \verb+%+  黑板变量标识符
+    \item \verb+&+  头段变量标识符
+    \item \verb+@+  转义字符本身
+    \item \verb+()+  内联函数起始符
 \end{itemize}

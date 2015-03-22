@@ -43,9 +43,9 @@ SAC> p                      // 绘图
 文本位置LOCATION则可以取TOP、BOTTOM、LEFT或RIGHT。
 
 可以通过\nameref{cmd:plabel}命令定义最多三个通用标签。通用标签与轴标签类似，其
-更通用之处在于可以任意指定其位置。每个标签可以用~\lstinline{POSITION x y a}~来指定
+更通用之处在于可以任意指定其位置。每个标签可以用~\verb+POSITION x y a+~来指定
 其位置，其中x、y为标签位置相对于窗口尺寸的比例，a表示标签相对于水平方向顺时针旋转
-的角度；也可以用~\lstinline{BELOW}~设置新标签位于上一标签的下方。
+的角度；也可以用~\verb+BELOW+~设置新标签位于上一标签的下方。
 
 \subsubsection{标记}
 图像中包含了如下标记：
@@ -60,7 +60,7 @@ QDP，全称为``quick and dirty plot''。在开发SAC的那个年代，计算�
 若在绘图时绘制全部数据点，则绘图过程会耗费大量时间。因而SAC采用了``qdp''的方式：
 每隔若干个数据点绘制一个数据点\footnote{本质上就是绘图时的一次``减采样''，但是没有做抗混淆处理。}。
 图中右下角的``2''即表示每两个点中绘制一个点。
-目前计算机的性能已经足够强大，因而一般使用~\lstinline{qdp off}~命令关于该选项。
+目前计算机的性能已经足够强大，因而一般使用~\verb+qdp off+~命令关于该选项。
 
 \subsubsection{框架}
 每张图都有一个框架，每个框架有TOP、BOTTOM、LEFT和RIGHT四条边。

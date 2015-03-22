@@ -6,7 +6,7 @@ SAC宏的功能相对比较单一，难以满足日常数据处理的需求，�
 这样可以利用Bash脚本的更多特性。
 
 下面的例子展示了如何在Bash脚本中调用SAC：
-\lstinputlisting[style=Bash]{./call-in-script/simple-script.sh}
+\inputminted{bash}{./call-in-script/simple-script.sh}
 
 SAC在启动是默认会显示版本信息，当用脚本多次调用SAC时，版本信息也会显示多次，可以
 通过设置环境变量~``\lstinline{export SAC_DISPLAY_COPYRIGHT=0}''的方式隐藏版本信息。
@@ -16,20 +16,21 @@ Bash传递给SAC，SAC会逐一解释并执行每行命令。
 
 \subsection{头段变量和黑板变量}
 想要在Bash脚本中引用头段变量，需要借助于SAC宏的语法。
-\lstinputlisting[style=Bash]{./call-in-script/variables.sh}
+\inputminted{bash}{./call-in-script/variables.sh}
 
 \subsection{内联函数}
 bash可以完成基本的数学运算，但是所有的运算只支持整型数据，浮点型运算或者其它更
 高级的数学运算需要借助bc或者awk来完成。Bash中的变量以~``\lstinline{$}''~作为标识符，
 Bash会首先做变量替换再将替换后的命令传递给SAC。
-\lstinputlisting[style=Bash]{./call-in-script/arithmetic-functions.sh}
+\inputminted{bash}{./call-in-script/arithmetic-functions.sh}
+
 本例中的变量~``\lstinline{$var1}''~和~``\lstinline{$var2}''~会首先被SAC解释成
 为1和2，因而SAC实际接收到的命令是~``\lstinline{bp c 1 2}''。
 
 借助于awk、sed等工具，也可以实现部分字符串处理函数：
-\lstinputlisting[style=Bash]{./call-in-script/string-functions.sh}
+\inputminted{bash}{./call-in-script/string-functions.sh}
 
 \subsection{条件判断和循环控制}
 Bash具有更灵活的条件判断和循环控制功能，但由于Bash自身的限制，这些特性仅能
 在SAC外部使用，因而下例中需要多次调用SAC，在某些情况下会相当耗时。
-\lstinputlisting[style=Bash]{./call-in-script/do-loops.sh}
+\inputminted{bash}{./call-in-script/do-loops.sh}
