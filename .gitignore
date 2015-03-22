@@ -33,3 +33,7 @@
 *.tdo
 .sconsign.dblite
 *.fls
+*.mintedcmd
+*.mintedmd5
+*.pyg
+_minted-*/
