@@ -7,6 +7,5 @@ map stan on
 q
 END
 ps2raster -A -Te gmt.ps
-rm gmt.ps
-rm gmt.csh
-rm .gmt*
+mv gmt.eps map.eps
+rm gmt.ps gmt.csh .gmt*

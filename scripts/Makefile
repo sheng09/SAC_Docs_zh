@@ -18,7 +18,7 @@ run:
 	sh contour1.sh
 	sh contour2.sh
 	sh image.sh
-	sh gmt.sh
+	sh map.sh
 	sh taper.sh
 	sh ppm.sh
 	sh plotsp.sh
@@ -40,7 +40,7 @@ install:
 	mv contour1.eps ${FIGURE}
 	mv contour2.eps ${FIGURE}
 	mv image.eps ${FIGURE}
-	mv gmt.eps ${FIGURE}
+	mv map.eps ${FIGURE}
 	mv taper.eps ${FIGURE}
 	mv ppm.eps ${FIGURE}
 	mv plotsp.eps ${FIGURE}
