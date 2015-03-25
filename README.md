@@ -1,5 +1,4 @@
-SAC参考手册
-===========
+# SAC参考手册# 
 
 《SAC参考手册》是介绍地震学常用软件[SAC](http://ds.iris.edu/ds/nodes/dmc/forms/sac/)用法的中文手册。
 
@@ -7,8 +6,7 @@ SAC参考手册
 源码托管在[github](https://github.com/seisman/SAC_Docs_zh)上，最终生成的PDF
 在[SeisMan博客](http://seisman.info/sac-manual.html)发布。
 
-文档结构
---------
+## 文档结构 ##
 
 文档源码的目录结构如下：
 
@@ -45,8 +43,7 @@ SAC参考手册
     |-- sss                 # SSS子程序
     `-- spe                 # SPE子程序
 
-依赖
-----
+## 依赖 ##
 
 - TeX发行版：[TeXLive 2014](https://www.tug.org/texlive/)
 - 中文支持：[xeCJK](http://www.ctan.org/pkg/xecjk)
@@ -59,13 +56,11 @@ SAC参考手册
     - [GMT4](http://gmt.soest.hawaii.edu/gmt4/)
     - [ImageMagick](http://www.imagemagick.org/)
 
-如何编译
---------
+## 如何编译 ##
 
 本源码仅在Linux下测试通过，Windows及Mac OS X下未测试。
 
-安装依赖
-~~~~~~~~
+### 安装依赖 ###
 
 必须的依赖如下：
 
@@ -77,20 +72,17 @@ SAC参考手册
 
 若需要重新生成文档中所使用的图片，则需要安装SAC、GMT4。
 
-TeXLive
-~~~~~~~
+### TeXLive ###
 
 安装TeXLive 2014，并将TeX包更新至最新版本，参考[此文](http://seisman.info/install-texlive-under-linux.html)
 
-中文字体
-~~~~~~~~
+### 中文字体 ###
 
 使用开源中文字体Fandol，该字体随TeX一起发布，因而只需要直接在`~/.fonts`目录下做一个软链接即可：
 
     ln -s /opt/texlive/2014/texmf-dist/fonts/opentype/public/fandol ~/.fonts/
 
-编译项目
-~~~~~~~~
+### 编译项目 ###
 
 1. 获取源码
 
@@ -115,8 +107,7 @@ TeXLive
    scons
    ```
 
-参与维护
---------
+### 参与维护 ###
 
 你可以参与到本项目的维护：
 
