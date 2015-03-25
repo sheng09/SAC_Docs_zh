@@ -1,4 +1,4 @@
-# SAC参考手册# 
+# SAC参考手册 # 
 
 《SAC参考手册》是介绍地震学常用软件[SAC](http://ds.iris.edu/ds/nodes/dmc/forms/sac/)用法的中文手册。
 
