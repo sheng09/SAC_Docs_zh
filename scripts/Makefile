@@ -19,7 +19,7 @@ run:
 	sh contour2.sh
 	sh image.sh
 	sh map.sh
-	sh taper.sh
+	sh taper-functions.sh
 	sh ppm.sh
 	sh plotsp.sh
 	sh linefill.sh
@@ -41,7 +41,7 @@ install:
 	mv contour2.eps ${FIGURE}
 	mv image.eps ${FIGURE}
 	mv map.eps ${FIGURE}
-	mv taper.eps ${FIGURE}
+	mv taper-functions.eps ${FIGURE}
 	mv ppm.eps ${FIGURE}
 	mv plotsp.eps ${FIGURE}
 	mv linefill.eps ${FIGURE}

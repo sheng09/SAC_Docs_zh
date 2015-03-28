@@ -24,9 +24,9 @@ color black incre list black blue green
 ylim 0 1
 qdp off
 p2
-saveimg taper.ps
+saveimg taper-functions.ps
 q
 EOF
 rm COSINE HANNING HAMMING
-ps2raster -A -Te taper.ps
-rm taper.ps
+ps2raster -A -Te taper-functions.ps
+rm taper-functions.ps
