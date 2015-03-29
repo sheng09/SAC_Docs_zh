@@ -13,10 +13,7 @@
 \newcommand{\SACDATE}{2013-11-11}               % SAC的发布日期
 
 % 中文支持及中英文字体设置
-\usepackage[
-    indentfirst,    % 章节标题后首段缩进
-    CheckSingle,    % 避免单个CJK字符位于段落最后一行
-]{xeCJK}
+\usepackage[CheckSingle]{xeCJK}
 
 % 页面设置
 \usepackage[top=3.0cm,bottom=2.0cm,left=3.5cm,right=2.5cm]{geometry}
@@ -25,7 +22,6 @@
 \usepackage{indentfirst}
 \linespread{1.3}                        % 行间距
 \addtolength{\parskip}{3pt}             % 段落间距
-\setlength{\parindent}{2em}             % 首行缩进
 
 % 标题设置
 \usepackage{titlesec}
@@ -40,22 +36,20 @@
 \newcommand{\SACTitle}[1]{\subsection*{#1}}
 \newcommand{\SACCMD}[1]{\section{\texttt{#1}}}
 
-% 目录设置
-\usepackage{titletoc}
-\setcounter{tocdepth}{2}
-\titlecontents{chapter}[0em]
+\usepackage{titletoc}           % 目录设置
+\setcounter{tocdepth}{2}        % 目录深度
+\titlecontents{chapter}[0em]    % 章
 {\vspace{0.2em}\bfseries\Large}
 {\thecontentslabel\quad}
 {\hspace*{0em}}
 {\hfill \contentspage}
-\titlecontents{section}[1em]
+\titlecontents{section}[1em]    % 节
 {\large}
 {\thecontentslabel\quad}
 {\hspace*{0em}}
 {\ \dotfill \ \contentspage}
 [\vspace{-0.3em}]
-
-\titlecontents{subsection}[3em]
+\titlecontents{subsection}[3em] % 小节
 {\normalsize}
 {\thecontentslabel\quad}
 {\hspace*{0em}}
@@ -106,7 +100,6 @@
 }
 \makeatother
 
-% 脚注
 \usepackage[perpage]{footmisc}	% 脚注在每一页单独编号
 
 % 超链接及书签
@@ -119,7 +112,6 @@
 % 代码宏包
 \usepackage{listings}
 \usepackage[usenames,dvipsnames,svgnames]{xcolor} % 用于code
-% lstings的默认设置, 主要用于lstinline
 \lstset{
     basicstyle=\footnotesize\ttfamily,
     xleftmargin=2pc,                    % 整体布局
@@ -148,7 +140,7 @@
 \setminted{linenos, frame=leftline, xleftmargin=2pc, numbersep=6pt}
 \setminted[console]{linenos=false, frame=none}
 
-% http://tex.stackexchange.com/questions/203/how-to-obtain-verbatim-text-in-a-footnote
+% 脚注中verb http://tex.stackexchange.com/questions/203
 \usepackage{fancyvrb}
 \VerbatimFootnotes
 
@@ -156,10 +148,9 @@
 \usepackage{accsupp}
 \newcommand\emptyaccsupp[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
 %default definition is: \def\theFancyVerbLine{\rmfamily\tiny\arabic{FancyVerbLine}}
-\let\theHFancyVerbLine\theFancyVerbLine% don't apply our patch to hyperref's version
+\let\theHFancyVerbLine\theFancyVerbLine % don't apply our patch to hyperref's version
 \def\theFancyVerbLine{\rmfamily\tiny\emptyaccsupp{\arabic{FancyVerbLine}}}
 
-% 列表
 \usepackage{enumitem}	% 列表宏包
 % itemsep 设置列表间距
 % topsep 设置列表前间距
@@ -169,10 +160,8 @@
 
 \usepackage{datetime2}      % \today格式为YYYY-MM-DD
 
-% 抄录
-\usepackage{verbatim}
+\usepackage{verbatim}       % 抄录
 
-% 表格
 \usepackage{booktabs}               % 三线表
 
 % 图片
@@ -181,13 +170,12 @@
 \usepackage{tikz}
 \usepackage{tikz-3dplot}
 
-% 图表浮动体
-\usepackage{float}
+\usepackage{float}      % 图表浮动体
 
 % 图表标题
 \usepackage{caption}
 \setlength{\belowcaptionskip}{2pt}  % skip above figure caption
-                                     %      beloe table caption
+                                    %      beloe table caption
 \captionsetup[figure]{      % 图标题
     format=plain,           % plain, hang
     labelformat=default,    % default, empty, simple, brace, parens
@@ -222,7 +210,7 @@
 \renewcommand{\appendixautorefname}{附录}
 
 % 自定义quote环境
-% http://tex.stackexchange.com/questions/16964/block-quote-with-big-quotation-marks
+% http://tex.stackexchange.com/questions/16964/
 \usepackage{framed}
 \newcommand*\openquote{\makebox(25,-22){\scalebox{5}{``}}}
 \newcommand*\closequote{\makebox(25,-22){\scalebox{5}{''}}}
@@ -237,10 +225,8 @@
 \@namedef{endshadequote*}{\endshadequote}
 \makeatother
 
-% 自定义Tips环境
-% http://tex.stackexchange.com/questions/158941/xelatex-compilation-error-using-bclogo-mps-image-problem
+% 自定义Tips环境 http://tex.stackexchange.com/questions/158941/
 \usepackage[tikz]{bclogo}
-\usepackage{xcolor}
 \DeclareGraphicsRule{.mps}{eps}{*}{}
 \renewcommand\bcStyleTitre[1]{\quad\bfseries\Large{#1}}
 \newenvironment{Tips}{
