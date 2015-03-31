@@ -25,7 +25,7 @@ SAC头段版本号。nvhdr\footnote{星号表示该头段变量在SAC中必须�
 \begin{SACCode}
 SAC> fg seis
 SAC> lh nzyear nzjday nzhour nzmin nzsec nzmsec
-  
+
   FILE: SEISMOGR - 1
  --------------
 
@@ -35,8 +35,8 @@ SAC> lh nzyear nzjday nzhour nzmin nzsec nzmsec
       nzmin = 38
       nzsec = 14
      nzmsec = 0
-SAC> lh kzdate kztime 
-  
+SAC> lh kzdate kztime
+
   FILE: SEISMOGR - 1
  --------------
 
@@ -81,7 +81,7 @@ SAC文件类型，其决定了头段区之后有几个子数据区。该头段�
 \item IDISP：位移量，单位为$nm$
 \item IVEL：速度量，单位为$nm/s$
 \item IVOLTS：速度量，单位为$volts$\footnote{不解}
-\item IACC：加速度量：单位为$nm/s^2$	
+\item IACC：加速度量：单位为$nm/s^2$
 \end{itemize}
 
 \subsection{数据相关变量}
@@ -328,12 +328,19 @@ usern和kusern之间没有对应关系。比如可以将波形的信噪比保存
 保存到kuser0中。
 
 \subsubsection{\texttt{lovrok}}
-若为真，则数据可覆盖；若为假，则数据不可被覆盖。主要用于保护原始数据，一般来说
-很少用到，若是出于保护原始数据的目的，应优先考虑对原始数据做备份。
+若为TRUE，则磁盘里的原始数据可被覆盖；若为FALSE，则原始数据不可被覆盖。
+主要用于保护原始数据，一般来说很少用到，若是出于保护原始数据的目的，
+应优先考虑对原始数据做备份。
+
+若lovrok取值为FALSE时尝试覆盖原始数据，会出现如下错误：
+\begin{minted}{console}
+ERROR 1303: Overwrite flag is not on for file xxx
+\end{minted}
 
 \subsubsection{\texttt{lcalda}}
-全称为Calculate Dist and Azimuth，若为真，则在事件和台站的坐标被写入或被修改时，
-dist、gcarc、az、baz将自动计算。
+全称为Calculate Distance and Azimuth。若为TRUE，则当事件和台站的坐标被写入或被修改时，
+dist、gcarc、az、baz将自动计算；否则dist、gcarc、az、baz不会被自动计算，SAC头段中
+会存在信息的不兼容。
 
 \subsubsection{\texttt{kdatrd}}
 数据被读入计算机的日期。
