@@ -14,8 +14,9 @@ $ sac               // 启动一个SAC会话
 
 SAC> dg sub local cdv.n cdv.e cdv.z     // 生成三个SAC数据
 SAC> w cdv.n cdv.e cdv.z                // 将SAC数据写入磁盘
-SAC> ls                                 // 在SAC中也可以使用一些常见的系统命令
+SAC> ls                                 // SAC中调用常见的系统命令
 cdv.e  cdv.n  cdv.z
+                                        // 注意：这里并没有退出SAC
 \end{SACCode}
 
 有了数据之后，就可以练习如何去读了，在读数据之前，先说一说通配符的概念。
@@ -48,10 +49,12 @@ SAC> r *                    // 也可以这样读
 需要注意的是，SAC在每次执行读取命令时，都会读入新的波形数据，并删除内存中原有的
 波形数据，所以经过上面四次read之后，内存中依然只有三个波形。
 
-当然，read也有选项，使得读取时将波形追加到内存中的波形数据集之后，而不替换
-内存中的原有波形：
+如果想要在读取新数据时将波形直接追加到内存中的波形数据集之后，而不替换内存中的
+原有波形，则需要使用read的more选项
+\footnote{在执行完上面的例子之后，内存中有三个SAC文件，所以本例
+在执行read命令时内存中的文件数由三个变成1个。}：
 \begin{SACCode}
-SAC> r ./cdv.n              // one file       0 -> 1
+SAC> r ./cdv.n              // one file       3 -> 1
 SAC> r more ./cdv.e         // one MORE file  1 -> 2
 SAC> r more ./cdv.z         // one MORE file  2 -> 3
 \end{SACCode}
@@ -64,5 +67,6 @@ SAC> w over                         // 覆盖磁盘原文件
 SAC> w append .new                  // 在原文件名的基础上加上后缀".new"
 cdv.e.new cdv.n.new cdv.z.new
 SAC> ls
-cdv.e  cdv.e.new  cdv.n  cdv.n.new  cdv.z  cdv.z.new  tesn.n  test.e  test.z
+cdv.e cdv.e.new cdv.n cdv.n.new cdv.z cdv.z.new tesn.n test.e test.z
+SAC> q                              // 退出本节的SAC会话
 \end{SACCode}

@@ -1,7 +1,7 @@
 \section{样本数据}
 
 想要学习SAC，手头必须有SAC格式的数据，SAC提供了两个命令可以用于生成SAC格式数据，分别是
-funcgen和datagen。
+\nameref{cmd:funcgen} 和 \nameref{cmd:datagen}。
 
 \subsection{funcgen}
 \nameref{cmd:funcgen}（简写为fg）表示``function generator''，即该命令可以生成一些特定的函数，
@@ -14,6 +14,7 @@ SAC> fg impulse         // 生成脉冲函数
 \begin{SACCode}
 SAC> p
 \end{SACCode}
+
 在学习SAC的过程中，~\nameref{cmd:funcgen}~可以生成地震波形样本：
 \begin{SACCode}
 SAC> fg seismogram      // 生成地震波形样本，简写为fg seis
