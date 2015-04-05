@@ -89,7 +89,7 @@ SAC选择了另外一种简化模式，``起始相对时间+采样间隔+数据�
 
 按照SAC的模式在对相对时间进行简化之后，整个数据可以表示为
 \begin{minted}{bash}
-nzyear = 2014 
+nzyear = 2014
 nzjday = 57
 nzhour = 20
 nzmin  = 45
@@ -128,7 +128,7 @@ npts   = 11
     \item [绝对时刻] =参考时刻+相对时间；
 \end{description}
 
-\subsection{在测试中学会领悟}
+\subsection{一些测试}
 下面以一个具体的数据为例，通过修改各种与时间相关的头段来试着去进一步理解SAC的时间概念。
 
 \subsubsection{生成样例数据}
@@ -158,7 +158,7 @@ SAC只有在修改与时间相关的头段变量时才可能会检查到这个�
 \begin{SACCode}
 SAC> r seis
 SAC> lh kzdate kztime b delta npts e o a f
-  
+
   FILE: seis - 1
  --------------
 
@@ -172,7 +172,7 @@ SAC> lh kzdate kztime b delta npts e o a f
           a = 1.046400e+01
 SAC> ch b 10
 SAC> lh
-  
+
   FILE: seis - 1
    ----------
 
@@ -203,9 +203,9 @@ SAC> lh
 
 \subsubsection{修改文件结束时间e}
 \begin{SACCode}
-SAC> r ./seis 
-SAC> lh kzdate kztime b delta npts e o a f 
-  
+SAC> r ./seis
+SAC> lh kzdate kztime b delta npts e o a f
+
   FILE: ./seis - 1
  ------------
 
@@ -219,7 +219,7 @@ SAC> lh kzdate kztime b delta npts e o a f
           a = 1.046400e+01
 SAC> ch e 0
 SAC> lh
-  
+
   FILE: ./seis - 1
  ------------
 
@@ -243,9 +243,9 @@ SAC> lh
 
 \subsubsection{修改参考时间}
 \begin{SACCode}
-SAC> r ./seis 
+SAC> r ./seis
 SAC> lh kzdate kztime b delta npts e o a f
-  
+
   FILE: ./seis - 1
  ------------
 
@@ -259,7 +259,7 @@ SAC> lh kzdate kztime b delta npts e o a f
           a = 1.046400e+01
 SAC> ch nzsec 15
 SAC> lh
-  
+
   FILE: ./seis - 1
  ------------
 
