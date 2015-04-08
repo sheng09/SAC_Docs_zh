@@ -24,7 +24,7 @@ SAC提供了如下几类内联函数：
 \end{SACCode}
 所有的操作数都被认为是实型的，所有的算术运算都按照双精度浮点型进行运算；
 
-SAC支持的操作符是包括：``\verb+ +  -  *  /  ** +''
+SAC支持的操作符是包括：``\verb| +  -  *  /  ** |''。
 
 看几个简单的例子:
 \begin{SACCode}
@@ -64,6 +64,7 @@ SAC提供了20个常规算术运算函数，其基本形式为~``\verb+(func arg
 	multiply&	( multiply v1 v2 ... vn )   &	v1*v2*...*vn	\\
 	divide	&	( divide v1 v2 ... vn )	    &	v1/v2/.../vn	\\
 	absolute&	( absolute v )			    &	取绝对值	\\
+	abs     &	( abs v )			        &	取绝对值	\\
 	power	&	( power v )				    &	取10的v次方     \\
 	alog10	&	( alog10 v)				    &	以10为底取v的对数	\\
 	alog	&	( alog v)				    &	取v的自然对数	\\
@@ -94,21 +95,21 @@ SAC> setbb var3 (multiply 1 3 4)    // 1*3*4
  ==>  setbb var3 12
 SAC> setbb var4 (divide 1 3 4)      // 1/3/4
  ==>  setbb var4 0.0833333
-SAC> setbb var5 ( absolute -5.1 )   // abs(-5.1)
+SAC> setbb var5 (absolute -5.1)     // abs(-5.1)
  ==>  setbb var5 5.1
-SAC> setbb var6 ( power 5 )         // 10^5
+SAC> setbb var6 (power 5)           // 10^5
  ==>  setbb var6 100000
-SAC> setbb var7 ( alog10 10000 )    // log10(10000)
+SAC> setbb var7 (alog10 10000)      // log10(10000)
  ==>  setbb var7 4
-SAC> setbb var8 ( alog 10000 )      // ln(10000)
+SAC> setbb var8 (alog 10000)        // ln(10000)
  ==>  setbb var8 9.21034
-SAC> setbb var9 ( exp 5 )           // e^5
+SAC> setbb var9 (exp 5)             // e^5
  ==>  setbb var9 148.413
-SAC> setbb var10 ( sqrt 9 )         // sqrt(9)
+SAC> setbb var10 (sqrt 9)           // sqrt(9)
  ==>  setbb var10 3
-SAC> setbb var11 ( pi )             // PI
+SAC> setbb var11 (pi)               // PI
  ==>  setbb var11 3.14159
- SAC> setbb var12 ( sine (pi/6) )   // sin(30)
+ SAC> setbb var12 (sine (pi/6))     // sin(30)
  ==>  setbb var12 0.5
 SAC> setbb var13 ((arcsine 0.5)*180/(pi))
  ==>  setbb var13 30
