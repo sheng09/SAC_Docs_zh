@@ -8,8 +8,11 @@ SAC头段版本号。nvhdr\footnote{星号表示该头段变量在SAC中必须�
 目前值为6，旧版本的SAC文件（$nvhdr<6$）在读入时会自动更新。
 
 \subsubsection{\texttt{nzyear, nzjday, nzhour, nzmin, nzsec, nzmsec}}
-分别表示``年''、``一年的第几天''\footnote{使用jday而不是``month+day''可以少用一个
-头段变量。}、``时''、``分''、``秒''、``毫秒''\footnote{$1 s = 1000 ms$}。
+分别表示``年''、
+``一年的第几天''
+\footnote{使用jday而不是``month+day''可以少用一个头段变量。}
+\footnote{1月1日对应的nzjday是1而不是0。}
+、``时''、``分''、``秒''、``毫秒''\footnote{$1 s = 1000 ms$}。
 这六个头段变量构成了SAC中唯一的绝对时刻，SAC中的其它时刻都被转换为相对于该时刻的
 相对时间（单位为秒）。详细的信息参见第~\ref{sec:sac-time}~节``~\nameref{sec:sac-time}~''中的
 介绍。
