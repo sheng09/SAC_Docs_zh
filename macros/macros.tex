@@ -25,7 +25,7 @@ SAC> macro mystuff
 当你执行一个宏文件而又没有给出宏文件的绝对路径时,SAC会按照下面的路径顺序搜索宏文件：
 \begin{enumerate}
 \item 在当前目录搜索；
-\item 在setmacro命令设置的搜索目录中搜索；
+\item 在~\nameref{cmd:setmacro}~命令设置的搜索目录中搜索；
 \item 在SAC的全局宏目录（\texttt{sac/aux/macros}）中搜索；
 \end{enumerate}
 
