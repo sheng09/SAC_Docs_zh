@@ -2,35 +2,29 @@
 \label{sec:instrument-response}
 相关命令：\nameref{cmd:transfer}
 
-地震仪器观测到的地面运动记录可以表示为
-\[  u(t) = s(t) * g(t) * i(t) \]
-其中$s(t)$代表震源项， $g(t)$代表路径效应，$i(t)$代表仪器响应，星号代表卷积。
+关于仪器响应的详细介绍，请参考附录中的``\nameref{chap:resp}''一章。
 
-四个量中，$u(t)$是仪器记录的结果，已知；$i(t)$在仪器设计的时候会给出各种参数，已知；
-$s(t)$和$g(t)$是未知的，也是地震学研究的两个主要内容：震源和结构。
-因而理解仪器响应$i(t)$的基本原理并准确地去除仪器响应是研究的关键一步。
-
-地震仪器记录的地面运动物理量有很多，常见的有速度和加速度，不太常见的还有位移、应变、旋转。
-这些物理量在被地震仪接收到之后，首先要将其转换为电信号，然后对电信号振幅进行放大以及滤波，
-再将连续时间序列离散化，最终以我们常见的波形的形式表现出来，所以我们最初见到的波形
-表示的是电信号的强弱，单位是counts。
-
-数据分析经常会遇到这样的情况，需要将电信号转换成真正的地面运动物理量，此时需要去除
-仪器响应；有时不同数据使用了不同类型的仪器，为了使得数据之间可以相互比较，则需要
-从原始数据中去除仪器响应，并加上同一类型仪器的仪器响应。
-
-\subsection{transfer}
-transfer命令的基本语法是
+SAC中~\nameref{cmd:transfer}~命令用于处理仪器响应，其基本语法是：
 \begin{SACSTX}
 !TRANS!FER [FROM type [!SUB!TYPE subtype]] [TO type [!SUB!TYPE subtype]]
 [!FREQ!LIMITS f1 f2 f3 f4] [!PREW!HITENING ON|OFF|n]
 \end{SACSTX}
 
-先不管FREQ和PREW这两个选项，该命令就是将波形数据从（from）一种仪器类型转换到（to）
-另一种仪器类型，即反卷积~\verb+from+~选项给出的仪器响应，并卷积上~\verb+to+~
-选项给出的仪器响应。
+transfer命令的作用是将波形数据从（from）一种仪器类型转换到（to）另一种仪器类型，
+即首先将数据反卷积~\verb+from+~所给出的仪器响应，再卷积上~\verb+to+~选项给出的
+仪器响应。
 
-SAC内置了很多标准地震仪器的仪器响应，即type的取值如表~\ref{table:instrument-type}~所示。
+transfer在卷积或反卷积仪器响应时，首先需要知道仪器响应的信息。SAC中提供了四种方式
+来指定仪器响应，分别是
+\begin{itemize}
+\item 内置仪器响应；
+\item RESP文件；
+\item SAC PZ文件；
+\item FAP文件；
+\end{itemize}
+
+\subsection{内置仪器响应}
+SAC内置了很多标准地震仪器的仪器响应，如表~\ref{table:instrument-type}~所示。
 部分仪器类型还拥有子类型，如表~\ref{table:instrument-subtype}~所示。
 
 例如，数据ABC.Z的仪器类型是LLL，通过如下命令将波形中的LLL仪器响应去除，并卷积上SRO
@@ -60,6 +54,7 @@ SAC> trans from RSTN subtype NYKM.Z to WWSP  // 未使用freq和prew
 SAC> r XXX.z
 SAC> trans from WWSP to NONE            // 未使用freq和prew
 \end{SACCode}
+
 当然，也可以去除仪器响应，得到真实的速度场：
 \begin{SACCode}
 SAC> r XXX.z
@@ -147,18 +142,10 @@ HIGHPASS v &	  REFTEK	\\
 \end{tabular}
 \end{table}
 
-随着地震仪器的不断发展，地震仪器的类型也越来越多，SAC不可能包含已知的全部仪器
-类型，因而需要更灵活的方式来指定仪器响应。SAC提供了三种方式：EVALRESP、POLEZERO
-和FAP。
+\subsection{RESP文件}
+RESP文件中包含了仪器响应的全部信息。
 
-\subsection{EVALRESP选项}
-\subsubsection{RESP文件}
-该选项需要RESP文件。RESP文件包含了仪器的完整信息，其可以由rdseed程序直接从SEED数据
-中解压得到。想要了解RESP文件的具体细节，可以参考SEED格式的说明文档：
-\url{http://www.fdsn.org/seed_manual/SEEDManual_V2.4.pdf}。
-
-RESP文件中包含了仪器响应的零极点信息及其所对应的台网名、台站名、通道名、日期和时间
-等信息。transfer会从SAC头段区中提取相关信息，并与RESP文件中的信息进行匹配，若二者
+transfer会从SAC头段区中提取相关信息，并与RESP文件中的信息进行匹配，若二者
 完全匹配方可继续执行transfer命令。通过给evalresp选项指定额外的选项和参数可以覆盖SAC文件中
 对应的头段变量，这些可能的选项包括：STATION、CHANNEL、NETWORK、DATE、TIME、LOCID、FNAME。
 
@@ -170,10 +157,6 @@ RESP文件中包含了仪器响应的零极点信息及其所对应的台网名�
 
 如果FNAME选项未指定，EVALRESP将尝试按照一般格式在当前工作目录下寻找合适的RESP文件，
 其一般格式为~``\verb+RESP.<NET>.<STA>.<LOCID>.<CHAN>+''，比如：~``\verb+RESP.IU.ANMO..BHZ+''~。
-
-evalresp本质上是独立的程序，SAC将其内嵌到SAC的代码中。由于evalresp默认使用$m$作为基本单位，
-而SAC以$nm$作为基本单位，在使用evalresp选项对波形数据去仪器响应得到位移场、速度场或
-加速度场时，SAC会自动完成$m$到$nm$的转换，对数据乘以$10^9$的因子以符合SAC的标准。
 
 \subsubsection{EVALRESP例子}
 若仪器响应文件位于当前目录，且其具有标准的文件名，可以用如下命令去除仪器响应，
@@ -213,91 +196,10 @@ SAC> psp am
 
 \subsection{POLEZERO选项}
 \subsubsection{SAC PZ文件}
-POLEZERO选项需要使用另一种仪器响应文件，称之为SAC PZ文件。
+POLEZERO选项使用SAC PZ仪器响应文件。
 
-RESP文件中包含了仪器响应的所有细节，因而相对来说较为繁琐。SAC从RESP文件中提取出
-仪器响应中的相关信息，重新定义了新的PZ响应文件。相对于RESP文件来说，PZ文件中仅
-包含仪器响应的零极点和增益信息，在去仪器响应时速度更快。
-
-地震仪器的响应函数（即线性系统脉冲响应）一般用Laplace域的零极点来表示。响应函数
-$H(s)$由$nz$个零点和$np$个极点构成，如下式所示：
-\[ H(s) = \frac{(s-z_1)(s-z_2)\ldots(s-z_{nz})}{(s-p_1)(s-p_2)\ldots(p-z_{np})}\]
-其中，Laplace变量$s=2\pi f i$，$f$为频率，单位$Hz$。
-
-PZ文件中宏包含零点、极点、常数值以及注释行，其中常数是比例因子。常数行的缺省值为1.0。
-
-文件中包含关键字``POLES''的行给出了极点个数（np），接下来的np行列出仪器响应的极点，
-每行两个浮点数，分别代表实部和虚部。
-
-以关键字``ZEROS''起始的行给出零点个数（nz）。一般地，零极点文件中可能包含一个或多个
-~\verb+(0.0,0.0)+~这样的零点，在SAC中这样的零点不出现在PZ文件中，所以接下来
-列出的零点数可能会少于nz个。
-
-PZ文件中还包含格式化的注释行信息，以帮助用户组织和理解PZ文件中的内容。目前PZ零极点
-文件一般用rdseed从SEED中解压得到或者从SAC PZ网页服务\footnote{\url{http://www.iris.edu/ws/sacpz}}
-中获取。若内存中的波形数据头段区KSTNM、KCMNM、KZDATE、KZTIME与零极点文件中的注释
-信息相匹配，则transfer命令会正常运行。一个SAC PZ文件中，可能包含多个仪器的零极点文件的
-信息，其跨越了多个时间段或包含多个台站多个通道，transfer命令会对内存中与之匹配的
-波形数据进行处理。
-
-下面给出rdseed v5.2产生的一个零极点文件的例子，早期版本的rdseed的输出可能与此略微不同：
-
-\begin{SACCode}
-    * **********************************
-    * NETWORK   (KNETWK): II
-    * STATION    (KSTNM): PFO
-    * LOCATION   (KHOLE): 00
-    * CHANNEL   (KCMPNM): BHZ
-    * CREATED           : 2011-08-11T00:24:07
-    * START             : 2010-07-30T18:50:00
-    * END               : 2599-12-31T23:59:59
-    * DESCRIPTION       : Pinon Flat, California, USA
-    * LATITUDE          : 33.610700
-    * LONGITUDE         : -116.455500
-    * ELEVATION         : 1280.0
-    * DEPTH             : 5.3
-    * DIP               : 0.0
-    * AZIMUTH           : 0.0
-    * SAMPLE RATE       : 20.0
-    * INPUT UNIT        : M
-    * OUTPUT UNIT       : COUNTS
-    * INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
-    * INSTGAIN          : 3.314400e+03 (M/S)
-    * COMMENT           : S/N #119005
-    * SENSITIVITY       : 5.247780e+09 (M/S)
-    * A0                : 7.273290e+01
-    * **********************************
-    ZEROS	6
-    -7.853982e+01	+0.000000e+00
-    -1.525042e-01	+0.000000e+00
-    -1.525042e-01	+0.000000e+00
-    POLES	6
-    -1.207063e-02	+1.224561e-02
-    -1.207063e-02	-1.224561e-02
-    -1.522510e-01	+9.643684e-03
-    -1.522510e-01	-9.643684e-03
-    -4.832398e+01	+5.817080e+01
-    -4.832398e+01	-5.817080e+01
-    CONSTANT	3.816863e+11
-\end{SACCode}
-
-该仪器响应表明，响应函数含六个极点和六个零点（只列出三个非0零点）。
-
-在某些平台上，rdseed v5.1会产生错误的end时间，通常比start时间早一点，而导致
-transfer无法正常工作，手动将end时间修改为迟于created时间可以解决这个问题。
-SAC为了解决这个问题，可以指定仪器类型为POLEZERO，子类型为PZ文件名。此时SAC
-会强制使用该PZ文件作为响应文件，而不去检测头段是否匹配。在指定子类型为PZ文件名
-的前提下，PZ文件中的注释行便不再被transfer命令所需要，因而有或者没有对于去仪器
-响应而言没有影响。
-
-在处理大量数据时做了一下测试，一种情况是直接使用rdseed解压出的包含注释的PZ文件去仪器响应，
-另一种是用脚本重做一个无注释的PZ文件，再用无注释的PZ文件去仪器响应。测试结果表明，
-后者在速度上相对于前者快了非常多。
-
-需要注意的是，如果零极点文件由rdseed从SEED文件中提取得到，则零极点文件的输入为位移，
-其单位与SEED格式相同，一般为$m$。不像evalresp，SAC不知道零极点文件来自何处，也无法
-知道其输入单位是$m$，因此在使用PZ文件去除仪器响应到位移量、速度量或加速度量时，
-应手动乘以比例因子$10^9$以保证数据的正确性。
+在批处理时，注释行信息没有用，可以写脚本重做一个无注释行的PZ文件，无注释行的PZ文件去
+仪器响应的速度会比有注释行的PZ文件快很多；
 
 \subsubsection{POLEZEROS例子}
 PZ文件~\verb+SAC_PZs_XC_OR075_LHZ+~是需要从波形~\verb+OR075_LHZ.SAC+~
@@ -356,14 +258,18 @@ SAC> trans from fap s fap.n11a.lhz_0.006-0.2 freq 0.004 0.006 0.1 0.2
 SAC> mul 1.0e9
 \end{SACCode}
 
-\subsection{其它}
+\subsection{RESP和PZ的区别}
+RESP和SAC PZ都可以用于表征仪器响应，但是这两者还是有很大区别的：
 
-关于仪器响应的更多细节可以查看SEED格式手册以及参考如下几篇博文：
 \begin{itemize}
-\item \href{http://seisman.info/instrumental-response-in-seismology.html}{地震学的仪器响应}
-\item \href{http://seisman.info/physical-details-of-instrumental-response.html}{仪器响应的物理细节}
-\item \href{http://seisman.info/simple-analysis-of-resp.html}{仪器响应文件RESP}
-\item \href{http://seisman.info/simple-analysis-of-sac-pz.html}{仪器响应文件SAC PZ}
-\item \href{http://seisman.info/difference-between-resp-and-pz-while-deconvolution.html}{用RESP和PZ去除仪器响应的差别}
-\item \href{http://seisman.info/deep-analysis-of-response.html}{仪器响应实例分析}
+\item RESP文件包含了仪器响应的完整信息，而PZ文件中仅包含了零极点和增益信息，
+    二者的主要差异在于PZ文件中未包含FIR滤波器的信息；
+\item RESP文件中可以知道输入数据是位移、速度还是加速度，而PZ文件默认输入为
+    位移。因而若RESP文件中输入是速度，则PZ文件中会多一个``零''零点；若RESP
+    文件中输入是加速度，则PZ文件中会多两个``零''零点；
+\item RESP文件的输入单位为\verb+m+（或\verb+m/s+及其他），而PZ文件中未提供
+    输入单位信息，故SAC默认其输入单位为\verb+nm+，故而使用PZ文件去除仪器响应
+    时，得到的运动物理量的单位是\verb+nm+；
 \end{itemize}
+
+对于大多数情况，建议使用PZ文件，数据处理速度要快很多。

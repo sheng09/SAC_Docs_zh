@@ -1,0 +1,19 @@
+\section{RESP文件}
+RESP文件是用于描述仪器响应的文件，其包含了描述仪器响应所需要的全部信息。RESP文件可以用rdseed程序从SEED文件中直接解压得到，例如：
+\begin{minted}{console}
+$ rdseed -Rdf infile.seed
+\end{minted}
+
+RESP文件中，首先给出了台站名、台网名、通道名、开始时间和结束时间等台站的基本信息。仪器响应部分分成多个Stage，每个Stage中又还多多个block，包含了仪器响应的不同信息。
+
+\subsection*{Stage 1}
+Stage1一般对应模拟信号阶段，从中可以提取中这一阶段的输入单位、零极点、归一化因子$A_0$以及第一阶段的增益。
+
+\subsection*{Stage 2}
+Stage2一般对应ADC阶段，从中可以提取出这一阶段的放大系数。
+
+\subsection*{Stage 3-n}
+Stage3一般对应于数字滤波和减采样阶段。通常需要对数字信号多多次滤波或减采样，因而Stage3后面可能会接多个类似的Stage。从这几个Stage中提取的信息是增益，一般值为1。
+
+\subsection{Stage 0}
+Stage0是会给出前面所有Stage的增益的乘积，主要是起到了辅助验证的作用。

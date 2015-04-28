@@ -2,19 +2,19 @@
 \label{cmd:transfer}
 
 \SACTitle{概要}
-反卷积以去除仪器响应并卷积以加入其它仪器响应
+去仪器响应，并加上其他仪器响应
 
 \SACTitle{语法}
 \begin{SACSTX}
-TRANS!FER! [FROM type [options]] [TO type [options]] 
+TRANS!FER! [FROM type [options]] [TO type [options]]
     [FREQ!LIMITS! f1 f2 f3 f4] [PREWH!ITENING! ON|OFF|n]
 \end{SACSTX}
 
 \SACTitle{输入}
 \begin{itemize}
-\item FROM type : 通过谱域除法做反卷积要去除的仪器类型。 
-\item TO type : 通过谱域乘法做卷积来加入的仪器类型。 
-\item FREQLIMITS f1 f2 f3 f4：设定频率段，以处理超高频和超低频信号。
+\item FROM type : 要去除的仪器响应类型；
+\item TO type : 要加入的仪器响应类型；
+\item FREQLIMITS f1 f2 f3 f4：压制大于f4以及低于f1的频段；
 \item PREWHITENING ON|OFF|n：预白化处理。
 \end{itemize}
 
@@ -24,7 +24,11 @@ trans from none to none
 \end{SACDFT}
 
 \SACTitle{说明}
-关于仪器响应以及transfer命令，参考~``\nameref{sec:instrument-response}''一节。
+关于仪器响应的详细说明，请参考附录中的``\nameref{chap:resp}''一章。
+
+transfer命令的作用是将波形数据从（from）一种仪器类型转换到（to）另一种仪器类型，
+即首先将数据反卷积~\verb+from+~所给出的仪器响应，再卷积上~\verb+to+~选项给出的
+仪器响应。
 
 在TRANSFTER中默认仪器的输入输出都是位移，在SAC中定义为NONE。
 因而如果FROM类型或者TO类型未指定，SAC会假定其为NONE。
@@ -57,7 +61,7 @@ PREWHITENING控制数据的预白化：
 \begin{SACCode}
 SAC> read nykm.z
 SAC> trans from rstn subtype nykm.z to dss prew off
-\end{SACCode}  	
+\end{SACCode}
 
 为了去除LLL宽频带仪器响应，应用SRO仪器响应，并对频带做尖灭及预白化：
 \begin{SACCode}
