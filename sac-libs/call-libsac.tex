@@ -11,9 +11,9 @@ int next2(int num)  // 输入为num，返回值为大于num的最小2次幂
 xapiir用于设计IIR滤波器，并对数据进行滤波。这个子函数底层调用了design和apply两个
 子函数。
 \begin{minted}{c}
-void 
+void
 xapiir(float    *data,      // 待滤波的数据，滤波后的数据保存在该数组中
-       int       nsamps,    // 数据点数 
+       int       nsamps,    // 数据点数
        char     *aproto,    // 滤波器类型
                             //  - 'BU'  :   butterworth
                             //  - 'BE'  :   bessel
@@ -34,19 +34,48 @@ xapiir(float    *data,      // 待滤波的数据，滤波后的数据保存在�
 
 \subsection{firtrn}
 \begin{minted}{c}
-void                                                                                
+void
 firtrn( char    *ftype,     // 类型，取'HILBERT'或'DERIVATIVE'
-        float   *x,         // 输入数据                      
-        int      n,         // 数据点数                                             
+        float   *x,         // 输入数据
+        int      n,         // 数据点数
         float   *buffer,    // 临时数组，长度至少4297
         float   *y          // 输出数组
 )
 \end{minted}
 
+参考示例:
+\begin{minted}{c}
+#include <stdio.h>
+#include <stdlib.h>
+#define NPTS 1000
+float *hilbert(float *in, int npts);
+int main(){
+    float data[NPTS];
+    float *hdata;
+    int i;
+    // 准备输入数据
+    for (i=0; i<NPTS; i++)  data[i] = i;
+    // 进行Hilbert变换，hdata为Hilbert变换的结果
+    hdata = hilbert(data, NPTS);
+    for (i = 0; i < NPTS; i++)
+        printf("%f\n", hdata[i]);
+}
+
+// 这里定义了hilbert函数，是对firtrn函数的一个封装
+float *hilbert(float *in, int npts) {
+    float *buffer;
+    float *out;
+    buffer = (float *)malloc(sizeof(float)*50000);
+    out = (float *)malloc(sizeof(float)*npts);
+    firtrn("HILBERT", in, npts, buffer, out);
+    return out;
+}
+\end{minted}
+
 \subsection{envelope}
 该子函数用于计算数据的包络函数，其底层调用了firtrn函数。
 \begin{minted}{c}
-void                                                                                
+void
 envelope( int    n,     // 数据点数
           float *in,    // 输入数据
           float *out    // 输出数据
@@ -60,16 +89,16 @@ envelope( int    n,     // 数据点数
 效率更高。
 
 \begin{minted}{c}
-void                                                                                  
+void
 crscor( float   *data1,     // 数据1
-        float   *data2,     // 数据2                                       
-        int      nsamps,    // 数据点数                                               
-        int      nwin,      // 相关窗数目                                            
+        float   *data2,     // 数据2
+        int      nsamps,    // 数据点数
+        int      nwin,      // 相关窗数目
         int      wlen,      // 窗内数据点数，最大值为2048
         char    *type,      // 窗类型，可以取'HAM','HAN','C','R','T'
         float   *c,         // 输出数据，长度为2*wlen-1
-        int     *nfft,      // 相关序列的数据点数                            
-        char    *err,       // 错误消息                                  
+        int     *nfft,      // 相关序列的数据点数
+        char    *err,       // 错误消息
         int      err_s      // 错误消息长度
 )
 \end{minted}
