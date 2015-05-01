@@ -15,17 +15,6 @@ SAC> q
 \end{SACCode}
 此时会出现一个绘图窗口，且焦点位于绘图窗口上，SAC程序进入了ppk模式。
 
-移动光标到绘图窗口内部，光标会以交叉瞄准线的形式出现。在``\nameref{sec:sac-install}''
-一节中提到的SAC全局变量~\verb+SAC_PPK_USE_CROSSHAIRS+~可以控制该光标的形态。当此全局
-变量为0时，光标形态为
-``\tikz[scale=0.3]{
-    \draw[very thick] (0,0) -- (1,0);
-    \draw[very thick] (0.5,-0.5) -- (0.5,0.5);
-}''；当此全局变量为1时，会在0的基础上再加上水平和垂直线。个人推荐设置其值为1。
-
-此时所有的键入都会解释成``ppk模式''下的命令，表~\ref{table:plotpk-commands}~列出了
-``ppk模式''支持的所有命令。
-
 \begin{table}[H]
 \centering
 \small
@@ -68,6 +57,17 @@ SAC> q
 	\bottomrule
 \end{tabular}
 \end{table}
+
+移动光标到绘图窗口内部，光标会以交叉瞄准线的形式出现。在``\nameref{sec:sac-install}''
+一节中提到的SAC全局变量~\verb+SAC_PPK_USE_CROSSHAIRS+~可以控制该光标的形态。当此全局
+变量为0时，光标形态为
+``\tikz[scale=0.3]{
+    \draw[very thick] (0,0) -- (1,0);
+    \draw[very thick] (0.5,-0.5) -- (0.5,0.5);
+}''；当此全局变量为1时，会在0的基础上再加上水平和垂直线。个人推荐设置其值为1。
+
+此时所有的键入都会解释成``ppk模式''下的命令，表~\ref{table:plotpk-commands}~列出了
+``ppk模式''支持的所有命令。
 
 不同的命令效果可能不同，有些会在绘图窗口显示信息，有些会将信息写入头段变量，
 下面对表~\ref{table:plotpk-commands}~中的说明进行一个说明：

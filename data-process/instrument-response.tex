@@ -2,274 +2,80 @@
 \label{sec:instrument-response}
 相关命令：\nameref{cmd:transfer}
 
-关于仪器响应的详细介绍，请参考附录中的``\nameref{chap:resp}''一章。
+关于仪器响应的详细介绍，请参考附录中的``\nameref{chap:resp}''一章。本节不会介绍
+仪器响应的细节以及~\nameref{cmd:transfer}命令的语法，只介绍日常数据处理过程中
+最常用的几种命令方式。
 
-SAC中~\nameref{cmd:transfer}~命令用于处理仪器响应，其基本语法是：
-\begin{SACSTX}
-!TRANS!FER [FROM type [!SUB!TYPE subtype]] [TO type [!SUB!TYPE subtype]]
-[!FREQ!LIMITS f1 f2 f3 f4] [!PREW!HITENING ON|OFF|n]
-\end{SACSTX}
-
-transfer命令的作用是将波形数据从（from）一种仪器类型转换到（to）另一种仪器类型，
+\nameref{cmd:transfer}~命令的基本语法是
+``\verb+tranfser from xx to xx freq f1 f2 f3 f4+''。
+即该命令的作用是将波形数据从（from）一种仪器类型转换到（to）另一种仪器类型，
 即首先将数据反卷积~\verb+from+~所给出的仪器响应，再卷积上~\verb+to+~选项给出的
-仪器响应。
+仪器响应，而后面的freq选项，则用于压制信号中的低频和高频成分。
 
-transfer在卷积或反卷积仪器响应时，首先需要知道仪器响应的信息。SAC中提供了四种方式
-来指定仪器响应，分别是
+SAC中的仪器类型可以简单分为如下几类：
 \begin{itemize}
-\item 内置仪器响应；
+\item 内置仪器类型，参见\ref{table:instrument-type}；
+\item 特殊内置仪器类型，即none、vel和acc；
 \item RESP文件；
-\item SAC PZ文件；
+\item PZ文件；
 \item FAP文件；
 \end{itemize}
 
-\subsection{内置仪器响应}
-SAC内置了很多标准地震仪器的仪器响应，如表~\ref{table:instrument-type}~所示。
-部分仪器类型还拥有子类型，如表~\ref{table:instrument-subtype}~所示。
+下面举例说明日常数据处理中的常见用法。
 
-例如，数据ABC.Z的仪器类型是LLL，通过如下命令将波形中的LLL仪器响应去除，并卷积上SRO
+数据ABC.Z的仪器类型是LLL，通过如下命令将波形中的LLL仪器响应去除，并卷积上SRO
 仪器响应：
 \begin{SACCode}
 SAC> r ABC.z
 SAC> rmean; rtr; taper
-SAC> trans from LLL to SRO      // 未使用freq和prew
+SAC> trans from LLL to SRO
 \end{SACCode}
 
 波形数据XXX.Z的仪器类型是RSTN，子类型为NYKM.Z，通过下面的命令将波形中的仪器响应
 去除，并卷积上WWSP仪器响应：
 \begin{SACCode}
 SAC> r XXX.z
-SAC> trans from RSTN subtype NYKM.Z to WWSP  // 未使用freq和prew
+SAC> rmean; rtr; taper
+SAC> trans from RSTN subtype NYKM.Z to WWSP
 \end{SACCode}
 
-除了表~\ref{table:instrument-type}~中列出的众多仪器类型之外，还有几个特别的仪器类型：
-\begin{itemize}
-\item none：即位移，也是SAC的默认值
-\item vel：速度
-\item acc：加速度
-\end{itemize}
-
-可以去除波形数据中的仪器响应，得到真实的位移场：
+从数据中去除WWSP的仪器响应，得到真实的位移场：
 \begin{SACCode}
 SAC> r XXX.z
-SAC> trans from WWSP to NONE            // 未使用freq和prew
+SAC> rmean; rtr; taper
+SAC> trans from WWSP to NONE freq 0.1 0.2 10 15
 \end{SACCode}
 
 当然，也可以去除仪器响应，得到真实的速度场：
 \begin{SACCode}
 SAC> r XXX.z
-SAC> trans from WWSP to VEL
+SAC> rmean; rtr; taper
+SAC> trans from WWSP to VEL freq 0.1 0.2 10 15
 \end{SACCode}
 
-\begin{table}[tp]
-\centering
-\ttfamily
-\small
-\caption{SAC内置仪器类型列表}
-\label{table:instrument-type}
-\begin{tabular}{ll}
-\toprule
-type	 &	说明	\\
-\midrule
-BBDISP   &  Blacknest specification of Broadband Displacement \\
-BBVEL    &  Blacknest specification of Broadband Velocity	\\
-BENBOG   &  Blacknest specification of Benioff by Bogert	\\
-DSS      &  LLNL Digital Seismic System	\\
-DWWSSN   &  Digital World Wide Standard Seismograph Station	\\
-EKALP6   &  Blacknest specification of EKA LP6	\\
-EKASP2   &  Blacknest specification of EKA SP2	\\
-ELMAG    &  Electromagnetic	\\
-GBALP    &  Blacknest specification of GBA LP	\\
-GBASP    &  Blacknest specification of GBA SP	\\
-GENERAL  &  General seismometer	\\
-GSREF    &  USGS Refraction	\\
-HFSLPWB  &  Blacknest specification of HFS LPWB	\\
-IW       &  EYEOMG-spectral differentiation	\\
-LLL      &  LLL broadband analog seismometer	\\
-LLSN     &  LLSN L-4 seismometer	\\
-LNN      &  Livermore NTS Network instrument	\\
-LRSMLP   &  Blacknest specification of LRSM LP	\\
-LRSMSP   &  Blacknest specification of LRSM SP	\\
-NORESS   &  NORESS (NRSA)	\\
-NORESSHF &  NORESS high frequency element	\\
-OLDBB    &  Old Blacknest specification of BB	\\
-OLDKIR   &  Old Blacknest specification of Kirnos	\\
-PORTABLE &  Portable seismometer with PDR2	\\
-PTBLLP   &  Blacknest specification of PTBL LP	\\
-REDKIR   &  Blacknest specification of RED Kirnos	\\
-REFTEK   &  Reftek 97-01 portable instrument	\\
-RSTN     &  Regional Seismic Test Network	\\
-S750     &  S750 Seismometer	\\
-SANDIA   &  Sandia system 23 instrument	\\
-SANDIA3  &  Sandia new system with SL-210	\\
-SRO      &  Seismic Research Observatory	\\
-WA       &  Wood-Anderson	\\
-WABN     &  Blacknest specification of Wood-Anderson	\\
-WIECH    &  Wiechert seismometer	\\
-WWLPBN   &  Blacknest specification of WWSSN long period	\\
-WWSP     &  WWSSN short period	\\
-WWSPBN   &  Blacknest specification of WWSSN short period	\\
-YKALP    &  Blacknest specification of YKA long period	\\
-YKASP    &  Blacknest specification of YKA short period	\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[htb]
-\centering
-\ttfamily
-\small
-\caption{部分仪器子类型}
-\label{table:instrument-subtype}
-\begin{tabular}{ll}
-\toprule
-主类型	&	子类型	\\
-\midrule
-LLL       &       LV, LR, LT, MV, MR, MT, EV, ER, ET, KV, KR, KT	\\
-LNN       &    	  BB|HF	                                \\
-NORESS    &   	  LP|IP|SP	                            \\
-RSTN      &    	  [CP|ON|NTR|NY|SD][KL|KM|KS|7S][Z|N|E]	\\
-SANDIA    &   	  [N|O][T|L|B|D|N|E][V|R|T]	            \\
-SRO       &       BB|SP|LPDE	                        \\
-FREEPERIOD v &    ELMAG, GENERAL, IW, LLL SUBTYPE BB, REFTEK    \\
-MAGNIFICATION n & ELMAG, GENERAL  \\
-NZEROS n &     	  GENERAL, IW	\\
-DAMPING v &    	  GENERAL, LLL SUBTYPE BB, REFTEK	\\
-CORNER v &    	  LLL SUBTYPE BB, REFTEK	\\
-GAIN v &		    \\
-HIGHPASS v &	  REFTEK	\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{RESP文件}
-RESP文件中包含了仪器响应的全部信息。
-
-transfer会从SAC头段区中提取相关信息，并与RESP文件中的信息进行匹配，若二者
-完全匹配方可继续执行transfer命令。通过给evalresp选项指定额外的选项和参数可以覆盖SAC文件中
-对应的头段变量，这些可能的选项包括：STATION、CHANNEL、NETWORK、DATE、TIME、LOCID、FNAME。
-
-每个选项都必须有一个合适的值，如果DATE在SAC头段中为设定且在选项中未指定，
-则使用当前系统日期，TIME同理。
-若NETWORK未指定，则默认使用任意台站名；若LOCID未指定，则默认使用任意LOCID。
-也可以使用FNAME选项并加上RESP文件名，此时会不再检测其它信息是否匹配，强制transfer
-使用指定的仪器响应文件。
-
-如果FNAME选项未指定，EVALRESP将尝试按照一般格式在当前工作目录下寻找合适的RESP文件，
-其一般格式为~``\verb+RESP.<NET>.<STA>.<LOCID>.<CHAN>+''，比如：~``\verb+RESP.IU.ANMO..BHZ+''~。
-
-\subsubsection{EVALRESP例子}
-若仪器响应文件位于当前目录，且其具有标准的文件名，可以用如下命令去除仪器响应，
-transfer命令会根据SAC文件的头段区自动寻找合适的RESP文件：
+也可以使用当前台站的RESP文件来去除仪器响应：
 \begin{SACCode}
 SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
-SAC> rtr
-SAC> taper
-SAC> trans from evalresp to none freq 0.004 0.007 0.2 0.4
+SAC> rmean; rtr; taper
+SAC> trans from evalresp fname RESP.TA.N11A..LHZ to none freq 0.004 0.007 0.2 0.4
 \end{SACCode}
 
-若RESP文件位于~``\verb+/tmp/Responses/RESP.TA.N11A..LHZ+''~:
-\begin{SACCode}
-SAC> setbb resp /tmp/Responses/RESP.TA.N11A..LHZ
-SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
-SAC> rtr
-SAC> taper
-SAC> trans from evalresp fname %resp% to none freq 0.004 0.007 0.2 0.4
-\end{SACCode}
-
-为了从文件~\verb+16.42.05.5120.TS.PAS.BHZ.SAC+~中去除仪器响应，
-并添加台站COL相同周期的响应：
-\begin{SACCode}
-SAC> r 16.42.05.5120.TS.PAS.BHZ.SAC
-SAC> rtr
-SAC> taper
-SAC> trans from evalresp to evalresp station COL
-\end{SACCode}
-
-为了显示IU台网COL台站BHZ通道，1992年01月02日16:42:05的仪器响应：
-\begin{SACCode}
-SAC> fg impulse npts 16384 delta .05 begin 0.
-SAC> trans to evalresp sta COL cha BHZ net IU date 1992/2 time 16:42:05
-SAC> fft
-SAC> psp am
-\end{SACCode}
-
-\subsection{POLEZERO选项}
-\subsubsection{SAC PZ文件}
-POLEZERO选项使用SAC PZ仪器响应文件。
-
-在批处理时，注释行信息没有用，可以写脚本重做一个无注释行的PZ文件，无注释行的PZ文件去
-仪器响应的速度会比有注释行的PZ文件快很多；
-
-\subsubsection{POLEZEROS例子}
 PZ文件~\verb+SAC_PZs_XC_OR075_LHZ+~是需要从波形~\verb+OR075_LHZ.SAC+~
 中去除的仪器响应零极点文件：
 \begin{SACCode}
-SAC> setbb pzfile "SAC_PZs_XC_OR075_LHZ"
 SAC> r OR075_LHZ.SAC
-SAC> rtr
-SAC> taper
-SAC> trans from polezero subtype %pzfile% to none freq 0.008 0.016 0.2 0.4
+SAC> rmea; rtr; taper
+SAC> trans from polezero subtype SAC_PZs_XC_OR075_LHZ to none freq 0.008 0.016 0.2 0.4
 SAC> mul 1.0e9          // 由于是to none，这里必须乘以1.0e9
 SAC> w OR075.z          // 此时数据为位移量，单位为nm
 \end{SACCode}
 
-假如在上面的例子中，没有使用~\verb+SAC_PZs_XC_OR075_LHZ+，而是使用了错误
-的PZ文件~\verb+SAC_PZs_wrong+，下面的过程给出如何调用transfer命令去除不正确的
-响应并加入正确的响应：
-\begin{SACCode}
-SAC> r OR075.z                  // 使用了错误的仪器响应文件
-SAC> write OR075.zbad
-SAC> setbb pzo "SAC_PZs_wrong"
-SAC> setbb pzn "SAC_PZs_XC_OR075_LHZ"
-SAC> trans from polezero s %pzn% to polezero s %pzo% freq 0.008 0.015 0.2 0.4
-SAC> write OR075.z              // 纠正后的文件
-\end{SACCode}
-
-最后一个例子，假设我们用rdseed v5.2在当前目录产生了同一个时间的多个台站的多个波形，
-并将所有的SAC PZ文件合并得到一个新的PZ文件event.pz。下面的例子将读入全部BH*波形文件，
-经仪器响应校正并覆盖原文件：
-\begin{SACCode}
-SAC> r *BH*SAC          // 读入全部数据
-SAC> rtr
-SAC> taper
-SAC> trans from polezero s event.pz freq 0.05 0.1 10.0 15.0
-\end{SACCode}
-
-\subsection{FAP选项}
-\subsubsection{FAP文件}
-SAC v101.4中重新引入了FAPfile选项，其需要FAP文件。
-
-FAP文件是响应函数的另一种表现形式，其包含了很多记录行，每行三个字段，分别是频率(HZ)、振幅及相位。
-频率不需要等间隔分段。在执行transfer时，低于第一行频率的频段将使用第一行的振幅和相位；
-同理大于最后一行频率的频段将使用最后一行的振幅和相位。
-
-EVALRESP v3.3.2可以输出为FAPfile，使用EVALRESP生成的FAPFILE而非POLEZERO的好处在于其可
-以包含更丰富的仪器响应，且可以显式控制需要校正的频率段。
-
-\subsubsection{FAPfile例子}
-假设有fapfile文件~\verb+fap.n11a.lhz_0.006-0.2+，其名字表示频率段位0.006 Hz到0.2 Hz，
+假设有fapfile文件~\verb+fap.n11a.lhz_0.006-0.2+，其名字表示频率段为0.006 Hz到0.2 Hz，
 要从波形~\verb+2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC+中移除该仪器响应：
 \begin{SACCode}
 SAC> r 2006.253.14.30.24.0000.TA.N11A..LHZ.Q.SAC
 SAC> rtr
 SAC> taper
-SAC> trans from fap s fap.n11a.lhz_0.006-0.2 freq 0.004 0.006 0.1 0.2
+SAC> trans from fap s fap.n11a.lhz_0.006-0.2 to none freq 0.004 0.006 0.1 0.2
 SAC> mul 1.0e9
 \end{SACCode}
-
-\subsection{RESP和PZ的区别}
-RESP和SAC PZ都可以用于表征仪器响应，但是这两者还是有很大区别的：
-
-\begin{itemize}
-\item RESP文件包含了仪器响应的完整信息，而PZ文件中仅包含了零极点和增益信息，
-    二者的主要差异在于PZ文件中未包含FIR滤波器的信息；
-\item RESP文件中可以知道输入数据是位移、速度还是加速度，而PZ文件默认输入为
-    位移。因而若RESP文件中输入是速度，则PZ文件中会多一个``零''零点；若RESP
-    文件中输入是加速度，则PZ文件中会多两个``零''零点；
-\item RESP文件的输入单位为\verb+m+（或\verb+m/s+及其他），而PZ文件中未提供
-    输入单位信息，故SAC默认其输入单位为\verb+nm+，故而使用PZ文件去除仪器响应
-    时，得到的运动物理量的单位是\verb+nm+；
-\end{itemize}
-
-对于大多数情况，建议使用PZ文件，数据处理速度要快很多。

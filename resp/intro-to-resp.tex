@@ -20,9 +20,22 @@
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{2013062301}
+\includegraphics[width=0.98\textwidth]{2013062301}
 \caption{COLA台站处的原始地面运动}
 \label{fig:ground-motion}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{2013062302}
+\caption{仪器响应频谱图}
+\label{fig:transfer-function}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{2013062303}
+\caption{COLA台站的地震记录}
 \end{figure}
 
 从图~\ref{fig:ground-motion}~可以看到，整个地面运动中最明显的地方是弯弯曲曲
@@ -38,25 +51,12 @@
 从信号处理的角度来看，常见的地震仪是一个带通滤波器，对地震学不关心的超高频和超低频
 的信号进行压制，只保留感兴趣的周期段。下图给出了该台站的仪器响应，即$i(t)$：
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{2013062302}
-\caption{仪器响应频谱图。横轴为频率，上图为振幅谱，下图为相位谱。}
-\label{fig:transfer-function}
-\end{figure}
-
 从图~\ref{fig:transfer-function}~中振幅谱可以看出，频率在0.02 Hz到8 Hz内
 的信号具有相同的振幅增益（被增强），而小于0.02 Hz、大于8 Hz的信号则被压制。
 图~\ref{fig:ground-motion}~中的周期为1000s量级的信号被压制到了原来的千分之一。
 
 原始的地面运动$s(t)*g(t)$在经过仪器$i(t)$之后，即得到地震仪的数字记录，如下图。
 超低频和超高频的信号被压制，留下地震学感兴趣的频段，也就是前面说的$u(t)$：
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{2013062303}
-\caption{COLA台站的地震记录}
-\end{figure}
 
 与图~\ref{fig:ground-motion}~相比，长周期的类正弦信号没了。在0-300s内，“地面”很安静，
 300s左右，强烈的地震信号开始出现，最大振幅约为$2.4\times10^6$，持续了很长一段时间后，
