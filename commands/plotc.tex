@@ -6,16 +6,16 @@
 
 \SACTitle{语法}
 \begin{SACSTX}
-P!LOT!C [R!EPLAY!|C!REATE!] [F!ILE!|M!ACRO! filename] [B!ORDER! ON|OFF] 
+P!LOT!C [R!EPLAY!|C!REATE!] [F!ILE!|M!ACRO! filename] [B!ORDER! ON|OFF]
 \end{SACSTX}
 
 \SACTitle{输入}
 \begin{description}
-\item [REPLAY] 重新显示或绘制一个已经存在的文件或宏，关于文件和宏的区别见下 
-\item [CREATE] 创建一个新的文件或宏 
+\item [REPLAY] 重新显示或绘制一个已经存在的文件或宏，关于文件和宏的区别见下
+\item [CREATE] 创建一个新的文件或宏
 \item [FILE filename] 重新显示或创建一个文件。如果省略文件名则使用上一个文件
-\item [MACRO filename] 重新显示或创建一个宏 
-\item [BORDER ON|OFF] 打开/关闭图形的边界 
+\item [MACRO filename] 重新显示或创建一个宏
+\item [BORDER ON|OFF] 打开/关闭图形的边界
 \end{description}
 
 \SACTitle{缺省值}
@@ -32,15 +32,15 @@ plotc create file out border on
 
 有两种光标选项类型：动作类和参数设置类。动作类选项将做一些事情(绘制一个矩形，放一些文本)，他们如何执行这个操作部分基于当前参数设置选项的值(例如多边形的	边数，文本大小等)。这个区别与SAC自己的操作命令和参数设定命令相同。下面会列出动作和参数设定选项。
 
-当你重新显示一个文件或者宏时，图形在终端屏幕上将会重新绘制，光标也将打开。你可以像你当初创建这个文件一样向其中加入目标。当你完成创建图件之后你可以将其发送到不同的图形设备，使用BEGINDEVICES命令临时关闭终端屏幕打开其他图形设备(比如sgf），然后重新显示这个文件。
+当你重新显示一个文件或者宏时，图形在终端屏幕上将会重新绘制，光标也将打开。你可以像你当初创建这个文件一样向其中加入目标。当你完成创建图件之后你可以将其发送到不同的图形设备，使用~\nameref{cmd:begindevices}命令临时关闭终端屏幕打开其他图形设备(比如sgf），然后重新显示这个文件。
 
-为了注释一个SAC绘图，要执行VSPACE命令设置正确的横纵比，然后执行BEGINFRAME命令关闭自动刷新，执行需要的SAC绘图命令，执行PLOTC命令（创建或者重新显示），然后执行ENDFRAME命令恢复自动刷新。
+为了注释一个SAC绘图，要执行~\nameref{cmd:vspace}命令设置正确的横纵比，然后执行~\nameref{beginframe}命令关闭自动刷新，执行需要的SAC绘图命令，执行~\nameref{cmd:plotc}命令（创建或者重新显示），然后执行~\nameref{cmd:endframe}命令恢复自动刷新。
 
 \SACTitle{示例}
-下面的例子展示了如何使用PLOTC命令给一个SAC标准绘图添加注释。命令如下，括号中的内容为注释:
+下面的例子展示了如何使用PLOTC命令给一个SAC标准绘图添加注释:
 \begin{SACCode}
 SAC> fg impulse npts 1024                      //生成文件
-SAC> lp c2 n 7 c 0.2 t 0.25 a 10               //低通滤波 
+SAC> lp c2 n 7 c 0.2 t 0.25 a 10               //低通滤波
 SAC> fft
  DC level after DFT is 1
 SAC> axes only l b                             //左和下坐标轴设置
@@ -56,13 +56,16 @@ SAC> plotc create file bandpass               //开始在图上做注释
 SAC> endframe
 \end{SACCode}
 
-PLOTSP用于绘制滤波响应曲线以及两个轴，PLOTC用于用于交互式地添加注释。VSPACE命令限制了图形中纵横比为3:4的区域为绘图区域。这个对于之后将输出发送到具有纵横比3:4的SGF设备来说很有必要。在这之后你将有一个叫做``BANDPASS.PCF''的文件，其中包很了这个图形的注释信息。
+\nameref{cmd:plotsp}用于绘制滤波响应曲线以及两个轴，\nameref{cmd:plotc}用于
+交互式地添加注释。\nameref{cmd:vspace}命令限制了图形中纵横比为3:4的区域为绘图区域。
+这个对于之后将输出发送到具有纵横比3:4的SGF设备来说很有必要。在这之后你将
+有一个叫做``BANDPASS.PCF''的文件，其中包很了这个图形的注释信息。
 
 为了将注释写入SGF文件:
 \begin{SACCode}
 SAC> begindevices sgf                       //打开sgf设备
 SAC> beginframe
-SAC> plotsp 
+SAC> plotsp
 SAC> plotc replay                           //重新绘制上一注释图
 SAC> endframe
 \end{SACCode}
